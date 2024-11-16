@@ -1,0 +1,20 @@
+---
+title: "Ecological Analysis"
+author: "Basim Alsaedi"
+date: "2024-11-16"
+site: bookdown::bookdown_site
+---
+
+# INTRODUCTION
+## Data Sample 
+
+
+## Types of Distributions 
+
+
+## <span style="color: green;">**Hands-on Exercises**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>

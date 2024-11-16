@@ -1,0 +1,10 @@
+introduction
+data-sample
+types-of-distributions
+hands-on-exercises
+hypothesis-testing
+introduction-1
+test-for-autocorrelation-and-temporal-effects
+correlation-covariance-geostatistics
+linear-regression-analysis
+conventional-and-probabilistic-risk-assessment
