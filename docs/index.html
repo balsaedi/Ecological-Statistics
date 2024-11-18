@@ -142,7 +142,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#types-of-distributions"><i class="fa fa-check"></i><b>1.1</b> Types of Distributions</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#data-distributions"><i class="fa fa-check"></i><b>1.1</b> Data Distributions</a></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#hands-on-exercises"><i class="fa fa-check"></i><b>1.2</b> <span style="color: green;"><strong>Hands-on Exercises</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>2</b> HYPOTHESIS TESTING</a>
@@ -225,11 +225,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 21.094995  5.507379</code></pre>
 <p>There is a minor difference between the data sample and the entire data population of the oak tree heights. As you can see the selected sample of oak trees has an average height of 21 meters and a standard deviation of 5.5 meters.</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Run the code below to generate the data of soil samples collected in farm with livestock. The main objective was to find the pH of the soil.</p>
+<p>Use the code below to simulate the collection of the data.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="index.html#cb9-1" tabindex="-1"></a><span class="co"># Set seed for reproducibility </span></span>
+<span id="cb9-2"><a href="index.html#cb9-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">76</span>)</span>
+<span id="cb9-3"><a href="index.html#cb9-3" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="index.html#cb9-4" tabindex="-1"></a><span class="co"># Simulate the data collection</span></span>
+<span id="cb9-5"><a href="index.html#cb9-5" tabindex="-1"></a>farm_population_pH <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5342</span>, <span class="at">mean=</span><span class="fl">3.61</span>, <span class="at">sd=</span><span class="fl">0.8</span>)</span>
+<span id="cb9-6"><a href="index.html#cb9-6" tabindex="-1"></a><span class="fu">head</span>(farm_population_pH)</span></code></pre></div>
+<pre><code>## [1] 3.864037 3.471632 3.544874 3.192810 3.239502 3.724600</code></pre>
+<p>You are required to work on the problems below;</p>
+<ol style="list-style-type: lower-roman">
+<li>What is the Mean and Standard Deviation of the pH of the entire farm population soil samples.</li>
+<li>Select 65 random samples from the entire population.</li>
+<li>Calculate the Mean and Standard Deviation of the sample.</li>
+<li>How does the Mean and Standard deviation differ from the entire population?</li>
+</ol>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p>Run the code below to generate the data of soil samples collected in farm with livestock. The main objective was to find the pH of the soil.</p>
+<p>Use the code below to simulate the collection of the data.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="index.html#cb11-1" tabindex="-1"></a><span class="co"># Set seed for reproducibility </span></span>
+<span id="cb11-2"><a href="index.html#cb11-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">76</span>)</span>
+<span id="cb11-3"><a href="index.html#cb11-3" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="index.html#cb11-4" tabindex="-1"></a><span class="co"># Simulate the data collection</span></span>
+<span id="cb11-5"><a href="index.html#cb11-5" tabindex="-1"></a>farm_population_pH <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">5342</span>, <span class="at">mean=</span><span class="fl">3.61</span>, <span class="at">sd=</span><span class="fl">0.8</span>)</span>
+<span id="cb11-6"><a href="index.html#cb11-6" tabindex="-1"></a><span class="fu">head</span>(farm_population_pH)</span></code></pre></div>
+<pre><code>## [1] 3.864037 3.471632 3.544874 3.192810 3.239502 3.724600</code></pre>
+<p>You are required to work on the problems below;</p>
+<ol style="list-style-type: lower-roman">
+<li>What is the Mean and Standard Deviation of the pH of the entire farm population soil samples.</li>
+</ol>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="index.html#cb13-1" tabindex="-1"></a>population_stats <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb13-2"><a href="index.html#cb13-2" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">mean</span>(farm_population_pH),</span>
+<span id="cb13-3"><a href="index.html#cb13-3" tabindex="-1"></a>  <span class="at">standard_deviation =</span> <span class="fu">sd</span>(farm_population_pH)</span>
+<span id="cb13-4"><a href="index.html#cb13-4" tabindex="-1"></a>)</span>
+<span id="cb13-5"><a href="index.html#cb13-5" tabindex="-1"></a></span>
+<span id="cb13-6"><a href="index.html#cb13-6" tabindex="-1"></a>population_stats <span class="co"># show the results</span></span></code></pre></div>
+<pre><code>##               Mean standard_deviation 
+##          3.6218315          0.7934042</code></pre>
+<ol start="2" style="list-style-type: lower-roman">
+<li>Select 65 random samples from the entire population.</li>
+</ol>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="index.html#cb15-1" tabindex="-1"></a>farm_sample_pH <span class="ot">&lt;-</span> <span class="fu">sample</span>(farm_population_pH, </span>
+<span id="cb15-2"><a href="index.html#cb15-2" tabindex="-1"></a>                         <span class="at">size =</span> <span class="dv">65</span>, </span>
+<span id="cb15-3"><a href="index.html#cb15-3" tabindex="-1"></a>                         <span class="at">replace =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb15-4"><a href="index.html#cb15-4" tabindex="-1"></a><span class="fu">head</span>(farm_sample_pH)</span></code></pre></div>
+<pre><code>## [1] 3.478034 4.268278 4.084203 4.044815 2.613637 3.575463</code></pre>
+<ol start="3" style="list-style-type: lower-roman">
+<li>Calculate the Mean and Standard Deviation of the sample.</li>
+</ol>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="index.html#cb17-1" tabindex="-1"></a>sample_stats <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb17-2"><a href="index.html#cb17-2" tabindex="-1"></a>  <span class="at">Mean =</span> <span class="fu">mean</span>(farm_sample_pH),</span>
+<span id="cb17-3"><a href="index.html#cb17-3" tabindex="-1"></a>  <span class="at">standard_deviation =</span> (<span class="fu">sd</span>(farm_sample_pH))</span>
+<span id="cb17-4"><a href="index.html#cb17-4" tabindex="-1"></a>)</span>
+<span id="cb17-5"><a href="index.html#cb17-5" tabindex="-1"></a></span>
+<span id="cb17-6"><a href="index.html#cb17-6" tabindex="-1"></a>sample_stats <span class="co"># show the results</span></span></code></pre></div>
+<pre><code>##               Mean standard_deviation 
+##          3.7237092          0.7554283</code></pre>
+<ol start="4" style="list-style-type: lower-roman">
+<li>How does the Mean and Standard deviation differ from the entire population?</li>
+</ol>
+<p><span style="color: brown;"><em>The sample mean is slightly higher than the whole population mean while the standard deviation of the whole populations is almost equal to the data sample’s standard deviation</em></span></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
-<div id="types-of-distributions" class="section level2 hasAnchor" number="1.1">
-<h2><span class="header-section-number">1.1</span> Types of Distributions<a href="index.html#types-of-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="data-distributions" class="section level2 hasAnchor" number="1.1">
+<h2><span class="header-section-number">1.1</span> Data Distributions<a href="index.html#data-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Data Distribution</strong> describes how data values in data population are spread across the range of possible values. For instance, in our case the height of oak trees in the forest might be distributed normally, meaning that most trees cluster around the average height. Understanding data distribution is crucial in ecological analysis since it helps in;</p>
+<ul>
+<li>identifying patterns ( for instance seasonal changes in bird populations).</li>
+<li>choosing appropriate statistical tests.</li>
+<li>modelling ecological phenomena accurately.</li>
+</ul>
+<p>When dealing with continuous data values like height of oak trees, soil acidity or rainfall, <strong>Probability Distribution Functions</strong> is used to find the likelihood of different outcomes in a population. There are two types of probability distribution functions, namely;</p>
+<ol style="list-style-type: lower-roman">
+<li>Cumulative distribution function,</li>
+<li>Empirical Cumulative distribution function.</li>
+</ol>
+<p>Below is the distribution of oak tree heights represented in a density plot.</p>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="index.html#cb19-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb19-2"><a href="index.html#cb19-2" tabindex="-1"></a></span>
+<span id="cb19-3"><a href="index.html#cb19-3" tabindex="-1"></a><span class="co"># Create a data frame from the data </span></span>
+<span id="cb19-4"><a href="index.html#cb19-4" tabindex="-1"></a>oak_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Height =</span> population_heights)</span>
+<span id="cb19-5"><a href="index.html#cb19-5" tabindex="-1"></a></span>
+<span id="cb19-6"><a href="index.html#cb19-6" tabindex="-1"></a><span class="co"># Plot the density plot </span></span>
+<span id="cb19-7"><a href="index.html#cb19-7" tabindex="-1"></a><span class="fu">ggplot</span>(oak_df, </span>
+<span id="cb19-8"><a href="index.html#cb19-8" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> Height)) <span class="sc">+</span> </span>
+<span id="cb19-9"><a href="index.html#cb19-9" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb19-10"><a href="index.html#cb19-10" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb19-11"><a href="index.html#cb19-11" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of tree heights&quot;</span>,</span>
+<span id="cb19-12"><a href="index.html#cb19-12" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Tree Height(m)&quot;</span>,</span>
+<span id="cb19-13"><a href="index.html#cb19-13" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb19-14"><a href="index.html#cb19-14" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb19-15"><a href="index.html#cb19-15" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>Above is the distribution of oak tree heights, lets find its probability using the two types of distribution functions.</p>
+<p><strong>Cumulative Distribution Function</strong></p>
+<p>This distribution function leans toward that a probability of a random variable is less than or equal to a certain value.</p>
 </div>
 <div id="hands-on-exercises" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> <span style="color: green;"><strong>Hands-on Exercises</strong></span><a href="index.html#hands-on-exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>

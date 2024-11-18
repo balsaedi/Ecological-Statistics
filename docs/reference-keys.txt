@@ -1,5 +1,5 @@
 introduction
-types-of-distributions
+data-distributions
 hands-on-exercises
 hypothesis-testing
 introduction-1

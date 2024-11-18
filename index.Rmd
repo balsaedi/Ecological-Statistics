@@ -67,13 +67,118 @@ There is a minor difference between the data sample and the entire data populati
 
 <span style="color: green;">**Practical Exercise**</span> 
 
+Run the code below to generate the data of soil samples collected in farm with livestock. The main objective was to find the pH of the soil. 
+
+Use the code below to simulate the collection of the data. 
+```{r}
+# Set seed for reproducibility 
+set.seed(76)
+
+# Simulate the data collection
+farm_population_pH <- rnorm(n = 5342, mean=3.61, sd=0.8)
+head(farm_population_pH)
+```
+
+You are required to work on the problems below; 
+
+i. What is the Mean and Standard Deviation of the pH of the entire farm population soil samples. 
+ii. Select 65 random samples from the entire population. 
+iii. Calculate the Mean and Standard Deviation of the sample. 
+iv. How does the Mean and Standard deviation differ from the entire population? 
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+Run the code below to generate the data of soil samples collected in farm with livestock. The main objective was to find the pH of the soil. 
+
+Use the code below to simulate the collection of the data. 
+```{r}
+# Set seed for reproducibility 
+set.seed(76)
+
+# Simulate the data collection
+farm_population_pH <- rnorm(n = 5342, mean=3.61, sd=0.8)
+head(farm_population_pH)
+```
+
+You are required to work on the problems below; 
+
+i. What is the Mean and Standard Deviation of the pH of the entire farm population soil samples. 
+```{r}
+population_stats <- c(
+  Mean = mean(farm_population_pH),
+  standard_deviation = sd(farm_population_pH)
+)
+
+population_stats # show the results
+```
+
+ii. Select 65 random samples from the entire population. 
+```{r}
+farm_sample_pH <- sample(farm_population_pH, 
+                         size = 65, 
+                         replace = FALSE)
+head(farm_sample_pH)
+```
+
+iii. Calculate the Mean and Standard Deviation of the sample. 
+```{r}
+sample_stats <- c(
+  Mean = mean(farm_sample_pH),
+  standard_deviation = (sd(farm_sample_pH))
+)
+
+sample_stats # show the results
+```
+
+iv. How does the Mean and Standard deviation differ from the entire population? 
+
+<span style="color: brown;">*The sample mean is slightly higher than the whole population mean while the  standard deviation of the whole populations is almost equal to the data sample's standard deviation*</span>
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
 
-## Types of Distributions 
+## Data Distributions 
+
+**Data Distribution** describes how data values in data population are spread across the range of possible values. For instance, in our case the height of oak trees in the forest might be distributed normally, meaning that most trees cluster around the average height. Understanding data distribution is crucial in ecological analysis since it helps in; 
+
+- identifying patterns ( for instance seasonal changes in bird populations). 
+- choosing appropriate statistical tests. 
+- modelling ecological phenomena accurately. 
+
+When dealing with continuous data values like height of oak trees, soil acidity or rainfall, **Probability Distribution Functions** is used to find the likelihood of different outcomes in a population. There are two types of probability distribution functions, namely; 
+
+i. Cumulative distribution function,
+ii. Empirical Cumulative distribution function. 
+
+Below is the distribution of oak tree heights represented in a density plot. 
+```{r}
+library(ggplot2)
+
+# Create a data frame from the data 
+oak_df <- data.frame(Height = population_heights)
+
+# Plot the density plot 
+ggplot(oak_df, 
+       aes(x = Height)) + 
+  geom_density(fill = "blue", alpha=0.5) + 
+  labs(
+    title = "Distribution of tree heights",
+    x = "Tree Height(m)",
+    y = "Density"
+  ) + 
+  theme_minimal()
+```
+
+Above is the distribution of oak tree heights, lets find its probability using the two types of distribution functions. 
+
+**Cumulative Distribution Function**
+
+This distribution function leans toward that a probability of a random variable is less than or equal to a certain value. 
+```{r}
+
+```
+
 
 
 ## <span style="color: green;">**Hands-on Exercises**</span> 
