@@ -6,7 +6,71 @@ site: bookdown::bookdown_site
 ---
 
 # INTRODUCTION
-## Data Sample 
+The distinction between data sample and the underlying data population is always ignored. For instance  the mean concentration of a chemical contaminant  in a soil sample of a contaminated site. Here, the **data sample** is the soil sample that was taken to the laboratory to find out the mean concentration of the contaminant while the **data population** is the entire data population consisting of all possible soil measurements of the chemical contaminant at the site. We need to define some terms to get this clear. 
+
+* **Data Population: ** is the entire set of individuals, items or observations of interest in a study. For instance all the soil samples from the contaminant site.
+* **Data Sample: ** is the subset of the population selected for analysis. For example, measuring the height of randomly selected trees in the forest. 
+* **Data Distribution: ** describes how data points are spread of arranged. 
+
+**Data Sample vs Data Population**
+
+A deep understanding of the difference between data sample and data population is important in inferential statistics which seeks to generalize the results of data analyses performed on the data samples. A data population consists of all possible observations or data points concerning the characteristic of interest. For instance, when finding out the mean height of all the oak trees in a forest, the data population will be every height of every single oak tree in the forest. 
+
+Contrary, data sample is usually a limited subset of observations drawn for the entire population. In this case we can have a data sample by randomly selecting 100 oak trees and measuring their heights. 
+
+<span style="color: orange;">**Try it!**</span>
+
+Lets simulate data of oak trees with R
+```{r}
+# Seed for reproducibility
+set.seed(123)
+
+# A population of 12500 oak trees 
+population_heights <- rnorm(12500, mean = 20, sd=5)
+head(population_heights)
+```
+
+We have simulated the heights of 12500 oak trees in a forest. The variance `population_heights` represent the data population for the oak tree heights. Lets randomly select 86 trees from the entire data population of oak tree heights
+
+```{r}
+# Randomly select 86 trees 
+sample_heights <- sample(population_heights, size=86, replace = FALSE)
+tail(sample_heights)
+```
+
+The variable `sample_heights` represents data sample for the oak tree heights. 
+
+If we make this experiment more interesting, we find the mean and standard deviation for the data population and the data sample for the oak tree heights. Lets do it! 
+
+```{r}
+# Mean and standard deviation of the entire population
+population_stats <- c(
+  Mean = mean(population_heights),
+  SD = sd(population_heights)
+)
+
+population_stats
+```
+The entire oak tree data population has a mean height of approximately 20 meters and a standard deviation of approx 5 meters. Lets see how it compares with the data sample of the oak tree heights. 
+
+```{r}
+# Mean and standard deviation of the sample
+sample_stats <- c(
+  Mean = mean(sample_heights),
+  SD = sd(sample_heights)
+)
+
+sample_stats
+```
+
+There is a minor difference between the data sample and the entire data population of the oak tree heights. As you can see the selected sample of oak trees has an average height of 21 meters and a standard deviation of 5.5 meters. 
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 
 ## Types of Distributions 
