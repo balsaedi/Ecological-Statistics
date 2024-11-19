@@ -148,7 +148,21 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>2</b> HYPOTHESIS TESTING</a>
 <ul>
 <li class="chapter" data-level="2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#introduction-1"><i class="fa fa-check"></i><b>2.1</b> Introduction</a></li>
-<li class="chapter" data-level="2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hands-on-exercise"><i class="fa fa-check"></i><b>2.2</b> <span style="color: green;"><strong>Hands-on Exercise</strong></span></a></li>
+<li class="chapter" data-level="2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#parametric-tests"><i class="fa fa-check"></i><b>2.2</b> Parametric tests</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#parametric-single-sample-test"><i class="fa fa-check"></i><b>2.2.1</b> Parametric single-sample test</a></li>
+<li class="chapter" data-level="2.2.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#parametric-two-sample-test"><i class="fa fa-check"></i><b>2.2.2</b> Parametric two-sample test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#nonparametric-test"><i class="fa fa-check"></i><b>2.3</b> Nonparametric test</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test"><i class="fa fa-check"></i><b>2.3.1</b> Nonparametric two-sample paired sign test and paired Wilcoxon Signed Rank Test</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#one-way-anova"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#parametric-one-way-anova"><i class="fa fa-check"></i><b>2.4.1</b> Parametric One-Way ANOVA</a></li>
+<li class="chapter" data-level="2.4.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#nonparametric-one-way-anova-kruskal-wallis-test"><i class="fa fa-check"></i><b>2.4.2</b> Nonparametric One-Way ANOVA (Kruskal-Wallis Test)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hands-on-exercise"><i class="fa fa-check"></i><b>2.5</b> <span style="color: green;"><strong>Hands-on Exercise</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html"><i class="fa fa-check"></i><b>3</b> TEST FOR AUTOCORRELATION AND TEMPORAL EFFECTS</a></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a></li>
@@ -198,14 +212,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li><p><strong>Two-Tailed Hypothesis Test</strong> checks for the effect in both directions. In our we can change to find if the carcinogen levels are below or above the allowed limit.</p></li>
 <li><p><strong>T-Value</strong> is the test statistic calculated from the sample data to determine how far the sample mean is from the hypothesized mean, in terms of standard error.</p></li>
 <li><p><strong>Critical T-Value</strong> is the threshold value for the t-distribution that corresponds to the significance level. If the t-value exceeds the critical t-value, the null hypothesis is rejected.</p></li>
-</ul>
-<p><strong>_______add sample code for explanation ____________</strong></p>
-<ul>
-<li><strong>Significant level</strong>(<span class="math inline">\(\alpha\)</span>) is the probability threshold for rejecting the null hypothesis, usually set to 0.05(5%).</li>
+<li><p><strong>Significant level</strong>(<span class="math inline">\(\alpha\)</span>) is the probability threshold for rejecting the null hypothesis, usually set to 0.05(5%).</p></li>
 </ul>
 <p>In most cases if the probability of observing the test statistic (p-value) is less than 0.005, the null hypothesis is rejected.</p>
 <ul>
-<li><strong>Degrees of Freedom(df)</strong> are the number of independent values in the data sample that are free to vary when calculationg a statistic.</li>
+<li><strong>Degrees of Freedom(df)</strong> are the number of independent values in the data sample that are free to vary when calculating a statistic.</li>
 </ul>
 <p>In most cases <strong>df</strong> is calculated as <span class="math display">\[df = n - 1\]</span></p>
 <p>where <span class="math inline">\(n\)</span> represents the sample size(count).</p>
@@ -217,12 +228,101 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ol style="list-style-type: lower-roman">
 <li>Formulate the null and alternate hypothesis.</li>
 <li>Assume the null hypothesis is true and compute a test statistic that follows a known distribution.</li>
-<li>Compute a critical value of a known distribution. *</li>
-<li><strong>Continue from here____________________</strong>*</li>
+<li>Calculate a test statistic value based on the data sample which follows a known distribution and determine the critical value for chosen distribution at a given significance level.</li>
+<li>Compare the test statistic to the critical value to assess the plausibility of the null hypothesis. For symettrical distributions(e.g t, normal), critical values are located on;</li>
 </ol>
+<ul>
+<li><em>upper-tailed test</em>: positive side of the distribution</li>
+<li><em>lower-tailed test</em>: negative side of the distribution</li>
+<li><em>two-tailed test</em>: both sides, with equal magnitude</li>
+</ul>
+<ol start="22" style="list-style-type: lower-alpha">
+<li>Calculate the p-value to find how the probability of obtaining a test statistic more extreme than the observed value.</li>
+</ol>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>To get the steps above clear, lets work on an example. This is an hypothetical problem where a regulatory body sets that the acceptable phosphorous concentration in a lake at <strong>1.5mg/L</strong>. 30 sample measurements were collected at different locations in the lake. The objective was to determine if the phosphorous levels are significantly higher than the allowed limit.</p>
+<p>Lets simulate the data.</p>
+<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="hypothesis-testing.html#cb20-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
+<span id="cb20-2"><a href="hypothesis-testing.html#cb20-2" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="hypothesis-testing.html#cb20-3" tabindex="-1"></a>phosphorous_levels <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">30</span>,</span>
+<span id="cb20-4"><a href="hypothesis-testing.html#cb20-4" tabindex="-1"></a>                            <span class="at">mean =</span> <span class="fl">1.7</span>,</span>
+<span id="cb20-5"><a href="hypothesis-testing.html#cb20-5" tabindex="-1"></a>                            <span class="at">sd =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<ul>
+<li><p>Formulate the null hypothesis</p></li>
+<li><p>Null Hypothesis(<span class="math inline">\(H_0\)</span>): <span class="math inline">\(\mu\)</span> &lt; 1.5 - phosphorous levels are within the acceptable levels.</p></li>
+<li><p>Alternate Hypothesis (<span class="math inline">\(H_1\)</span>): <span class="math inline">\(\mu\)</span> &gt; 1.5 - phosphorous levels exceed the acceptable limit.</p></li>
+</ul>
+<p>This is a right-sided(one-sided) test since we are only interested in detecting an increase in phosphorous levels</p>
+<ul>
+<li><p>We use a one-sample ttest since the population data standard deviation is unknown, and the sample size is small(n=30). The formula for t-statistic is calculated as; <span class="math display">\[t = {{\overline{x} - \mu_0}\over{s/\sqrt{n}}}\]</span>
+Where:</p></li>
+<li><p><span class="math inline">\(\overline{x}\)</span> is the sample mean.</p></li>
+<li><p><span class="math inline">\(\mu_0\)</span> is the population mean under null hypothesis (1.5mg/L)</p></li>
+<li><p><span class="math inline">\(s\)</span> is the sample standard deviation.</p></li>
+<li><p><span class="math inline">\(n\)</span> is the sample size.</p></li>
+<li><p>Perform the one-sample t-test</p></li>
+</ul>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="hypothesis-testing.html#cb21-1" tabindex="-1"></a><span class="co"># One sample t-test </span></span>
+<span id="cb21-2"><a href="hypothesis-testing.html#cb21-2" tabindex="-1"></a>t_test_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(phosphorous_levels, </span>
+<span id="cb21-3"><a href="hypothesis-testing.html#cb21-3" tabindex="-1"></a>                        <span class="at">mu =</span> <span class="fl">1.5</span>,</span>
+<span id="cb21-4"><a href="hypothesis-testing.html#cb21-4" tabindex="-1"></a>                        <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
+<span id="cb21-5"><a href="hypothesis-testing.html#cb21-5" tabindex="-1"></a></span>
+<span id="cb21-6"><a href="hypothesis-testing.html#cb21-6" tabindex="-1"></a><span class="co"># Display the results </span></span>
+<span id="cb21-7"><a href="hypothesis-testing.html#cb21-7" tabindex="-1"></a><span class="fu">print</span>(t_test_result)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  phosphorous_levels
+## t = 5.3201, df = 29, p-value = 5.21e-06
+## alternative hypothesis: true mean is greater than 1.5
+## 95 percent confidence interval:
+##  1.629713      Inf
+## sample estimates:
+## mean of x 
+##  1.690579</code></pre>
+<ul>
+<li><p>Determine the critical value</p></li>
+<li><p>For the right-tailed test at a 5% significance levels(<span class="math inline">\(alpha\)</span>=0.05), the critical value is the t-value that corresponds to the top 5% of the t-distribution. The <code>qt()</code> function will be used to calculate this; <span class="math display">\[t_{critical} = qt(1-\alpha, df = n - 1)\]</span></p></li>
+</ul>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="hypothesis-testing.html#cb23-1" tabindex="-1"></a>critical_t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="fu">length</span>(phosphorous_levels) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb23-2"><a href="hypothesis-testing.html#cb23-2" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="hypothesis-testing.html#cb23-3" tabindex="-1"></a>critical_t</span></code></pre></div>
+<pre><code>## [1] 1.699127</code></pre>
+<p>The t-statistic is greater than the critical t therefore the null hypothesis is rejected. Lets confirm this by also computing the p_value</p>
+<ul>
+<li>Calculate the null hypothesis</li>
+</ul>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="hypothesis-testing.html#cb25-1" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> t_test_result<span class="sc">$</span>p.value</span>
+<span id="cb25-2"><a href="hypothesis-testing.html#cb25-2" tabindex="-1"></a>p_value</span></code></pre></div>
+<pre><code>## [1] 5.210072e-06</code></pre>
+<p>The null hypothesis is rejected as the p_value is less than 0.05. Therefore, we make conclusion that the phosphorous levels in the lake exceed the acceptable levels.</p>
 </div>
-<div id="hands-on-exercise" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> <span style="color: green;"><strong>Hands-on Exercise</strong></span><a href="hypothesis-testing.html#hands-on-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="parametric-tests" class="section level2 hasAnchor" number="2.2">
+<h2><span class="header-section-number">2.2</span> Parametric tests<a href="hypothesis-testing.html#parametric-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="parametric-single-sample-test" class="section level3 hasAnchor" number="2.2.1">
+<h3><span class="header-section-number">2.2.1</span> Parametric single-sample test<a href="hypothesis-testing.html#parametric-single-sample-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="parametric-two-sample-test" class="section level3 hasAnchor" number="2.2.2">
+<h3><span class="header-section-number">2.2.2</span> Parametric two-sample test<a href="hypothesis-testing.html#parametric-two-sample-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="nonparametric-test" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Nonparametric test<a href="hypothesis-testing.html#nonparametric-test" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test" class="section level3 hasAnchor" number="2.3.1">
+<h3><span class="header-section-number">2.3.1</span> Nonparametric two-sample paired sign test and paired Wilcoxon Signed Rank Test<a href="hypothesis-testing.html#nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="one-way-anova" class="section level2 hasAnchor" number="2.4">
+<h2><span class="header-section-number">2.4</span> One-Way ANOVA<a href="hypothesis-testing.html#one-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="parametric-one-way-anova" class="section level3 hasAnchor" number="2.4.1">
+<h3><span class="header-section-number">2.4.1</span> Parametric One-Way ANOVA<a href="hypothesis-testing.html#parametric-one-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+<div id="nonparametric-one-way-anova-kruskal-wallis-test" class="section level3 hasAnchor" number="2.4.2">
+<h3><span class="header-section-number">2.4.2</span> Nonparametric One-Way ANOVA (Kruskal-Wallis Test)<a href="hypothesis-testing.html#nonparametric-one-way-anova-kruskal-wallis-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="hands-on-exercise" class="section level2 hasAnchor" number="2.5">
+<h2><span class="header-section-number">2.5</span> <span style="color: green;"><strong>Hands-on Exercise</strong></span><a href="hypothesis-testing.html#hands-on-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>

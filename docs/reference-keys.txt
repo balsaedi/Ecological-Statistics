@@ -3,6 +3,14 @@ data-distributions
 hands-on-exercises
 hypothesis-testing
 introduction-1
+parametric-tests
+parametric-single-sample-test
+parametric-two-sample-test
+nonparametric-test
+nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test
+one-way-anova
+parametric-one-way-anova
+nonparametric-one-way-anova-kruskal-wallis-test
 hands-on-exercise
 test-for-autocorrelation-and-temporal-effects
 correlation-covariance-geostatistics
