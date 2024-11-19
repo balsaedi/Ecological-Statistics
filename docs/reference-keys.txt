@@ -3,6 +3,7 @@ data-distributions
 hands-on-exercises
 hypothesis-testing
 introduction-1
+hands-on-exercise
 test-for-autocorrelation-and-temporal-effects
 correlation-covariance-geostatistics
 linear-regression-analysis

@@ -1,3 +1,63 @@
 # HYPOTHESIS TESTING 
 ## Introduction
 
+Hypothesis testing is a standard statistical procedure for deciding between two competing alternatives or scenarios, based on evidence presented by a data sample collected for the purpose of conducting the test. Most descriptive statistics such as mean, median and standard deviation are usually computed from data samples which may vary with the whole population mean. For instance, we want to find the concentration of hexavalent chromium, a human carcinogen, in soil. We will collect random 20 samples. The average concentration of the carcinogen from the collected samples will at most vary with the average concentration in the entire land, that's where **hypothesis testing** comes in. 
+
+**Basic terminology and procedure for hypothesis testing**
+
+There is a need to understand the basic terms before diving deep into the process of hypothesis testing. If we have historical data, the presence of a trend must be established and below are the assumptions that should be made prior to conducting hypothesis testing; 
+
+i. The data is assumed to belong to a specified distribution(typically normal distribution). 
+ii. The data has a stable or stationary trend(from of temporal or spatial trend).
+iii. There are no unusual observations or outliers. 
+
+The hypothesis testing that is based on the above is described as **parametric hypothesis testing**. Otherwise, if the above assumptions are not met, the test is known as **non-parametric hypothesis testing**. 
+
+* **Null hypothesis** ($H_0$): Is a statement of the presumed default or baseline condition. In this case the null hypothesis is that there is no difference between the carcinogenic concentration is below the allowed limit. 
+
+* **Alternate hypothesis** ($H_1$ or $H_A$): is the inverse or the opposite of the null hypothesis. Alternate hypothesis contradicts the statement of the presumed default. In this case, the alternate hypothesis states that the carcinogenic level is above the allowed limit.
+
+The evidence produced by the sample after conducting hypothesis testing can either refute or support the null hypothesis.
+
+* The **one-tailed (One-Sided) Hypothesis** test checks for an effect in only one direction. In our case, we test if the carcinogen levels exceed the allowed limit(right side). Alternatively, it can be checked of it is below the allowed limits (left-sided). 
+
+* **Upper-Tailed Hypothesis Test** is the same as the right one-tailed hypothesis test that checks if the value of interest exceed the null hypothesis value
+
+* **Lower-Tailed Hypothesis Test** is the left one-tailed hypthesis test where it checks if the value of interest is below the null hypothesis value. In our case the allowed limit for carcinogens in soil. 
+
+* **Two-Tailed Hypothesis Test** checks for the effect in both directions. In our we can change to find if the carcinogen levels are below or above the allowed limit. 
+
+* **T-Value** is the test statistic calculated from the sample data to determine how far the sample mean is from the hypothesized mean, in terms of standard error. 
+
+* **Critical T-Value** is the threshold value for the t-distribution that corresponds to the significance level. If the t-value exceeds the critical t-value, the null hypothesis is rejected. 
+
+**_______add sample code for explanation ____________**
+
+* **Significant level**($\alpha$) is the probability threshold for rejecting the null hypothesis, usually set to 0.05(5%). 
+
+In most cases if the probability of observing the test statistic (p-value) is less than 0.005, the null hypothesis is rejected. 
+
+* **Degrees of Freedom(df)** are the number of independent values in the data sample that are free to vary when calculationg a statistic. 
+
+In most cases **df** is calculated as $$df = n - 1$$
+
+where $n$ represents the sample size(count). 
+
+In our cases where we have 20 samples therefore $df = 20 -1$ and the degree of freedom will be 19
+
+* **P-Value** indicates the probability of obtaining a test statistic at least as extreme as the observed one, assuming the null hypothesis is true.
+
+Below are the steps taken in hypothesis testing; 
+
+i. Formulate the null and alternate hypothesis. 
+ii. Assume the null hypothesis is true and compute a test statistic that follows a known distribution. 
+iii. Compute a critical value of a known distribution. *
+iv. **Continue from here____________________***
+
+
+## <span style="color: green;">**Hands-on Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
