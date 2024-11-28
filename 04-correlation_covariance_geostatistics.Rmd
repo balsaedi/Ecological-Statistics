@@ -1,1 +1,35 @@
 # CORRELATION, COVARIANCE, GEOSTATISTICS
+## INTRODUCTION
+In this topic, we will focus on *Bivariate correlation* and *multivariate correlation*, that is, the correlation between two or multiple variables. 
+
+Lets define correlation once again! **Correlation** is the degree if association of variables. 
+
+**Correlation coefficient: ** is the quantifier that indicates the association of variables whether whether one variable is increasing/decreasing and the other one is increasing/decreasing or if there is no association at all. The correlation coefficient always ranges from -1 to 1 where the closer it gets to +1 means a stronger **positive correlation**(both variables increases/decreases at a concert) while it gets closer to -1 means a stronger negative correlation where one variable increases and the other variable decreases. A correlation close to zero from any direction($+_{ve}$ or $-_{ve}$) shows that there is little to no correlation between variables. 
+
+**Multiple correlation** is where a group of variables (usually referred to as the predictor or X variables) to jointly relate to another variable (usually referred to as the response or Y variable),
+
+**Partial correlation** is the correlation between any pair of variables, given the presence of the remaining variables. 
+
+There are two methods to compute the correlation coefficient; 
+
+1. *Pearson's* correlation coefficient. - satisfies linearity, normality and other parametric assumptions test. 
+2. *Spearman's* correlation coefficient. - free from linearity, normality etc. conditions.
+3. *Kendall's* correlation coefficient. - free from linearity, normality etc conditions.
+
+## CORRELATION AND COVARIANCE 
+
+____________**differentiate between the two**___________________
+
+- Define *Spurious correlation*
+
+### Pearson's Correlation Coefficient 
+
+$$r = {1\over{n - 1}}{\sum^n_{i=1}[{{x_i - \overline{x}}\over{s_x}}][{{y_i - \overline{y}}\over{s_y}}]}$$
+
+### Spearman's Correlaton Coeefficient 
+
+## GEOSTATISTICS 
+
+
+
+

@@ -168,7 +168,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#test-for-autocorrelation-using-the-sample-autocorrelation-function"><i class="fa fa-check"></i><b>3.1</b> Test for Autocorrelation Using the Sample Autocorrelation Function</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a></li>
+<li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#introduction-2"><i class="fa fa-check"></i><b>4.1</b> INTRODUCTION</a></li>
+<li class="chapter" data-level="4.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#correlation-and-covariance"><i class="fa fa-check"></i><b>4.2</b> CORRELATION AND COVARIANCE</a>
+<ul>
+<li class="chapter" data-level="4.2.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>4.2.1</b> Pearson’s Correlation Coefficient</a></li>
+<li class="chapter" data-level="4.2.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#spearmans-correlaton-coeefficient"><i class="fa fa-check"></i><b>4.2.2</b> Spearman’s Correlaton Coeefficient</a></li>
+</ul></li>
+<li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.3</b> GEOSTATISTICS</a></li>
+</ul></li>
 <li class="chapter" data-level="5" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html"><i class="fa fa-check"></i><b>5</b> LINEAR REGRESSION ANALYSIS</a></li>
 <li class="chapter" data-level="6" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html"><i class="fa fa-check"></i><b>6</b> CONVENTIONAL AND PROBABILISTIC RISK ASSESSMENT</a></li>
 <li class="divider"></li>
@@ -192,7 +201,38 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="correlation-covariance-geostatistics" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> CORRELATION, COVARIANCE, GEOSTATISTICS<a href="correlation-covariance-geostatistics.html#correlation-covariance-geostatistics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-2" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> INTRODUCTION<a href="correlation-covariance-geostatistics.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this topic, we will focus on <em>Bivariate correlation</em> and <em>multivariate correlation</em>, that is, the correlation between two or multiple variables.</p>
+<p>Lets define correlation once again! <strong>Correlation</strong> is the degree if association of variables.</p>
+<p><strong>Correlation coefficient: </strong> is the quantifier that indicates the association of variables whether whether one variable is increasing/decreasing and the other one is increasing/decreasing or if there is no association at all. The correlation coefficient always ranges from -1 to 1 where the closer it gets to +1 means a stronger <strong>positive correlation</strong>(both variables increases/decreases at a concert) while it gets closer to -1 means a stronger negative correlation where one variable increases and the other variable decreases. A correlation close to zero from any direction(<span class="math inline">\(+_{ve}\)</span> or <span class="math inline">\(-_{ve}\)</span>) shows that there is little to no correlation between variables.</p>
+<p><strong>Multiple correlation</strong> is where a group of variables (usually referred to as the predictor or X variables) to jointly relate to another variable (usually referred to as the response or Y variable),</p>
+<p><strong>Partial correlation</strong> is the correlation between any pair of variables, given the presence of the remaining variables.</p>
+<p>There are two methods to compute the correlation coefficient;</p>
+<ol style="list-style-type: decimal">
+<li><em>Pearson’s</em> correlation coefficient. - satisfies linearity, normality and other parametric assumptions test.</li>
+<li><em>Spearman’s</em> correlation coefficient. - free from linearity, normality etc. conditions.</li>
+<li><em>Kendall’s</em> correlation coefficient. - free from linearity, normality etc conditions.</li>
+</ol>
+</div>
+<div id="correlation-and-covariance" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> CORRELATION AND COVARIANCE<a href="correlation-covariance-geostatistics.html#correlation-and-covariance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>____________<strong>differentiate between the two</strong>___________________</p>
+<ul>
+<li>Define <em>Spurious correlation</em></li>
+</ul>
+<div id="pearsons-correlation-coefficient" class="section level3 hasAnchor" number="4.2.1">
+<h3><span class="header-section-number">4.2.1</span> Pearson’s Correlation Coefficient<a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><span class="math display">\[r = {1\over{n - 1}}{\sum^n_{i=1}[{{x_i - \overline{x}}\over{s_x}}][{{y_i - \overline{y}}\over{s_y}}]}\]</span></p>
+</div>
+<div id="spearmans-correlaton-coeefficient" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Spearman’s Correlaton Coeefficient<a href="correlation-covariance-geostatistics.html#spearmans-correlaton-coeefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+</div>
+</div>
+<div id="geostatistics" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> GEOSTATISTICS<a href="correlation-covariance-geostatistics.html#geostatistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
+</div>
 </div>
             </section>
 

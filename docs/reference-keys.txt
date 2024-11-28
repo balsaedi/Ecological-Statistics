@@ -15,5 +15,10 @@ hands-on-exercise
 test-for-autocorrelation-and-temporal-effects
 test-for-autocorrelation-using-the-sample-autocorrelation-function
 correlation-covariance-geostatistics
+introduction-2
+correlation-and-covariance
+pearsons-correlation-coefficient
+spearmans-correlaton-coeefficient
+geostatistics
 linear-regression-analysis
 conventional-and-probabilistic-risk-assessment
