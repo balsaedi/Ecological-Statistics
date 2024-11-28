@@ -13,6 +13,7 @@ parametric-one-way-anova
 nonparametric-one-way-anova-kruskal-wallis-test
 hands-on-exercise
 test-for-autocorrelation-and-temporal-effects
+test-for-autocorrelation-using-the-sample-autocorrelation-function
 correlation-covariance-geostatistics
 linear-regression-analysis
 conventional-and-probabilistic-risk-assessment

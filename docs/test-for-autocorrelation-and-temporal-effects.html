@@ -164,7 +164,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#hands-on-exercise"><i class="fa fa-check"></i><b>2.5</b> <span style="color: green;"><strong>Hands-on Exercise</strong></span></a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html"><i class="fa fa-check"></i><b>3</b> TEST FOR AUTOCORRELATION AND TEMPORAL EFFECTS</a></li>
+<li class="chapter" data-level="3" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html"><i class="fa fa-check"></i><b>3</b> TEST FOR AUTOCORRELATION AND TEMPORAL EFFECTS</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#test-for-autocorrelation-using-the-sample-autocorrelation-function"><i class="fa fa-check"></i><b>3.1</b> Test for Autocorrelation Using the Sample Autocorrelation Function</a></li>
+</ul></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a></li>
 <li class="chapter" data-level="5" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html"><i class="fa fa-check"></i><b>5</b> LINEAR REGRESSION ANALYSIS</a></li>
 <li class="chapter" data-level="6" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html"><i class="fa fa-check"></i><b>6</b> CONVENTIONAL AND PROBABILISTIC RISK ASSESSMENT</a></li>
@@ -189,7 +192,24 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="test-for-autocorrelation-and-temporal-effects" class="section level1 hasAnchor" number="3">
 <h1><span class="header-section-number">Chapter 3</span> TEST FOR AUTOCORRELATION AND TEMPORAL EFFECTS<a href="test-for-autocorrelation-and-temporal-effects.html#test-for-autocorrelation-and-temporal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Environment Data is not always stable or stationary over time or space and is frequently subjected to sustained or cyclical change to the affecting factors. These concepts will help us understand the temporal effects better;</p>
+<p><strong>Temporal Trends: </strong> refer to changes in a variable or phenomenon over time. Consider monitoring soil nitrogen levels in agricultural field over several years. There might be temporal rise of nitrogen immediately after application of nitrogen0-based fertilizer and return back to almost the average state after time. Although there might be a general increase in soil nitrogen levels, but they won’t match the immediate spikes after fertilizer application.</p>
+<p><strong>Autocorrelation</strong> or <strong>serial correlation: </strong> is the
+correlation between data values of the same variable. <strong>Positive autocorrelation</strong> means that values close in time/space tend to be similar while <strong>negative autocorrelation</strong> means that they tend to differ.</p>
+<p><strong>Monotonic trend: </strong> this is a trend that is in one direction, either constantly upward or downwards. A good example are the levels of carbon dioxide(CO2) concentrations in the atmosphere, they have been consistently rising due to industrial activities and deforestation.</p>
+<p><strong>Cyclic or Seasonal trend</strong> refer to patterns that repeat at regular intervals such as daily ,hourly or annually. These trends are usually affected by natural cycles, human activities or climatic conditions. For instance, these trends are evident in phosphorous levels in water bodies that might increase during rainy seasons due agricultural runoff and decline during dry seasons.</p>
+<p>When testing for autocorrelation and temporal effects the data samples are assumed to have values that are independent or uncorrelated, and identically or similarly distributed. The data are said to be <em>autocorrelated</em> or <em>serially correlated</em> when this assumption is violated.</p>
+<p>These are the tests that are used to check for autocorrelation:</p>
+<ul>
+<li><p><em>Sample Autocorrelation Function(ACF): </em> used for a single time series where data is normally distributed.</p></li>
+<li><p><em>Rank von Neumann ratio test</em> used when the data samples evidence of nonnormality.</p></li>
+<li><p><em>The complete block design ANOVA or Friedman test</em> is used for multiple different data samples for instance testing the concentration of ground water contaminant from multiple monitoring wells at a site.</p></li>
+</ul>
+<div id="test-for-autocorrelation-using-the-sample-autocorrelation-function" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Test for Autocorrelation Using the Sample Autocorrelation Function<a href="test-for-autocorrelation-and-temporal-effects.html#test-for-autocorrelation-using-the-sample-autocorrelation-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Autocorrelation coefficient <span class="math display">\[r_k = {{\sum^{n-k}_{i=1}(x_i-x^!)(x_{i+k}- x^!)}\over{\sum^n_{i=1}(x_i - x^!)^2}}\]</span></p>
 
+</div>
 </div>
             </section>
 
