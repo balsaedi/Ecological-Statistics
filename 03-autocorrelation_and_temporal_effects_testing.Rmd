@@ -23,5 +23,45 @@ These are the tests that are used to check for autocorrelation:
 
 ## Test for Autocorrelation Using the Sample Autocorrelation Function
 
+Before testing for autocorrelation using the ACF method, the data sample should be; 
 
-Autocorrelation coefficient $$r_k = {{\sum^{n-k}_{i=1}(x_i-x^!)(x_{i+k}- x^!)}\over{\sum^n_{i=1}(x_i - x^!)^2}}$$
+* normally distributed. 
+* stationary(that is, not trending). 
+* free of outliers.
+* containing atleast 10 to 12 observations.
+
+... And here is how ACf is computed. 
+
+1. Arrange the data in lagged data pairs ($x_{i}, x_{i + k}$), for $i$ = 1, 2, ....($n-k$), where;
+
+  i. $n$ is the size of the data samples(number of data values therein). 
+  ii. $k$ is the lag. i.e number of sampling events dates separating one data value in the pair from the second value. For instance a lag of 1 shows that the two value pairs were collected in consecutive time intervals(e.g days) while lag shows that the data value pairs were collected every each time interval
+
+
+2. Calculate the sample Autocorrelation coefficient $$r_k = {{\sum^{n-k}_{i=1}(x_i-x^!)(x_{i+k}- x^!)}\over{\sum^n_{i=1}(x_i - x^!)^2}}$$ where; 
+  
+  - $n$ is the data sample size.
+  - $k$ is the lag
+  - $x^!$ is the data sample mean
+  - $x_{i}, x_{i + k}$ are the components of the data pairs formed based on the lag. 
+
+3. If $k$ = 1, the sample autocorrelation coefﬁcient, $r_1$ is referred to as the ﬁrst order sample autocorrelation coefﬁcient. If $k$ = 2, $r_2$ is the second order coefﬁcient, and so on.
+
+4. Lets breakdown the possible results of autocorrelation; 
+
+  $r_0$ = 1: Autocorrelation at lag 0 is always one because a value is perfectly correlated with itself. 
+  Random Data: if the data is random, most autocorrelation coefficients will be close to zero, and will decrease further as the lag increases. 
+  Autocorrelated Data: If there's autocorrelation, some coefficients($r_k$) will be significantly larger than zero, but their strength decreases with higher lags. 
+  Trend in data: If there is a trend, coefficients wont diminish, showing persistent correlation. 
+  
+As a summary, the normally distributed data, $r_k$ should be close to zero if there is no correlation. At a 95% confidence level, autocorrelation is insignificant if no $r_k$ exceeds the threshold $2\over{\sqrt{n}}$. There result of each autocorrelation are therefore plotted in a correlogram and the confidence limits are show as the horizontal lines.
+
+<span style="color: orange;">**Try it!**</span> 
+
+
+
+
+
+
+
+
