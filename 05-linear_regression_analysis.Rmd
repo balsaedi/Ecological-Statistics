@@ -1,1 +1,23 @@
 # LINEAR REGRESSION ANALYSIS
+
+- What is Regression 
+- OLS
+
+## Simple Linear Regression Analysis 
+
+- Definition
+- 
+
+
+### Empirical model-building-regression analysis 
+### Interpreting the regression results
+### R-squared and Adjusted R-Squared
+## Data transformation versus generalized linear model
+
+
+## Multiple Linear Regression (MLR) model
+
+### Assumptions of Multiple Linear Regression
+
+
+## <span style="color: green;">**Practical Exercise**</span> 

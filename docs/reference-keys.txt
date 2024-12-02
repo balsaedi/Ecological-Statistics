@@ -21,4 +21,12 @@ pearsons-correlation-coefficient
 spearmans-correlaton-coeefficient
 geostatistics
 linear-regression-analysis
+simple-linear-regression-analysis
+empirical-model-building-regression-analysis
+interpreting-the-regression-results
+r-squared-and-adjusted-r-squared
+data-transformation-versus-generalized-linear-model
+multiple-linear-regression-mlr-model
+assumptions-of-multiple-linear-regression
+practical-exercise
 conventional-and-probabilistic-risk-assessment
