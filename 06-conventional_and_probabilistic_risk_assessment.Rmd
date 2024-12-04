@@ -1,1 +1,71 @@
 # CONVENTIONAL AND PROBABILISTIC RISK ASSESSMENT
+## Introduction
+Exposure to chemical is currently inevitable to the current society. Scientists and environmentalists aim not for zero exposure but minimize the release of the chemical contaminants to the environment and limit their potential adverse health or ecological effects. 
+
+**Maximum Contaminant Levels(MCLs)** - is the concentration of a chemical contaminant that the environmental protection authorities believe would not cause substantial adverse health effects to the public. 
+
+Assumptions based on exposure characteristics are made before deciding on a effective MCL. The input factors are then combined with the estimated toxicity or potency of the chemical, to back-calculate an allowable concentration or MCL for the chemical, which is believed would not cause substantial adverse health effects. These are some of the assumptions; 
+
+- The daily rate of water consumption.
+- An individual body weight.
+- Duration of residency at one location
+- Expected human lifespan. 
+
+These assumptions are the basic of *back-calculations* that is used to establish the allowable contaminant concentrations. 
+
+Also, *forward risk assessment* can be performed to quantify the actual health risks posed by exposure to environmental contaminants. 
+
+There are two methods  used to estimate the potential risk of a contaminant concentration; 
+
+1. Conventional or point risk estimation.
+2. Probabilistic risk assessment.
+
+## Conventional or Point Risk Estimation 
+
+**Point risk estimation** uses a single variable to calculate the potential risk of a chemical contaminant for instance an adult individual body weight of 80 kilos, 1 to 2 liters of water as the daily ingestion rate for an individual, human lifespan of 70 years etc. 
+
+Based on the above variable values the potential risk of cancer from a contaminant may be 10 in a million. 
+
+The exposure of contaminants to humans have main three pathways;
+
+  - **ingestion** : consumption of medium containing the contaminant such as water or soil. 
+  - **dermal contact** : absorption of the contaminant through skin contact.
+  - **inhalation** : breathing air containing the contaminant. 
+
+The exposure might be either; *carcinogenic*(causing cancer), *noncarncinogenic* (causing other illness that is not cancer such skin rashes, suffocation, irritation) or both. 
+
+Here, the potential health risk is estimated by first computing an average daily intake of the contaminant, and then integrating it with the contaminant health factor to quantify the risk. 
+
+According to USEPA, 1989, the basic equation for computing daily intake or dose the *ingestion or oral pathway* is as follows; $$I = {{C * IR * EF * ED}\over{BW * AT}}$$
+
+Where;  
+
+- $I$: the chronic average daily intake in milligrams per kilogram of bodyweight of the contaminant per day. 
+- $C$: the chemical concentration(eg. mg/kg for soil or mg/l for water)
+- $IR$: the ingestion rate(e.g 50mg/day for soil or 2liters/day for water). 
+- $EF$: the exposure frequency(days per year that the exposure occurs)
+- $ED$: the exposure duration in years. 
+- $BW$: body weight in kilograms.
+- $AT$: averaging time in days(which is equal to ED*365 for
+noncarcinogens and 70*365 for carcinogens, where 70 years is the assumed average human lifespan and there are 365 days in the year)
+
+Also, according to USEPA, 2004, this is the basic dermally absorbed intake or dose through the soil dermal contact pathway; $$I = {{Cs * 10^{-6}SA*AF*EV*ABS*EF*ED}\over{BW*AT}}$$
+
+and this is the equation to calculate the daily absorbed intake or dose through *water dermal contact pathway*; $$I = {{Cw * 10^{-3}SA*PC*ET*EF*ED}\over{BW*AT}}$$
+
+Where: 
+
+- $Cs$ : is the soil concentration of the contaminant, that is, EPC, usually reported in mg/kg but the conversion factor of $10^{-6}$ is applied to convert the units to kg/kg. 
+- $Cw$ : is the water concentration of the contaminant, that is, EPC, usually reported in mg/l but the conversion factor of $10^{-3}$ is applied to convert the units to mg/cm3 to maintain consistency of units. 
+- $SA$: the exposed skin surface area (cm2). 
+- $AF$: s the
+soil-to-skin adherence factor in milligrams per square centimeters per soil contact event (i.e.,mg/cm2 event)
+- $EV$: is the number of contact events per day, usually assumed as one event per day (i.e., 1/day). 
+- $PC$: the dermal permeability constant (cm/h), which estimates the rate of transport of the contaminant across the skin into the body. 
+- $ABS$: the dermal absorption fraction for the contaminant (unitless)
+
+
+
+## Probabilistic Risk Assessment Using Monte Carlo Simulation
+
+## <span style="color: green;">**Practical Exercise**</span> 

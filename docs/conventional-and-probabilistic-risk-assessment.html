@@ -193,7 +193,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#practical-exercise"><i class="fa fa-check"></i><b>5.4</b> <span style="color: green;"><strong>Practical Exercise</strong></span></a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html"><i class="fa fa-check"></i><b>6</b> CONVENTIONAL AND PROBABILISTIC RISK ASSESSMENT</a></li>
+<li class="chapter" data-level="6" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html"><i class="fa fa-check"></i><b>6</b> CONVENTIONAL AND PROBABILISTIC RISK ASSESSMENT</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
+<li class="chapter" data-level="6.2" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#conventional-or-point-risk-estimation"><i class="fa fa-check"></i><b>6.2</b> Conventional or Point Risk Estimation</a></li>
+<li class="chapter" data-level="6.3" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#probabilistic-risk-assessment-using-monte-carlo-simulation"><i class="fa fa-check"></i><b>6.3</b> Probabilistic Risk Assessment Using Monte Carlo Simulation</a></li>
+<li class="chapter" data-level="6.4" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#practical-exercise-1"><i class="fa fa-check"></i><b>6.4</b> <span style="color: green;"><strong>Practical Exercise</strong></span></a></li>
+</ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
 </ul>
@@ -215,7 +221,70 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="conventional-and-probabilistic-risk-assessment" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> CONVENTIONAL AND PROBABILISTIC RISK ASSESSMENT<a href="conventional-and-probabilistic-risk-assessment.html#conventional-and-probabilistic-risk-assessment" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="introduction-3" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Introduction<a href="conventional-and-probabilistic-risk-assessment.html#introduction-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Exposure to chemical is currently inevitable to the current society. Scientists and environmentalists aim not for zero exposure but minimize the release of the chemical contaminants to the environment and limit their potential adverse health or ecological effects.</p>
+<p><strong>Maximum Contaminant Levels(MCLs)</strong> - is the concentration of a chemical contaminant that the environmental protection authorities believe would not cause substantial adverse health effects to the public.</p>
+<p>Assumptions based on exposure characteristics are made before deciding on a effective MCL. The input factors are then combined with the estimated toxicity or potency of the chemical, to back-calculate an allowable concentration or MCL for the chemical, which is believed would not cause substantial adverse health effects. These are some of the assumptions;</p>
+<ul>
+<li>The daily rate of water consumption.</li>
+<li>An individual body weight.</li>
+<li>Duration of residency at one location</li>
+<li>Expected human lifespan.</li>
+</ul>
+<p>These assumptions are the basic of <em>back-calculations</em> that is used to establish the allowable contaminant concentrations.</p>
+<p>Also, <em>forward risk assessment</em> can be performed to quantify the actual health risks posed by exposure to environmental contaminants.</p>
+<p>There are two methods used to estimate the potential risk of a contaminant concentration;</p>
+<ol style="list-style-type: decimal">
+<li>Conventional or point risk estimation.</li>
+<li>Probabilistic risk assessment.</li>
+</ol>
+</div>
+<div id="conventional-or-point-risk-estimation" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Conventional or Point Risk Estimation<a href="conventional-and-probabilistic-risk-assessment.html#conventional-or-point-risk-estimation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Point risk estimation</strong> uses a single variable to calculate the potential risk of a chemical contaminant for instance an adult individual body weight of 80 kilos, 1 to 2 liters of water as the daily ingestion rate for an individual, human lifespan of 70 years etc.</p>
+<p>Based on the above variable values the potential risk of cancer from a contaminant may be 10 in a million.</p>
+<p>The exposure of contaminants to humans have main three pathways;</p>
+<ul>
+<li><strong>ingestion</strong> : consumption of medium containing the contaminant such as water or soil.</li>
+<li><strong>dermal contact</strong> : absorption of the contaminant through skin contact.</li>
+<li><strong>inhalation</strong> : breathing air containing the contaminant.</li>
+</ul>
+<p>The exposure might be either; <em>carcinogenic</em>(causing cancer), <em>noncarncinogenic</em> (causing other illness that is not cancer such skin rashes, suffocation, irritation) or both.</p>
+<p>Here, the potential health risk is estimated by first computing an average daily intake of the contaminant, and then integrating it with the contaminant health factor to quantify the risk.</p>
+<p>According to USEPA, 1989, the basic equation for computing daily intake or dose the <em>ingestion or oral pathway</em> is as follows; <span class="math display">\[I = {{C * IR * EF * ED}\over{BW * AT}}\]</span></p>
+<p>Where;</p>
+<ul>
+<li><span class="math inline">\(I\)</span>: the chronic average daily intake in milligrams per kilogram of bodyweight of the contaminant per day.</li>
+<li><span class="math inline">\(C\)</span>: the chemical concentration(eg. mg/kg for soil or mg/l for water)</li>
+<li><span class="math inline">\(IR\)</span>: the ingestion rate(e.g 50mg/day for soil or 2liters/day for water).</li>
+<li><span class="math inline">\(EF\)</span>: the exposure frequency(days per year that the exposure occurs)</li>
+<li><span class="math inline">\(ED\)</span>: the exposure duration in years.</li>
+<li><span class="math inline">\(BW\)</span>: body weight in kilograms.</li>
+<li><span class="math inline">\(AT\)</span>: averaging time in days(which is equal to ED<em>365 for
+noncarcinogens and 70</em>365 for carcinogens, where 70 years is the assumed average human lifespan and there are 365 days in the year)</li>
+</ul>
+<p>Also, according to USEPA, 2004, this is the basic dermally absorbed intake or dose through the soil dermal contact pathway; <span class="math display">\[I = {{Cs * 10^{-6}SA*AF*EV*ABS*EF*ED}\over{BW*AT}}\]</span></p>
+<p>and this is the equation to calculate the daily absorbed intake or dose through <em>water dermal contact pathway</em>; <span class="math display">\[I = {{Cw * 10^{-3}SA*PC*ET*EF*ED}\over{BW*AT}}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(Cs\)</span> : is the soil concentration of the contaminant, that is, EPC, usually reported in mg/kg but the conversion factor of <span class="math inline">\(10^{-6}\)</span> is applied to convert the units to kg/kg.</li>
+<li><span class="math inline">\(Cw\)</span> : is the water concentration of the contaminant, that is, EPC, usually reported in mg/l but the conversion factor of <span class="math inline">\(10^{-3}\)</span> is applied to convert the units to mg/cm3 to maintain consistency of units.</li>
+<li><span class="math inline">\(SA\)</span>: the exposed skin surface area (cm2).</li>
+<li><span class="math inline">\(AF\)</span>: s the
+soil-to-skin adherence factor in milligrams per square centimeters per soil contact event (i.e.,mg/cm2 event)</li>
+<li><span class="math inline">\(EV\)</span>: is the number of contact events per day, usually assumed as one event per day (i.e., 1/day).</li>
+<li><span class="math inline">\(PC\)</span>: the dermal permeability constant (cm/h), which estimates the rate of transport of the contaminant across the skin into the body.</li>
+<li><span class="math inline">\(ABS\)</span>: the dermal absorption fraction for the contaminant (unitless)</li>
+</ul>
+</div>
+<div id="probabilistic-risk-assessment-using-monte-carlo-simulation" class="section level2 hasAnchor" number="6.3">
+<h2><span class="header-section-number">6.3</span> Probabilistic Risk Assessment Using Monte Carlo Simulation<a href="conventional-and-probabilistic-risk-assessment.html#probabilistic-risk-assessment-using-monte-carlo-simulation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="practical-exercise-1" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> <span style="color: green;"><strong>Practical Exercise</strong></span><a href="conventional-and-probabilistic-risk-assessment.html#practical-exercise-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
+</div>
 </div>
             </section>
 

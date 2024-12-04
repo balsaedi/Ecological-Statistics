@@ -30,3 +30,7 @@ multiple-linear-regression-mlr-model
 assumptions-of-multiple-linear-regression
 practical-exercise
 conventional-and-probabilistic-risk-assessment
+introduction-3
+conventional-or-point-risk-estimation
+probabilistic-risk-assessment-using-monte-carlo-simulation
+practical-exercise-1
