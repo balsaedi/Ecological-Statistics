@@ -142,7 +142,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> INTRODUCTION</a>
 <ul>
-<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#data-distributions"><i class="fa fa-check"></i><b>1.1</b> Data Distributions</a></li>
+<li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#data-distributions"><i class="fa fa-check"></i><b>1.1</b> Data Distributions</a>
+<ul>
+<li class="chapter" data-level="1.1.1" data-path="index.html"><a href="index.html#types-of-distribution"><i class="fa fa-check"></i><b>1.1.1</b> Types of Distribution</a></li>
+</ul></li>
 <li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#hands-on-exercises"><i class="fa fa-check"></i><b>1.2</b> <span style="color: green;"><strong>Hands-on Exercises</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html"><i class="fa fa-check"></i><b>2</b> HYPOTHESIS TESTING</a>
@@ -274,11 +277,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>To get the steps above clear, lets work on an example. This is an hypothetical problem where a regulatory body sets that the acceptable phosphorous concentration in a lake at <strong>1.5mg/L</strong>. 30 sample measurements were collected at different locations in the lake. The objective was to determine if the phosphorous levels are significantly higher than the allowed limit.</p>
 <p>Lets simulate the data.</p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="hypothesis-testing.html#cb20-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
-<span id="cb20-2"><a href="hypothesis-testing.html#cb20-2" tabindex="-1"></a></span>
-<span id="cb20-3"><a href="hypothesis-testing.html#cb20-3" tabindex="-1"></a>phosphorous_levels <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">30</span>,</span>
-<span id="cb20-4"><a href="hypothesis-testing.html#cb20-4" tabindex="-1"></a>                            <span class="at">mean =</span> <span class="fl">1.7</span>,</span>
-<span id="cb20-5"><a href="hypothesis-testing.html#cb20-5" tabindex="-1"></a>                            <span class="at">sd =</span> <span class="fl">0.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="hypothesis-testing.html#cb21-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>) <span class="co"># for reproducibility</span></span>
+<span id="cb21-2"><a href="hypothesis-testing.html#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="hypothesis-testing.html#cb21-3" tabindex="-1"></a>phosphorous_levels <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">30</span>,</span>
+<span id="cb21-4"><a href="hypothesis-testing.html#cb21-4" tabindex="-1"></a>                            <span class="at">mean =</span> <span class="fl">1.7</span>,</span>
+<span id="cb21-5"><a href="hypothesis-testing.html#cb21-5" tabindex="-1"></a>                            <span class="at">sd =</span> <span class="fl">0.2</span>)</span></code></pre></div>
 <ul>
 <li><p>Formulate the null hypothesis</p></li>
 <li><p>Null Hypothesis(<span class="math inline">\(H_0\)</span>): <span class="math inline">\(\mu\)</span> &lt; 1.5 - phosphorous levels are within the acceptable levels.</p></li>
@@ -294,13 +297,13 @@ Where:</p></li>
 <li><p><span class="math inline">\(n\)</span> is the sample size.</p></li>
 <li><p>Perform the one-sample t-test</p></li>
 </ul>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="hypothesis-testing.html#cb21-1" tabindex="-1"></a><span class="co"># One sample t-test </span></span>
-<span id="cb21-2"><a href="hypothesis-testing.html#cb21-2" tabindex="-1"></a>t_test_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(phosphorous_levels, </span>
-<span id="cb21-3"><a href="hypothesis-testing.html#cb21-3" tabindex="-1"></a>                        <span class="at">mu =</span> <span class="fl">1.5</span>,</span>
-<span id="cb21-4"><a href="hypothesis-testing.html#cb21-4" tabindex="-1"></a>                        <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
-<span id="cb21-5"><a href="hypothesis-testing.html#cb21-5" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="hypothesis-testing.html#cb21-6" tabindex="-1"></a><span class="co"># Display the results </span></span>
-<span id="cb21-7"><a href="hypothesis-testing.html#cb21-7" tabindex="-1"></a><span class="fu">print</span>(t_test_result)</span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="hypothesis-testing.html#cb22-1" tabindex="-1"></a><span class="co"># One sample t-test </span></span>
+<span id="cb22-2"><a href="hypothesis-testing.html#cb22-2" tabindex="-1"></a>t_test_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(phosphorous_levels, </span>
+<span id="cb22-3"><a href="hypothesis-testing.html#cb22-3" tabindex="-1"></a>                        <span class="at">mu =</span> <span class="fl">1.5</span>,</span>
+<span id="cb22-4"><a href="hypothesis-testing.html#cb22-4" tabindex="-1"></a>                        <span class="at">alternative =</span> <span class="st">&quot;greater&quot;</span>)</span>
+<span id="cb22-5"><a href="hypothesis-testing.html#cb22-5" tabindex="-1"></a></span>
+<span id="cb22-6"><a href="hypothesis-testing.html#cb22-6" tabindex="-1"></a><span class="co"># Display the results </span></span>
+<span id="cb22-7"><a href="hypothesis-testing.html#cb22-7" tabindex="-1"></a><span class="fu">print</span>(t_test_result)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -316,16 +319,16 @@ Where:</p></li>
 <li><p>Determine the critical value</p></li>
 <li><p>For the right-tailed test at a 5% significance levels(<span class="math inline">\(alpha\)</span>=0.05), the critical value is the t-value that corresponds to the top 5% of the t-distribution. The <code>qt()</code> function will be used to calculate this; <span class="math display">\[t_{critical} = qt(1-\alpha, df = n - 1)\]</span></p></li>
 </ul>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="hypothesis-testing.html#cb23-1" tabindex="-1"></a>critical_t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="fu">length</span>(phosphorous_levels) <span class="sc">-</span> <span class="dv">1</span>)</span>
-<span id="cb23-2"><a href="hypothesis-testing.html#cb23-2" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="hypothesis-testing.html#cb23-3" tabindex="-1"></a>critical_t</span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="hypothesis-testing.html#cb24-1" tabindex="-1"></a>critical_t <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.95</span>, <span class="at">df =</span> <span class="fu">length</span>(phosphorous_levels) <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb24-2"><a href="hypothesis-testing.html#cb24-2" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="hypothesis-testing.html#cb24-3" tabindex="-1"></a>critical_t</span></code></pre></div>
 <pre><code>## [1] 1.699127</code></pre>
 <p>The t-statistic is greater than the critical t therefore the null hypothesis is rejected. Lets confirm this by also computing the p_value</p>
 <ul>
 <li>Calculate the null hypothesis</li>
 </ul>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="hypothesis-testing.html#cb25-1" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> t_test_result<span class="sc">$</span>p.value</span>
-<span id="cb25-2"><a href="hypothesis-testing.html#cb25-2" tabindex="-1"></a>p_value</span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="hypothesis-testing.html#cb26-1" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> t_test_result<span class="sc">$</span>p.value</span>
+<span id="cb26-2"><a href="hypothesis-testing.html#cb26-2" tabindex="-1"></a>p_value</span></code></pre></div>
 <pre><code>## [1] 5.210072e-06</code></pre>
 <p>The null hypothesis is rejected as the p_value is less than 0.05. Therefore, we make conclusion that the phosphorous levels in the lake exceed the acceptable levels.</p>
 </div>

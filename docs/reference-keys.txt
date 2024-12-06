@@ -1,5 +1,7 @@
 introduction
 data-distributions
+types-of-distribution
+normal-distribution
 hands-on-exercises
 hypothesis-testing
 introduction-1

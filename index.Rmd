@@ -176,9 +176,18 @@ Above is the distribution of oak tree heights, lets find its probability using t
 
 This distribution function leans toward that a probability of a random variable is less than or equal to a certain value. 
 ```{r}
-
+## Add code 
 ```
 
+**Empirical Cumulative Distribution Function**
+
+----------------------**Add more info**-----------------
+
+
+### Types of Distribution
+#### Normal distribution 
+
+-----**Add more distributions**-------------
 
 
 ## <span style="color: green;">**Hands-on Exercises**</span> 
