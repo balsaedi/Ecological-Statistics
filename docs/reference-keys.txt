@@ -2,6 +2,9 @@ introduction
 data-distributions
 types-of-distribution
 normal-distribution
+lognormal-gamma-and-other-continuous-distributions
+distributions-used-in-inferential-statistics
+dicrete-distributions
 hands-on-exercises
 hypothesis-testing
 introduction-1

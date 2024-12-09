@@ -185,9 +185,121 @@ This distribution function leans toward that a probability of a random variable 
 
 
 ### Types of Distribution
+
+In statistical tests, it is assumed that the data sample represents the underlying data population. Similarly, the distribution of the data sample is assumed to be similar to the one of the data population. 
+
+These are what characterizes the data distribution; whether the data is; 
+
+- discrete or continuous
+- symmetrical or asymmetrical
+- bounded by lower and/or upper limits or unbounded. 
+
+Lets discuss different types of data distributions. 
+
 #### Normal distribution 
 
------**Add more distributions**-------------
+The normal distribution is a continuous symmetrical distribution in the real number domain (i.e., with the set of possible values ranging between -∞ and ∞) whose probability density function plots as a smooth bell-shaped curve, and whose
+cumulative distribution is S-shaped. 
+
+<span style="color: orange;">**Try it!**</span>
+
+To demonstrate this, lets generate 100 random data values with a mean of 5 and a standard deviation of 3. 
+```{r}
+set.seed(1)
+
+data <- rnorm(100, mean=5, sd=3)
+df <- data.frame(data)
+# Plot the data
+ggplot(df, 
+       aes(x = data)) + 
+  geom_density(fill = "blue", alpha=0.5) + 
+  labs(
+    title = "Distribution of data sample",
+    x = "Sample Value",
+    y = "Density"
+  ) + 
+  theme_minimal()
+```
+
+The data distribution below represents a near bell-shaped curve. 
+
+A normal distribution with a mean of zero and variance of 1 (or
+standard deviation of 1, since standard deviation is the square root of variance and square root of 1 is 1) is referred to as a **standard normal distribution**
+
+A standard normal distribution has many applications in statistics such as computation of cumulative probabilities and critical values for hypothesis tests.
+
+<span style="color: orange;">**Try it!**</span> 
+
+Lets generate a random data set that is standardized. 
+```{r}
+set.seed(100)
+
+data <- rnorm(100, mean=0, sd=1)
+df <- data.frame(data)
+# Plot the data
+ggplot(df, 
+       aes(x = data)) + 
+  geom_density(fill = "blue", alpha=0.5) + 
+  labs(
+    title = "Distribution of data sample",
+    x = "Sample Value",
+    y = "Density"
+  ) + 
+  theme_minimal()
+```
+
+Any data sample that follows a normal distribution can be standardized to a *standard normal distribution* by subtracting its mean from each individual data value and dividing the result by its standard deviation. The resultant values can be referred to as *standard score*, *normal score*, *normal quantile* or *z-value*) 
+
+Here is the formula for calculation the z-value (standardized score); $$z = {{x - \overline x}\over{\sigma}}$$
+
+Where; 
+
+- $x$ is the actual value
+- $\overline x$ is the data sample mean 
+- $\sigma$ is the standard deviation
+
+
+<span style="color: orange;">**Try it**</span>
+
+-------------------will generate a data distribution with a known standard deviation and mean then standardize it. Will then plot both samples - raw data and the standardized one----------------------------
+
+<span style="color: orange;">**Example: CUMULATIVE AND EXCEEDANCE PROBABILITIES FOR A NORMAL DISTRIBUTION**</span>
+
+Groundwater Manganese Concentrations in mg/L
+
+______________________**Expand on this**____________________________________
+
+
+modify the code below to show up the distribution
+
+```
+x = seq(0, 0.4, length=100)
+y = dnorm(x, 0.52, 0.18)
+polygon(c(0, x, 0.4), c(0, y, 0), col = "gray")
+
+# Add a shaded area 
+x = seq(1, 0.9, length=25)
+y = dnorm(x, 0.52, 0.18)
+polygon(c(1, x, 0.9), c(0, y, 0), col = "gray")
+
+```
+
+#### Lognormal, Gamma, and Other Continuous Distributions 
+
+- Gamma Distribution
+- Logistic Distribution 
+- Other Continuous Distributions 
+
+#### Distributions Used in Inferential Statistics 
+
+- Student’s t Distribution
+- Chi-Square Distribution
+- F Distribution
+
+#### Dicrete Distributions 
+
+- Binomial Distribution
+- Poisson Distribution 
 
 
 ## <span style="color: green;">**Hands-on Exercises**</span> 

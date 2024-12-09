@@ -376,9 +376,102 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>———————-<strong>Add more info</strong>—————–</p>
 <div id="types-of-distribution" class="section level3 hasAnchor" number="1.1.1">
 <h3><span class="header-section-number">1.1.1</span> Types of Distribution<a href="index.html#types-of-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In statistical tests, it is assumed that the data sample represents the underlying data population. Similarly, the distribution of the data sample is assumed to be similar to the one of the data population.</p>
+<p>These are what characterizes the data distribution; whether the data is;</p>
+<ul>
+<li>discrete or continuous</li>
+<li>symmetrical or asymmetrical</li>
+<li>bounded by lower and/or upper limits or unbounded.</li>
+</ul>
+<p>Lets discuss different types of data distributions.</p>
 <div id="normal-distribution" class="section level4 hasAnchor" number="1.1.1.1">
 <h4><span class="header-section-number">1.1.1.1</span> Normal distribution<a href="index.html#normal-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>—–<strong>Add more distributions</strong>————-</p>
+<p>The normal distribution is a continuous symmetrical distribution in the real number domain (i.e., with the set of possible values ranging between -∞ and ∞) whose probability density function plots as a smooth bell-shaped curve, and whose
+cumulative distribution is S-shaped.</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>To demonstrate this, lets generate 100 random data values with a mean of 5 and a standard deviation of 3.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="index.html#cb21-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb21-2"><a href="index.html#cb21-2" tabindex="-1"></a></span>
+<span id="cb21-3"><a href="index.html#cb21-3" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">5</span>, <span class="at">sd=</span><span class="dv">3</span>)</span>
+<span id="cb21-4"><a href="index.html#cb21-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(data)</span>
+<span id="cb21-5"><a href="index.html#cb21-5" tabindex="-1"></a><span class="co"># Plot the data</span></span>
+<span id="cb21-6"><a href="index.html#cb21-6" tabindex="-1"></a><span class="fu">ggplot</span>(df, </span>
+<span id="cb21-7"><a href="index.html#cb21-7" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span> </span>
+<span id="cb21-8"><a href="index.html#cb21-8" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb21-9"><a href="index.html#cb21-9" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb21-10"><a href="index.html#cb21-10" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of data sample&quot;</span>,</span>
+<span id="cb21-11"><a href="index.html#cb21-11" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sample Value&quot;</span>,</span>
+<span id="cb21-12"><a href="index.html#cb21-12" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb21-13"><a href="index.html#cb21-13" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb21-14"><a href="index.html#cb21-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>The data distribution below represents a near bell-shaped curve.</p>
+<p>A normal distribution with a mean of zero and variance of 1 (or
+standard deviation of 1, since standard deviation is the square root of variance and square root of 1 is 1) is referred to as a <strong>standard normal distribution</strong></p>
+<p>A standard normal distribution has many applications in statistics such as computation of cumulative probabilities and critical values for hypothesis tests.</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Lets generate a random data set that is standardized.</p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="index.html#cb22-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">100</span>)</span>
+<span id="cb22-2"><a href="index.html#cb22-2" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="index.html#cb22-3" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb22-4"><a href="index.html#cb22-4" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(data)</span>
+<span id="cb22-5"><a href="index.html#cb22-5" tabindex="-1"></a><span class="co"># Plot the data</span></span>
+<span id="cb22-6"><a href="index.html#cb22-6" tabindex="-1"></a><span class="fu">ggplot</span>(df, </span>
+<span id="cb22-7"><a href="index.html#cb22-7" tabindex="-1"></a>       <span class="fu">aes</span>(<span class="at">x =</span> data)) <span class="sc">+</span> </span>
+<span id="cb22-8"><a href="index.html#cb22-8" tabindex="-1"></a>  <span class="fu">geom_density</span>(<span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.5</span>) <span class="sc">+</span> </span>
+<span id="cb22-9"><a href="index.html#cb22-9" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb22-10"><a href="index.html#cb22-10" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of data sample&quot;</span>,</span>
+<span id="cb22-11"><a href="index.html#cb22-11" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Sample Value&quot;</span>,</span>
+<span id="cb22-12"><a href="index.html#cb22-12" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Density&quot;</span></span>
+<span id="cb22-13"><a href="index.html#cb22-13" tabindex="-1"></a>  ) <span class="sc">+</span> </span>
+<span id="cb22-14"><a href="index.html#cb22-14" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Any data sample that follows a normal distribution can be standardized to a <em>standard normal distribution</em> by subtracting its mean from each individual data value and dividing the result by its standard deviation. The resultant values can be referred to as <em>standard score</em>, <em>normal score</em>, <em>normal quantile</em> or <em>z-value</em>)</p>
+<p>Here is the formula for calculation the z-value (standardized score); <span class="math display">\[z = {{x - \overline x}\over{\sigma}}\]</span></p>
+<p>Where;</p>
+<ul>
+<li><span class="math inline">\(x\)</span> is the actual value</li>
+<li><span class="math inline">\(\overline x\)</span> is the data sample mean</li>
+<li><span class="math inline">\(\sigma\)</span> is the standard deviation</li>
+</ul>
+<p><span style="color: orange;"><strong>Try it</strong></span></p>
+<p>——————-will generate a data distribution with a known standard deviation and mean then standardize it. Will then plot both samples - raw data and the standardized one—————————-</p>
+<p><span style="color: orange;"><strong>Example: CUMULATIVE AND EXCEEDANCE PROBABILITIES FOR A NORMAL DISTRIBUTION</strong></span></p>
+<p>Groundwater Manganese Concentrations in mg/L</p>
+<p>______________________<strong>Expand on this</strong>____________________________________</p>
+<p>modify the code below to show up the distribution</p>
+<pre><code>x = seq(0, 0.4, length=100)
+y = dnorm(x, 0.52, 0.18)
+polygon(c(0, x, 0.4), c(0, y, 0), col = &quot;gray&quot;)
+
+# Add a shaded area 
+x = seq(1, 0.9, length=25)
+y = dnorm(x, 0.52, 0.18)
+polygon(c(1, x, 0.9), c(0, y, 0), col = &quot;gray&quot;)
+</code></pre>
+</div>
+<div id="lognormal-gamma-and-other-continuous-distributions" class="section level4 hasAnchor" number="1.1.1.2">
+<h4><span class="header-section-number">1.1.1.2</span> Lognormal, Gamma, and Other Continuous Distributions<a href="index.html#lognormal-gamma-and-other-continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Gamma Distribution</li>
+<li>Logistic Distribution</li>
+<li>Other Continuous Distributions</li>
+</ul>
+</div>
+<div id="distributions-used-in-inferential-statistics" class="section level4 hasAnchor" number="1.1.1.3">
+<h4><span class="header-section-number">1.1.1.3</span> Distributions Used in Inferential Statistics<a href="index.html#distributions-used-in-inferential-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Student’s t Distribution</li>
+<li>Chi-Square Distribution</li>
+<li>F Distribution</li>
+</ul>
+</div>
+<div id="dicrete-distributions" class="section level4 hasAnchor" number="1.1.1.4">
+<h4><span class="header-section-number">1.1.1.4</span> Dicrete Distributions<a href="index.html#dicrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<ul>
+<li>Binomial Distribution</li>
+<li>Poisson Distribution</li>
+</ul>
 </div>
 </div>
 </div>
