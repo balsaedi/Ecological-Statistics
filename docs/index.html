@@ -449,6 +449,24 @@ x = seq(1, 0.9, length=25)
 y = dnorm(x, 0.52, 0.18)
 polygon(c(1, x, 0.9), c(0, y, 0), col = &quot;gray&quot;)
 </code></pre>
+<p><strong>Goodness-of-Fit (GOF) Tests for the Normal Distribution</strong></p>
+<p>In parametric statistical tests, it assumed that the data is normally distributed or can be normalized by data transformation such as log transform. The parameters, such as mean and standard deviation, in parametric tests must be specified.</p>
+<p>Verifying the data normality is crucial before conducting the tests. If it fails the test of normality other types of tests(non parametric) are considered. The <em>GOF</em> tests are used to access the normality of the data sample which requires 8 to 10 randomly picked data values.</p>
+<p>The tests are;</p>
+<ul>
+<li>Normal probability plot - also known as normal quantile plot.</li>
+<li>Coefficient of Variation(CV)</li>
+<li>Coefficient of Skewness</li>
+<li>Shapiro-Wilk(SW) and Shapiro-Francia(SF) procedures</li>
+<li>Filiben’s probability plot correlation coefficient (PPCC)</li>
+<li>Shapiro-Wilk multiple group normality</li>
+</ul>
+<p>The CV test is the most commonly used method. It is computed simply by dividing the standard deviation by the mean. If the resultant value is greater than 1 then the data fails the normality test, otherwise it passes. <span class="math display">\[CV = {\sigma\over{\overline x}}\]</span></p>
+<p>Other GOF tests that are used in testing for normal and other distributions are Anderson–Darling (AD) test and the Lilliefors–Kolmogorov–Smirnov test</p>
+<p>The Coefficient of Skewness stated above provides a more direct measure of skewness where skewness of the magnitude of greater thab 0.5 is considered moderate to the substantial degree of skewness.</p>
+<p>——————————<strong>Add an example</strong>————————</p>
+<p><strong>Central Limit Theorem</strong></p>
+<p>____________________simplify it with an example _________________________</p>
 </div>
 <div id="lognormal-gamma-and-other-continuous-distributions" class="section level4 hasAnchor" number="1.1.1.2">
 <h4><span class="header-section-number">1.1.1.2</span> Lognormal, Gamma, and Other Continuous Distributions<a href="index.html#lognormal-gamma-and-other-continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
