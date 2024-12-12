@@ -1,14 +1,14 @@
 # HYPOTHESIS TESTING 
 ## Introduction
 
-Hypothesis testing is a standard statistical procedure for deciding between two competing alternatives or scenarios, based on evidence presented by a data sample collected for the purpose of conducting the test. Most descriptive statistics such as mean, median and standard deviation are usually computed from data samples which may vary with the whole population mean. For instance, we want to find the concentration of hexavalent chromium, a human carcinogen, in soil. We will collect random 20 samples. The average concentration of the carcinogen from the collected samples will at most vary with the average concentration in the entire land, that's where **hypothesis testing** comes in. 
+Hypothesis testing is a standard statistical procedure for deciding between two competing alternatives or scenarios, based on evidence presented by a data sample collected for the purpose of conducting the test. Most descriptive statistics such as mean, median and standard deviation are usually computed from data samples which may vary with the whole population. For instance, we want to find the concentration of hexavalent chromium, a human carcinogen, in soil. We will collect random 20 samples. The average concentration of the carcinogen from the collected samples will at most vary with the average concentration in the entire land, that's where **hypothesis testing** comes in. 
 
 **Basic terminology and procedure for hypothesis testing**
 
 There is a need to understand the basic terms before diving deep into the process of hypothesis testing. If we have historical data, the presence of a trend must be established and below are the assumptions that should be made prior to conducting hypothesis testing; 
 
 i. The data is assumed to belong to a specified distribution(typically normal distribution). 
-ii. The data has a stable or stationary trend(from of temporal or spatial trend).
+ii. The data has a stable or stationary trend(free from of temporal or spatial trend).
 iii. There are no unusual observations or outliers. 
 
 The hypothesis testing that is based on the above is described as **parametric hypothesis testing**. Otherwise, if the above assumptions are not met, the test is known as **non-parametric hypothesis testing**. 
@@ -118,7 +118,34 @@ p_value
 The null hypothesis is rejected as the p_value is less than 0.05. Therefore, we make conclusion that the phosphorous levels in the lake exceed the acceptable levels. 
 
 ## Parametric tests 
+As described before parametric tests rely on the assumptions that the data follows a known distribution (commonly the normal distribution) and it should be free of major outliers. In case where the test requires the data to follow a normal distribution, if the sample size is small it must follow a normal distribution while for larger sample size (e.g n≥30) the **Central Limit Theorem** allows the researchers to approximate normality even of the data is not perfectly normal
+
 ### Parametric single-sample test 
+
+This type of test is used to determine whether the mean of a single sample is significantly different from a known or hypothesized population mean. It assumes that the sample data comes from a population that follows a normal distribution (or has a large enough sample size to approximate normality).
+
+The **main objective** of this test is to *test whether the sample mean differs significantly from a reference or target value, such as an industry standard, a population average, or a theoretical expectation in hypothesis testing*
+
+These are the steps taken for One-Sample T-test;
+
+1. *State the Hypotheses:*
+
+- **Null Hypothesis**($H_0$): The sample mean equals the population mean ($\mu = \mu_0$)
+- **Alternate Hypothesis**($H_A$): The sample mean is different from the population mean($\mu \neq \mu_0$)
+
+2. *Compute the test statistic*
+
+The formula for test statistic is $$t = {{\overline x - \mu_0}\over{s/\sqrt n}}$$
+
+Where: 
+
+- $\overline x$: is the sample mean
+- $\mu_0$: is the hypothesized population mean 
+- $s$: is the sample standard deviation
+- $n$: is the sample size 
+
+3. Determine the degree of freedom as $df = n- 1$
+4. **Compare $t$ to critical value or use p-value**
 
 ### Parametric two-sample test
 

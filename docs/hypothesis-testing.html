@@ -226,12 +226,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 2</span> HYPOTHESIS TESTING<a href="hypothesis-testing.html#hypothesis-testing" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div id="introduction-1" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Introduction<a href="hypothesis-testing.html#introduction-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Hypothesis testing is a standard statistical procedure for deciding between two competing alternatives or scenarios, based on evidence presented by a data sample collected for the purpose of conducting the test. Most descriptive statistics such as mean, median and standard deviation are usually computed from data samples which may vary with the whole population mean. For instance, we want to find the concentration of hexavalent chromium, a human carcinogen, in soil. We will collect random 20 samples. The average concentration of the carcinogen from the collected samples will at most vary with the average concentration in the entire land, that’s where <strong>hypothesis testing</strong> comes in.</p>
+<p>Hypothesis testing is a standard statistical procedure for deciding between two competing alternatives or scenarios, based on evidence presented by a data sample collected for the purpose of conducting the test. Most descriptive statistics such as mean, median and standard deviation are usually computed from data samples which may vary with the whole population. For instance, we want to find the concentration of hexavalent chromium, a human carcinogen, in soil. We will collect random 20 samples. The average concentration of the carcinogen from the collected samples will at most vary with the average concentration in the entire land, that’s where <strong>hypothesis testing</strong> comes in.</p>
 <p><strong>Basic terminology and procedure for hypothesis testing</strong></p>
 <p>There is a need to understand the basic terms before diving deep into the process of hypothesis testing. If we have historical data, the presence of a trend must be established and below are the assumptions that should be made prior to conducting hypothesis testing;</p>
 <ol style="list-style-type: lower-roman">
 <li>The data is assumed to belong to a specified distribution(typically normal distribution).</li>
-<li>The data has a stable or stationary trend(from of temporal or spatial trend).</li>
+<li>The data has a stable or stationary trend(free from of temporal or spatial trend).</li>
 <li>There are no unusual observations or outliers.</li>
 </ol>
 <p>The hypothesis testing that is based on the above is described as <strong>parametric hypothesis testing</strong>. Otherwise, if the above assumptions are not met, the test is known as <strong>non-parametric hypothesis testing</strong>.</p>
@@ -334,8 +334,34 @@ Where:</p></li>
 </div>
 <div id="parametric-tests" class="section level2 hasAnchor" number="2.2">
 <h2><span class="header-section-number">2.2</span> Parametric tests<a href="hypothesis-testing.html#parametric-tests" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>As described before parametric tests rely on the assumptions that the data follows a known distribution (commonly the normal distribution) and it should be free of major outliers. In case where the test requires the data to follow a normal distribution, if the sample size is small it must follow a normal distribution while for larger sample size (e.g n≥30) the <strong>Central Limit Theorem</strong> allows the researchers to approximate normality even of the data is not perfectly normal</p>
 <div id="parametric-single-sample-test" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Parametric single-sample test<a href="hypothesis-testing.html#parametric-single-sample-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This type of test is used to determine whether the mean of a single sample is significantly different from a known or hypothesized population mean. It assumes that the sample data comes from a population that follows a normal distribution (or has a large enough sample size to approximate normality).</p>
+<p>The <strong>main objective</strong> of this test is to <em>test whether the sample mean differs significantly from a reference or target value, such as an industry standard, a population average, or a theoretical expectation in hypothesis testing</em></p>
+<p>These are the steps taken for One-Sample T-test;</p>
+<ol style="list-style-type: decimal">
+<li><em>State the Hypotheses:</em></li>
+</ol>
+<ul>
+<li><strong>Null Hypothesis</strong>(<span class="math inline">\(H_0\)</span>): The sample mean equals the population mean (<span class="math inline">\(\mu = \mu_0\)</span>)</li>
+<li><strong>Alternate Hypothesis</strong>(<span class="math inline">\(H_A\)</span>): The sample mean is different from the population mean(<span class="math inline">\(\mu \neq \mu_0\)</span>)</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><em>Compute the test statistic</em></li>
+</ol>
+<p>The formula for test statistic is <span class="math display">\[t = {{\overline x - \mu_0}\over{s/\sqrt n}}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\(\overline x\)</span>: is the sample mean</li>
+<li><span class="math inline">\(\mu_0\)</span>: is the hypothesized population mean</li>
+<li><span class="math inline">\(s\)</span>: is the sample standard deviation</li>
+<li><span class="math inline">\(n\)</span>: is the sample size</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Determine the degree of freedom as <span class="math inline">\(df = n- 1\)</span></li>
+<li><strong>Compare <span class="math inline">\(t\)</span> to critical value or use p-value</strong></li>
+</ol>
 </div>
 <div id="parametric-two-sample-test" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Parametric two-sample test<a href="hypothesis-testing.html#parametric-two-sample-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
