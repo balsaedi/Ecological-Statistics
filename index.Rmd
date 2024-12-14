@@ -315,7 +315,16 @@ ____________________simplify it with an example _________________________
 
 #### Lognormal, Gamma, and Other Continuous Distributions 
 
-- Gamma Distribution
+Before we dive into Gamma distribution, we need to to get the definition of exponential distribution. **Exponential distribution** is the probability of the waiting time between events in a *Poisson Process*. 
+
+**Gamma Distribution** 
+
+Exponential infers the probability until the first event happens while Gamma distribution gives us the probability of the waiting time until the $n^{th}$ event. 
+
+
+Gamma distribution 
+
+
 - Logistic Distribution 
 - Other Continuous Distributions 
 
