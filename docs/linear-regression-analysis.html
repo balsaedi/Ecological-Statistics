@@ -225,16 +225,18 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="linear-regression-analysis" class="section level1 hasAnchor" number="5">
 <h1><span class="header-section-number">Chapter 5</span> LINEAR REGRESSION ANALYSIS<a href="linear-regression-analysis.html#linear-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <p><strong>Regression</strong> is the finding of a relation between the input(predictor/independent) variable/s and the continuous output(target/dependent) variable.</p>
-<p><strong>Linear Regression</strong> is finding the linear relationship between dependent variable and one or more independent features by fitting a linear equation to the observed data. IF there is one independent variable therefore the regression in known as <strong>simple linear regression</strong> while if multiple variables are involved it is known as <strong>multiple linear regression</strong></p>
+<p>Now <strong>Linear Regression</strong> is finding the linear relationship between dependent variable and one or more independent features by fitting a linear equation to the observed data. If there is one independent variable therefore the regression in known as <strong>simple linear regression</strong> while if multiple variables are involved it is known as <strong>multiple linear regression.</strong></p>
 <div id="simple-linear-regression-analysis" class="section level2 hasAnchor" number="5.1">
 <h2><span class="header-section-number">5.1</span> Simple Linear Regression Analysis<a href="linear-regression-analysis.html#simple-linear-regression-analysis" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Simple linear regression seeks to explore and model the relationship between two quantitative variables. Here’s what it helps you do:</p>
 <ul>
-<li><p>Understand the strength of the relationship:
-For example, it can reveal how strongly rainfall affects soil erosion. If the relationship is strong, changes in rainfall levels are likely to lead to significant changes in soil erosion.</p></li>
-<li><p>Make predictions:
-It allows you to estimate the dependent variable’s value for a given value of the independent variable. For instance, if you know how much it rained, you can predict how much soil erosion occurred.</p></li>
+<li><em>Understand the strength of the relationship</em>:</li>
 </ul>
+<p>For example, it can reveal how strongly rainfall affects soil erosion. If the relationship is strong, changes in rainfall levels are likely to lead to significant changes in soil erosion.</p>
+<ul>
+<li><em>Make predictions</em>:</li>
+</ul>
+<p>It allows you to estimate the dependent variable’s value for a given value of the independent variable. For instance, if you know how much it rained, you can predict how much soil erosion occurred.</p>
 <p>The beauty of simple linear regression lies in its simplicity—you’re working with just two variables. One acts as the input, and the other as the output. It’s like finding a straight-line path that best connects the data points and helps explain their relationship.</p>
 <p>For instance, imagine plotting rainfall (in mm) on the x-axis and soil erosion (in kg) on the y-axis. A regression line (a straight line) is fitted to the data, showing the trend. If the line slopes upwards, it means more rain leads to more soil erosion—a positive relationship. If it slopes downward, it’s a negative relationship.</p>
 <p>So, simple linear regression isn’t just math—it’s a way to uncover insights and make informed predictions from real-world data!</p>
@@ -243,24 +245,109 @@ It allows you to estimate the dependent variable’s value for a given value of 
 <p>Simple linear regression is a <strong>parametric test</strong>, which means it relies on certain assumptions about your data to ensure accurate and reliable results. Let’s break down these assumptions:</p>
 <p><strong>Key Assumptions of Simple Linear Regression</strong></p>
 <ol style="list-style-type: decimal">
-<li><p><em>Homogeneity of variance (Homoscedasticity)</em>:
-The prediction errors (residuals) should remain roughly the same across all values of the independent variable. In simpler terms, the “spread” of data points around the regression line should stay consistent, not get wider or narrower.</p></li>
-<li><p><em>Independence of observations</em>:
-Each data point in your dataset should be collected independently. For example, there shouldn’t be hidden relationships or patterns among your observations, like duplicate measurements or a biased sampling method.</p></li>
-<li><p><em>Normality</em>:
-The data (especially the residuals) should follow a normal distribution. This is important for making valid inferences from your model.</p></li>
-<li><p><em>Linearity</em>:
-The relationship between the independent and dependent variables should be linear. That means the best-fitting line through your data points should be straight, not curved or clustered into groups.</p></li>
+<li><em>Homogeneity of variance (Homoscedasticity)</em>:</li>
 </ol>
+<p>The prediction errors (residuals) should remain roughly the same across all values of the independent variable. In simpler terms, the “spread” of data points around the regression line should stay consistent, not get wider or narrower.</p>
+<ol start="2" style="list-style-type: decimal">
+<li><em>Independence of observations</em>:</li>
+</ol>
+<p>Each data point in your dataset should be collected independently. For example, there shouldn’t be hidden relationships or patterns among your observations, like duplicate measurements or a biased sampling method.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><em>Normality</em>:</li>
+</ol>
+<p>The data (especially the residuals) should follow a normal distribution. This is important for making valid inferences from your model.</p>
+<ol start="4" style="list-style-type: decimal">
+<li><em>Linearity</em>:</li>
+</ol>
+<p>The relationship between the independent and dependent variables should be linear. That means the best-fitting line through your data points should be straight, not curved or clustered into groups.</p>
 <p><strong>What if these assumptions aren’t met?</strong></p>
-<p>If your data violate assumptions like homoscedasticity or normality, don’t worry—you still have options! For instance, you can use a nonparametric test like the Spearman rank test, which doesn’t rely on strict parametric assumptions.</p>
+<p>If your data violate assumptions like homoscedasticity or normality, don’t worry—you still have options! For instance, you can use a nonparametric test like the <em>Spearman rank test</em>, which doesn’t rely on strict parametric assumptions.</p>
 <p>By ensuring your data meets these conditions, you can confidently use simple linear regression to model and predict relationships between variables!</p>
+<p>The formula for simple linear regression looks like this: <span class="math display">\[y = \alpha + \beta X + \epsilon\]</span></p>
+<p>where;</p>
+<ul>
+<li><span class="math inline">\(y\)</span>: the predicted value of the dependent variable.</li>
+<li><span class="math inline">\(X\)</span>: the independent variable believed to be influencing the value of <span class="math inline">\(y\)</span></li>
+<li><span class="math inline">\(\alpha\)</span>: the intercept, or the starting point. It tells you the predicted value of <span class="math inline">\(y\)</span> when <span class="math inline">\(X\)</span> (the independent variable) is 0.</li>
+<li><span class="math inline">\(\beta\)</span>: the regression coeefficient, which measures the expected change in <span class="math inline">\(y\)</span> for each one unit increase in <span class="math inline">\(X\)</span>. This is the slope/gradient of the line.</li>
+<li><span class="math inline">\(\epsilon\)</span>: the error term, representing how much actual data points deviate from the predicted line.</li>
+</ul>
+<p><em>This is how linear regression works:</em></p>
+<p>Linear regression fits a <strong>line of best fit</strong> through your data points. It finds the value of <span class="math inline">\(\beta\)</span> (<strong>the slope</strong>) that minimizes the total error (the difference between the observed and predicted values of <span class="math inline">\(y\)</span>.</p>
+<p>In simple terms, the regression line represents the most accurate straight-line relationship between your independent variable (<span class="math inline">\(X\)</span>) and your dependent variable (<span class="math inline">\(y\)</span>).</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Lets make this practical, you will be required to download the plant height data from <a href="https://environmentalcomputing.net/datasets/Plant_height.csv">here</a>.</p>
+<p><strong>Remember:</strong> The goal in linear regression is obtain the best estimates for the model coefficients(<span class="math inline">\(\alpha\)</span> and <span class="math inline">\(\beta\)</span>).</p>
+<p>We will break down the process in steps;</p>
+<ul>
+<li>Load the data set</li>
+</ul>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="linear-regression-analysis.html#cb31-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
+<ul>
+<li><p>The goal of this analysis is to find the linear association between the plant height and the temperature, particularly if plant height is dependent on the temperature.</p></li>
+<li><p><em>Define the independent and dependent variables:</em> temperature(<code>temp</code>) is the independent variable while plant height(<code>loght</code>) is the dependent variable</p></li>
+</ul>
+<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="linear-regression-analysis.html#cb32-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = loght ~ temp, data = df)
+## 
+## Coefficients:
+## (Intercept)         temp  
+##    -0.22566      0.04241</code></pre>
 </div>
 <div id="interpreting-the-regression-results" class="section level3 hasAnchor" number="5.1.2">
 <h3><span class="header-section-number">5.1.2</span> Interpreting the regression results<a href="linear-regression-analysis.html#interpreting-the-regression-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To get a detailed breakdown of the regression results, such as the coefficient values, <span class="math inline">\(R^2\)</span>, test statistics, p-values, and confidence intervals, you need to save the output of the <code>lm</code> function to an object. Then, use the <code>summary()</code> function on that object to extract and review the analysis details.</p>
+<p>Note: <code>loght</code> is log(plant height).</p>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="linear-regression-analysis.html#cb34-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
+<span id="cb34-2"><a href="linear-regression-analysis.html#cb34-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = loght ~ temp, data = df)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.97903 -0.42804 -0.00918  0.43200  1.79893 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) -0.225665   0.103776  -2.175    0.031 *  
+## temp         0.042414   0.005593   7.583 1.87e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.6848 on 176 degrees of freedom
+## Multiple R-squared:  0.2463, Adjusted R-squared:  0.242 
+## F-statistic:  57.5 on 1 and 176 DF,  p-value: 1.868e-12</code></pre>
+<p>The regression output provides the slope and intercept of the regression line. Based on this analysis, the regression equation for predicting the (log-transformed) plant height as a function of temperature is:</p>
+<p><span class="math display">\[loght = −0.22566+0.04241*temp + \epsilon\]</span></p>
+<p>and this is the breakdown of the analysis;</p>
+<ul>
+<li><em>Coefficients</em></li>
+</ul>
+<p>The intercept (-0.22566) represents the predicted value of log(plant height) when the temperature is zero.</p>
+<p>The slope (0.04241) indicates that for every one-unit increase in temperature, the log(plant height) increases by approximately 0.04241.</p>
+<ul>
+<li><em>Significance of Coefficients</em></li>
+</ul>
+<p>The t-statistics and p-values test whether the coefficients are significantly different from zero.</p>
+<p>Here, the p-value for temperature (&lt; 0.005) suggests a statistically significant relationship between temperature and plant height.</p>
+<p>The intercept’s p-value (0.031) is less important since we typically focus on the slope’s significance.</p>
+<ul>
+<li><em>Overall Model Significance</em></li>
+</ul>
+<p>The F-statistic (57.5) and its associated p-value (&lt;0.001) confirm that the overall model is statistically significant.</p>
+<p>With a single predictor, the p-value for the F-statistic is identical to the p-value for the slope coefficient.</p>
 </div>
 <div id="r-squared-and-adjusted-r-squared" class="section level3 hasAnchor" number="5.1.3">
 <h3><span class="header-section-number">5.1.3</span> R-squared and Adjusted R-Squared<a href="linear-regression-analysis.html#r-squared-and-adjusted-r-squared" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>&lt;————–add definition and explanation of rsquared ———–&gt;</p>
+<p>Like our model above shows that:</p>
+<ul>
+<li>The <span class="math inline">\(R^2\)</span> value (0.2463) shows that approximately 24.6% of the variation in plant height is explained by temperature.</li>
+<li>The adjusted <span class="math inline">\(R^2\)</span> (0.242) slightly adjusts for the model’s complexity and is more relevant when comparing models</li>
+</ul>
 </div>
 </div>
 <div id="data-transformation-versus-generalized-linear-model" class="section level2 hasAnchor" number="5.2">

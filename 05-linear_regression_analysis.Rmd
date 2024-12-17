@@ -2,16 +2,18 @@
 
 **Regression** is the finding of a relation between the input(predictor/independent) variable/s and the continuous output(target/dependent) variable. 
 
-**Linear Regression** is finding the linear relationship between dependent variable and one or more independent features by fitting a linear equation to the observed data. IF there is one independent variable therefore the regression in known as **simple linear regression** while if multiple variables are involved it is known as **multiple linear regression**
+Now **Linear Regression** is finding the linear relationship between dependent variable and one or more independent features by fitting a linear equation to the observed data. If there is one independent variable therefore the regression in known as **simple linear regression** while if multiple variables are involved it is known as **multiple linear regression.**
 
 ## Simple Linear Regression Analysis 
 
 Simple linear regression seeks to explore and model the relationship between two quantitative variables. Here's what it helps you do:
 
-- Understand the strength of the relationship:
+- *Understand the strength of the relationship*:
+
 For example, it can reveal how strongly rainfall affects soil erosion. If the relationship is strong, changes in rainfall levels are likely to lead to significant changes in soil erosion.
 
-- Make predictions:
+- *Make predictions*:
+
 It allows you to estimate the dependent variable's value for a given value of the independent variable. For instance, if you know how much it rained, you can predict how much soil erosion occurred.
 
 The beauty of simple linear regression lies in its simplicity—you’re working with just two variables. One acts as the input, and the other as the output. It’s like finding a straight-line path that best connects the data points and helps explain their relationship.
@@ -27,25 +29,111 @@ Simple linear regression is a **parametric test**, which means it relies on cert
 **Key Assumptions of Simple Linear Regression**
 
 1. *Homogeneity of variance (Homoscedasticity)*:
+
 The prediction errors (residuals) should remain roughly the same across all values of the independent variable. In simpler terms, the "spread" of data points around the regression line should stay consistent, not get wider or narrower.
 
 2. *Independence of observations*:
+
 Each data point in your dataset should be collected independently. For example, there shouldn’t be hidden relationships or patterns among your observations, like duplicate measurements or a biased sampling method.
 
 3. *Normality*:
+
 The data (especially the residuals) should follow a normal distribution. This is important for making valid inferences from your model.
 
 4. *Linearity*:
+
 The relationship between the independent and dependent variables should be linear. That means the best-fitting line through your data points should be straight, not curved or clustered into groups.
 
 **What if these assumptions aren’t met?**
 
-If your data violate assumptions like homoscedasticity or normality, don’t worry—you still have options! For instance, you can use a nonparametric test like the Spearman rank test, which doesn’t rely on strict parametric assumptions.
+If your data violate assumptions like homoscedasticity or normality, don’t worry—you still have options! For instance, you can use a nonparametric test like the *Spearman rank test*, which doesn’t rely on strict parametric assumptions.
 
 By ensuring your data meets these conditions, you can confidently use simple linear regression to model and predict relationships between variables!
 
+The formula for simple linear regression looks like this: $$y = \alpha + \beta X + \epsilon$$
+
+where; 
+
+- $y$: the predicted value of the dependent variable.
+- $X$: the independent variable believed to be influencing the value of $y$
+- $\alpha$: the intercept, or the starting point. It tells you the predicted value of $y$ when $X$ (the independent variable) is 0. 
+- $\beta$: the regression coeefficient, which measures the expected change in $y$ for each one unit increase in $X$. This is the slope/gradient of the line. 
+- $\epsilon$: the error term, representing how much actual data points deviate from the predicted line. 
+
+*This is how linear regression works:*
+
+Linear regression fits a **line of best fit** through your data points. It finds the value of $\beta$ (**the slope**) that minimizes the total error (the difference between the observed and predicted values of $y$.
+
+In simple terms, the regression line represents the most accurate straight-line relationship between your independent variable ($X$) and your dependent variable ($y$).
+
+
+<span style="color: orange;">**Try it!**</span> 
+
+Lets make this practical, you will be required to download the plant height data from [here](https://environmentalcomputing.net/datasets/Plant_height.csv). 
+
+**Remember:** The goal in linear regression is obtain the best estimates for the model coefficients($\alpha$ and $\beta$). 
+
+We will break down the process in steps; 
+
+- Load the data set 
+```{r}
+df <- read.csv("data/Plant_height.csv")
+```
+
+- The goal of this analysis is to find the linear association between the plant height and the temperature, particularly if plant height is dependent on the temperature. 
+
+- *Define the independent and dependent variables:* temperature(`temp`) is the independent variable while plant height(`loght`) is the dependent variable
+```{r}
+lm(loght ~ temp, data = df)
+```
+
 ### Interpreting the regression results
+
+To get a detailed breakdown of the regression results, such as the coefficient values, $R^2$, test statistics, p-values, and confidence intervals, you need to save the output of the `lm` function to an object. Then, use the `summary()` function on that object to extract and review the analysis details.
+
+Note: `loght` is log(plant height).
+```{r}
+model <- lm(loght ~ temp, data = df)
+summary(model)
+```
+
+The regression output provides the slope and intercept of the regression line. Based on this analysis, the regression equation for predicting the (log-transformed) plant height as a function of temperature is: 
+
+$$loght = −0.22566+0.04241*temp + \epsilon$$
+
+and this is the breakdown of the analysis;
+
+- *Coefficients*
+
+The intercept (-0.22566) represents the predicted value of log(plant height) when the temperature is zero.
+
+The slope (0.04241) indicates that for every one-unit increase in temperature, the log(plant height) increases by approximately 0.04241.
+
+- *Significance of Coefficients*
+
+The t-statistics and p-values test whether the coefficients are significantly different from zero.
+
+Here, the p-value for temperature (< 0.005) suggests a statistically significant relationship between temperature and plant height.
+
+The intercept's p-value (0.031) is less important since we typically focus on the slope's significance.
+
+- *Overall Model Significance*
+
+The F-statistic (57.5) and its associated p-value (<0.001) confirm that the overall model is statistically significant.
+
+With a single predictor, the p-value for the F-statistic is identical to the p-value for the slope coefficient.
+
 ### R-squared and Adjusted R-Squared
+
+<--------------add definition and explanation of rsquared ----------->
+
+Like our model above shows that: 
+
+- The $R^2$ value (0.2463) shows that approximately 24.6% of the variation in plant height is explained by temperature.
+- The adjusted $R^2$ (0.242) slightly adjusts for the model's complexity and is more relevant when comparing models
+
+
+
 ## Data transformation versus generalized linear model
 
 
