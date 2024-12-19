@@ -125,7 +125,9 @@ With a single predictor, the p-value for the F-statistic is identical to the p-v
 
 ### R-squared and Adjusted R-Squared
 
-<--------------add definition and explanation of rsquared ----------->
+**R-squared**, or the coefficient of determination, measures the proportion of the variance in the dependent variable ($y$) that is explained by the independent variable(s) ($x$) in a regression model. It is a goodness-of-fit statistic.
+
+On the other hand, **Adjusted R-squared** modifies R-squared to account for the number of predictors in the model, providing a more accurate measure of model performance, especially for multiple regression.
 
 Like our model above shows that: 
 
