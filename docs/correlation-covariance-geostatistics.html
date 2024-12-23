@@ -228,10 +228,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h2><span class="header-section-number">4.1</span> INTRODUCTION<a href="correlation-covariance-geostatistics.html#introduction-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>In this topic, we will focus on <em>Bivariate correlation</em> and <em>multivariate correlation</em>, that is, the correlation between two or multiple variables.</p>
 <p>Lets define correlation once again! <strong>Correlation</strong> is the degree if association of variables.</p>
-<p><strong>Correlation coefficient: </strong> is the quantifier that indicates the association of variables whether whether one variable is increasing/decreasing and the other one is increasing/decreasing or if there is no association at all. The correlation coefficient always ranges from -1 to 1 where the closer it gets to +1 means a stronger <strong>positive correlation</strong>(both variables increases/decreases at a concert) while it gets closer to -1 means a stronger negative correlation where one variable increases and the other variable decreases. A correlation close to zero from any direction(<span class="math inline">\(+_{ve}\)</span> or <span class="math inline">\(-_{ve}\)</span>) shows that there is little to no correlation between variables.</p>
+<p><strong>Correlation coefficient: </strong> is the quantifier that indicates the association of variables whether whether one variable is increasing/decreasing and the other one is increasing/decreasing or if there is no association at all. The correlation coefficient always ranges from -1 to 1 where the closer it gets to +1 means a stronger <strong>positive correlation</strong>(both variables increases/decreases at a concert) while it gets closer to -1 means a stronger <strong>negative correlation</strong> where one variable increases and the other variable decreases. A correlation close to zero from any direction(<span class="math inline">\(+_{ve}\)</span> or <span class="math inline">\(-_{ve}\)</span>) shows that there is little to no correlation between variables.</p>
 <p><strong>Multiple correlation</strong> is where a group of variables (usually referred to as the predictor or X variables) to jointly relate to another variable (usually referred to as the response or Y variable),</p>
 <p><strong>Partial correlation</strong> is the correlation between any pair of variables, given the presence of the remaining variables.</p>
-<p>There are two methods to compute the correlation coefficient;</p>
+<p>There are several methods to compute the correlation coefficient;</p>
 <ol style="list-style-type: decimal">
 <li><em>Pearson’s</em> correlation coefficient. - satisfies linearity, normality and other parametric assumptions test.</li>
 <li><em>Spearman’s</em> correlation coefficient. - free from linearity, normality etc. conditions.</li>
@@ -240,10 +240,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="correlation-and-covariance" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> CORRELATION AND COVARIANCE<a href="correlation-covariance-geostatistics.html#correlation-and-covariance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>____________<strong>differentiate between the two</strong>___________________</p>
-<ul>
-<li>Define <em>Spurious correlation</em></li>
-</ul>
+<p>Remember, <strong>Correlation</strong> is the degree of association between two variables - and the strength and direction of this relationship is captured by the <strong>correlation coeeficient</strong> which quantifies how the variables are related.</p>
+<p>Correlation can be <em>linear</em> or <em>non-linear</em> where the former refers to the proportional changes in variables(e.g doubling of one variables results in doubling the other) while the later refers to the relationship being not proportional(e.g doubling resulting into triple or fourfold change of the other).</p>
+<p>While correlation does not imply causation, understanding correlations can provide valuable insights. For example, a correlation between soil pH and aluminum levels in groundwater might indicate that lower pH levels increase aluminum dissolution, even though pH itself is not the direct cause of aluminum contamination.</p>
+<p><strong>Covariance</strong>, on the other hand, measures the degree to which two variables change together. Unlike the correlation coefficient, covariance lacks a standardized scale, making it harder to interpret. The correlation coefficient can be derived by dividing the covariance by the product of the standard deviations of the two variables.</p>
+<p><strong>Application of correlation</strong></p>
+<p>Correlation forms the foundation for many analyses, including regression, where relationships are used to predict one variable based on another. However, spurious correlations (associations without logical explanation) should be critically evaluated to avoid misleading conclusions. For instance, a correlation between the number of graduating students and basketball game wins is likely coincidental rather than meaningful.</p>
+<p>In Summary, correlation provides a normalized measure of association, covariance gives an absolute value of joint variability. Together, these metrics are crucial for understanding relationships between variables and guiding further analyses.</p>
+<p>Lets dive deep into exploring the correlation coefficient mentioned in the introduction.</p>
 <div id="pearsons-correlation-coefficient" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Pearson’s Correlation Coefficient<a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p><span class="math display">\[r = {1\over{n - 1}}{\sum^n_{i=1}[{{x_i - \overline{x}}\over{s_x}}][{{y_i - \overline{y}}\over{s_y}}]}\]</span></p>

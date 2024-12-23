@@ -4,13 +4,13 @@ In this topic, we will focus on *Bivariate correlation* and *multivariate correl
 
 Lets define correlation once again! **Correlation** is the degree if association of variables. 
 
-**Correlation coefficient: ** is the quantifier that indicates the association of variables whether whether one variable is increasing/decreasing and the other one is increasing/decreasing or if there is no association at all. The correlation coefficient always ranges from -1 to 1 where the closer it gets to +1 means a stronger **positive correlation**(both variables increases/decreases at a concert) while it gets closer to -1 means a stronger negative correlation where one variable increases and the other variable decreases. A correlation close to zero from any direction($+_{ve}$ or $-_{ve}$) shows that there is little to no correlation between variables. 
+**Correlation coefficient: ** is the quantifier that indicates the association of variables whether whether one variable is increasing/decreasing and the other one is increasing/decreasing or if there is no association at all. The correlation coefficient always ranges from -1 to 1 where the closer it gets to +1 means a stronger **positive correlation**(both variables increases/decreases at a concert) while it gets closer to -1 means a stronger **negative correlation** where one variable increases and the other variable decreases. A correlation close to zero from any direction($+_{ve}$ or $-_{ve}$) shows that there is little to no correlation between variables. 
 
 **Multiple correlation** is where a group of variables (usually referred to as the predictor or X variables) to jointly relate to another variable (usually referred to as the response or Y variable),
 
 **Partial correlation** is the correlation between any pair of variables, given the presence of the remaining variables. 
 
-There are two methods to compute the correlation coefficient; 
+There are several methods to compute the correlation coefficient; 
 
 1. *Pearson's* correlation coefficient. - satisfies linearity, normality and other parametric assumptions test. 
 2. *Spearman's* correlation coefficient. - free from linearity, normality etc. conditions.
@@ -18,9 +18,21 @@ There are two methods to compute the correlation coefficient;
 
 ## CORRELATION AND COVARIANCE 
 
-____________**differentiate between the two**___________________
+Remember, **Correlation** is the degree of association between two variables - and the strength and direction of this relationship is captured by the **correlation coeeficient** which quantifies how the variables are related. 
 
-- Define *Spurious correlation*
+Correlation can be *linear* or *non-linear* where the former refers to the proportional changes in variables(e.g doubling of one variables results in doubling the other) while the later refers to the relationship being not proportional(e.g doubling resulting into triple or fourfold change of the other). 
+
+While correlation does not imply causation, understanding correlations can provide valuable insights. For example, a correlation between soil pH and aluminum levels in groundwater might indicate that lower pH levels increase aluminum dissolution, even though pH itself is not the direct cause of aluminum contamination.
+
+**Covariance**,  on the other hand, measures the degree to which two variables change together. Unlike the correlation coefficient, covariance lacks a standardized scale, making it harder to interpret. The correlation coefficient can be derived by dividing the covariance by the product of the standard deviations of the two variables.
+
+**Application of correlation** 
+
+Correlation forms the foundation for many analyses, including regression, where relationships are used to predict one variable based on another. However, spurious correlations (associations without logical explanation) should be critically evaluated to avoid misleading conclusions. For instance, a correlation between the number of graduating students and basketball game wins is likely coincidental rather than meaningful.
+
+In Summary, correlation provides a normalized measure of association, covariance gives an absolute value of joint variability. Together, these metrics are crucial for understanding relationships between variables and guiding further analyses.
+
+Lets dive deep into exploring the correlation coefficient mentioned in the introduction.
 
 ### Pearson's Correlation Coefficient 
 
