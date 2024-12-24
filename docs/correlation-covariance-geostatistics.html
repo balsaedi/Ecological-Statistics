@@ -250,7 +250,66 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Lets dive deep into exploring the correlation coefficient mentioned in the introduction.</p>
 <div id="pearsons-correlation-coefficient" class="section level3 hasAnchor" number="4.2.1">
 <h3><span class="header-section-number">4.2.1</span> Pearson’s Correlation Coefficient<a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p><strong>Pearson’s correlation coefficient</strong>, often referred to as <em>Pearson’s r</em> or the <em>product-moment correlation</em>, measures the strength and direction of a linear relationship between two variables. It works best for linear and monotonic relationships, where the association is consistently positive or negative.</p>
+<p>A high pearson correlation will have the data points when plotted on a scatter plot to align in a straight line and have all points easily predicted/approximated by a straight line(“regression line”).</p>
+<p>Pearson correlation is computed when the test or data satisfies the parametric assumptions, such that;</p>
+<ul>
+<li>Be from normally distributed populations.</li>
+<li>Have no significant outliers.</li>
+<li>Show consistent variance (homoscedasticity).</li>
+</ul>
+<p>This type of correlation is sensitive to non-linear data or data containing missing values(e.g non-detects). Under such cases alternatives like Spearman or Kendall coefficients are recommended.</p>
+<p>The Pearsons correlation coeefficient is:</p>
 <p><span class="math display">\[r = {1\over{n - 1}}{\sum^n_{i=1}[{{x_i - \overline{x}}\over{s_x}}][{{y_i - \overline{y}}\over{s_y}}]}\]</span></p>
+<p>Where;</p>
+<ul>
+<li><span class="math inline">\(x_i\)</span>: the independent variable data value</li>
+<li><span class="math inline">\(\overline x\)</span>: the mean of independent data values</li>
+<li><span class="math inline">\(y_i\)</span>: the dependent variable data value</li>
+<li><span class="math inline">\(\overline y\)</span>: the mean of the dependent data values</li>
+<li><span class="math inline">\(s_x\)</span>: The standard deviation of the independent variable</li>
+<li><span class="math inline">\(s_y\)</span>: the standard deviation of the dependent variable</li>
+</ul>
+<p>ALternatively, it can be calculated as;</p>
+<p><span class="math display">\[r = {{\sum(x_i - \overline x)(y_i- \overline y)}\over{\sqrt{\sum{(x_i - \overline x)^2(y_i - \overline y)^2}}}}\]</span></p>
+<p>Where;</p>
+<ul>
+<li><span class="math inline">\(x_i\)</span> and <span class="math inline">\(y_i\)</span>: the data values for the two variables</li>
+<li><span class="math inline">\(\overline x\)</span> and <span class="math inline">\(\overline y\)</span>: the mean values of the variables.</li>
+</ul>
+<p>If r’s magnitude is;</p>
+<ul>
+<li>0.95 and above, this indicates a strong correlation.</li>
+<li>between 0.75 and below 0.95 , indicates a moderate correlation.</li>
+<li>below 0.5, therefore there is a weak correlation.</li>
+</ul>
+<p><strong>Significance Testing for Pearson’s Correlation Coefficient</strong></p>
+<p>When working with real-world ecological data like the release of acidity of agricultural farms near zero grazing structures, significance testing helps determine whether the observed correlation between two variables in a sample reflects a true correlation in the population or is simply due to chance.</p>
+<p>Here is a step by step process;</p>
+<ol style="list-style-type: decimal">
+<li><em>Forumalate the null hypothesis</em></li>
+</ol>
+<p>Null hypothesis (<span class="math inline">\(H_0\)</span>): There is no correlation between the two variables in the population (r = 0)</p>
+<p>Alternate Hypothesis(<span class="math inline">\(H_a\)</span>): There is a strong correlation</p>
+<ol start="2" style="list-style-type: decimal">
+<li><em>Compute the test statistic</em></li>
+</ol>
+<p>Test statistic (<span class="math inline">\(t_r\)</span>) can be computed by;</p>
+<p><span class="math display">\[t_r = {{r\sqrt{n-2}}\over{\sqrt{1-r^2}}}\]</span></p>
+<p>Where;</p>
+<ul>
+<li><span class="math inline">\(r\)</span>: Sample correlation coefficient</li>
+<li><span class="math inline">\(n\)</span>: Number of paired data points</li>
+</ul>
+<p>This formula adjusts <span class="math inline">\(r\)</span> for the sample size and expresses how extreme the observed correlation is.</p>
+<ol start="3" style="list-style-type: decimal">
+<li><em>Compute the degree of freedom</em></li>
+</ol>
+<p>The degree of freedom is calculated by; <span class="math display">\[df = n -2 \]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Determine the critical value, pvalue and make your decision</li>
+</ol>
+<p>—————————-**remember to put this into practice————————————————–</p>
 </div>
 <div id="spearmans-correlaton-coeefficient" class="section level3 hasAnchor" number="4.2.2">
 <h3><span class="header-section-number">4.2.2</span> Spearman’s Correlaton Coeefficient<a href="correlation-covariance-geostatistics.html#spearmans-correlaton-coeefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>

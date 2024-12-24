@@ -36,7 +36,79 @@ Lets dive deep into exploring the correlation coefficient mentioned in the intro
 
 ### Pearson's Correlation Coefficient 
 
+**Pearson’s correlation coefficient**, often referred to as *Pearson’s r* or the *product-moment correlation*, measures the strength and direction of a linear relationship between two variables. It works best for linear and monotonic relationships, where the association is consistently positive or negative.
+
+A high pearson correlation will have the data points when plotted on a scatter plot to align in a straight line and have all points easily predicted/approximated by a straight line("regression line"). 
+
+Pearson correlation is computed when the test or data satisfies the parametric assumptions, such that;
+
+- Be from normally distributed populations.
+- Have no significant outliers.
+- Show consistent variance (homoscedasticity).
+
+This type of correlation is sensitive to non-linear data or data containing missing values(e.g non-detects). Under such cases alternatives like Spearman or Kendall coefficients are recommended. 
+
+The Pearsons correlation coeefficient is:
+
 $$r = {1\over{n - 1}}{\sum^n_{i=1}[{{x_i - \overline{x}}\over{s_x}}][{{y_i - \overline{y}}\over{s_y}}]}$$
+
+Where;
+
+- $x_i$: the independent variable data value
+- $\overline x$: the mean of independent data values 
+- $y_i$: the dependent variable data value 
+- $\overline y$: the mean of the dependent data values 
+- $s_x$: The standard deviation of the independent variable 
+- $s_y$: the standard deviation of the dependent variable 
+
+ALternatively, it can be calculated as; 
+
+$$r = {{\sum(x_i - \overline x)(y_i- \overline y)}\over{\sqrt{\sum{(x_i - \overline x)^2(y_i - \overline y)^2}}}}$$
+
+Where; 
+
+- $x_i$ and $y_i$: the data values for the two variables 
+- $\overline x$ and $\overline y$: the mean values of the variables. 
+
+If r's magnitude is; 
+
+- 0.95 and above, this indicates a strong correlation.
+- between 0.75 and below 0.95 , indicates a moderate correlation.
+- below 0.5, therefore there is a weak correlation. 
+
+**Significance Testing for Pearson’s Correlation Coefficient**
+
+When working with real-world ecological data like the release of acidity of agricultural farms near zero grazing structures, significance testing helps determine whether the observed correlation between two variables in a sample reflects a true correlation in the population or is simply due to chance.
+
+Here is a step by step process; 
+
+1. *Forumalate the null hypothesis*
+
+Null hypothesis ($H_0$):  There is no correlation between the two variables in the population (r = 0)
+
+Alternate Hypothesis($H_a$): There is a strong correlation
+
+2. *Compute the test statistic*
+
+Test statistic ($t_r$) can be computed by; 
+
+$$t_r = {{r\sqrt{n-2}}\over{\sqrt{1-r^2}}}$$
+
+Where; 
+
+- $r$: Sample correlation coefficient
+- $n$: Number of paired data points
+
+This formula adjusts $r$ for the sample size and expresses how extreme the observed correlation is.
+
+3. *Compute the degree of freedom*
+
+The degree of freedom is calculated by; $$df = n -2 $$
+
+4. Determine the critical value, pvalue and make your decision
+
+
+----------------------------**remember to put this into practice--------------------------------------------------
 
 ### Spearman's Correlaton Coeefficient 
 
