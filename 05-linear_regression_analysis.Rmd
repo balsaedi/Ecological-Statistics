@@ -140,6 +140,7 @@ Like our model above shows that:
 
 
 ## Multiple Linear Regression (MLR) model
+This type of regression involves multiple independent variables .... 
 
 ### Assumptions of Multiple Linear Regression
 
