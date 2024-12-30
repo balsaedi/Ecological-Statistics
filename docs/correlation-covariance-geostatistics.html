@@ -177,7 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#correlation-and-covariance"><i class="fa fa-check"></i><b>4.2</b> CORRELATION AND COVARIANCE</a>
 <ul>
 <li class="chapter" data-level="4.2.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>4.2.1</b> Pearson’s Correlation Coefficient</a></li>
-<li class="chapter" data-level="4.2.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#spearmans-correlaton-coeefficient"><i class="fa fa-check"></i><b>4.2.2</b> Spearman’s Correlaton Coeefficient</a></li>
+<li class="chapter" data-level="4.2.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#spearmans-and-kendalls-correlaton-coeefficients"><i class="fa fa-check"></i><b>4.2.2</b> Spearman’s and Kendall’s Correlaton Coeefficients</a></li>
 </ul></li>
 <li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.3</b> GEOSTATISTICS</a></li>
 </ul></li>
@@ -311,8 +311,54 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <p>—————————-**remember to put this into practice————————————————–</p>
 </div>
-<div id="spearmans-correlaton-coeefficient" class="section level3 hasAnchor" number="4.2.2">
-<h3><span class="header-section-number">4.2.2</span> Spearman’s Correlaton Coeefficient<a href="correlation-covariance-geostatistics.html#spearmans-correlaton-coeefficient" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="spearmans-and-kendalls-correlaton-coeefficients" class="section level3 hasAnchor" number="4.2.2">
+<h3><span class="header-section-number">4.2.2</span> Spearman’s and Kendall’s Correlaton Coeefficients<a href="correlation-covariance-geostatistics.html#spearmans-and-kendalls-correlaton-coeefficients" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In ecological studies, researchers often analyze relationships between variables that may not follow normal distributions or linear trends. Nonparametric correlation methods like Spearman’s Rho (<span class="math inline">\(\rho\)</span>) and Kendall’s Tau (<span class="math inline">\(\tau\)</span>) are particularly useful in such scenarios. These methods allow for the exploration of monotonic relationships—either linear or nonlinear—without relying on strict parametric assumptions.</p>
+<div id="spearmans-rhorho" class="section level4 hasAnchor" number="4.2.2.1">
+<h4><span class="header-section-number">4.2.2.1</span> Spearman’s Rho(<span class="math inline">\(\rho\)</span>)<a href="correlation-covariance-geostatistics.html#spearmans-rhorho" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Spearman’s Rho is commonly used in ecology to measure how two variables, such as species abundance and habitat quality, vary together in a monotonic fashion.</p>
+<p><strong>Key Features and Calculations</strong></p>
+<ol style="list-style-type: decimal">
+<li><em>Data Ranking:</em></li>
+</ol>
+<ul>
+<li>Rank the values of one variable (e.g., habitat quality) from smallest to largest.</li>
+<li>Repeat the ranking process for the second variable (e.g., species abundance).</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li><em>Rank Alignment:</em></li>
+</ol>
+<p>Rearrange the ranks of the second variable to match the order of the first variable’s values.</p>
+<p>These ranks replace the original data values in the formula used for Pearson’s correlation coefficient. This approach ensures that outliers, which can significantly distort parametric methods, have minimal impact. The test of significance for Spearman’s Rho follows the same process as that for Pearson’s coefficient, using the ranked data instead of raw values. While Spearman’s method is robust and flexible, it does not utilize the full magnitude of the data values, making it less precise than Pearson’s method when the assumptions for Pearson’s coefficient are satisfied</p>
+</div>
+<div id="kendalls-tau-tau" class="section level4 hasAnchor" number="4.2.2.2">
+<h4><span class="header-section-number">4.2.2.2</span> Kendall’s Tau (<span class="math inline">\(\tau\)</span>)<a href="correlation-covariance-geostatistics.html#kendalls-tau-tau" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Kendall’s Tau offers another rank-based approach to measure monotonic relationships and is particularly relevant for ecological data with small sample sizes or irregular distributions.</p>
+<p><strong>Key Features and Calculations</strong></p>
+<p>Here is how Kendall’s Tau is calculated;</p>
+<ol style="list-style-type: decimal">
+<li><em>Sorting and Matching:</em> Sort one variable (e.g., elevation) in ascending order while maintaining the alignment of its corresponding variable.</li>
+<li><em>Pairwise Comparisons:</em> Compare successive pairs of data to identify whether the relationship is concordant (positive), discordant (negative), or tied. Concordant pairs are assigned a <span class="math inline">\(a + 1\)</span>, discordant pairs a <span class="math inline">\(a - 1\)</span>, and tied pairs are ignored.</li>
+<li><em>Coefficient Calculation</em>: Compute <span class="math inline">\(\tau\)</span> as the difference between concordant and discordant pairs divided by the total number of possible pairs.</li>
+</ol>
+<p><strong>Significance Testing</strong></p>
+<ul>
+<li>For small data sets (e.g, <span class="math inline">\(n &lt; 10\)</span>), compare <span class="math inline">\(S\)</span> (i.e concordant and discordant pairs) to critical values.</li>
+<li>For larger data sets use a z-statistic with adjustments for ties to assess significance.</li>
+</ul>
+<p>Kendall’s <span class="math inline">\(\tau\)</span> could evaluate the relationship between water quality indicators(e.g dissolved oxygen) and fish diversity in a rover system.</p>
+<p><strong>Advantages of Nonparametric Methods in Ecology</strong></p>
+<ul>
+<li><em>Robust to Outliers:</em> Nonparametric methods are well-suited for ecological data, which often include extreme values (e.g., rare species occurrences).</li>
+<li><em>No Distribution Assumptions:</em> These methods are ideal for analyzing relationships in data sets that do not conform to normal distributions.</li>
+<li><em>Handles Ties:</em> Midrank adjustments make these methods practical for ecological studies, where tied observations are common (e.g., identical temperature readings across sites).</li>
+</ul>
+<p><strong>How does these non parametric tests compare with the Pearson Correlation in Ecology?</strong></p>
+<ul>
+<li>Are best when the relationship between variables is monotonic but not linear (e.g., species richness and disturbance level).</li>
+<li>Pearson’s Correlation assumes normality and linearity, which may not hold for ecological data, such as seasonal variations in bird populations.</li>
+</ul>
+</div>
 </div>
 </div>
 <div id="geostatistics" class="section level2 hasAnchor" number="4.3">

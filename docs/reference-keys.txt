@@ -23,7 +23,9 @@ correlation-covariance-geostatistics
 introduction-2
 correlation-and-covariance
 pearsons-correlation-coefficient
-spearmans-correlaton-coeefficient
+spearmans-and-kendalls-correlaton-coeefficients
+spearmans-rhorho
+kendalls-tau-tau
 geostatistics
 linear-regression-analysis
 simple-linear-regression-analysis

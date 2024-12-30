@@ -110,7 +110,56 @@ The degree of freedom is calculated by; $$df = n -2 $$
 
 ----------------------------**remember to put this into practice--------------------------------------------------
 
-### Spearman's Correlaton Coeefficient 
+### Spearman's and Kendall's Correlaton Coeefficients
+
+In ecological studies, researchers often analyze relationships between variables that may not follow normal distributions or linear trends. Nonparametric correlation methods like Spearman’s Rho ($\rho$) and Kendall’s Tau ($\tau$) are particularly useful in such scenarios. These methods allow for the exploration of monotonic relationships—either linear or nonlinear—without relying on strict parametric assumptions.
+
+#### Spearman’s Rho($\rho$)
+
+Spearman’s Rho is commonly used in ecology to measure how two variables, such as species abundance and habitat quality, vary together in a monotonic fashion.
+
+**Key Features and Calculations**
+
+1. *Data Ranking:*
+
+  - Rank the values of one variable (e.g., habitat quality) from smallest to largest.
+  - Repeat the ranking process for the second variable (e.g., species abundance).
+  
+2. *Rank Alignment:*
+
+Rearrange the ranks of the second variable to match the order of the first variable's values.
+
+These ranks replace the original data values in the formula used for Pearson’s correlation coefficient. This approach ensures that outliers, which can significantly distort parametric methods, have minimal impact. The test of significance for Spearman’s Rho follows the same process as that for Pearson’s coefficient, using the ranked data instead of raw values. While Spearman’s method is robust and flexible, it does not utilize the full magnitude of the data values, making it less precise than Pearson’s method when the assumptions for Pearson’s coefficient are satisfied
+
+#### Kendall's Tau ($\tau$)
+
+Kendall’s Tau offers another rank-based approach to measure monotonic relationships and is particularly relevant for ecological data with small sample sizes or irregular distributions.
+
+**Key Features and Calculations**
+
+Here is how Kendall's Tau is calculated; 
+
+1. *Sorting and Matching:* Sort one variable (e.g., elevation) in ascending order while maintaining the alignment of its corresponding variable. 
+2. *Pairwise Comparisons:* Compare successive pairs of data to identify whether the relationship is concordant (positive), discordant (negative), or tied. Concordant pairs are assigned a $a + 1$, discordant pairs a $a - 1$, and tied pairs are ignored.
+3. *Coefficient Calculation*: Compute $\tau$ as the difference between concordant and discordant pairs divided by the total number of possible pairs. 
+
+**Significance Testing**
+
+- For small data sets (e.g, $n < 10$), compare $S$ (i.e concordant and discordant pairs) to critical values.
+- For larger data sets use a z-statistic with adjustments for ties to assess significance. 
+
+Kendall's $\tau$ could evaluate the relationship between water quality indicators(e.g dissolved oxygen) and fish diversity in a rover system. 
+
+**Advantages of Nonparametric Methods in Ecology**
+
+- *Robust to Outliers:* Nonparametric methods are well-suited for ecological data, which often include extreme values (e.g., rare species occurrences).
+- *No Distribution Assumptions:* These methods are ideal for analyzing relationships in data sets that do not conform to normal distributions.
+- *Handles Ties:* Midrank adjustments make these methods practical for ecological studies, where tied observations are common (e.g., identical temperature readings across sites).
+
+**How does these non parametric tests compare with the Pearson Correlation in Ecology?**
+
+- Are best when the relationship between variables is monotonic but not linear (e.g., species richness and disturbance level).
+- Pearson's Correlation assumes normality and linearity, which may not hold for ecological data, such as seasonal variations in bird populations.
 
 ## GEOSTATISTICS 
 
