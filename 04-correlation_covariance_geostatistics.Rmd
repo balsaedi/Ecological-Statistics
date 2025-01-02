@@ -161,8 +161,16 @@ Kendall's $\tau$ could evaluate the relationship between water quality indicator
 - Are best when the relationship between variables is monotonic but not linear (e.g., species richness and disturbance level).
 - Pearson's Correlation assumes normality and linearity, which may not hold for ecological data, such as seasonal variations in bird populations.
 
+---- Remember to add content on Covariance ----------------
+
 ## GEOSTATISTICS 
 
+Geostatistics is a specialized branch of statistics focused on analyzing and estimating spatially correlated data. It is widely used in fields such as ecology, geology, and environmental science to predict values at unsampled locations based on the spatial relationships observed in sampled data.
 
+A geostatistical analysis typically unfolds in two main steps: **variogram modeling** and **kriging**. Together, these steps help estimate unknown values and assess the precision of those estimates, enabling informed decision-making in spatial studies.
+
+**Lets introduce each of them will break down later with live examples**
+
+##
 
 

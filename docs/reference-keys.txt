@@ -27,6 +27,7 @@ spearmans-and-kendalls-correlaton-coeefficients
 spearmans-rhorho
 kendalls-tau-tau
 geostatistics
+section
 linear-regression-analysis
 simple-linear-regression-analysis
 empirical-model-building-regression-analysis
