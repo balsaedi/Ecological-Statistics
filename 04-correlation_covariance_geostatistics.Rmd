@@ -171,6 +171,38 @@ A geostatistical analysis typically unfolds in two main steps: **variogram model
 
 **Lets introduce each of them will break down later with live examples**
 
-##
+### Variogram Modelling 
 
+The first step in geostatistical analysis involves developing a model to describe the spatial relationships between sampled and unsampled locations. This model is known as a *variogram* or *semivariogram*.
+
+Here are the some of key features of the Variogram: 
+
+- The variogram quantifies how measurements at nearby locations are more similar (or correlated) than those farther apart..
+- It incorporates assumptions about the spatial structure of the data, considering known site characteristics and potential spatial trends.
+
+A varigram can be used n a study of soil nutrient distribution across a forest, the variogram might reveal that nutrient concentrations are strongly correlated within a radius of 50 meters but weaken beyond that distance.
+
+**---------------------Expand on this----------------------**(content from the book)
+
+### Kriging
+
+Once the variogram is established, the second step—**kriging**—is performed to estimate unknown measurements at unsampled locations.
+
+This is how kriging works:
+
+* Measurements at surrounding sampled locations contribute to the estimate at the unsampled point.
+* Weights are determined based on the variogram model, the location being estimated, and the distance of nearby sampled points.
+
+* Kriging provides not only an estimate of the unknown value but also an estimate of precision, known as the kriging variance.
+* The precision depends on the variability in the surrounding data.
+
+... and this how the accracy and precision of kriging can be improved;
+
+-  Increasing the number of sampled locations enhances the accuracy and precision of kriging estimates.
+- Kriging outputs are often used to create data contours or isopleths, which provide a visual representation of spatial variation across the study area.
+
+
+Kriging might be used to predict plant species richness across an unsampled landscape, leveraging data from sampled plots to generate a continuous map of biodiversity.
+
+**---------------remember to expand on this------------------**
 

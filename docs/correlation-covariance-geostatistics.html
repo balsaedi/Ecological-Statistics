@@ -179,8 +179,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>4.2.1</b> Pearson’s Correlation Coefficient</a></li>
 <li class="chapter" data-level="4.2.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#spearmans-and-kendalls-correlaton-coeefficients"><i class="fa fa-check"></i><b>4.2.2</b> Spearman’s and Kendall’s Correlaton Coeefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.3</b> GEOSTATISTICS</a></li>
-<li class="chapter" data-level="4.4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#section"><i class="fa fa-check"></i><b>4.4</b> </a></li>
+<li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.3</b> GEOSTATISTICS</a>
+<ul>
+<li class="chapter" data-level="4.3.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#variogram-modelling"><i class="fa fa-check"></i><b>4.3.1</b> Variogram Modelling</a></li>
+<li class="chapter" data-level="4.3.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#kriging"><i class="fa fa-check"></i><b>4.3.2</b> Kriging</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html"><i class="fa fa-check"></i><b>5</b> LINEAR REGRESSION ANALYSIS</a>
 <ul>
@@ -368,10 +371,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>Geostatistics is a specialized branch of statistics focused on analyzing and estimating spatially correlated data. It is widely used in fields such as ecology, geology, and environmental science to predict values at unsampled locations based on the spatial relationships observed in sampled data.</p>
 <p>A geostatistical analysis typically unfolds in two main steps: <strong>variogram modeling</strong> and <strong>kriging</strong>. Together, these steps help estimate unknown values and assess the precision of those estimates, enabling informed decision-making in spatial studies.</p>
 <p><strong>Lets introduce each of them will break down later with live examples</strong></p>
+<div id="variogram-modelling" class="section level3 hasAnchor" number="4.3.1">
+<h3><span class="header-section-number">4.3.1</span> Variogram Modelling<a href="correlation-covariance-geostatistics.html#variogram-modelling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The first step in geostatistical analysis involves developing a model to describe the spatial relationships between sampled and unsampled locations. This model is known as a <em>variogram</em> or <em>semivariogram</em>.</p>
+<p>Here are the some of key features of the Variogram:</p>
+<ul>
+<li>The variogram quantifies how measurements at nearby locations are more similar (or correlated) than those farther apart..</li>
+<li>It incorporates assumptions about the spatial structure of the data, considering known site characteristics and potential spatial trends.</li>
+</ul>
+<p>A varigram can be used n a study of soil nutrient distribution across a forest, the variogram might reveal that nutrient concentrations are strongly correlated within a radius of 50 meters but weaken beyond that distance.</p>
+<p><strong>———————Expand on this———————-</strong>(content from the book)</p>
 </div>
-<div id="section" class="section level2" number="4.4">
-<h2><span class="header-section-number">4.4</span> </h2>
+<div id="kriging" class="section level3 hasAnchor" number="4.3.2">
+<h3><span class="header-section-number">4.3.2</span> Kriging<a href="correlation-covariance-geostatistics.html#kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Once the variogram is established, the second step—<strong>kriging</strong>—is performed to estimate unknown measurements at unsampled locations.</p>
+<p>This is how kriging works:</p>
+<ul>
+<li><p>Measurements at surrounding sampled locations contribute to the estimate at the unsampled point.</p></li>
+<li><p>Weights are determined based on the variogram model, the location being estimated, and the distance of nearby sampled points.</p></li>
+<li><p>Kriging provides not only an estimate of the unknown value but also an estimate of precision, known as the kriging variance.</p></li>
+<li><p>The precision depends on the variability in the surrounding data.</p></li>
+</ul>
+<p>… and this how the accracy and precision of kriging can be improved;</p>
+<ul>
+<li>Increasing the number of sampled locations enhances the accuracy and precision of kriging estimates.</li>
+<li>Kriging outputs are often used to create data contours or isopleths, which provide a visual representation of spatial variation across the study area.</li>
+</ul>
+<p>Kriging might be used to predict plant species richness across an unsampled landscape, leveraging data from sampled plots to generate a continuous map of biodiversity.</p>
+<p><strong>—————remember to expand on this——————</strong></p>
 
+</div>
 </div>
 </div>
             </section>
