@@ -194,18 +194,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1.3" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#r-squared-and-adjusted-r-squared"><i class="fa fa-check"></i><b>5.1.3</b> R-squared and Adjusted R-Squared</a></li>
 </ul></li>
 <li class="chapter" data-level="5.2" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#data-transformation-versus-generalized-linear-model"><i class="fa fa-check"></i><b>5.2</b> Data transformation versus generalized linear model</a></li>
-<li class="chapter" data-level="5.3" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#multiple-linear-regression-mlr-model"><i class="fa fa-check"></i><b>5.3</b> Multiple Linear Regression (MLR) model</a>
-<ul>
-<li class="chapter" data-level="5.3.1" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#assumptions-of-multiple-linear-regression"><i class="fa fa-check"></i><b>5.3.1</b> Assumptions of Multiple Linear Regression</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#practical-exercise"><i class="fa fa-check"></i><b>5.4</b> <span style="color: green;"><strong>Practical Exercise</strong></span></a></li>
+<li class="chapter" data-level="5.3" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#multiple-linear-regression-mlr-model"><i class="fa fa-check"></i><b>5.3</b> Multiple Linear Regression (MLR) model</a></li>
+<li class="chapter" data-level="5.4" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html#hands-on-exercise-1"><i class="fa fa-check"></i><b>5.4</b> <span style="color: green;"><strong>Hands-on Exercise</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html"><i class="fa fa-check"></i><b>6</b> CONVENTIONAL AND PROBABILISTIC RISK ASSESSMENT</a>
 <ul>
 <li class="chapter" data-level="6.1" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#introduction-3"><i class="fa fa-check"></i><b>6.1</b> Introduction</a></li>
 <li class="chapter" data-level="6.2" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#conventional-or-point-risk-estimation"><i class="fa fa-check"></i><b>6.2</b> Conventional or Point Risk Estimation</a></li>
 <li class="chapter" data-level="6.3" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#probabilistic-risk-assessment-using-monte-carlo-simulation"><i class="fa fa-check"></i><b>6.3</b> Probabilistic Risk Assessment Using Monte Carlo Simulation</a></li>
-<li class="chapter" data-level="6.4" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#practical-exercise-1"><i class="fa fa-check"></i><b>6.4</b> <span style="color: green;"><strong>Practical Exercise</strong></span></a></li>
+<li class="chapter" data-level="6.4" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#practical-exercise"><i class="fa fa-check"></i><b>6.4</b> <span style="color: green;"><strong>Practical Exercise</strong></span></a></li>
 </ul></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -360,13 +357,36 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div id="multiple-linear-regression-mlr-model" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Multiple Linear Regression (MLR) model<a href="linear-regression-analysis.html#multiple-linear-regression-mlr-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This type of regression involves multiple independent variables ….</p>
-<div id="assumptions-of-multiple-linear-regression" class="section level3 hasAnchor" number="5.3.1">
-<h3><span class="header-section-number">5.3.1</span> Assumptions of Multiple Linear Regression<a href="linear-regression-analysis.html#assumptions-of-multiple-linear-regression" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Unlike simple linear regression, multiple linear regression describes the linear relationship between two or more independent variables with one target(dependent) variable. The objective of multiple linear regression is to;-</p>
+<ol style="list-style-type: lower-roman">
+<li>Find the strength of the relationship between two or more independent variables with the target variables.</li>
+<li>Find the value of the target variable at a certain value of the independent variable.</li>
+</ol>
+<p>When working on a multiple linear regression it is assumed that; the <strong>variance is homogeneous</strong> such that the prediction error does not change significantly across the predictor(independent) variables. It is also assumed, <strong>observations were independent</strong> and there was no hidden relationships among the variables when collecting the data. Additionally, the collected data follows <strong>a normal distribution</strong> and the independent variables have <strong>a linear relationship(linearity)</strong> with the dependent variable, therefore, the line of best fit through the data points is straight and not curved.</p>
+<p>Multiple linear regression is modeled by;-</p>
+<p><img src="images/multiple_linear_regression.png" /></p>
+<p>where;-</p>
+<ol style="list-style-type: lower-roman">
+<li><span class="math inline">\(y\)</span> is the predicted value of the target variable.</li>
+<li><span class="math inline">\(\beta_0\)</span> is the y-intercept. Value of y when all other parameters are zero.</li>
+<li><span class="math inline">\(\beta_1X_1\)</span>: <span class="math inline">\(\beta_1\)</span> is the regression coefficient of the first independent variable while <span class="math inline">\(X_1\)</span> is the independent variable value.
+<span class="math inline">\(\cdots\)</span> do the same for however the number of independent variables are present.</li>
+<li><span class="math inline">\(\beta_nX_n\)</span>: the regression coefficient of the last independent variable.</li>
+<li><span class="math inline">\(\epsilon\)</span> is the model error(variation not explained by the independent variables)</li>
+</ol>
+<p>The Multiple linear regression model calculates three things to find the best fit line for each independent variable;-</p>
+<ol style="list-style-type: lower-roman">
+<li>The regression coefficient <span class="math inline">\(\beta_iX_i\)</span> that will minimize the overall error rate(model error).</li>
+<li>The associated p-value. If the relationship between the independent variable is statistically significant.</li>
+<li>The t-statistic of the model. T-statistic is the ratio of the difference in a number’s estimated value from its assumed value to its standard error.</li>
+</ol>
+<p>——add an example ——————————</p>
+<p>——Add Assumptions of Multiple Linear Regression———————-</p>
+<p><span style="color: green;"><strong>Practical exercise</strong></span></p>
+<p>Using the <code>airquality</code> data set, fit a multiple linear regression model whereby the Solar radiation(<code>Solar.R</code>), <code>Ozone</code> and <code>Wind</code> are the independent variables while the Temperature (<code>Temp</code>) is the dependent variable. Interpret and analyze the results</p>
 </div>
-</div>
-<div id="practical-exercise" class="section level2 hasAnchor" number="5.4">
-<h2><span class="header-section-number">5.4</span> <span style="color: green;"><strong>Practical Exercise</strong></span><a href="linear-regression-analysis.html#practical-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="hands-on-exercise-1" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> <span style="color: green;"><strong>Hands-on Exercise</strong></span><a href="linear-regression-analysis.html#hands-on-exercise-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>

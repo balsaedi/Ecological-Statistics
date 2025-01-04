@@ -36,10 +36,9 @@ interpreting-the-regression-results
 r-squared-and-adjusted-r-squared
 data-transformation-versus-generalized-linear-model
 multiple-linear-regression-mlr-model
-assumptions-of-multiple-linear-regression
-practical-exercise
+hands-on-exercise-1
 conventional-and-probabilistic-risk-assessment
 introduction-3
 conventional-or-point-risk-estimation
 probabilistic-risk-assessment-using-monte-carlo-simulation
-practical-exercise-1
+practical-exercise

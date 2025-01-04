@@ -196,7 +196,7 @@ This is how kriging works:
 * Kriging provides not only an estimate of the unknown value but also an estimate of precision, known as the kriging variance.
 * The precision depends on the variability in the surrounding data.
 
-... and this how the accracy and precision of kriging can be improved;
+... and this how the accuracy and precision of kriging can be improved;
 
 -  Increasing the number of sampled locations enhances the accuracy and precision of kriging estimates.
 - Kriging outputs are often used to create data contours or isopleths, which provide a visual representation of spatial variation across the study area.
