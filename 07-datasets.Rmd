@@ -1,0 +1,4 @@
+# Datasets
+
+- forest_health - https://www.kaggle.com/code/furkan09/forest-health-ecological-diversity-analysis/input
+- africa soil property - https://www.kaggle.com/competitions/afsis-soil-properties/data
