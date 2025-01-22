@@ -156,9 +156,9 @@ Two-sample tests help us compare the means, medians, or other characteristics of
 Here are the assumptions of two-sample tests; 
 
 1. *Independence of Data Values:* Data points should not influence each other. 
-2. *No trends in data:* data should not show patterns over time for instance increasing and decreasing trends. If trends exist, adjustments such as pairing or deseasonalization should be considered.  
+2. *No trends in data:* data should not show patterns over time for instance increasing and decreasing trends. If trends exist, adjustments such as pairing or deseasonalization should be considered.
 
-Two-sample tests can be classified based on whether the data samples are related or independent:
+In this case, we are focusing on the parametric tests -- a parametric two-sample test is carried when the data follows a normal distribution. There are two types of parametric two-sample tests; *independent* and *paired sample tests*. 
 
 1. **Independent Two-Sample Test** 
 
@@ -167,7 +167,11 @@ These tests are used when the two groups being compared have no inherent connect
 - Comparing soil arsenic levels up-gradient vs. down-gradient of an industrial facility.
 - Measuring PCB concentrations upstream and downstream of a river.
 
-In these cases, since the samples are collected from different locations without any relationship, an independent test is appropriate.
+In these cases, since the samples are collected from different locations without any relationship, an independent test is appropriate. These are the steps taken when carrying out independent tests; 
+
+- Calculate the test statistic based on the difference between sample means.
+- Compare the test statistic with a critical value from the t-distribution.
+- If the test statistic is extreme or the p-value is less than the significance level (e.g., 0.05), reject the null hypothesis.
 
 2. **Paired Two-Sample Tests**
 
@@ -176,14 +180,44 @@ Paired tests are used when the samples are related or dependent on each other. T
 - Before and After Cleanup: Measuring soil contaminant levels at a site before and after remediation.
 - Duplicate Sample Analysis: Sending identical samples to two different laboratories to assess the consistency of results.
 
+Before carrying out paired two-sample test it is assumed that the data is paired(each observation in one group corresponds to an observation in the other group), differences between pairs should follow a normal distribution and no extreme outliers should be present. 
+
+Here are the steps taken when performing paired two-sample test;
+
+- Calculate the differences between paired observations. 
+- Compute the mean and standard deviation of the differences
+- Calculate the t-statistic 
+- Compare the test statistic with the critical value or p-value 
+- If the test statistic is extreme or the p-value is less than the significance level, reject the null hypothesis. 
+
+Here is the formula for calculating the t-statistic; $${t_0} = {{\overline D}\over{S_D/\sqrt n}}$$
+
+where;
+
+- $\overline D$ and $S_D$ is the mean and standard deviation of the *differences* between the data samples of the two populations
+- $n$ is the sample size
+
+The null hypothesis $H_0$ is that the population mean difference between the two populations, $\mu_D $ is zero
+
 
 Imagine an ecologist wants to determine if the cleanup of an industrial site has effectively reduced contaminant levels. By comparing pre- and post-cleanup soil samples at the same locations, they can assess the success of remediation efforts using a paired two-sample test. Similarly, comparing background levels with site concentrations using an independent two-sample test can help identify pollution sources.
 
-In this case, we are focusing on the parametric tests -- a parametric two-sample test is carried when the data follows a normal distribution
+<span style="color: orange;">**Try it!**</span>
 
-------------------------------------------**Add content now focused on parametric two-sample tests**------------------------------------------
+-------------**Add an example exercise**-----------------
+
+Here are the important considerations when performing parametric two sample test;
+
+1. If the data is not normally distributed, applying a logarithmic transformation can help, but it should be done carefully to avoid misinterpretation.
+2. These tests are often conducted using statistical software such as R, Python, or Excel for ease and accuracy.
 
 
+<span style="color: green;">**Practical exercises**</span>
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 
 ## Nonparametric test
