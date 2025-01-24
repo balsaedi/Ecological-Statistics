@@ -360,17 +360,79 @@ ____________________simplify it with an example _________________________
 
 #### Lognormal, Gamma, and Other Continuous Distributions 
 
-Before we dive into Gamma distribution, we need to to get the definition of exponential distribution. **Exponential distribution** is the probability of the waiting time between events in a *Poisson Process*. 
+Before we dive into Gamma distribution, we need to to get the definition of exponential distribution. **Exponential distribution** is the probability of the waiting time between events in a *Poisson Process*.
+
+Imagine you’re analyzing environmental data, such as soil contamination levels or water flow rates. Often, these values are not normally distributed because they can't be negative and tend to have a few extremely high values. This is where the lognormal distribution comes in—it describes data whose logarithms follow a normal distribution. For example, if you take the natural logarithm of highly skewed mercury concentration values, their distribution becomes nearly normal, making statistical analysis easier. However, when back-transforming results, the arithmetic mean can be underestimated, leading to what's called transformation bias—but the median, often equal to the geometric mean, provides a useful estimate. Aside from lognormal, environmental studies frequently rely on other distributions such as gamma, logistic, and uniform, each useful in different scenarios. The gamma distribution, for instance, is often applied to model waiting times or rainfall amounts, offering flexibility through its shape and scale parameters. Understanding these distributions allows us to apply the right statistical methods, improve predictions, and make sense of complex real-world data patterns effectively.
+
+Lets dive deep into each type of the distribution mentioned
 
 **Gamma Distribution** 
 
 Exponential infers the probability until the first event happens while Gamma distribution gives us the probability of the waiting time until the $n^{th}$ event. 
 
+The gamma distribution is bounded by zero on the left (no negative values) and can stretch infinitely to the right, making it suitable for data that exhibit long right tails. It is a powerful tool for modeling real-world data that is positively skewed, such as rainfall amounts, insurance claims, and even environmental contaminant levels. 
 
-Gamma distribution 
+When dealing with skewed data, both the **lognormal** and **gamma** distributions are commonly used. However, the gamma distribution has an advantage: it avoids the pitfalls of **transformation bias**, which can arise when converting data back from logarithmic scales to the original scale.
+
+The gamma distribution is controlled by two key parameters:
+
+-  *Shape parameter (k)* – Determines the shape of the distribution. A higher k makes the distribution look more like a normal distribution.
+- *Scale parameter (θ)* – Controls the spread or range of the distribution.
+
+Want to see how these parameters influence the distribution? Let’s generate some random data and visualize it!
+```{r}
+# Load necessary library
+library(ggplot2)
+
+# Generate random data from a gamma distribution
+set.seed(42)  # Ensures reproducibility
+gamma_data <- rgamma(1000, shape = 5, scale = 2)
+
+# Visualize the data distribution
+ggplot(data.frame(gamma_data), aes(x = gamma_data)) +
+  geom_histogram(binwidth = 2, fill = "skyblue", color = "black", alpha = 0.7) +
+  ggtitle("Histogram of Gamma-Distributed Data") +
+  xlab("Values") + ylab("Frequency") +
+  theme_minimal()
+```
+
+<span style="color: orange;">**Try it**</span>
+
+Try tweaking the shape and scale values in the code above to see how they affect the distribution.
+
+- Increase the shape parameter (k) to see how the distribution approaches normality.
+- Reduce the scale parameter (θ) to create a sharper peak.
+
+Want to check if your data follows a gamma distribution? You can perform Goodness-of-Fit (GOF) tests using the `fitdistrplus` package in R.
+
+The package is installed by: 
+```
+install.packages("fitdistrplus")
+```
+
+```{r}
+library(fitdistrplus)
+
+# Fit a gamma distribution to the data
+fit <- fitdist(gamma_data, "gamma")
+
+# Print summary of the fit
+summary(fit)
+```
+
+The gamma distribution is an excellent choice for modeling skewed data, offering flexibility and reliable statistical methods without the transformation bias of lognormal distributions. By experimenting with different parameters and visualizing the results, you can better understand its applications in environmental science, finance, and beyond!
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 
-- Logistic Distribution 
+
+
+- **Logistic Distribution** 
 - Other Continuous Distributions 
 
 #### Distributions Used in Inferential Statistics 

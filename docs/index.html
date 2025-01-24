@@ -506,11 +506,66 @@ polygon(c(1, x, 0.9), c(0, y, 0), col = &quot;gray&quot;)
 <div id="lognormal-gamma-and-other-continuous-distributions" class="section level4 hasAnchor" number="1.1.1.2">
 <h4><span class="header-section-number">1.1.1.2</span> Lognormal, Gamma, and Other Continuous Distributions<a href="index.html#lognormal-gamma-and-other-continuous-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Before we dive into Gamma distribution, we need to to get the definition of exponential distribution. <strong>Exponential distribution</strong> is the probability of the waiting time between events in a <em>Poisson Process</em>.</p>
+<p>Imagine you’re analyzing environmental data, such as soil contamination levels or water flow rates. Often, these values are not normally distributed because they can’t be negative and tend to have a few extremely high values. This is where the lognormal distribution comes in—it describes data whose logarithms follow a normal distribution. For example, if you take the natural logarithm of highly skewed mercury concentration values, their distribution becomes nearly normal, making statistical analysis easier. However, when back-transforming results, the arithmetic mean can be underestimated, leading to what’s called transformation bias—but the median, often equal to the geometric mean, provides a useful estimate. Aside from lognormal, environmental studies frequently rely on other distributions such as gamma, logistic, and uniform, each useful in different scenarios. The gamma distribution, for instance, is often applied to model waiting times or rainfall amounts, offering flexibility through its shape and scale parameters. Understanding these distributions allows us to apply the right statistical methods, improve predictions, and make sense of complex real-world data patterns effectively.</p>
+<p>Lets dive deep into each type of the distribution mentioned</p>
 <p><strong>Gamma Distribution</strong></p>
 <p>Exponential infers the probability until the first event happens while Gamma distribution gives us the probability of the waiting time until the <span class="math inline">\(n^{th}\)</span> event.</p>
-<p>Gamma distribution</p>
+<p>The gamma distribution is bounded by zero on the left (no negative values) and can stretch infinitely to the right, making it suitable for data that exhibit long right tails. It is a powerful tool for modeling real-world data that is positively skewed, such as rainfall amounts, insurance claims, and even environmental contaminant levels.</p>
+<p>When dealing with skewed data, both the <strong>lognormal</strong> and <strong>gamma</strong> distributions are commonly used. However, the gamma distribution has an advantage: it avoids the pitfalls of <strong>transformation bias</strong>, which can arise when converting data back from logarithmic scales to the original scale.</p>
+<p>The gamma distribution is controlled by two key parameters:</p>
 <ul>
-<li>Logistic Distribution</li>
+<li><em>Shape parameter (k)</em> – Determines the shape of the distribution. A higher k makes the distribution look more like a normal distribution.</li>
+<li><em>Scale parameter (θ)</em> – Controls the spread or range of the distribution.</li>
+</ul>
+<p>Want to see how these parameters influence the distribution? Let’s generate some random data and visualize it!</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="index.html#cb28-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb28-2"><a href="index.html#cb28-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb28-3"><a href="index.html#cb28-3" tabindex="-1"></a></span>
+<span id="cb28-4"><a href="index.html#cb28-4" tabindex="-1"></a><span class="co"># Generate random data from a gamma distribution</span></span>
+<span id="cb28-5"><a href="index.html#cb28-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># Ensures reproducibility</span></span>
+<span id="cb28-6"><a href="index.html#cb28-6" tabindex="-1"></a>gamma_data <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> <span class="dv">5</span>, <span class="at">scale =</span> <span class="dv">2</span>)</span>
+<span id="cb28-7"><a href="index.html#cb28-7" tabindex="-1"></a></span>
+<span id="cb28-8"><a href="index.html#cb28-8" tabindex="-1"></a><span class="co"># Visualize the data distribution</span></span>
+<span id="cb28-9"><a href="index.html#cb28-9" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(gamma_data), <span class="fu">aes</span>(<span class="at">x =</span> gamma_data)) <span class="sc">+</span></span>
+<span id="cb28-10"><a href="index.html#cb28-10" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="dv">2</span>, <span class="at">fill =</span> <span class="st">&quot;skyblue&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb28-11"><a href="index.html#cb28-11" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Histogram of Gamma-Distributed Data&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-12"><a href="index.html#cb28-12" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Values&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb28-13"><a href="index.html#cb28-13" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><span style="color: orange;"><strong>Try it</strong></span></p>
+<p>Try tweaking the shape and scale values in the code above to see how they affect the distribution.</p>
+<ul>
+<li>Increase the shape parameter (k) to see how the distribution approaches normality.</li>
+<li>Reduce the scale parameter (θ) to create a sharper peak.</li>
+</ul>
+<p>Want to check if your data follows a gamma distribution? You can perform Goodness-of-Fit (GOF) tests using the <code>fitdistrplus</code> package in R.</p>
+<p>The package is installed by:</p>
+<pre><code>install.packages(&quot;fitdistrplus&quot;)</code></pre>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="index.html#cb30-1" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span></code></pre></div>
+<pre><code>## Loading required package: MASS</code></pre>
+<pre><code>## Loading required package: survival</code></pre>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="index.html#cb33-1" tabindex="-1"></a><span class="co"># Fit a gamma distribution to the data</span></span>
+<span id="cb33-2"><a href="index.html#cb33-2" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(gamma_data, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb33-3"><a href="index.html#cb33-3" tabindex="-1"></a></span>
+<span id="cb33-4"><a href="index.html#cb33-4" tabindex="-1"></a><span class="co"># Print summary of the fit</span></span>
+<span id="cb33-5"><a href="index.html#cb33-5" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
+<pre><code>## Fitting of the distribution &#39; gamma &#39; by maximum likelihood 
+## Parameters : 
+##       estimate Std. Error
+## shape 4.851288 0.20991639
+## rate  0.491825 0.02242213
+## Loglikelihood:  -2845.914   AIC:  5695.827   BIC:  5705.643 
+## Correlation matrix:
+##           shape      rate
+## shape 1.0000000 0.9491175
+## rate  0.9491175 1.0000000</code></pre>
+<p>The gamma distribution is an excellent choice for modeling skewed data, offering flexibility and reliable statistical methods without the transformation bias of lognormal distributions. By experimenting with different parameters and visualizing the results, you can better understand its applications in environmental science, finance, and beyond!</p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+<ul>
+<li><strong>Logistic Distribution</strong></li>
 <li>Other Continuous Distributions</li>
 </ul>
 </div>

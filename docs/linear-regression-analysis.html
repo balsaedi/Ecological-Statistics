@@ -284,12 +284,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Load the data set</li>
 </ul>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="linear-regression-analysis.html#cb35-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="linear-regression-analysis.html#cb42-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>The goal of this analysis is to find the linear association between the plant height and the temperature, particularly if plant height is dependent on the temperature.</p></li>
 <li><p><em>Define the independent and dependent variables:</em> temperature(<code>temp</code>) is the independent variable while plant height(<code>loght</code>) is the dependent variable</p></li>
 </ul>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="linear-regression-analysis.html#cb36-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="linear-regression-analysis.html#cb43-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)
@@ -302,8 +302,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.1.2</span> Interpreting the regression results<a href="linear-regression-analysis.html#interpreting-the-regression-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To get a detailed breakdown of the regression results, such as the coefficient values, <span class="math inline">\(R^2\)</span>, test statistics, p-values, and confidence intervals, you need to save the output of the <code>lm</code> function to an object. Then, use the <code>summary()</code> function on that object to extract and review the analysis details.</p>
 <p>Note: <code>loght</code> is log(plant height).</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="linear-regression-analysis.html#cb38-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
-<span id="cb38-2"><a href="linear-regression-analysis.html#cb38-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="linear-regression-analysis.html#cb45-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
+<span id="cb45-2"><a href="linear-regression-analysis.html#cb45-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)
