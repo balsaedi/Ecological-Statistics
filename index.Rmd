@@ -175,21 +175,59 @@ Above is the distribution of oak tree heights, lets find its probability using t
 **Cumulative Distribution Function**
 
 This distribution function leans toward that a probability of a random variable is less than or equal to a certain value. 
+
+We can randomly select a sample of heights from a population using the following code:
 ```{r}
 sample_heights <- sample(population_heights, size=86, replace = FALSE)
+```
+
+```{r}
 tail(sample_heights)
+```
 
-# calculate CDF 
-CDF <- ecdf(sample_heights)
+For example, if we analyze heights, the CDF could help answer:
+*"What percentage of people have a height less than or equal to 170 cm?"*
 
-# draw the cdf plot
-plot(CDF)
+The CDF of a normal distribution can be visualized using:
+```{r}
+x <- seq(min(population_heights), max(population_heights), length = 100)
+cdf_values <- pnorm(x, mean = mean(population_heights), sd = sd(population_heights))
+
+plot(x, cdf_values, type="l", col="blue", lwd=2, 
+     xlab="Height", ylab="Cumulative Probability", 
+     main="Cumulative Distribution Function (CDF)")
 ```
 
 **Empirical Cumulative Distribution Function**
 
-----------------------**Add more info**-----------------
+The Empirical Cumulative Distribution Function (ECDF) is a way to estimate the CDF based on the actual observed data (your sample). Instead of assuming a theoretical distribution, it calculates the proportion of values that are less than or equal to each observed value in the sample.
 
+Lets create an ECDF plot in R using the sample heights
+
+```{r}
+# calculate CDF 
+CDF <- ecdf(sample_heights)
+
+# draw the cdf plot
+plot(CDF,
+     main="Empirical Cumulative Distribution Function (ECDF)", 
+     xlab="Height", ylab="Cumulative Probability", col="red")
+```
+
+As you can see, the ECDF graph shows a step-like increase whenever a new height is encountered and the curve provides a data-driven approximation of how heights are distributed in the sample. 
+
+Here are the main differences between CDF(Cumulative Distribution Function) and ECDF(Empirical Cumulative Distribution Function); 
+
+- CDF is based on the entire population while ECDF is based on the observed sample data. 
+- The shape of CDF curve is smooth while the ECDF has a step-like plot. 
+CDF is used to make model assumptions and probability estimates while ECDF is used to make data driven insights and explanatory analysis. 
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 ### Types of Distribution
 
