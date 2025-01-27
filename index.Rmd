@@ -512,7 +512,12 @@ summary(logistic_model)
 
 The logistic distribution is a powerful tool for modeling data with skewed distributions and binary outcomes. Understanding its properties, generating data, and visualizing it interactively can provide valuable insights, especially in fields like statistics, machine learning, and population modeling.
 
+<span style="color: green;">**Practical Exercise**</span> 
 
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 
 
