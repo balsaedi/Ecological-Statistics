@@ -432,8 +432,92 @@ _______________________________________________________________________
 
 
 
-- **Logistic Distribution** 
-- Other Continuous Distributions 
+**Logistic Distribution** 
+
+The logistic distribution, like the normal distribution, is symmetric and unbounded. However, it differs in having **fatter tails**, meaning it contains more extreme values on both sides. This makes it useful in various fields, such as:
+
+- *Logistic regression*, where it models binary outcomes (e.g., success/failure).
+- *Ecological modeling*, where population growth follows an S-shaped logistic curve.
+- *Machine learning*, for classification problems.
+
+The image below shows the slight difference between the logistic and normal distribution
+![](images/lognormal-distribution.png)
+
+Here are the key characteristics of lognormal distribution;
+
+- *Symmetry:* Centered around a location parameter (mean).
+- *Scale Parameter:* Determines the spread, similar to the standard deviation in normal distribution.
+- *Fat Tails:* Greater occurrence of extreme values compared to the normal distribution.
+
+The cumulative distribution function (CDF) of the logistic distribution resembles the logistic function:
+$${P(t)}={{e^t}\over{1 + e^t}}$$
+In logistic regression, the probability of success is expressed as: 
+$${\pi(x)}={{e^{(b_0 +b_1x)}}\over{1+e^{(b_0+b_1x)}}}$$
+The *logit function*, which serves as the response variable in logistic regression, defined as; 
+$${log({{\pi(x)}\over{1-\pi(x)}})}={b_0 + b_1x}$$
+
+<span style="color: orange;">**Try it**</span> 
+
+Let’s generate some logistic-distributed data and compare it with the normal distribution to understand their differences.
+
+The below one is a logistic distribution
+```{r}
+# Load necessary library
+library(ggplot2)
+
+# Generate random data from the logistic distribution
+set.seed(42)  # Ensures reproducibility
+logistic_data <- rlogis(1000, location = 0, scale = 1)
+
+# Visualize the data distribution
+ggplot(data.frame(logistic_data), aes(x = logistic_data)) +
+  geom_histogram(binwidth = 0.5, fill = "lightcoral", color = "black", alpha = 0.7) +
+  ggtitle("Histogram of Logistic-Distributed Data") +
+  xlab("Values") + ylab("Frequency") +
+  theme_minimal()
+```
+
+Now let's compare their probability density functions (PDFs).
+```{r}
+# Define x-axis range
+x <- seq(-5, 5, length.out = 300)
+
+# Compute density for normal and logistic distributions
+normal_density <- dnorm(x, mean = 0, sd = 1)
+logistic_density <- dlogis(x, location = 0, scale = 1)
+
+# Plot the distributions
+plot(x, normal_density, type = "l", lwd = 2, col = "blue", 
+     ylab = "Density", xlab = "x", main = "Normal vs Logistic Distribution")
+lines(x, logistic_density, lwd = 2, col = "red", lty = 2)
+legend("topright", legend = c("Normal Distribution", "Logistic Distribution"),
+       col = c("blue", "red"), lty = c(1, 2), lwd = 2)
+```
+
+ You can try experiment with different location and scale parameters in the above code to see how the logistic distribution changes. Location is changes to shift the distribution left and right while the scale is increased to make the distribution spread out more. 
+ 
+Want to see logistic regression in action? Here's a quick example of modeling a binary outcome.
+```{r}
+# Simulating data
+set.seed(42)
+x <- rnorm(100)
+y <- rbinom(100, 1, plogis(0.5 + 1.2 * x))  # Logistic function
+
+# Fit logistic regression
+logistic_model <- glm(y ~ x, family = binomial)
+
+# Summary of model
+summary(logistic_model)
+```
+
+The logistic distribution is a powerful tool for modeling data with skewed distributions and binary outcomes. Understanding its properties, generating data, and visualizing it interactively can provide valuable insights, especially in fields like statistics, machine learning, and population modeling.
+
+
+
+
+
+
+- **Other Continuous Distributions** 
 
 #### Distributions Used in Inferential Statistics 
 

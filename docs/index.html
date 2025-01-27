@@ -564,9 +564,96 @@ polygon(c(1, x, 0.9), c(0, y, 0), col = &quot;gray&quot;)
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+<p><strong>Logistic Distribution</strong></p>
+<p>The logistic distribution, like the normal distribution, is symmetric and unbounded. However, it differs in having <strong>fatter tails</strong>, meaning it contains more extreme values on both sides. This makes it useful in various fields, such as:</p>
 <ul>
-<li><strong>Logistic Distribution</strong></li>
-<li>Other Continuous Distributions</li>
+<li><em>Logistic regression</em>, where it models binary outcomes (e.g., success/failure).</li>
+<li><em>Ecological modeling</em>, where population growth follows an S-shaped logistic curve.</li>
+<li><em>Machine learning</em>, for classification problems.</li>
+</ul>
+<p>The image below shows the slight difference between the logistic and normal distribution
+<img src="images/lognormal-distribution.png" /></p>
+<p>Here are the key characteristics of lognormal distribution;</p>
+<ul>
+<li><em>Symmetry:</em> Centered around a location parameter (mean).</li>
+<li><em>Scale Parameter:</em> Determines the spread, similar to the standard deviation in normal distribution.</li>
+<li><em>Fat Tails:</em> Greater occurrence of extreme values compared to the normal distribution.</li>
+</ul>
+<p>The cumulative distribution function (CDF) of the logistic distribution resembles the logistic function:
+<span class="math display">\[{P(t)}={{e^t}\over{1 + e^t}}\]</span>
+In logistic regression, the probability of success is expressed as:
+<span class="math display">\[{\pi(x)}={{e^{(b_0 +b_1x)}}\over{1+e^{(b_0+b_1x)}}}\]</span>
+The <em>logit function</em>, which serves as the response variable in logistic regression, defined as;
+<span class="math display">\[{log({{\pi(x)}\over{1-\pi(x)}})}={b_0 + b_1x}\]</span></p>
+<p><span style="color: orange;"><strong>Try it</strong></span></p>
+<p>Let’s generate some logistic-distributed data and compare it with the normal distribution to understand their differences.</p>
+<p>The below one is a logistic distribution</p>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="index.html#cb35-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb35-2"><a href="index.html#cb35-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb35-3"><a href="index.html#cb35-3" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="index.html#cb35-4" tabindex="-1"></a><span class="co"># Generate random data from the logistic distribution</span></span>
+<span id="cb35-5"><a href="index.html#cb35-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)  <span class="co"># Ensures reproducibility</span></span>
+<span id="cb35-6"><a href="index.html#cb35-6" tabindex="-1"></a>logistic_data <span class="ot">&lt;-</span> <span class="fu">rlogis</span>(<span class="dv">1000</span>, <span class="at">location =</span> <span class="dv">0</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb35-7"><a href="index.html#cb35-7" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="index.html#cb35-8" tabindex="-1"></a><span class="co"># Visualize the data distribution</span></span>
+<span id="cb35-9"><a href="index.html#cb35-9" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(logistic_data), <span class="fu">aes</span>(<span class="at">x =</span> logistic_data)) <span class="sc">+</span></span>
+<span id="cb35-10"><a href="index.html#cb35-10" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth =</span> <span class="fl">0.5</span>, <span class="at">fill =</span> <span class="st">&quot;lightcoral&quot;</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb35-11"><a href="index.html#cb35-11" tabindex="-1"></a>  <span class="fu">ggtitle</span>(<span class="st">&quot;Histogram of Logistic-Distributed Data&quot;</span>) <span class="sc">+</span></span>
+<span id="cb35-12"><a href="index.html#cb35-12" tabindex="-1"></a>  <span class="fu">xlab</span>(<span class="st">&quot;Values&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb35-13"><a href="index.html#cb35-13" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p>Now let’s compare their probability density functions (PDFs).</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="index.html#cb36-1" tabindex="-1"></a><span class="co"># Define x-axis range</span></span>
+<span id="cb36-2"><a href="index.html#cb36-2" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">5</span>, <span class="dv">5</span>, <span class="at">length.out =</span> <span class="dv">300</span>)</span>
+<span id="cb36-3"><a href="index.html#cb36-3" tabindex="-1"></a></span>
+<span id="cb36-4"><a href="index.html#cb36-4" tabindex="-1"></a><span class="co"># Compute density for normal and logistic distributions</span></span>
+<span id="cb36-5"><a href="index.html#cb36-5" tabindex="-1"></a>normal_density <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(x, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb36-6"><a href="index.html#cb36-6" tabindex="-1"></a>logistic_density <span class="ot">&lt;-</span> <span class="fu">dlogis</span>(x, <span class="at">location =</span> <span class="dv">0</span>, <span class="at">scale =</span> <span class="dv">1</span>)</span>
+<span id="cb36-7"><a href="index.html#cb36-7" tabindex="-1"></a></span>
+<span id="cb36-8"><a href="index.html#cb36-8" tabindex="-1"></a><span class="co"># Plot the distributions</span></span>
+<span id="cb36-9"><a href="index.html#cb36-9" tabindex="-1"></a><span class="fu">plot</span>(x, normal_density, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb36-10"><a href="index.html#cb36-10" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Density&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Normal vs Logistic Distribution&quot;</span>)</span>
+<span id="cb36-11"><a href="index.html#cb36-11" tabindex="-1"></a><span class="fu">lines</span>(x, logistic_density, <span class="at">lwd =</span> <span class="dv">2</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lty =</span> <span class="dv">2</span>)</span>
+<span id="cb36-12"><a href="index.html#cb36-12" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Normal Distribution&quot;</span>, <span class="st">&quot;Logistic Distribution&quot;</span>),</span>
+<span id="cb36-13"><a href="index.html#cb36-13" tabindex="-1"></a>       <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-20-1.png" width="672" /></p>
+<p>You can try experiment with different location and scale parameters in the above code to see how the logistic distribution changes. Location is changes to shift the distribution left and right while the scale is increased to make the distribution spread out more.</p>
+<p>Want to see logistic regression in action? Here’s a quick example of modeling a binary outcome.</p>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="index.html#cb37-1" tabindex="-1"></a><span class="co"># Simulating data</span></span>
+<span id="cb37-2"><a href="index.html#cb37-2" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb37-3"><a href="index.html#cb37-3" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>)</span>
+<span id="cb37-4"><a href="index.html#cb37-4" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">rbinom</span>(<span class="dv">100</span>, <span class="dv">1</span>, <span class="fu">plogis</span>(<span class="fl">0.5</span> <span class="sc">+</span> <span class="fl">1.2</span> <span class="sc">*</span> x))  <span class="co"># Logistic function</span></span>
+<span id="cb37-5"><a href="index.html#cb37-5" tabindex="-1"></a></span>
+<span id="cb37-6"><a href="index.html#cb37-6" tabindex="-1"></a><span class="co"># Fit logistic regression</span></span>
+<span id="cb37-7"><a href="index.html#cb37-7" tabindex="-1"></a>logistic_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(y <span class="sc">~</span> x, <span class="at">family =</span> binomial)</span>
+<span id="cb37-8"><a href="index.html#cb37-8" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="index.html#cb37-9" tabindex="-1"></a><span class="co"># Summary of model</span></span>
+<span id="cb37-10"><a href="index.html#cb37-10" tabindex="-1"></a><span class="fu">summary</span>(logistic_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = y ~ x, family = binomial)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.1917  -0.8670   0.4702   0.8611   1.7204  
+## 
+## Coefficients:
+##             Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept)   0.2892     0.2357   1.227     0.22    
+## x             1.3348     0.3044   4.385 1.16e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 136.66  on 99  degrees of freedom
+## Residual deviance: 107.25  on 98  degrees of freedom
+## AIC: 111.25
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<p>The logistic distribution is a powerful tool for modeling data with skewed distributions and binary outcomes. Understanding its properties, generating data, and visualizing it interactively can provide valuable insights, especially in fields like statistics, machine learning, and population modeling.</p>
+<ul>
+<li><strong>Other Continuous Distributions</strong></li>
 </ul>
 </div>
 <div id="distributions-used-in-inferential-statistics" class="section level4 hasAnchor" number="1.1.1.3">
