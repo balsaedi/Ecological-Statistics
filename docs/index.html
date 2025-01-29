@@ -659,6 +659,23 @@ The <em>logit function</em>, which serves as the response variable in logistic r
 <ul>
 <li><strong>Other Continuous Distributions</strong></li>
 </ul>
+<p>Other types of continuous distributions include;</p>
+<ul>
+<li><em>Uniform distribution:</em> is appropriate when the only available data consists of the minimum value and maximum value . All values within this range have an equal probability of occurring, meaning the probability density function (PDF) is constant at within the interval , and zero elsewhere.</li>
+<li><em>Triangular distribution:</em> is suitable when the minimum value , maximum value , and most likely value are known. This distribution assumes that values increase linearly from to the peak , and then decrease linearly to.</li>
+</ul>
+<pre><code>install.packages(&quot;triangle&quot;)
+library(triangle)</code></pre>
+<ul>
+<li><em>Extreme Value distributions:</em> Extreme value distributions model the smallest or largest values in a dataset. A common example is analyzing annual peak streamflow rates at a monitoring station to estimate flood magnitudes expected within a specific period (e.g., 50-year or 100-year floods).</li>
+</ul>
+<p>One commonly used extreme value distribution is the Log-Pearson Type III distribution, which is right-skewed and bounded on the left by zero (since negative values are not possible). This distribution is widely used in flood frequency analysis and is related to the gamma distribution.</p>
+<p>For analyzing low flow values, distributions such as the Weibull and Gumbel distributions are commonly employed. These distributions are particularly useful for estimating probabilities of extreme low flow conditions over time.</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p><span style="color: green;"><strong>Practical Exercise!</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 <div id="distributions-used-in-inferential-statistics" class="section level4 hasAnchor" number="1.1.1.3">
 <h4><span class="header-section-number">1.1.1.3</span> Distributions Used in Inferential Statistics<a href="index.html#distributions-used-in-inferential-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h4>

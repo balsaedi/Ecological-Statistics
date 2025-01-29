@@ -520,9 +520,36 @@ _______________________________________________________________________
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
 
-
-
 - **Other Continuous Distributions** 
+
+Other types of continuous distributions include;
+
+- *Uniform distribution:* is appropriate when the only available data consists of the minimum value  and maximum value . All values within this range have an equal probability of occurring, meaning the probability density function (PDF) is constant at  within the interval , and zero elsewhere.
+- *Triangular distribution:* is suitable when the minimum value , maximum value , and most likely value  are known. This distribution assumes that values increase linearly from  to the peak , and then decrease linearly to. 
+```
+install.packages("triangle")
+library(triangle)
+```
+
+- *Extreme Value distributions:* Extreme value distributions model the smallest or largest values in a dataset. A common example is analyzing annual peak streamflow rates at a monitoring station to estimate flood magnitudes expected within a specific period (e.g., 50-year or 100-year floods).
+
+One commonly used extreme value distribution is the Log-Pearson Type III distribution, which is right-skewed and bounded on the left by zero (since negative values are not possible). This distribution is widely used in flood frequency analysis and is related to the gamma distribution.
+
+For analyzing low flow values, distributions such as the Weibull and Gumbel distributions are commonly employed. These distributions are particularly useful for estimating probabilities of extreme low flow conditions over time.
+
+
+<span style="color: orange;">**Try it!**</span> 
+
+
+
+<span style="color: green;">**Practical Exercise!**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+
 
 #### Distributions Used in Inferential Statistics 
 
