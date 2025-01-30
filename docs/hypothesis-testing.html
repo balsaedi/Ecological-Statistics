@@ -488,6 +488,74 @@ Where:</p></li>
 </div>
 <div id="nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Nonparametric two-sample paired sign test and paired Wilcoxon Signed Rank Test<a href="hypothesis-testing.html#nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <strong>Wilcoxon Rank Sum Test</strong> (also known as the <strong>Mann–Whitney U test</strong> or the <strong>Wilcoxon–Mann–Whitney test</strong>) is a nonparametric procedure that tests for a difference between two population medians. The test is used to determine whether one population consistently produces larger or smaller measurements than another, assuming that the two populations have approximately equal variance.</p>
+<p>Here are the assumptions before carrying out the test;</p>
+<ul>
+<li>The two samples are independent.</li>
+<li>The data distributions of the two populations are similar in shape (same variance), though not necessarily the same mean or median.</li>
+<li>The test does not assume a specific distribution (e.g., normal, lognormal, gamma, etc.).</li>
+<li>The sample size for each group should preferably be at least 20, but meaningful results can still be obtained with samples as small as 10 using refined algorithms.</li>
+</ul>
+<p>Follow the steps below to carry out the tests;</p>
+<ol style="list-style-type: decimal">
+<li>Combine the two samples into a single data set and rank the observations in ascending order.</li>
+<li>Compute the Wilcoxon test statistic as the sum of the ranks for one of the groups (usually the smaller group).</li>
+<li>If each sample size is , obtain the critical value from statistical tables.</li>
+<li>If each sample size is , compute the test statistic’s standardized form and compare it to the normal distribution.</li>
+<li>Compute the p-value from statistical tables or using functions in R such as <code>pnorm()</code>.</li>
+</ol>
+<p>If tied values exist;</p>
+<ul>
+<li>the average rank is assigned to all tied values.</li>
+<li>The presence of ties may require an adjustment to the test statistic calculation.</li>
+</ul>
+<p>If there exist Non-Detects (NDs);</p>
+<ul>
+<li>If all NDs share a single reporting limit, they can be treated as tied values.</li>
+<li>If multiple reporting limits exist, alternative tests such as the Gehan test are preferred.</li>
+</ul>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Lets test between two groups</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="hypothesis-testing.html#cb49-1" tabindex="-1"></a><span class="co"># Sample data</span></span>
+<span id="cb49-2"><a href="hypothesis-testing.html#cb49-2" tabindex="-1"></a>group1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>)</span>
+<span id="cb49-3"><a href="hypothesis-testing.html#cb49-3" tabindex="-1"></a>group2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb49-4"><a href="hypothesis-testing.html#cb49-4" tabindex="-1"></a></span>
+<span id="cb49-5"><a href="hypothesis-testing.html#cb49-5" tabindex="-1"></a><span class="co"># Perform Wilcoxon Rank Sum Test</span></span>
+<span id="cb49-6"><a href="hypothesis-testing.html#cb49-6" tabindex="-1"></a><span class="fu">wilcox.test</span>(group1, group2, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon rank sum exact test
+## 
+## data:  group1 and group2
+## W = 16, p-value = 0.5476
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>Exact testing using <code>wilcox.exact()</code></p>
+<p>install the <code>exactRankTests</code></p>
+<pre><code>install.packages(&quot;exactRankTests&quot;)</code></pre>
+<p>Run the test</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="hypothesis-testing.html#cb52-1" tabindex="-1"></a><span class="fu">library</span>(exactRankTests)</span></code></pre></div>
+<pre><code>##  Package &#39;exactRankTests&#39; is no longer under development.
+##  Please consider using package &#39;coin&#39; instead.</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="hypothesis-testing.html#cb54-1" tabindex="-1"></a><span class="fu">wilcox.exact</span>(group1, group2, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<pre><code>## 
+##  Exact Wilcoxon rank sum test
+## 
+## data:  group1 and group2
+## W = 16, p-value = 0.5476
+## alternative hypothesis: true mu is not equal to 0</code></pre>
+<p>Using <code>coin</code> package for more complex cases. First install the package <code>install.packages("coin")</code></p>
+<p>Run the test</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="hypothesis-testing.html#cb56-1" tabindex="-1"></a><span class="fu">library</span>(coin)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;coin&#39;</code></pre>
+<pre><code>## The following objects are masked from &#39;package:exactRankTests&#39;:
+## 
+##     dperm, pperm, qperm, rperm</code></pre>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="hypothesis-testing.html#cb59-1" tabindex="-1"></a><span class="co"># wilcox_test(group1 ~ group2)</span></span></code></pre></div>
+<p>The Wilcoxon Rank Sum Test is a useful nonparametric alternative to the two-sample t-test when normality cannot be assumed. It is robust to outliers and does not require knowledge of the underlying data distribution. R provides multiple functions for computing the test, with options for handling ties and computing exact p-values.</p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
 <div id="one-way-anova" class="section level2 hasAnchor" number="2.4">

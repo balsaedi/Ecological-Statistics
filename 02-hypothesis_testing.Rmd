@@ -281,10 +281,77 @@ _______________________________________________________________________
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
-
-
-
 ### Nonparametric two-sample paired sign test and paired Wilcoxon Signed Rank Test 
+
+The **Wilcoxon Rank Sum Test** (also known as the **Mann–Whitney U test** or the **Wilcoxon–Mann–Whitney test**) is a nonparametric procedure that tests for a difference between two population medians. The test is used to determine whether one population consistently produces larger or smaller measurements than another, assuming that the two populations have approximately equal variance.
+
+Here are the assumptions before carrying out the test;
+
+- The two samples are independent. 
+- The data distributions of the two populations are similar in shape (same variance), though not necessarily the same mean or median.
+- The test does not assume a specific distribution (e.g., normal, lognormal, gamma, etc.).
+- The sample size for each group should preferably be at least 20, but meaningful results can still be obtained with samples as small as 10 using refined algorithms.
+
+Follow the steps below to carry out the tests; 
+
+1. Combine the two samples into a single data set and rank the observations in ascending order.
+2. Compute the Wilcoxon test statistic as the sum of the ranks for one of the groups (usually the smaller group).
+3. If each sample size is , obtain the critical value from statistical tables.
+4. If each sample size is , compute the test statistic's standardized form and compare it to the normal distribution.
+5. Compute the p-value from statistical tables or using functions in R such as `pnorm()`.
+
+If tied values exist;
+
+- the average rank is assigned to all tied values.
+- The presence of ties may require an adjustment to the test statistic calculation.
+
+If there exist Non-Detects (NDs);
+
+- If all NDs share a single reporting limit, they can be treated as tied values.
+- If multiple reporting limits exist, alternative tests such as the Gehan test are preferred.
+
+<span style="color: orange;">**Try it!**</span> 
+
+Lets test between two groups 
+```{r}
+# Sample data
+group1 <- c(3, 5, 9, 10, 15)
+group2 <- c(2, 4, 6, 8, 12)
+
+# Perform Wilcoxon Rank Sum Test
+wilcox.test(group1, group2, alternative = "two.sided")
+```
+
+Exact testing using `wilcox.exact()`
+
+install the `exactRankTests`
+```
+install.packages("exactRankTests")
+```
+
+Run the test
+
+```{r warning=FALSE}
+library(exactRankTests)
+wilcox.exact(group1, group2, alternative = "two.sided")
+```
+
+Using `coin` package for more complex cases. First install the package `install.packages("coin")`
+
+Run the test
+```{r}
+library(coin)
+# wilcox_test(group1 ~ group2)
+```
+
+The Wilcoxon Rank Sum Test is a useful nonparametric alternative to the two-sample t-test when normality cannot be assumed. It is robust to outliers and does not require knowledge of the underlying data distribution. R provides multiple functions for computing the test, with options for handling ties and computing exact p-values.
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 ## One-Way ANOVA 
 ### Parametric One-Way ANOVA 
