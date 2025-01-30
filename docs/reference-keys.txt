@@ -12,6 +12,7 @@ parametric-tests
 parametric-single-sample-test
 parametric-two-sample-test
 nonparametric-test
+nonparametric-one-sample-wilcoxon-signed-rank-test
 nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test
 one-way-anova
 parametric-one-way-anova

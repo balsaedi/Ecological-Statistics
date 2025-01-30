@@ -221,6 +221,69 @@ _______________________________________________________________________
 
 
 ## Nonparametric test
+### Nonparametric One-Sample Wilcoxon Signed-Rank Test
+
+The **Wilcoxon Signed-Rank (WSR) Test** is a nonparametric test used to determine whether the median of a population differs from a fixed reference value. Unlike the **sign test**, which only considers the direction of differences, the **WSR test** accounts for the magnitude of deviations as well.
+
+Here are the asssumptions to considered when performing the test;
+
+- The data values are independent.
+- The underlying population is symmetrically distributed (but not necessarily normal) around the median.
+- The number of tied values should be minimal.
+- The test cannot handle nondetect (ND) values because it requires actual magnitudes for ranking.
+
+Just follow the procedures outline below to perform the test;
+
+1. Compute the deviations from the reference value.
+2. Rank the absolute values of the deviations (smallest gets rank 1, next smallest gets rank 2, etc.).
+3. Assign average ranks in case of tied values.
+4. Sum the ranks corresponding to positive deviations.
+5. Compare the test statistic with a critical value (from tables) or use a normal approximation if sample size is large (n > 20).
+6. Compute a p-value and determine statistical significance.
+
+<span style="color: orange;">**Try it!**</span>
+
+Suppose we have measured pollutant concentrations at a site and want to test whether the median concentration is different from a standard of 50 ppm.
+
+Lets formulate the null and the alternate hypothesis before carrying out the test. 
+
+* *Null Hypothesis($H_0$):* The median of the population is equal to the reference value.
+* *Alternate Hypothesis($H_A$):* The median is different from the reference value.
+
+Now lets perform the test, where it will return the **W#-statistic** and **p-value** if:
+
+- If p < 0.05, we reject H₀, indicating that the median is significantly different from 50 ppm.
+- If p > 0.05, we fail to reject H₀, meaning there is no strong evidence to say the median differs from 50 ppm.
+
+```{r warning=FALSE}
+# Load required package
+set.seed(123)
+data_values <- c(45, 55, 60, 52, 48, 51, 53, 47, 49, 54)
+reference_value <- 50
+
+# Perform Wilcoxon Signed-Rank Test
+wilcox.test(data_values, mu = reference_value, alternative = "two.sided")
+```
+
+**Note that!**
+
+- The test does not work well if the data contain ND values (nondetects), since exact magnitudes are needed.
+- Works best when the data are symmetrically distributed
+- For large samples (n > 20), the normal approximation is used instead of exact critical values.
+
+The Wilcoxon Signed-Rank Test is a useful nonparametric alternative to the one-sample t-test when normality is questionable. It provides a robust way to assess median differences while taking data magnitudes into account.
+
+
+<span style="color: green;">**Practical Exercise**</span>
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+
+
+
 ### Nonparametric two-sample paired sign test and paired Wilcoxon Signed Rank Test 
 
 ## One-Way ANOVA 

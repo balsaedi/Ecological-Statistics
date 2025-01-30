@@ -158,7 +158,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#nonparametric-test"><i class="fa fa-check"></i><b>2.3</b> Nonparametric test</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test"><i class="fa fa-check"></i><b>2.3.1</b> Nonparametric two-sample paired sign test and paired Wilcoxon Signed Rank Test</a></li>
+<li class="chapter" data-level="2.3.1" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#nonparametric-one-sample-wilcoxon-signed-rank-test"><i class="fa fa-check"></i><b>2.3.1</b> Nonparametric One-Sample Wilcoxon Signed-Rank Test</a></li>
+<li class="chapter" data-level="2.3.2" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test"><i class="fa fa-check"></i><b>2.3.2</b> Nonparametric two-sample paired sign test and paired Wilcoxon Signed Rank Test</a></li>
 </ul></li>
 <li class="chapter" data-level="2.4" data-path="hypothesis-testing.html"><a href="hypothesis-testing.html#one-way-anova"><i class="fa fa-check"></i><b>2.4</b> One-Way ANOVA</a>
 <ul>
@@ -284,12 +285,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Load the data set</li>
 </ul>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="linear-regression-analysis.html#cb47-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="linear-regression-analysis.html#cb49-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>The goal of this analysis is to find the linear association between the plant height and the temperature, particularly if plant height is dependent on the temperature.</p></li>
 <li><p><em>Define the independent and dependent variables:</em> temperature(<code>temp</code>) is the independent variable while plant height(<code>loght</code>) is the dependent variable</p></li>
 </ul>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="linear-regression-analysis.html#cb48-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="linear-regression-analysis.html#cb50-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)
@@ -302,8 +303,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.1.2</span> Interpreting the regression results<a href="linear-regression-analysis.html#interpreting-the-regression-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To get a detailed breakdown of the regression results, such as the coefficient values, <span class="math inline">\(R^2\)</span>, test statistics, p-values, and confidence intervals, you need to save the output of the <code>lm</code> function to an object. Then, use the <code>summary()</code> function on that object to extract and review the analysis details.</p>
 <p>Note: <code>loght</code> is log(plant height).</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="linear-regression-analysis.html#cb50-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
-<span id="cb50-2"><a href="linear-regression-analysis.html#cb50-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="linear-regression-analysis.html#cb52-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
+<span id="cb52-2"><a href="linear-regression-analysis.html#cb52-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)
