@@ -560,8 +560,31 @@ Where:</p></li>
 </div>
 <div id="one-way-anova" class="section level2 hasAnchor" number="2.4">
 <h2><span class="header-section-number">2.4</span> One-Way ANOVA<a href="hypothesis-testing.html#one-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>ANOVA (Analysis of Variance) is a statistical method used to compare three or more groups to determine whether their means or medians significantly differ, or if they belong to the same population. It is particularly useful in scenarios where multiple groups need to be analyzed simultaneously, reducing the risk of errors that arise from multiple two-sample tests. ANOVA can be categorized into parametric (assuming normality and equal variances) and nonparametric (distribution-free) methods. Variants include One-Way ANOVA (influenced by a single factor) and Two-Way or Multifactor ANOVA (considering multiple factors). While ANOVA helps identify overall differences, post hoc tests are often needed to determine which groups specifically differ</p>
+<p>In this analysis we will focus on One-Way ANOVA, the parametric and non-parametric one.</p>
 <div id="parametric-one-way-anova" class="section level3 hasAnchor" number="2.4.1">
 <h3><span class="header-section-number">2.4.1</span> Parametric One-Way ANOVA<a href="hypothesis-testing.html#parametric-one-way-anova" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>One-Way ANOVA is a parametric statistical test used to determine whether there are significant differences among the means of three or more independent groups. It is commonly applied in various fields, including ecology, to analyze how a single factor influences a dependent variable, such as plant growth across different soil types.</p>
+<p>Here are the assumptions that must be met before conducting One-Way ANOVA</p>
+<ul>
+<li><strong>Normality</strong> – Each group’s data should follow a normal distribution. This can be tested using the <strong>Shapiro-Wilk test</strong> or <strong>Kolmogorov-Smirnov test</strong>.</li>
+<li><strong>Homogeneity of Variance</strong> – The variance across groups should be approximately equal, verified using <strong>Levene’s test</strong> or <strong>Bartlett’s test</strong>.</li>
+<li><strong>Independence</strong> – Observations should be independent, meaning one measurement should not influence another.</li>
+</ul>
+<p>If these assumptions are violated, alternatives such as <strong>Welch’s ANOVA</strong> (for unequal variances) or <strong>Kruskal-Wallis test</strong> (non-parametric alternative) should be considered.</p>
+<p>This is how One-Way ANOVA works; It compares -</p>
+<ul>
+<li><em>Between-Group Variance</em> – Measures differences among the group means.</li>
+<li><em>Within-Group Variance</em> – Measures variability within each group.</li>
+</ul>
+<p>A high F-statistic suggests that at least one group mean differs significantly. The test’s p-value is then used to determine statistical significance (typically, if p &lt; 0.05, the null hypothesis is rejected).</p>
+<p>One-Way ANOVA is important in Ecology as it can be used to find;
+- Differences in <strong>plant species diversity</strong> across multiple forest regions.
+- Variations in <strong>water pH levels</strong> among different lakes.
+- The effect of <strong>pollution levels</strong> on fish populations across multiple rivers.</p>
+<p>For example, an ecologist studying wetland ecosystems might apply One-Way ANOVA to determine whether soil nitrogen levels significantly affect plant biodiversity across different wetland sites. If the test finds a significant difference, post hoc tests like Tukey’s HSD can identify which specific wetland sites differ.</p>
+<p>By using One-Way ANOVA, ecologists and researchers can make informed, data-driven decisions about conservation efforts and environmental management strategies.</p>
+<p>—————Example of computation of parametric one way ANOVA———————————————————</p>
 </div>
 <div id="nonparametric-one-way-anova-kruskal-wallis-test" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Nonparametric One-Way ANOVA (Kruskal-Wallis Test)<a href="hypothesis-testing.html#nonparametric-one-way-anova-kruskal-wallis-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
