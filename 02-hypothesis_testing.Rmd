@@ -388,19 +388,63 @@ For example, an ecologist studying wetland ecosystems might apply One-Way ANOVA 
 
 By using One-Way ANOVA, ecologists and researchers can make informed, data-driven decisions about conservation efforts and environmental management strategies.
 
----------------Example of computation of parametric one way ANOVA---------------------------------------------------------
+---------------Explain the computation of parametric one way ANOVA below---------------------------------------------------------
 
+```{r}
+# Load necessary library
+library(dplyr)
+library(ggplot2)
 
+# Generate sample data
+set.seed(123)
+group1 <- rnorm(10, mean = 50, sd = 10)
+group2 <- rnorm(10, mean = 55, sd = 10)
+group3 <- rnorm(10, mean = 60, sd = 10)
 
+data <- data.frame(
+  values = c(group1, group2, group3),
+  group = rep(c("Group1", "Group2", "Group3"), each = 10)
+)
 
+# Compute group means and overall mean
+means <- data %>% group_by(group) %>% summarise(mean_value = mean(values))
+overall_mean <- mean(data$values)
 
+# Compute sum of squares
+SSBG <- sum(10 * (means$mean_value - overall_mean)^2) # Between-group sum of squares
+SSWG <- sum((data$values - ave(data$values, data$group, FUN = mean))^2) # Within-group sum of squares
+SSTotal <- sum((data$values - overall_mean)^2) # Total sum of squares
 
+df_SSBG <- length(unique(data$group)) - 1
+df_SSWG <- nrow(data) - length(unique(data$group))
+df_SSTotal <- nrow(data) - 1
 
+# Compute mean squares
+MSG <- SSBG / df_SSBG
+MSE <- SSWG / df_SSWG
 
+# Compute F-statistic
+F0 <- MSG / MSE
 
+# Compute critical F value
+alpha <- 0.05
+F_critical <- qf(1 - alpha, df_SSBG, df_SSWG)
 
+# Compute p-value
+p_value <- 1 - pf(F0, df_SSBG, df_SSWG)
 
+# Display results
+cat("Between-group sum of squares (SSBG):", SSBG, "\n")
+cat("Within-group sum of squares (SSWG):", SSWG, "\n")
+cat("Total sum of squares (SSTotal):", SSTotal, "\n")
+cat("F-statistic (Fo):", F0, "\n")
+cat("Critical F value (Fc):", F_critical, "\n")
+cat("p-value:", p_value, "\n")
 
+# Perform ANOVA using built-in function
+anova_result <- aov(values ~ group, data = data)
+summary(anova_result)
+```
 
 ### Nonparametric One-Way ANOVA (Kruskal-Wallis Test)
 
