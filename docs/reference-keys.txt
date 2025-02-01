@@ -20,6 +20,8 @@ nonparametric-one-way-anova-kruskal-wallis-test
 hands-on-exercise
 test-for-autocorrelation-and-temporal-effects
 test-for-autocorrelation-using-the-sample-autocorrelation-function
+an-example-on-site-wide-temporal-effects
+tests-for-trend
 correlation-covariance-geostatistics
 introduction-2
 correlation-and-covariance

@@ -171,6 +171,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html"><i class="fa fa-check"></i><b>3</b> TEST FOR AUTOCORRELATION AND TEMPORAL EFFECTS</a>
 <ul>
 <li class="chapter" data-level="3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#test-for-autocorrelation-using-the-sample-autocorrelation-function"><i class="fa fa-check"></i><b>3.1</b> Test for Autocorrelation Using the Sample Autocorrelation Function</a></li>
+<li class="chapter" data-level="3.2" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#an-example-on-site-wide-temporal-effects"><i class="fa fa-check"></i><b>3.2</b> An Example on Site-Wide Temporal Effects</a></li>
+<li class="chapter" data-level="3.3" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#tests-for-trend"><i class="fa fa-check"></i><b>3.3</b> TESTS FOR TREND</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a>
 <ul>
@@ -278,6 +280,109 @@ correlation between data values of the same variable. <strong>Positive autocorre
 </ul>
 <p>As a summary, the normally distributed data, <span class="math inline">\(r_k\)</span> should be close to zero if there is no correlation. At a 95% confidence level, autocorrelation is insignificant if no <span class="math inline">\(r_k\)</span> exceeds the threshold <span class="math inline">\(2\over{\sqrt{n}}\)</span>. There result of each autocorrelation are therefore plotted in a correlogram and the confidence limits are show as the horizontal lines.</p>
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
+</div>
+<div id="an-example-on-site-wide-temporal-effects" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> An Example on Site-Wide Temporal Effects<a href="test-for-autocorrelation-and-temporal-effects.html#an-example-on-site-wide-temporal-effects" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><strong>Analysis of Site-Wide Temporal Effects on Groundwater Manganese Concentrations</strong></p>
+<p>Generate the data</p>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb81-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb81-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-3" tabindex="-1"></a></span>
+<span id="cb81-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-4" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb81-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb81-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-6" tabindex="-1"></a></span>
+<span id="cb81-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-7" tabindex="-1"></a><span class="co"># Generate synthetic manganese concentration data</span></span>
+<span id="cb81-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-8" tabindex="-1"></a>Mn_values <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.5</span>, <span class="fl">2.8</span>, <span class="fl">4.1</span>, <span class="fl">3.9</span>, <span class="fl">5.2</span>, <span class="fl">4.8</span>, <span class="fl">6.0</span>, <span class="fl">5.7</span>,  <span class="co"># Well 1</span></span>
+<span id="cb81-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-9" tabindex="-1"></a>               <span class="fl">3.2</span>, <span class="fl">2.5</span>, <span class="fl">3.8</span>, <span class="fl">3.7</span>, <span class="fl">5.0</span>, <span class="fl">4.6</span>, <span class="fl">5.8</span>, <span class="fl">5.5</span>,  <span class="co"># Well 2</span></span>
+<span id="cb81-10"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-10" tabindex="-1"></a>               <span class="fl">3.6</span>, <span class="fl">3.0</span>, <span class="fl">4.2</span>, <span class="fl">4.0</span>, <span class="fl">5.3</span>, <span class="fl">4.9</span>, <span class="fl">6.1</span>, <span class="fl">5.8</span>,  <span class="co"># Well 3</span></span>
+<span id="cb81-11"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-11" tabindex="-1"></a>               <span class="fl">3.3</span>, <span class="fl">2.6</span>, <span class="fl">3.9</span>, <span class="fl">3.8</span>, <span class="fl">5.1</span>, <span class="fl">4.7</span>, <span class="fl">5.9</span>, <span class="fl">5.6</span>)  <span class="co"># Well 4</span></span>
+<span id="cb81-12"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-12" tabindex="-1"></a></span>
+<span id="cb81-13"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-13" tabindex="-1"></a><span class="co"># Create a data frame</span></span>
+<span id="cb81-14"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-14" tabindex="-1"></a>Mn2Data8 <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb81-15"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-15" tabindex="-1"></a>  <span class="at">Mn =</span> Mn_values,</span>
+<span id="cb81-16"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-16" tabindex="-1"></a>  <span class="at">Location =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Well1&quot;</span>, <span class="st">&quot;Well2&quot;</span>, <span class="st">&quot;Well3&quot;</span>, <span class="st">&quot;Well4&quot;</span>), <span class="at">each =</span> <span class="dv">8</span>),</span>
+<span id="cb81-17"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-17" tabindex="-1"></a>  <span class="at">Time =</span> <span class="fu">rep</span>(<span class="fu">paste0</span>(<span class="st">&quot;Q&quot;</span>, <span class="dv">1</span><span class="sc">:</span><span class="dv">8</span>), <span class="at">times =</span> <span class="dv">4</span>)</span>
+<span id="cb81-18"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-18" tabindex="-1"></a>)</span>
+<span id="cb81-19"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-19" tabindex="-1"></a></span>
+<span id="cb81-20"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-20" tabindex="-1"></a><span class="co"># Convert factors</span></span>
+<span id="cb81-21"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-21" tabindex="-1"></a>Mn2Data8<span class="sc">$</span>Location <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Mn2Data8<span class="sc">$</span>Location)</span>
+<span id="cb81-22"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-22" tabindex="-1"></a>Mn2Data8<span class="sc">$</span>Time <span class="ot">&lt;-</span> <span class="fu">as.factor</span>(Mn2Data8<span class="sc">$</span>Time)</span>
+<span id="cb81-23"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-23" tabindex="-1"></a></span>
+<span id="cb81-24"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-24" tabindex="-1"></a><span class="co"># Display the first few rows</span></span>
+<span id="cb81-25"><a href="test-for-autocorrelation-and-temporal-effects.html#cb81-25" tabindex="-1"></a><span class="fu">head</span>(Mn2Data8)</span></code></pre></div>
+<pre><code>##    Mn Location Time
+## 1 3.5    Well1   Q1
+## 2 2.8    Well1   Q2
+## 3 4.1    Well1   Q3
+## 4 3.9    Well1   Q4
+## 5 5.2    Well1   Q5
+## 6 4.8    Well1   Q6</code></pre>
+<p>Groundwater manganese concentrations have been monitored quarterly across four wells for a period of two years (eight quarters). The data set above, 2009), includes measurements from each well per quarter. The goal is to determine whether there is a site-wide temporal trend in manganese concentrations over time.</p>
+<p>To establish whether a time trend exists, we must first check for spatial variability among the four wells. If the manganese concentrations do not significantly differ across wells, we can then assess whether concentrations change over time.</p>
+<p>Here is the process that will be followed;</p>
+<ol style="list-style-type: decimal">
+<li>Check for Spatial Variability (Homogeneity) by;</li>
+</ol>
+<ul>
+<li>Testing whether the means or medians of the four well datasets are statistically equal.</li>
+<li>Checking If the datasets show normality and homogeneity of variances, a two-way ANOVA without replication (Complete Block Design) is appropriate. Otherwise, the non-parametric Friedman test is used.</li>
+</ul>
+<ol start="2" style="list-style-type: decimal">
+<li>Check for Temporal Trends by;</li>
+</ol>
+<ul>
+<li>Checking for a significant trend over time if no spatial variability is found.</li>
+<li>A two-way ANOVA is performed again, switching the roles of <code>Time</code> and <code>Location</code> where initially <code>Time</code> was the factor of interest and <code>Location</code> as a blocking factor.</li>
+</ul>
+<p>The ANOVA model follows the equation:
+<span class="math display">\[{Y_{ij}}={\mu + \alpha_i + \beta_j + \epsilon_{ij}}\]</span>
+Where:</p>
+<ul>
+<li><span class="math inline">\(Y_{ij}\)</span> is the Manganese concentration</li>
+<li><span class="math inline">\(\mu\)</span> is the overall mean</li>
+<li><span class="math inline">\(\alpha_i\)</span> represents the effect of the well (location)</li>
+<li><span class="math inline">\(\beta_j\)</span> represents the effect of time (quarter)</li>
+<li><span class="math inline">\(\epsilon_{ij}\)</span> is the error term</li>
+</ul>
+<p>The hypothesis tests:</p>
+<ul>
+<li><strong>For spatial variability:</strong> <span class="math inline">\(H_0:\mu_1=\mu_2=\mu_3=\mu_4\)</span> (no significant difference between wells)</li>
+<li><strong>For temporal trend</strong> <span class="math inline">\(H_0:\mu_{Q1}=\mu_{Q2}=...=\mu_{Q8}\)</span>(no significant difference across quarters)</li>
+</ul>
+<p>Check for variability</p>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb83-1" tabindex="-1"></a><span class="co"># Step 1: Check for Spatial Variability</span></span>
+<span id="cb83-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb83-2" tabindex="-1"></a>Mn2.anova1 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Mn <span class="sc">~</span> Location <span class="sc">+</span> Time, <span class="at">data =</span> Mn2Data8)</span>
+<span id="cb83-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb83-3" tabindex="-1"></a><span class="fu">summary</span>(Mn2.anova1)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Location     3   0.57   0.189   125.5 1.44e-13 ***
+## Time         7  35.63   5.091  3387.1  &lt; 2e-16 ***
+## Residuals   21   0.03   0.002                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>Results;</p>
+<ul>
+<li><strong>Location</strong>: p_value(denoted as Pr(&gt;F) on the table above) is less than 0.05 - therefore there is a significant spatial variability</li>
+<li><strong>Time</strong>: p_value is less than 0.05 - there is a siginfant temporal trend.</li>
+</ul>
+<p>If there was no spatial variability we could have proceed to test the time trend. However, lets just proceed to show you how it is done.</p>
+<p>Check the code below</p>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb85-1" tabindex="-1"></a><span class="co"># Step 2: Check for Temporal Effects</span></span>
+<span id="cb85-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb85-2" tabindex="-1"></a>Mn2.anova2 <span class="ot">&lt;-</span> <span class="fu">aov</span>(Mn <span class="sc">~</span> Time <span class="sc">+</span> Location, <span class="at">data =</span> Mn2Data8)</span>
+<span id="cb85-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb85-3" tabindex="-1"></a><span class="fu">summary</span>(Mn2.anova2)</span></code></pre></div>
+<pre><code>##             Df Sum Sq Mean Sq F value   Pr(&gt;F)    
+## Time         7  35.63   5.091  3387.1  &lt; 2e-16 ***
+## Location     3   0.57   0.189   125.5 1.44e-13 ***
+## Residuals   21   0.03   0.002                     
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>P-value is far much less than 0.05. The results confirm that manganese concentrations vary significantly over time.</p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+</div>
+<div id="tests-for-trend" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> TESTS FOR TREND<a href="test-for-autocorrelation-and-temporal-effects.html#tests-for-trend" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 
 </div>
 </div>

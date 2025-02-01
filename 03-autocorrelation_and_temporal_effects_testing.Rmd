@@ -58,10 +58,100 @@ As a summary, the normally distributed data, $r_k$ should be close to zero if th
 
 <span style="color: orange;">**Try it!**</span> 
 
+## An Example on Site-Wide Temporal Effects
+**Analysis of Site-Wide Temporal Effects on Groundwater Manganese Concentrations**
 
+Generate the data
+```{r}
+# Load necessary libraries
+library(dplyr)
 
+# Set seed for reproducibility
+set.seed(42)
 
+# Generate synthetic manganese concentration data
+Mn_values <- c(3.5, 2.8, 4.1, 3.9, 5.2, 4.8, 6.0, 5.7,  # Well 1
+               3.2, 2.5, 3.8, 3.7, 5.0, 4.6, 5.8, 5.5,  # Well 2
+               3.6, 3.0, 4.2, 4.0, 5.3, 4.9, 6.1, 5.8,  # Well 3
+               3.3, 2.6, 3.9, 3.8, 5.1, 4.7, 5.9, 5.6)  # Well 4
 
+# Create a data frame
+Mn2Data8 <- data.frame(
+  Mn = Mn_values,
+  Location = rep(c("Well1", "Well2", "Well3", "Well4"), each = 8),
+  Time = rep(paste0("Q", 1:8), times = 4)
+)
+
+# Convert factors
+Mn2Data8$Location <- as.factor(Mn2Data8$Location)
+Mn2Data8$Time <- as.factor(Mn2Data8$Time)
+
+# Display the first few rows
+head(Mn2Data8)
+```
+
+Groundwater manganese concentrations have been monitored quarterly across four wells for a period of two years (eight quarters). The data set above, 2009), includes measurements from each well per quarter. The goal is to determine whether there is a site-wide temporal trend in manganese concentrations over time.
+
+To establish whether a time trend exists, we must first check for spatial variability among the four wells. If the manganese concentrations do not significantly differ across wells, we can then assess whether concentrations change over time.
+
+Here is the process that will be followed;
+
+1. Check for Spatial Variability (Homogeneity) by;
+
+  - Testing whether the means or medians of the four well datasets are statistically equal.
+  - Checking If the datasets show normality and homogeneity of variances, a two-way ANOVA without replication (Complete Block Design) is appropriate. Otherwise, the non-parametric Friedman test is used.
+
+2. Check for Temporal Trends by;
+
+  - Checking for a significant trend over time if no spatial variability is found. 
+  - A two-way ANOVA is performed again, switching the roles of `Time` and `Location` where initially `Time` was the factor of interest and `Location` as a blocking factor.
+  
+The ANOVA model follows the equation: 
+$${Y_{ij}}={\mu + \alpha_i + \beta_j + \epsilon_{ij}}$$
+Where:  
+
+- $Y_{ij}$ is the Manganese concentration
+- $\mu$ is the overall mean 
+- $\alpha_i$ represents the effect of the well (location)
+- $\beta_j$  represents the effect of time (quarter)
+- $\epsilon_{ij}$ is the error term
+
+The hypothesis tests:
+
+- **For spatial variability:** $H_0:\mu_1=\mu_2=\mu_3=\mu_4$ (no significant difference between wells)
+- **For temporal trend** $H_0:\mu_{Q1}=\mu_{Q2}=...=\mu_{Q8}$(no significant difference across quarters)
+
+Check for variability 
+```{r}
+# Step 1: Check for Spatial Variability
+Mn2.anova1 <- aov(Mn ~ Location + Time, data = Mn2Data8)
+summary(Mn2.anova1)
+```
+
+Results; 
+
+- **Location**: p_value(denoted as Pr(>F) on the table above) is less than 0.05 - therefore there is a significant spatial variability
+- **Time**: p_value is less than 0.05 - there is a siginfant temporal trend. 
+
+If there was no spatial variability we could have proceed to test the time trend. However, lets just proceed to show you how it is done. 
+
+Check the code below
+```{r}
+# Step 2: Check for Temporal Effects
+Mn2.anova2 <- aov(Mn ~ Time + Location, data = Mn2Data8)
+summary(Mn2.anova2)
+```
+
+P-value is far much less than 0.05. The results confirm that manganese concentrations vary significantly over time.
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+## TESTS FOR TREND 
 
 
 
