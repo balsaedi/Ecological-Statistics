@@ -388,6 +388,8 @@ For example, an ecologist studying wetland ecosystems might apply One-Way ANOVA 
 
 By using One-Way ANOVA, ecologists and researchers can make informed, data-driven decisions about conservation efforts and environmental management strategies.
 
+<span style="color: orange;">**Try it!**</span> 
+
 ---------------Explain the computation of parametric one way ANOVA below---------------------------------------------------------
 
 ```{r}
@@ -446,7 +448,69 @@ anova_result <- aov(values ~ group, data = data)
 summary(anova_result)
 ```
 
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+
 ### Nonparametric One-Way ANOVA (Kruskal-Wallis Test)
+
+When conducting a parametric one-way ANOVA, one of the key assumptions is that the residuals follow a normal distribution. If this assumption is violated, a common approach is to apply a logarithmic transformation—using either the natural logarithm (ln) or the base-10 logarithm (log10)—to the data. If this transformation successfully normalizes the data and satisfies the assumption of homogeneity of variances, then the ANOVA can be performed on the transformed values.
+
+However, if both the original and log-transformed data fail to meet the assumptions required for parametric ANOVA, an alternative nonparametric test, the **Kruskal–Wallis test**, can be used. Unlike parametric ANOVA, the Kruskal–Wallis test does not assume normality but does require that the distributions of the populations have similar shapes, particularly regarding skewness and variance. This test also assumes that the data points are independent and do not exhibit trends.
+
+If the presence of a trend affects the data, one approach is to use the **Friedman test**, which accounts for structured variability by analyzing data within blocks. Another option for handling seasonal or cyclical trends is **deseasonalization** before applying the Kruskal–Wallis test.
+
+**Kruskal–Wallis Test Procedure**
+
+The Kruskal–Wallis test examines differences in the medians of multiple groups rather than their means. It is performed by ranking all data values across groups and using the calculating a test statistic:
+
+This statistic follows a chi-square () distribution with  degrees of freedom, where  is the number of groups. If  exceeds the critical value at a chosen significance level (), or if the p-value is below , the null hypothesis of equal medians is rejected.
+
+<span style="color: orange;">**Try it!**</span> 
+
+**Ecological Example: Testing Differences in Soil Nutrient Levels**
+
+Consider a study where researchers measure soil nitrogen levels in three different ecosystems: grassland, wetland, and forest. Since soil nutrient data often exhibit skewness, the Kruskal–Wallis test is a suitable choice.
+```{r}
+# Load necessary library
+library(dplyr)
+
+# Simulated soil nitrogen data (in mg/kg)
+set.seed(42)
+grassland <- rnorm(10, mean = 30, sd = 5)
+wetland <- rnorm(10, mean = 40, sd = 5)
+forest <- rnorm(10, mean = 35, sd = 5)
+
+# Combine into a data frame
+data <- data.frame(
+  Nitrogen = c(grassland, wetland, forest),
+  Ecosystem = rep(c("Grassland", "Wetland", "Forest"), each = 10)
+)
+
+# Perform Kruskal-Wallis test
+kruskal.test(Nitrogen ~ Ecosystem, data = data)
+```
+
+Since the p-value (0.1222) is greater than 0.05, we fail to reject the null hypothesis. This suggests that there is no statistically significant difference in median soil nitrogen levels among the three ecosystems. If a lower p-value had been obtained, further analysis using post hoc pairwise comparisons would be required to determine which specific ecosystems differ.
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+
+
+
+
+
+
+
 
 
 ## <span style="color: green;">**Hands-on Exercise**</span> 

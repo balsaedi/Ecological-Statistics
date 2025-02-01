@@ -584,6 +584,7 @@ Where:</p></li>
 - The effect of <strong>pollution levels</strong> on fish populations across multiple rivers.</p>
 <p>For example, an ecologist studying wetland ecosystems might apply One-Way ANOVA to determine whether soil nitrogen levels significantly affect plant biodiversity across different wetland sites. If the test finds a significant difference, post hoc tests like Tukey’s HSD can identify which specific wetland sites differ.</p>
 <p>By using One-Way ANOVA, ecologists and researchers can make informed, data-driven decisions about conservation efforts and environmental management strategies.</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>—————Explain the computation of parametric one way ANOVA below———————————————————</p>
 <div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="hypothesis-testing.html#cb60-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
 <span id="cb60-2"><a href="hypothesis-testing.html#cb60-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
@@ -657,9 +658,49 @@ Where:</p></li>
 <pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## group        2  223.5  111.75   1.175  0.324
 ## Residuals   27 2568.3   95.12</code></pre>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 <div id="nonparametric-one-way-anova-kruskal-wallis-test" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Nonparametric One-Way ANOVA (Kruskal-Wallis Test)<a href="hypothesis-testing.html#nonparametric-one-way-anova-kruskal-wallis-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When conducting a parametric one-way ANOVA, one of the key assumptions is that the residuals follow a normal distribution. If this assumption is violated, a common approach is to apply a logarithmic transformation—using either the natural logarithm (ln) or the base-10 logarithm (log10)—to the data. If this transformation successfully normalizes the data and satisfies the assumption of homogeneity of variances, then the ANOVA can be performed on the transformed values.</p>
+<p>However, if both the original and log-transformed data fail to meet the assumptions required for parametric ANOVA, an alternative nonparametric test, the <strong>Kruskal–Wallis test</strong>, can be used. Unlike parametric ANOVA, the Kruskal–Wallis test does not assume normality but does require that the distributions of the populations have similar shapes, particularly regarding skewness and variance. This test also assumes that the data points are independent and do not exhibit trends.</p>
+<p>If the presence of a trend affects the data, one approach is to use the <strong>Friedman test</strong>, which accounts for structured variability by analyzing data within blocks. Another option for handling seasonal or cyclical trends is <strong>deseasonalization</strong> before applying the Kruskal–Wallis test.</p>
+<p><strong>Kruskal–Wallis Test Procedure</strong></p>
+<p>The Kruskal–Wallis test examines differences in the medians of multiple groups rather than their means. It is performed by ranking all data values across groups and using the calculating a test statistic:</p>
+<p>This statistic follows a chi-square () distribution with degrees of freedom, where is the number of groups. If exceeds the critical value at a chosen significance level (), or if the p-value is below , the null hypothesis of equal medians is rejected.</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p><strong>Ecological Example: Testing Differences in Soil Nutrient Levels</strong></p>
+<p>Consider a study where researchers measure soil nitrogen levels in three different ecosystems: grassland, wetland, and forest. Since soil nutrient data often exhibit skewness, the Kruskal–Wallis test is a suitable choice.</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="hypothesis-testing.html#cb79-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb79-2"><a href="hypothesis-testing.html#cb79-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb79-3"><a href="hypothesis-testing.html#cb79-3" tabindex="-1"></a></span>
+<span id="cb79-4"><a href="hypothesis-testing.html#cb79-4" tabindex="-1"></a><span class="co"># Simulated soil nitrogen data (in mg/kg)</span></span>
+<span id="cb79-5"><a href="hypothesis-testing.html#cb79-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb79-6"><a href="hypothesis-testing.html#cb79-6" tabindex="-1"></a>grassland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">30</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb79-7"><a href="hypothesis-testing.html#cb79-7" tabindex="-1"></a>wetland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">40</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb79-8"><a href="hypothesis-testing.html#cb79-8" tabindex="-1"></a>forest <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">35</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb79-9"><a href="hypothesis-testing.html#cb79-9" tabindex="-1"></a></span>
+<span id="cb79-10"><a href="hypothesis-testing.html#cb79-10" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
+<span id="cb79-11"><a href="hypothesis-testing.html#cb79-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb79-12"><a href="hypothesis-testing.html#cb79-12" tabindex="-1"></a>  <span class="at">Nitrogen =</span> <span class="fu">c</span>(grassland, wetland, forest),</span>
+<span id="cb79-13"><a href="hypothesis-testing.html#cb79-13" tabindex="-1"></a>  <span class="at">Ecosystem =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Grassland&quot;</span>, <span class="st">&quot;Wetland&quot;</span>, <span class="st">&quot;Forest&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
+<span id="cb79-14"><a href="hypothesis-testing.html#cb79-14" tabindex="-1"></a>)</span>
+<span id="cb79-15"><a href="hypothesis-testing.html#cb79-15" tabindex="-1"></a></span>
+<span id="cb79-16"><a href="hypothesis-testing.html#cb79-16" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test</span></span>
+<span id="cb79-17"><a href="hypothesis-testing.html#cb79-17" tabindex="-1"></a><span class="fu">kruskal.test</span>(Nitrogen <span class="sc">~</span> Ecosystem, <span class="at">data =</span> data)</span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  Nitrogen by Ecosystem
+## Kruskal-Wallis chi-squared = 4.2039, df = 2, p-value = 0.1222</code></pre>
+<p>Since the p-value (0.1222) is greater than 0.05, we fail to reject the null hypothesis. This suggests that there is no statistically significant difference in median soil nitrogen levels among the three ecosystems. If a lower p-value had been obtained, further analysis using post hoc pairwise comparisons would be required to determine which specific ecosystems differ.</p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
 <div id="hands-on-exercise" class="section level2 hasAnchor" number="2.5">
