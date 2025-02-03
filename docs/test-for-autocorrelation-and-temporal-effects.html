@@ -175,6 +175,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#tests-for-trend"><i class="fa fa-check"></i><b>3.3</b> TESTS FOR TREND</a>
 <ul>
 <li class="chapter" data-level="3.3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#parametric-test-for-trends---simple-linear-regression"><i class="fa fa-check"></i><b>3.3.1</b> Parametric Test for Trends - Simple Linear Regression</a></li>
+<li class="chapter" data-level="3.3.2" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#nonparametric-test-for-trends"><i class="fa fa-check"></i><b>3.3.2</b> Nonparametric Test for Trends</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a>
@@ -501,7 +502,103 @@ Where <span class="math inline">\(\hat\beta_1\)</span> is the setimated slope an
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+</div>
+<div id="nonparametric-test-for-trends" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Nonparametric Test for Trends<a href="test-for-autocorrelation-and-temporal-effects.html#nonparametric-test-for-trends" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="mannkendall-test-and-seasonal-mannkendall-test" class="section level4 hasAnchor" number="3.3.2.1">
+<h4><span class="header-section-number">3.3.2.1</span> Mann–Kendall Test and Seasonal Mann–Kendall Test<a href="test-for-autocorrelation-and-temporal-effects.html#mannkendall-test-and-seasonal-mannkendall-test" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In ecological statistics, detecting trends in environmental data is crucial for understanding changes over time. However, traditional parametric tests such as linear regression require data to meet assumptions like normality and homoscedasticity, which are often violated in ecological datasets. Nonparametric tests like the <strong>Mann-Kendall (MK) test</strong> and <strong>Seasonal Mann-Kendall (SMK) test</strong> offer robust alternatives that do not assume any specific data distribution.</p>
+<div id="mann-kendall-trend-test" class="section level5 hasAnchor" number="3.3.2.1.1">
+<h5><span class="header-section-number">3.3.2.1.1</span> Mann-Kendall Trend Test<a href="test-for-autocorrelation-and-temporal-effects.html#mann-kendall-trend-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The Mann-Kendall test is a rank-based nonparametric test used to detect a monotonic trend in time-series data, whether linear or nonlinear.</p>
+<p>Given a dataset $ X = {x_1, x_2, …, x_n} $, the Mann-Kendall test examines all possible pairs $ x_i, x_j $ where $ i &lt; j $, and assigns a score based on their relative magnitudes:</p>
+<p><span class="math display">\[S = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \text{sgn}(x_j - x_i)\]</span></p>
+<p>where the sign function is defined as:</p>
+<p><span class="math display">\[
+\text{sgn}(x_j - x_i) =
+\begin{cases}
++1, &amp; \text{if } x_j &gt; x_i \\
+0, &amp; \text{if } x_j = x_i \\
+-1, &amp; \text{if } x_j &lt; x_i
+\end{cases}
+\]</span></p>
+<p>A positive <span class="math inline">\(S\)</span> indicates an increasing trend, while a negative <span class="math inline">\(S\)</span> suggests a decreasing trend.</p>
+<p>For large samples (<span class="math inline">\(n&gt;10\)</span>), the test statistic <span class="math inline">\(S\)</span> follows an approximately normal distribution with mean 0 and variance:</p>
+<p><span class="math display">\[{Var(S)} = {{n(n-1)(2n-5)- \sum_t t(t-1)(2t+5)}\over{18}}\]</span>
+Where t represents the number of tied ranks in the data set.</p>
+<p>The standardized test statistic (Z-score) is given by:</p>
+<p>$$
+{Z} =</p>
+<span class="math display">\[\begin{cases}
+{{s-1}\over{Var(S)}}, \text if \space S&gt;0\\
+0,  \text if \space S = 0\\
+{{s-1}\over{Var(S)}}, \text if \space S&lt;0
+\end{cases}\]</span>
+<p>$$</p>
+<p>Lets formulate the hypothesis;</p>
+<ul>
+<li><strong>Null hypothesis</strong>(<span class="math inline">\(H_0\)</span>): No trend in the data.</li>
+<li><strong>Alternate Hypothesis</strong>(<span class="math inline">\(H_1\)</span>): Presence of a monotonic trend</li>
+<li><strong>Decision Rule</strong>: Reject $H_0 if |Z|&gt;Z_{a/2} $ where <span class="math inline">\(Z_{a/2}\)</span> is the critical value from the normal distribution for a given significance level(e.g, 1.96 for <span class="math inline">\(\alpha = 0.05\)</span>)</li>
+</ul>
+<p><span style="color: orange;"><strong>Try it:</strong></span> <strong>Analysis for the monthly average temperature</strong></p>
+<p>A package <code>trend</code> is needed for this practical and can be installed by;</p>
+<pre><code>install.packages(&quot;trend&quot;)</code></pre>
+<p>Run the analysis</p>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-1" tabindex="-1"></a><span class="fu">library</span>(trend)</span>
+<span id="cb99-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-2" tabindex="-1"></a></span>
+<span id="cb99-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-3" tabindex="-1"></a><span class="co"># Example dataset: Monthly average temperature</span></span>
+<span id="cb99-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.4</span>, <span class="fl">12.8</span>, <span class="fl">13.1</span>, <span class="fl">12.9</span>, <span class="fl">13.5</span>, <span class="fl">13.7</span>, <span class="fl">13.9</span>, <span class="fl">14.0</span>, <span class="fl">14.1</span>, <span class="fl">14.5</span>, <span class="fl">14.8</span>, <span class="fl">15.0</span>)</span>
+<span id="cb99-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-5" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2000</span>, <span class="dv">2011</span>)</span>
+<span id="cb99-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-6" tabindex="-1"></a></span>
+<span id="cb99-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-7" tabindex="-1"></a><span class="co"># Perform Mann-Kendall Test</span></span>
+<span id="cb99-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-8" tabindex="-1"></a>mk_result <span class="ot">&lt;-</span> <span class="fu">mk.test</span>(data)</span>
+<span id="cb99-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb99-9" tabindex="-1"></a><span class="fu">print</span>(mk_result)</span></code></pre></div>
+<pre><code>## 
+##  Mann-Kendall trend test
+## 
+## data:  data
+## z = 4.3201, n = 12, p-value = 1.56e-05
+## alternative hypothesis: true S is not equal to 0
+## sample estimates:
+##          S       varS        tau 
+##  64.000000 212.666667   0.969697</code></pre>
+</div>
+<div id="seasonal-mann-kendall-smk-test" class="section level5 hasAnchor" number="3.3.2.1.2">
+<h5><span class="header-section-number">3.3.2.1.2</span> Seasonal Mann-Kendall (SMK) Test<a href="test-for-autocorrelation-and-temporal-effects.html#seasonal-mann-kendall-smk-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>Environmental data often exhibit <strong>seasonality</strong>, meaning the trend might be masked by cyclic variations. The <strong>Seasonal Mann-Kendall test</strong> adjusts for seasonality by performing the Mann-Kendall test on subsets of data corresponding to different seasons.</p>
+<p>Here is how to perform it;</p>
+<ol style="list-style-type: decimal">
+<li><strong>Partition data</strong> into seasonal subsets (e.g, monthly data grouped by month across years)</li>
+<li><strong>Apply the Mann-Kendall test</strong> to each seasonal subset/.</li>
+<li><strong>Sum the S-values</strong> from each season to get an overall trend statistic</li>
+</ol>
+<p><span style="color: orange;"><strong>Try it!</strong></span> <strong>Monthly pollutant concentration across five years</strong></p>
+<p>A package <code>Kendall</code> is required for this analysis and can be installed by;</p>
+<pre><code>install.packages(&quot;Kendall&quot;)</code></pre>
+<p>Run the analysis</p>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-1" tabindex="-1"></a><span class="co"># Load the library </span></span>
+<span id="cb102-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-2" tabindex="-1"></a><span class="fu">library</span>(Kendall)</span>
+<span id="cb102-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-3" tabindex="-1"></a></span>
+<span id="cb102-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-4" tabindex="-1"></a><span class="co"># Example dataset: Monthly pollutant concentrations across 5 years</span></span>
+<span id="cb102-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb102-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-6" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2014-12-01&quot;</span>), <span class="at">by=</span><span class="st">&quot;month&quot;</span>)</span>
+<span id="cb102-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-7" tabindex="-1"></a>data_values <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(dates), <span class="at">mean=</span><span class="dv">50</span>, <span class="at">sd=</span><span class="dv">5</span>)</span>
+<span id="cb102-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-8" tabindex="-1"></a>seasonal_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date=</span>dates, <span class="at">Value=</span>data_values)</span>
+<span id="cb102-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-9" tabindex="-1"></a></span>
+<span id="cb102-10"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-10" tabindex="-1"></a><span class="co"># Perform Seasonal Mann-Kendall Test</span></span>
+<span id="cb102-11"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-11" tabindex="-1"></a><span class="co">#smk_result &lt;- SeasonalMannKendall(seasonal_data$Value ~ #as.POSIXlt(seasonal_data$Date)$mon + #as.POSIXlt(seasonal_data$Date)$year)</span></span>
+<span id="cb102-12"><a href="test-for-autocorrelation-and-temporal-effects.html#cb102-12" tabindex="-1"></a><span class="co">#print(smk_result)</span></span></code></pre></div>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+</div>
+</div>
+<div id="theilsen-trend-test" class="section level4 hasAnchor" number="3.3.2.2">
+<h4><span class="header-section-number">3.3.2.2</span> Theil–Sen Trend Test<a href="test-for-autocorrelation-and-temporal-effects.html#theilsen-trend-test" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 
+</div>
 </div>
 </div>
 </div>

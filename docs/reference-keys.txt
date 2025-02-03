@@ -23,6 +23,11 @@ test-for-autocorrelation-using-the-sample-autocorrelation-function
 an-example-on-site-wide-temporal-effects
 tests-for-trend
 parametric-test-for-trends---simple-linear-regression
+nonparametric-test-for-trends
+mannkendall-test-and-seasonal-mannkendall-test
+mann-kendall-trend-test
+seasonal-mann-kendall-smk-test
+theilsen-trend-test
 correlation-covariance-geostatistics
 introduction-2
 correlation-and-covariance

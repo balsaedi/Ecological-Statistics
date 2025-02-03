@@ -255,6 +255,118 @@ _______________________________________________________________________
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
+### Nonparametric Test for Trends
+#### Mann–Kendall Test and Seasonal Mann–Kendall Test
+
+In ecological statistics, detecting trends in environmental data is crucial for understanding changes over time. However, traditional parametric tests such as linear regression require data to meet assumptions like normality and homoscedasticity, which are often violated in ecological datasets. Nonparametric tests like the **Mann-Kendall (MK) test** and **Seasonal Mann-Kendall (SMK) test** offer robust alternatives that do not assume any specific data distribution.
+
+##### Mann-Kendall Trend Test
+
+The Mann-Kendall test is a rank-based nonparametric test used to detect a monotonic trend in time-series data, whether linear or nonlinear.
+
+
+Given a dataset $ X = \{x_1, x_2, ..., x_n\} $, the Mann-Kendall test examines all possible pairs $ x_i, x_j $ where $ i < j $, and assigns a score based on their relative magnitudes:
+
+$$S = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \text{sgn}(x_j - x_i)$$
+
+where the sign function is defined as:
+
+$$
+\text{sgn}(x_j - x_i) =
+\begin{cases} 
++1, & \text{if } x_j > x_i \\ 
+0, & \text{if } x_j = x_i \\ 
+-1, & \text{if } x_j < x_i
+\end{cases}
+$$
+
+A positive $S$ indicates an increasing trend, while a negative $S$ suggests a decreasing trend.
+
+For large samples ($n>10$), the test statistic $S$ follows an approximately normal distribution with mean 0 and variance: 
+
+$${Var(S)} = {{n(n-1)(2n-5)- \sum_t t(t-1)(2t+5)}\over{18}}$$
+Where t represents the number of tied ranks in the data set.
+
+The standardized test statistic (Z-score) is given by:
+
+$$
+{Z} = 
+
+\begin{cases} 
+{{s-1}\over{Var(S)}}, \text if \space S>0\\ 
+0,  \text if \space S = 0\\ 
+{{s-1}\over{Var(S)}}, \text if \space S<0
+\end{cases}
+$$
+
+Lets formulate the hypothesis;
+
+- **Null hypothesis**($H_0$): No trend in the data.
+- **Alternate Hypothesis**($H_1$): Presence of a monotonic trend
+- **Decision Rule**: Reject $H_0 \space \text if \space|Z|>Z_{a/2} $ where $Z_{a/2}$ is the critical value from the normal distribution for a given significance level(e.g, 1.96 for $\alpha = 0.05$)
+
+<span style="color: orange;">**Try it:**</span> **Analysis for the monthly average temperature**
+
+A package `trend` is needed for this practical and can be installed by; 
+```
+install.packages("trend")
+```
+
+Run the analysis 
+```{r}
+library(trend)
+
+# Example dataset: Monthly average temperature
+data <- c(12.4, 12.8, 13.1, 12.9, 13.5, 13.7, 13.9, 14.0, 14.1, 14.5, 14.8, 15.0)
+time <- seq(2000, 2011)
+
+# Perform Mann-Kendall Test
+mk_result <- mk.test(data)
+print(mk_result)
+```
+
+##### Seasonal Mann-Kendall (SMK) Test 
+
+Environmental data often exhibit **seasonality**, meaning the trend might be masked by cyclic variations. The **Seasonal Mann-Kendall test** adjusts for seasonality by performing the Mann-Kendall test on subsets of data corresponding to different seasons.
+
+Here is how to perform it; 
+
+1. **Partition data** into seasonal subsets (e.g, monthly data grouped by month across years)
+2. **Apply the Mann-Kendall test** to each seasonal subset/.
+3. **Sum the S-values** from each season to get an overall trend statistic
+
+<span style="color: orange;">**Try it!**</span> **Monthly pollutant concentration across five years**
+
+A package `Kendall` is required for this analysis and can be installed by;
+```
+install.packages("Kendall")
+```
+
+Run the analysis 
+```{r}
+# Load the library 
+library(Kendall)
+
+# Example dataset: Monthly pollutant concentrations across 5 years
+set.seed(123)
+dates <- seq(as.Date("2010-01-01"), as.Date("2014-12-01"), by="month")
+data_values <- rnorm(length(dates), mean=50, sd=5)
+seasonal_data <- data.frame(Date=dates, Value=data_values)
+
+# Perform Seasonal Mann-Kendall Test
+#smk_result <- SeasonalMannKendall(seasonal_data$Value ~ #as.POSIXlt(seasonal_data$Date)$mon + #as.POSIXlt(seasonal_data$Date)$year)
+#print(smk_result)
+```
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+#### Theil–Sen Trend Test
+
 
 
 
