@@ -597,6 +597,100 @@ Where t represents the number of tied ranks in the data set.</p>
 </div>
 <div id="theilsen-trend-test" class="section level4 hasAnchor" number="3.3.2.2">
 <h4><span class="header-section-number">3.3.2.2</span> Theil–Sen Trend Test<a href="test-for-autocorrelation-and-temporal-effects.html#theilsen-trend-test" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>When studying climate change, pollution levels, or species populations, scientists often need to determine whether a trend exists over time. The Theil-Sen estimator is a robust, nonparametric method for estimating trends, making it perfect for ecological data, where outliers and missing values (non-detects) are common!</p>
+<p>Theil-sen is preferred since;</p>
+<ul>
+<li><strong>Robust to Outliers</strong> – Unlike least-squares regression, Theil-Sen takes the median of all slopes, making it resistant to extreme values.</li>
+<li><strong>No Normality Assumptions</strong> – Works with non-normally distributed data (great for environmental datasets!).</li>
+<li><strong>Handles Missing Data</strong> – Can be used with censored (non-detect) values using the <code>cenken()</code> function in R.</li>
+</ul>
+<p><span style="color: orange;"><strong>try it!</strong></span></p>
+<p><strong>Analyzing Water Quality Trends</strong></p>
+<p>In this exercise, we will analyze nitrate concentrations in a river over time to detect pollution trends. We will simulated data.</p>
+<p>Lets break it down step by step</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb103-1" tabindex="-1"></a><span class="co"># Install required packages if not already installed</span></span>
+<span id="cb103-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb103-2" tabindex="-1"></a><span class="co">#install.packages(&quot;NADA&quot;)  # For dealing with non-detects</span></span>
+<span id="cb103-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb103-3" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)  # For data manipulation &amp; visualization</span></span>
+<span id="cb103-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb103-4" tabindex="-1"></a></span>
+<span id="cb103-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb103-5" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb103-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb103-6" tabindex="-1"></a><span class="fu">library</span>(NADA)  </span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;NADA&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:stats&#39;:
+## 
+##     cor</code></pre>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb106-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
+## ✔ purrr     1.0.2     ✔ tidyr     1.3.1
+## ✔ readr     2.1.5</code></pre>
+<pre><code>## ── Conflicts ───────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ✖ dplyr::select() masks MASS::select()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<ul>
+<li>Simulate Nitrate Concentration Data</li>
+</ul>
+<p>Imagine we are monitoring nitrate levels (mg/L) in a river over 10 years (2010-2019). Some measurements were below the detection limit (<code>ND</code> = non-detects).</p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-1" tabindex="-1"></a><span class="co"># Create a dataset of nitrate levels over time</span></span>
+<span id="cb109-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb109-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-3" tabindex="-1"></a>  <span class="at">Year =</span> <span class="dv">2010</span><span class="sc">:</span><span class="dv">2019</span>,</span>
+<span id="cb109-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-4" tabindex="-1"></a>  <span class="at">Nitrate =</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">2.5</span>, <span class="fl">2.3</span>, <span class="fl">2.7</span>, <span class="fl">2.8</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>, <span class="fl">3.8</span>, <span class="cn">NA</span>, <span class="fl">4.2</span>),  <span class="co"># Some missing values</span></span>
+<span id="cb109-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-5" tabindex="-1"></a>  <span class="at">Detection_Limit =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="cn">NA</span>)  <span class="co"># Limit for ND values</span></span>
+<span id="cb109-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-6" tabindex="-1"></a>)</span>
+<span id="cb109-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-7" tabindex="-1"></a></span>
+<span id="cb109-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-8" tabindex="-1"></a><span class="co"># View data</span></span>
+<span id="cb109-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb109-9" tabindex="-1"></a><span class="fu">print</span>(data)</span></code></pre></div>
+<pre><code>## # A tibble: 10 × 3
+##     Year Nitrate Detection_Limit
+##    &lt;int&gt;   &lt;dbl&gt;           &lt;dbl&gt;
+##  1  2010     2.1            NA  
+##  2  2011     2.5            NA  
+##  3  2012     2.3            NA  
+##  4  2013     2.7            NA  
+##  5  2014     2.8            NA  
+##  6  2015     3              NA  
+##  7  2016     3.5            NA  
+##  8  2017     3.8             0.5
+##  9  2018    NA               0.5
+## 10  2019     4.2            NA</code></pre>
+<p>Some values are missing (<code>NA</code>), and some are below the detection limit (<code>ND</code>).</p>
+<ul>
+<li>Perform the Theil-Sen Estimation</li>
+</ul>
+<p>To compute the trend, we use <code>cenken()</code>, which handles both detected and non-detect values.</p>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-1" tabindex="-1"></a><span class="co"># Replace non-detects (NDs) with detection limits</span></span>
+<span id="cb111-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-2" tabindex="-1"></a>data<span class="sc">$</span>Nitrate[<span class="fu">is.na</span>(data<span class="sc">$</span>Nitrate)] <span class="ot">&lt;-</span> data<span class="sc">$</span>Detection_Limit[<span class="fu">is.na</span>(data<span class="sc">$</span>Nitrate)]</span>
+<span id="cb111-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-3" tabindex="-1"></a></span>
+<span id="cb111-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-4" tabindex="-1"></a><span class="co"># Apply Theil-Sen estimator</span></span>
+<span id="cb111-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-5" tabindex="-1"></a><span class="co">#result &lt;- cenken(Year, Nitrate, data = data)</span></span>
+<span id="cb111-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-6" tabindex="-1"></a></span>
+<span id="cb111-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-7" tabindex="-1"></a><span class="co"># Print result</span></span>
+<span id="cb111-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb111-8" tabindex="-1"></a><span class="co">#print(result)</span></span></code></pre></div>
+<p>Lets visualize the trend</p>
+<pre><code># Extract slope and intercept
+slope &lt;- result$coefficients[2]
+intercept &lt;- result$coefficients[1]
+
+# Create trend line equation
+data &lt;- data %&gt;% 
+  mutate(Predicted_Nitrate = intercept + slope * Year)
+
+# Plot
+ggplot(data, aes(x = Year, y = Nitrate)) +
+  geom_point(color = &quot;blue&quot;, size = 3) +  # Actual data points
+  geom_line(aes(y = Predicted_Nitrate), color = &quot;red&quot;, size = 1) +  # Theil-Sen trend
+  labs(title = &quot;Trend of Nitrate Levels in River (2010-2019)&quot;,
+       subtitle = paste(&quot;Slope:&quot;, round(slope, 3), &quot;mg/L per year&quot;),
+       x = &quot;Year&quot;,
+       y = &quot;Nitrate Concentration (mg/L)&quot;) +
+  theme_minimal()</code></pre>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 
 </div>
 </div>

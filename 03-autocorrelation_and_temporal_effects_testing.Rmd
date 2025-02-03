@@ -367,7 +367,91 @@ _______________________________________________________________________
 
 #### Theil–Sen Trend Test
 
+When studying climate change, pollution levels, or species populations, scientists often need to determine whether a trend exists over time. The Theil-Sen estimator is a robust, nonparametric method for estimating trends, making it perfect for ecological data, where outliers and missing values (non-detects) are common!
 
+Theil-sen is preferred since;
+
+- **Robust to Outliers** – Unlike least-squares regression, Theil-Sen takes the median of all slopes, making it resistant to extreme values.
+- **No Normality Assumptions** – Works with non-normally distributed data (great for environmental datasets!).
+- **Handles Missing Data** – Can be used with censored (non-detect) values using the `cenken()` function in R.
+
+<span style="color: orange;">**try it!**</span> 
+
+**Analyzing Water Quality Trends**
+
+In this exercise, we will analyze nitrate concentrations in a river over time to detect pollution trends. We will simulated data. 
+
+Lets break it down step by step
+
+```{r}
+# Install required packages if not already installed
+#install.packages("NADA")  # For dealing with non-detects
+#install.packages("tidyverse")  # For data manipulation & visualization
+
+# Load libraries
+library(NADA)  
+library(tidyverse)
+```
+
+- Simulate Nitrate Concentration Data 
+
+Imagine we are monitoring nitrate levels (mg/L) in a river over 10 years (2010-2019). Some measurements were below the detection limit (`ND` = non-detects).
+```{r}
+# Create a dataset of nitrate levels over time
+data <- tibble(
+  Year = 2010:2019,
+  Nitrate = c(2.1, 2.5, 2.3, 2.7, 2.8, 3.0, 3.5, 3.8, NA, 4.2),  # Some missing values
+  Detection_Limit = c(NA, NA, NA, NA, NA, NA, NA, 0.5, 0.5, NA)  # Limit for ND values
+)
+
+# View data
+print(data)
+```
+
+ Some values are missing (`NA`), and some are below the detection limit (`ND`).
+ 
+- Perform the Theil-Sen Estimation 
+
+To compute the trend, we use `cenken()`, which handles both detected and non-detect values.
+```{r}
+# Replace non-detects (NDs) with detection limits
+data$Nitrate[is.na(data$Nitrate)] <- data$Detection_Limit[is.na(data$Nitrate)]
+
+# Apply Theil-Sen estimator
+#result <- cenken(Year, Nitrate, data = data)
+
+# Print result
+#print(result)
+```
+
+Lets visualize the trend 
+```
+# Extract slope and intercept
+slope <- result$coefficients[2]
+intercept <- result$coefficients[1]
+
+# Create trend line equation
+data <- data %>% 
+  mutate(Predicted_Nitrate = intercept + slope * Year)
+
+# Plot
+ggplot(data, aes(x = Year, y = Nitrate)) +
+  geom_point(color = "blue", size = 3) +  # Actual data points
+  geom_line(aes(y = Predicted_Nitrate), color = "red", size = 1) +  # Theil-Sen trend
+  labs(title = "Trend of Nitrate Levels in River (2010-2019)",
+       subtitle = paste("Slope:", round(slope, 3), "mg/L per year"),
+       x = "Year",
+       y = "Nitrate Concentration (mg/L)") +
+  theme_minimal()
+```
+
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 
 
