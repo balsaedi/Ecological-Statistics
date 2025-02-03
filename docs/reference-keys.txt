@@ -22,6 +22,7 @@ test-for-autocorrelation-and-temporal-effects
 test-for-autocorrelation-using-the-sample-autocorrelation-function
 an-example-on-site-wide-temporal-effects
 tests-for-trend
+parametric-test-for-trends---simple-linear-regression
 correlation-covariance-geostatistics
 introduction-2
 correlation-and-covariance
