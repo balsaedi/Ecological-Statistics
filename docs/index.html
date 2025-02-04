@@ -686,11 +686,100 @@ library(triangle)</code></pre>
 </div>
 <div id="distributions-used-in-inferential-statistics" class="section level4 hasAnchor" number="1.1.1.3">
 <h4><span class="header-section-number">1.1.1.3</span> Distributions Used in Inferential Statistics<a href="index.html#distributions-used-in-inferential-statistics" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>When the sample size is large (typically ≥30) and the data are not highly skewed (skewness coefficient ≤ 0.5 or 1), the <strong>central limit theorem</strong> allows for approximate normality, enabling extrapolations from sample statistics to population parameters. However, for smaller samples—common in environmental data—or when the population standard deviation is unknown, <strong>exact sampling theory</strong> is preferred, leading to the use of distributions like <strong>Student’s t, chi-square</strong>, and <strong>F distributions</strong>. These distributions are essential for <strong>statistical inference</strong>, including confidence interval estimation, hypothesis testing for population means, and significance tests for regression coefficients.</p>
+<div id="students-t-distribution" class="section level5 hasAnchor" number="1.1.1.3.1">
+<h5><span class="header-section-number">1.1.1.3.1</span> <strong>Student’s t Distribution</strong><a href="index.html#students-t-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>This type of distribution is essential for inference when the population standard deviation is unknown. The t-distribution is used for hypothesis testing, confidence intervals, and regression analysis, among other applications.</p>
+<p>Given a random sample <span class="math inline">\(x_1,x2,...,x_n\)</span> from a normal distribution with an unknown mean and standard deviation , the t-statistic is given by:
+<span class="math display">\[t = {{x-\overline X}\over{s/\sqrt n}}\]</span>
+Where:</p>
 <ul>
-<li>Student’s t Distribution</li>
+<li><span class="math inline">\(x\)</span> is the new observation</li>
+<li><span class="math inline">\(\overline X\)</span> is the sample mean</li>
+<li><span class="math inline">\(s\)</span> is the sample standard deviation</li>
+<li><span class="math inline">\(n\)</span> is the sample size</li>
+</ul>
+<p>It can be used in ecology to;</p>
+<ul>
+<li>Compare species populations – if the two populations have the same mean</li>
+<li>Assessing biodiversity changes – like before and fater habitat restoration differs significantly</li>
+<li>Analyzing environmental variables – like poullution levels between two forests areas differs.</li>
+</ul>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>We will investigate difference in tree heights in a forested area.</p>
+<ul>
+<li>Generationg and plotting t-distribution</li>
+</ul>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="index.html#cb40-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb40-2"><a href="index.html#cb40-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb40-3"><a href="index.html#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="index.html#cb40-4" tabindex="-1"></a><span class="co"># Define x values</span></span>
+<span id="cb40-5"><a href="index.html#cb40-5" tabindex="-1"></a>t_values <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length=</span><span class="dv">100</span>)</span>
+<span id="cb40-6"><a href="index.html#cb40-6" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="index.html#cb40-7" tabindex="-1"></a><span class="co"># Compute density for different degrees of freedom</span></span>
+<span id="cb40-8"><a href="index.html#cb40-8" tabindex="-1"></a>df2 <span class="ot">&lt;-</span> <span class="fu">dt</span>(t_values, <span class="at">df=</span><span class="dv">2</span>)</span>
+<span id="cb40-9"><a href="index.html#cb40-9" tabindex="-1"></a>df12 <span class="ot">&lt;-</span> <span class="fu">dt</span>(t_values, <span class="at">df=</span><span class="dv">12</span>)</span>
+<span id="cb40-10"><a href="index.html#cb40-10" tabindex="-1"></a>norm <span class="ot">&lt;-</span> <span class="fu">dnorm</span>(t_values) <span class="co"># Standard normal</span></span>
+<span id="cb40-11"><a href="index.html#cb40-11" tabindex="-1"></a></span>
+<span id="cb40-12"><a href="index.html#cb40-12" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x=</span>t_values, <span class="at">StdNormal=</span>norm, <span class="at">df2=</span>df2, <span class="at">df12=</span>df12)</span>
+<span id="cb40-13"><a href="index.html#cb40-13" tabindex="-1"></a></span>
+<span id="cb40-14"><a href="index.html#cb40-14" tabindex="-1"></a><span class="co"># Plot the distributions</span></span>
+<span id="cb40-15"><a href="index.html#cb40-15" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x=</span>x)) <span class="sc">+</span></span>
+<span id="cb40-16"><a href="index.html#cb40-16" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>StdNormal, <span class="at">linetype=</span><span class="st">&quot;Std Normal&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb40-17"><a href="index.html#cb40-17" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>df2, <span class="at">linetype=</span><span class="st">&quot;t, df = 2&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb40-18"><a href="index.html#cb40-18" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="fu">aes</span>(<span class="at">y=</span>df12, <span class="at">linetype=</span><span class="st">&quot;t, df = 12&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb40-19"><a href="index.html#cb40-19" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">y=</span><span class="st">&quot;Probability Density&quot;</span>, <span class="at">x=</span><span class="st">&quot;t values&quot;</span>) <span class="sc">+</span></span>
+<span id="cb40-20"><a href="index.html#cb40-20" tabindex="-1"></a>  <span class="fu">scale_linetype_manual</span>(<span class="st">&quot;&quot;</span>, <span class="at">values=</span><span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dashed&quot;</span>, <span class="st">&quot;dotdash&quot;</span>)) <span class="sc">+</span></span>
+<span id="cb40-21"><a href="index.html#cb40-21" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+<ul>
+<li>Perform two sample t-test</li>
+</ul>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="index.html#cb41-1" tabindex="-1"></a><span class="co"># Sample data (species richness in two forest areas)</span></span>
+<span id="cb41-2"><a href="index.html#cb41-2" tabindex="-1"></a>area_A <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">23</span>, <span class="dv">25</span>, <span class="dv">27</span>, <span class="dv">30</span>, <span class="dv">28</span>, <span class="dv">26</span>, <span class="dv">29</span>, <span class="dv">31</span>)</span>
+<span id="cb41-3"><a href="index.html#cb41-3" tabindex="-1"></a>area_B <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">19</span>, <span class="dv">20</span>, <span class="dv">22</span>, <span class="dv">24</span>, <span class="dv">21</span>, <span class="dv">23</span>, <span class="dv">22</span>, <span class="dv">25</span>)</span>
+<span id="cb41-4"><a href="index.html#cb41-4" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="index.html#cb41-5" tabindex="-1"></a><span class="co"># Perform two-sample t-test</span></span>
+<span id="cb41-6"><a href="index.html#cb41-6" tabindex="-1"></a><span class="fu">t.test</span>(area_A, area_B, <span class="at">var.equal=</span><span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  area_A and area_B
+## t = 4.558, df = 14, p-value = 0.0004468
+## alternative hypothesis: true difference in means is not equal to 0
+## 95 percent confidence interval:
+##  2.845765 7.904235
+## sample estimates:
+## mean of x mean of y 
+##    27.375    22.000</code></pre>
+<p>Lets now visualize the critical regions in the t-distributions</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="index.html#cb43-1" tabindex="-1"></a><span class="co"># Define x values</span></span>
+<span id="cb43-2"><a href="index.html#cb43-2" tabindex="-1"></a>x_vals <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="sc">-</span><span class="dv">4</span>, <span class="dv">4</span>, <span class="at">length=</span><span class="dv">200</span>)</span>
+<span id="cb43-3"><a href="index.html#cb43-3" tabindex="-1"></a>y_vals <span class="ot">&lt;-</span> <span class="fu">dt</span>(x_vals, <span class="at">df=</span><span class="dv">10</span>)</span>
+<span id="cb43-4"><a href="index.html#cb43-4" tabindex="-1"></a></span>
+<span id="cb43-5"><a href="index.html#cb43-5" tabindex="-1"></a><span class="co"># Critical region (alpha = 0.05, two-tailed)</span></span>
+<span id="cb43-6"><a href="index.html#cb43-6" tabindex="-1"></a>critical_val <span class="ot">&lt;-</span> <span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="at">df=</span><span class="dv">10</span>)</span>
+<span id="cb43-7"><a href="index.html#cb43-7" tabindex="-1"></a></span>
+<span id="cb43-8"><a href="index.html#cb43-8" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb43-9"><a href="index.html#cb43-9" tabindex="-1"></a><span class="fu">plot</span>(x_vals, y_vals, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">ylab=</span><span class="st">&quot;Probability Density&quot;</span>, <span class="at">xlab=</span><span class="st">&quot;t values&quot;</span>, <span class="at">main=</span><span class="st">&quot;t-Distribution with Critical Regions&quot;</span>)</span>
+<span id="cb43-10"><a href="index.html#cb43-10" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v=</span><span class="fu">c</span>(<span class="sc">-</span>critical_val, critical_val), <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">lwd=</span><span class="dv">2</span>, <span class="at">lty=</span><span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p>This will help you with the interpretation</p>
+<ul>
+<li>Compares the t-distribution with different degrees of freedom to the normal distribution. The t-distribution has heavier tails for small degrees of freedom.</li>
+<li>One-Sample t-Test: Tests if the mean tree height significantly differs from 14m.</li>
+<li>Two-Sample t-Test: Tests if species richness significantly differs between two areas.</li>
+<li>Critical Region Visualization: Shows rejection regions for hypothesis testing.</li>
+</ul>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+<ul>
 <li>Chi-Square Distribution</li>
 <li>F Distribution</li>
 </ul>
+</div>
 </div>
 <div id="dicrete-distributions" class="section level4 hasAnchor" number="1.1.1.4">
 <h4><span class="header-section-number">1.1.1.4</span> Dicrete Distributions<a href="index.html#dicrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h4>

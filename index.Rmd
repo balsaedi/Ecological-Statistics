@@ -553,7 +553,105 @@ _______________________________________________________________________
 
 #### Distributions Used in Inferential Statistics 
 
-- Student’s t Distribution
+When the sample size is large (typically ≥30) and the data are not highly skewed (skewness coefficient ≤ 0.5 or 1), the **central limit theorem** allows for approximate normality, enabling extrapolations from sample statistics to population parameters. However, for smaller samples—common in environmental data—or when the population standard deviation is unknown, **exact sampling theory** is preferred, leading to the use of distributions like **Student’s t, chi-square**, and **F distributions**. These distributions are essential for **statistical inference**, including confidence interval estimation, hypothesis testing for population means, and significance tests for regression coefficients.
+
+##### **Student’s t Distribution**
+
+This type of distribution is essential for inference when the population standard deviation is unknown. The t-distribution is used for hypothesis testing, confidence intervals, and regression analysis, among other applications.
+
+Given a random sample $x_1,x2,...,x_n$ from a normal distribution with an unknown mean  and standard deviation , the t-statistic is given by:
+$$t = {{x-\overline X}\over{s/\sqrt n}}$$
+Where:
+
+- $x$ is the new observation
+- $\overline X$ is the sample mean 
+- $s$ is the sample standard deviation 
+- $n$ is the sample size 
+
+It can be used in ecology to;
+
+- Compare species populations -- if the two populations have the same mean 
+- Assessing biodiversity changes -- like before and fater habitat restoration differs significantly
+- Analyzing environmental variables -- like poullution levels between two forests areas differs. 
+
+<span style="color: orange;">**Try it!**</span> 
+
+We will investigate difference in tree heights in a forested area. 
+
+- Generationg and plotting t-distribution
+```{r}
+# Load necessary library
+library(ggplot2)
+
+# Define x values
+t_values <- seq(-4, 4, length=100)
+
+# Compute density for different degrees of freedom
+df2 <- dt(t_values, df=2)
+df12 <- dt(t_values, df=12)
+norm <- dnorm(t_values) # Standard normal
+
+data <- data.frame(x=t_values, StdNormal=norm, df2=df2, df12=df12)
+
+# Plot the distributions
+ggplot(data, aes(x=x)) +
+  geom_line(aes(y=StdNormal, linetype="Std Normal")) +
+  geom_line(aes(y=df2, linetype="t, df = 2")) +
+  geom_line(aes(y=df12, linetype="t, df = 12")) +
+  labs(y="Probability Density", x="t values") +
+  scale_linetype_manual("", values=c("solid", "dashed", "dotdash")) +
+  theme_minimal()
+```
+
+- Perform two sample t-test 
+```{r}
+# Sample data (species richness in two forest areas)
+area_A <- c(23, 25, 27, 30, 28, 26, 29, 31)
+area_B <- c(19, 20, 22, 24, 21, 23, 22, 25)
+
+# Perform two-sample t-test
+t.test(area_A, area_B, var.equal=TRUE)
+```
+
+Lets now visualize the critical regions in the t-distributions 
+```{r}
+# Define x values
+x_vals <- seq(-4, 4, length=200)
+y_vals <- dt(x_vals, df=10)
+
+# Critical region (alpha = 0.05, two-tailed)
+critical_val <- qt(0.975, df=10)
+
+# Plot
+plot(x_vals, y_vals, type="l", ylab="Probability Density", xlab="t values", main="t-Distribution with Critical Regions")
+abline(v=c(-critical_val, critical_val), col="red", lwd=2, lty=2)
+```
+
+This will help you with the interpretation 
+
+- Compares the t-distribution with different degrees of freedom to the normal distribution. The t-distribution has heavier tails for small degrees of freedom.
+- One-Sample t-Test: Tests if the mean tree height significantly differs from 14m.
+- Two-Sample t-Test: Tests if species richness significantly differs between two areas.
+- Critical Region Visualization: Shows rejection regions for hypothesis testing.
+
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+
+
+
+
+
+
+
+
+
 - Chi-Square Distribution
 - F Distribution
 
