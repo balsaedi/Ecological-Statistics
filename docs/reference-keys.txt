@@ -5,6 +5,8 @@ normal-distribution
 lognormal-gamma-and-other-continuous-distributions
 distributions-used-in-inferential-statistics
 students-t-distribution
+chi-square-distribution
+f-distribution
 dicrete-distributions
 hands-on-exercises
 hypothesis-testing

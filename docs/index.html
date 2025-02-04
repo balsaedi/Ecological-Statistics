@@ -775,10 +775,90 @@ Where:</p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+</div>
+<div id="chi-square-distribution" class="section level5 hasAnchor" number="1.1.1.3.2">
+<h5><span class="header-section-number">1.1.1.3.2</span> <strong>Chi-Square Distribution</strong><a href="index.html#chi-square-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The Chi-square(<span class="math inline">\(x^2\)</span>) distribution is widely used in ecological research for analyzing categorical data and testing statistical hypotheses. Many ecological studies involve count data, presence-absence data, or species distribution models, where the Chi-square test provides insights into species interactions, habitat preferences, and environmental associations.</p>
+<p>This type of chi-square distribution arises when we sum the squares of independent standard normal variables.</p>
+<p>In ecology, chi-square distribution may be used to analyze species-habitat relationships and species interactions.</p>
+<p><span style="color: brown;"><strong>Try it!</strong></span></p>
+<p>We will analyze the presence and absence of species A in a habitat in a contingency table.</p>
+<p>Null Hypothesis - Species A’s occurrence is independent of habitat type
+Alternative Hypothesis - Species A prefers a particular habitat</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="index.html#cb44-1" tabindex="-1"></a><span class="co"># Create contingency table</span></span>
+<span id="cb44-2"><a href="index.html#cb44-2" tabindex="-1"></a>species_habitat <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">20</span>, <span class="dv">15</span>, <span class="dv">35</span>), <span class="at">nrow=</span><span class="dv">2</span>, <span class="at">byrow=</span><span class="cn">TRUE</span>)</span>
+<span id="cb44-3"><a href="index.html#cb44-3" tabindex="-1"></a><span class="fu">colnames</span>(species_habitat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Present&quot;</span>, <span class="st">&quot;Absent&quot;</span>)</span>
+<span id="cb44-4"><a href="index.html#cb44-4" tabindex="-1"></a><span class="fu">rownames</span>(species_habitat) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Forest&quot;</span>, <span class="st">&quot;Grassland&quot;</span>)</span>
+<span id="cb44-5"><a href="index.html#cb44-5" tabindex="-1"></a></span>
+<span id="cb44-6"><a href="index.html#cb44-6" tabindex="-1"></a><span class="co"># Perform Chi-square test</span></span>
+<span id="cb44-7"><a href="index.html#cb44-7" tabindex="-1"></a><span class="fu">chisq.test</span>(species_habitat)</span></code></pre></div>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test with Yates&#39; continuity correction
+## 
+## data:  species_habitat
+## X-squared = 7.9192, df = 1, p-value = 0.004891</code></pre>
+<p>The p-value is way below 0.05 therefore we reject the null hypothesis. We have enough evidence to conclude that Species A prefers a particular habitat.</p>
+<p>Lets repeat the analysis with observed and expected bird counts on different wetland sites. We will use goodness-of-fit test</p>
+<p>Null hypothesis - Birds are evenly distributed.
+Alternate hypothesis - Birds are not evenly distributed.</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="index.html#cb46-1" tabindex="-1"></a><span class="co"># Observed and expected bird counts</span></span>
+<span id="cb46-2"><a href="index.html#cb46-2" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">45</span>, <span class="dv">55</span>, <span class="dv">60</span>, <span class="dv">40</span>)</span>
+<span id="cb46-3"><a href="index.html#cb46-3" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="dv">50</span>)</span>
+<span id="cb46-4"><a href="index.html#cb46-4" tabindex="-1"></a></span>
+<span id="cb46-5"><a href="index.html#cb46-5" tabindex="-1"></a><span class="co"># Perform Chi-square goodness-of-fit test</span></span>
+<span id="cb46-6"><a href="index.html#cb46-6" tabindex="-1"></a><span class="fu">chisq.test</span>(observed, <span class="at">p =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">4</span>, <span class="dv">4</span>)) <span class="co"># Equal probability across sites</span></span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  observed
+## X-squared = 5, df = 3, p-value = 0.1718</code></pre>
+<p>p-value is above 0.05 therefore we conclude that the birds are evenly distributed.</p>
+<p>The chi-square distribution is used to construct confidence intervals for variance estimates such as error variance in ecological regression models.</p>
+<p>The F-distributions, which is the ration of two chi-square distributions is used in ANOVA tests for comparing species abundance across multiple environmental conditions.</p>
+<p>Lets perform an example to demonstrate this</p>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="index.html#cb48-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))  </span>
+<span id="cb48-2"><a href="index.html#cb48-2" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="index.html#cb48-3" tabindex="-1"></a><span class="co"># Chi-square distribution for different degrees of freedom</span></span>
+<span id="cb48-4"><a href="index.html#cb48-4" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df=</span><span class="dv">2</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">10</span>, <span class="at">ylab=</span><span class="st">&quot;Probability density&quot;</span>, </span>
+<span id="cb48-5"><a href="index.html#cb48-5" tabindex="-1"></a>      <span class="at">main=</span><span class="st">&quot;Chi-square Distributions in Ecology&quot;</span>, <span class="at">lwd=</span><span class="dv">1</span>, <span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb48-6"><a href="index.html#cb48-6" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df=</span><span class="dv">5</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">10</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb48-7"><a href="index.html#cb48-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">dchisq</span>(x, <span class="at">df=</span><span class="dv">10</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">10</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb48-8"><a href="index.html#cb48-8" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;df = 2&quot;</span>, <span class="st">&quot;df = 5&quot;</span>, <span class="st">&quot;df = 10&quot;</span>), </span>
+<span id="cb48-9"><a href="index.html#cb48-9" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span>
+<span id="cb48-10"><a href="index.html#cb48-10" tabindex="-1"></a></span>
+<span id="cb48-11"><a href="index.html#cb48-11" tabindex="-1"></a><span class="co"># F-distribution for different df values</span></span>
+<span id="cb48-12"><a href="index.html#cb48-12" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1=</span><span class="dv">1</span>, <span class="at">df2=</span><span class="dv">10</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">5</span>, <span class="at">ylab=</span><span class="st">&quot;Probability density&quot;</span>, </span>
+<span id="cb48-13"><a href="index.html#cb48-13" tabindex="-1"></a>      <span class="at">main=</span><span class="st">&quot;F Distributions in Ecology&quot;</span>, <span class="at">lwd=</span><span class="dv">1</span>, <span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb48-14"><a href="index.html#cb48-14" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1=</span><span class="dv">6</span>, <span class="at">df2=</span><span class="dv">60</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">5</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb48-15"><a href="index.html#cb48-15" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1=</span><span class="dv">10</span>, <span class="at">df2=</span><span class="dv">100</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">5</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb48-16"><a href="index.html#cb48-16" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;df1 = 1, df2 = 10&quot;</span>, <span class="st">&quot;df1 = 6, df2 = 60&quot;</span>, <span class="st">&quot;df1 = 10, df2 = 100&quot;</span>), </span>
+<span id="cb48-17"><a href="index.html#cb48-17" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-27-1.png" width="672" /></p>
+</div>
+<div id="f-distribution" class="section level5 hasAnchor" number="1.1.1.3.3">
+<h5><span class="header-section-number">1.1.1.3.3</span> <strong>F Distribution</strong><a href="index.html#f-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The F-distribution, named after the British statistician <strong>Ronald Fisher</strong>, is commonly used in ecological studies for testing hypotheses involving variance and regression models. It is the distribution of the <strong>F-statistic</strong>, which is computed as the ratio of two chi-square distributed variables, each normalized by their respective degrees of freedom.</p>
+<p>Mathematically, the F-statistic is expressed as:</p>
+<p><span class="math display">\[F = {{X_{k1}^2/k1}\over{X_{k2}^2/k2}}\]</span>
+where:</p>
 <ul>
-<li>Chi-Square Distribution</li>
-<li>F Distribution</li>
+<li><span class="math inline">\(X_{k1}^2/k1\)</span> is a chi-square distributed variable with <span class="math inline">\(k1\)</span> degrees of freedom,</li>
+<li><span class="math inline">\(X_{k1}^2/k1\)</span> is anothe chi-square distributed variable with <span class="math inline">\(k2\)</span> degress of freedom</li>
 </ul>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Lets visualize F-distribution in Ecology</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="index.html#cb49-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>))  </span>
+<span id="cb49-2"><a href="index.html#cb49-2" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="index.html#cb49-3" tabindex="-1"></a><span class="co"># F-distributions for different degrees of freedom</span></span>
+<span id="cb49-4"><a href="index.html#cb49-4" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1=</span><span class="dv">1</span>, <span class="at">df2=</span><span class="dv">10</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">5</span>, <span class="at">ylab=</span><span class="st">&quot;Probability Density&quot;</span>, </span>
+<span id="cb49-5"><a href="index.html#cb49-5" tabindex="-1"></a>      <span class="at">main=</span><span class="st">&quot;F Distribution in Ecology&quot;</span>, <span class="at">lwd=</span><span class="dv">1</span>, <span class="at">lty=</span><span class="dv">1</span>)</span>
+<span id="cb49-6"><a href="index.html#cb49-6" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1=</span><span class="dv">6</span>, <span class="at">df2=</span><span class="dv">60</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">5</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lty=</span><span class="dv">2</span>)</span>
+<span id="cb49-7"><a href="index.html#cb49-7" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">df</span>(x, <span class="at">df1=</span><span class="dv">10</span>, <span class="at">df2=</span><span class="dv">100</span>), <span class="at">from=</span><span class="dv">0</span>, <span class="at">to=</span><span class="dv">5</span>, <span class="at">add=</span><span class="cn">TRUE</span>, <span class="at">lty=</span><span class="dv">3</span>)</span>
+<span id="cb49-8"><a href="index.html#cb49-8" tabindex="-1"></a></span>
+<span id="cb49-9"><a href="index.html#cb49-9" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topright&quot;</span>, <span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;df1 = 1, df2 = 10&quot;</span>, <span class="st">&quot;df1 = 6, df2 = 60&quot;</span>, <span class="st">&quot;df1 = 10, df2 = 100&quot;</span>), </span>
+<span id="cb49-10"><a href="index.html#cb49-10" tabindex="-1"></a>       <span class="at">lty=</span><span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-28-1.png" width="672" /></p>
+<p>As df1 and df2 increase, the F-distribution becomes less-skewed and more bell-shaped.</p>
 </div>
 </div>
 <div id="dicrete-distributions" class="section level4 hasAnchor" number="1.1.1.4">

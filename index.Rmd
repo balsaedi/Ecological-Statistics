@@ -643,17 +643,104 @@ _______________________________________________________________________
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
+##### **Chi-Square Distribution**
+
+The Chi-square($x^2$) distribution is widely used in ecological research for analyzing categorical data and testing statistical hypotheses. Many ecological studies involve count data, presence-absence data, or species distribution models, where the Chi-square test provides insights into species interactions, habitat preferences, and environmental associations.
+
+This type of chi-square distribution arises when we sum the squares of independent standard normal variables. 
+
+In ecology, chi-square distribution may be used to analyze species-habitat relationships and species interactions. 
+
+<span style="color: brown;">**Try it!**</span> 
+
+We will analyze the presence and absence of species A in a habitat in a contingency table. 
+
+Null Hypothesis -  Species A's occurrence is independent of habitat type
+Alternative Hypothesis - Species A prefers a particular habitat
+
+```{r}
+# Create contingency table
+species_habitat <- matrix(c(30, 20, 15, 35), nrow=2, byrow=TRUE)
+colnames(species_habitat) <- c("Present", "Absent")
+rownames(species_habitat) <- c("Forest", "Grassland")
+
+# Perform Chi-square test
+chisq.test(species_habitat)
+```
+The p-value is way below 0.05 therefore we reject the null hypothesis. We have enough evidence to conclude that Species A prefers a particular habitat. 
+
+Lets repeat the analysis with observed and expected bird counts on different wetland sites. We will use goodness-of-fit test
+
+Null hypothesis - Birds are evenly distributed.
+Alternate hypothesis - Birds are not evenly distributed.
+```{r}
+# Observed and expected bird counts
+observed <- c(45, 55, 60, 40)
+expected <- c(50, 50, 50, 50)
+
+# Perform Chi-square goodness-of-fit test
+chisq.test(observed, p = rep(1/4, 4)) # Equal probability across sites
+```
+
+p-value is above 0.05 therefore we conclude that the birds are evenly distributed. 
+
+The chi-square distribution is used to construct confidence intervals for variance estimates such as error variance in ecological regression models. 
+
+The F-distributions, which is the ration of two chi-square distributions is used in ANOVA tests for comparing species abundance across multiple environmental conditions.
+
+Lets perform an example to demonstrate this 
+```{r}
+par(mfrow = c(1,2))  
+
+# Chi-square distribution for different degrees of freedom
+curve(dchisq(x, df=2), from=0, to=10, ylab="Probability density", 
+      main="Chi-square Distributions in Ecology", lwd=1, lty=1)
+curve(dchisq(x, df=5), from=0, to=10, add=TRUE, lty=2)
+curve(dchisq(x, df=10), from=0, to=10, add=TRUE, lty=3)
+legend("topright", legend=c("df = 2", "df = 5", "df = 10"), 
+       lty=1:3, bty="n")
+
+# F-distribution for different df values
+curve(df(x, df1=1, df2=10), from=0, to=5, ylab="Probability density", 
+      main="F Distributions in Ecology", lwd=1, lty=1)
+curve(df(x, df1=6, df2=60), from=0, to=5, add=TRUE, lty=2)
+curve(df(x, df1=10, df2=100), from=0, to=5, add=TRUE, lty=3)
+legend("topright", legend=c("df1 = 1, df2 = 10", "df1 = 6, df2 = 60", "df1 = 10, df2 = 100"), 
+       lty=1:3, bty="n")
+```
+
+##### **F Distribution**
+
+The F-distribution, named after the British statistician **Ronald Fisher**, is commonly used in ecological studies for testing hypotheses involving variance and regression models. It is the distribution of the **F-statistic**, which is computed as the ratio of two chi-square distributed variables, each normalized by their respective degrees of freedom.
+
+Mathematically, the F-statistic is expressed as:
+
+$$F = {{X_{k1}^2/k1}\over{X_{k2}^2/k2}}$$
+where: 
+
+- $X_{k1}^2/k1$ is a chi-square distributed variable with $k1$ degrees of freedom,
+- $X_{k1}^2/k1$ is anothe chi-square distributed variable with $k2$ degress of freedom 
+
+<span style="color: orange;">**Try it!**</span> 
+
+Lets visualize F-distribution in Ecology
+```{r}
+par(mfrow = c(1,1))  
+
+# F-distributions for different degrees of freedom
+curve(df(x, df1=1, df2=10), from=0, to=5, ylab="Probability Density", 
+      main="F Distribution in Ecology", lwd=1, lty=1)
+curve(df(x, df1=6, df2=60), from=0, to=5, add=TRUE, lty=2)
+curve(df(x, df1=10, df2=100), from=0, to=5, add=TRUE, lty=3)
+
+legend("topright", legend=c("df1 = 1, df2 = 10", "df1 = 6, df2 = 60", "df1 = 10, df2 = 100"), 
+       lty=1:3, bty="n")
+
+```
+
+As df1 and df2 increase, the F-distribution becomes less-skewed and more bell-shaped. 
 
 
-
-
-
-
-
-
-
-- Chi-Square Distribution
-- F Distribution
 
 #### Dicrete Distributions 
 
