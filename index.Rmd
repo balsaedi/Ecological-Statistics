@@ -744,8 +744,10 @@ As df1 and df2 increase, the F-distribution becomes less-skewed and more bell-sh
 
 #### Dicrete Distributions 
 
-- Binomial Distribution
-- Poisson Distribution 
+A random variable is considered discrete if it takes only whole-number values, rather than fractions (for example, a class cannot have 10.5 students). Discrete data include both count data and categorical or qualitative data, such as whether an organism is present or absent or whether a value exceeds a control limit. Two commonly used distributions for modeling discrete data are the binomial distribution, which applies to categorical data, and the Poisson distribution, which is used for count data.
+
+##### **Binomial Distribution**
+##### **Poisson Distribution** 
 
 
 ## <span style="color: green;">**Hands-on Exercises**</span> 
