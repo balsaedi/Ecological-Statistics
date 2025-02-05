@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Ecological Analysis</title>
   <meta name="description" content="Ecological Analysis" />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.42 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Ecological Analysis" />
   <meta property="og:type" content="book" />
@@ -640,10 +640,6 @@ The <em>logit function</em>, which serves as the response variable in logistic r
 ## Call:
 ## glm(formula = y ~ x, family = binomial)
 ## 
-## Deviance Residuals: 
-##     Min       1Q   Median       3Q      Max  
-## -2.1917  -0.8670   0.4702   0.8611   1.7204  
-## 
 ## Coefficients:
 ##             Estimate Std. Error z value Pr(&gt;|z|)    
 ## (Intercept)   0.2892     0.2357   1.227     0.22    
@@ -863,10 +859,84 @@ where:</p>
 </div>
 <div id="dicrete-distributions" class="section level4 hasAnchor" number="1.1.1.4">
 <h4><span class="header-section-number">1.1.1.4</span> Dicrete Distributions<a href="index.html#dicrete-distributions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>A random variable is considered discrete if it takes only whole-number values, rather than fractions (for example, a class cannot have 10.5 students). Discrete data include both count data and categorical or qualitative data, such as whether an organism is present or absent or whether a value exceeds a control limit. Two commonly used distributions for modeling discrete data are the binomial distribution, which applies to categorical data, and the Poisson distribution, which is used for count data.</p>
+<div id="binomial-distribution" class="section level5 hasAnchor" number="1.1.1.4.1">
+<h5><span class="header-section-number">1.1.1.4.1</span> <strong>Binomial Distribution</strong><a href="index.html#binomial-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+<p>The binomial distribution models the number of successes in a fixed number of independent trials, where each trial has only two possible outcomes: success (1) or failure (0).</p>
+<p>Imagine we are testing 20 groundwater monitoring wells for a contaminant. Each well either detects the contaminant (success) or does not detect it (failure). For instance;</p>
 <ul>
-<li>Binomial Distribution</li>
-<li>Poisson Distribution</li>
+<li>Probability of detecting the contaminant (success): p = 0.4</li>
+<li>Probability of not detecting the contaminant (failure): q = 1 - p = 0.6</li>
 </ul>
+<p>The probability of getting exactly successes in n trials is given by:</p>
+<p><span class="math display">\[{P(X=k)}={\begin{pmatrix} n \\ k \end{pmatrix}p^k(1-p)^{n-k}}\]</span></p>
+<p>Where:</p>
+<ul>
+<li><span class="math inline">\({\begin{pmatrix} n \\ k \end{pmatrix}}={{n!}\over{k!(n-k)!}}\)</span> is the binomial coefficient.</li>
+<li><span class="math inline">\(p\)</span> is the probability of success.</li>
+<li><span class="math inline">\((1-p)\)</span> is the probability of failure.</li>
+<li><span class="math inline">\(k\)</span> is the number of successes.</li>
+</ul>
+<p>For a Binomial(n, p) distributions:</p>
+<ul>
+<li><p>Mean(Expected Value):
+<span class="math display">\[E(X) = np\]</span>
+This tells us the average of successes over many trials.</p></li>
+<li><p>Variance
+<span class="math display">\[\sigma^2 = np(1-p)\]</span></p></li>
+<li><p>Standard deviation
+<span class="math display">\[\sigma = \sqrt{np(1-p)}\]</span></p></li>
+</ul>
+<p>In this case, for our groundwater monitoring example</p>
+<ul>
+<li>Expected Value: <span class="math inline">\(E(X) = 20 X 0.4 = 8\)</span></li>
+<li>Standard Deviation
+<span class="math display">\[\sigma = \sqrt{20 x 0.4 X 0.6} = \sqrt {4.8} = 2.19\]</span></li>
+</ul>
+<p>Lets apply R for this example of groundwater contamination. R provides four main functions to work with the binomial distribution:</p>
+<ul>
+<li><code>dbinom(x, size, prob)</code>: Computes <span class="math inline">\(P(X=x\)</span>, the probability of exactly <strong>x</strong> successes.</li>
+<li><code>pbinom(x, size, prob)</code>: Computes <span class="math inline">\(P(\geq x)\)</span>, the cumulative probability.</li>
+<li><code>qbinom(p, size, prob)</code>: Computes the quantile for a given probability.</li>
+<li><code>rbinom(n, size, prob)</code>: Generates random binomial values (simulating real-world experiments)</li>
+</ul>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Lets simulate binomial outcomes</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="index.html#cb50-1" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># For reproducibility</span></span>
+<span id="cb50-2"><a href="index.html#cb50-2" tabindex="-1"></a><span class="fu">rbinom</span>(<span class="dv">10</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.4</span>) </span></code></pre></div>
+<pre><code>##  [1]  7 10  7 11 11  4  8 11  8  8</code></pre>
+<p>This simulates 10 trials where we sample 20 wells each time, and each well has a 40% chance of detecting the contaminant.</p>
+<p>Lets try the probability of detecting the contaminant in exactly 9 wells</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="index.html#cb52-1" tabindex="-1"></a><span class="fu">dbinom</span>(<span class="dv">9</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.1597385</code></pre>
+<p>This means there’s a 15.97% chance that exactly 9 out of 20 wells will detect the contaminant.</p>
+<p>Now lets try the Probability of Detecting the Contaminant in 9 or Fewer Wells to find the cumulative probability of detecting the contaminant in at most 9 wells.</p>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="index.html#cb54-1" tabindex="-1"></a><span class="fu">pbinom</span>(<span class="dv">9</span>, <span class="at">size =</span> <span class="dv">20</span>, <span class="at">prob =</span> <span class="fl">0.4</span>)</span></code></pre></div>
+<pre><code>## [1] 0.7553372</code></pre>
+<p>Lets plot it</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="index.html#cb56-1" tabindex="-1"></a><span class="fu">par</span>(<span class="at">lend =</span> <span class="dv">2</span>)  <span class="co"># Adjust bar ends</span></span>
+<span id="cb56-2"><a href="index.html#cb56-2" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>, <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">15</span>, <span class="dv">20</span>, <span class="fl">0.4</span>), <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">6</span>,</span>
+<span id="cb56-3"><a href="index.html#cb56-3" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;# of Wells with Contaminant&quot;</span>, </span>
+<span id="cb56-4"><a href="index.html#cb56-4" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Probability&quot;</span>,</span>
+<span id="cb56-5"><a href="index.html#cb56-5" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Binomial Distribution (n=20, p=0.4)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-32-1.png" width="672" /></p>
+<p>From the graph;</p>
+<ul>
+<li>The most probable outcome is finding the contaminant in 8 wells.</li>
+<li>Extreme values (0 or 15 wells detecting contaminants) are very unlikely.</li>
+</ul>
+<p><strong>What if?</strong></p>
+<p>When we increase n (e.g., testing 100 wells instead of 20), the distribution becomes smoother and begins to resemble a normal distribution.</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="index.html#cb57-1" tabindex="-1"></a><span class="fu">plot</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="fu">dbinom</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">40</span>, <span class="dv">100</span>, <span class="fl">0.4</span>), <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">lwd =</span> <span class="dv">6</span>,</span>
+<span id="cb57-2"><a href="index.html#cb57-2" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;# of Wells with Contaminant&quot;</span>,</span>
+<span id="cb57-3"><a href="index.html#cb57-3" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Probability&quot;</span>,</span>
+<span id="cb57-4"><a href="index.html#cb57-4" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Binomial Distribution (n=100, p=0.4)&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-33-1.png" width="672" /></p>
+<p>The graph is left skewed when N was adjusted</p>
+</div>
+<div id="poisson-distribution" class="section level5 hasAnchor" number="1.1.1.4.2">
+<h5><span class="header-section-number">1.1.1.4.2</span> <strong>Poisson Distribution</strong><a href="index.html#poisson-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h5>
+</div>
 </div>
 </div>
 </div>

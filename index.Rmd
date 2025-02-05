@@ -747,6 +747,102 @@ As df1 and df2 increase, the F-distribution becomes less-skewed and more bell-sh
 A random variable is considered discrete if it takes only whole-number values, rather than fractions (for example, a class cannot have 10.5 students). Discrete data include both count data and categorical or qualitative data, such as whether an organism is present or absent or whether a value exceeds a control limit. Two commonly used distributions for modeling discrete data are the binomial distribution, which applies to categorical data, and the Poisson distribution, which is used for count data.
 
 ##### **Binomial Distribution**
+
+The binomial distribution models the number of successes in a fixed number of independent trials, where each trial has only two possible outcomes: success (1) or failure (0).
+
+Imagine we are testing 20 groundwater monitoring wells for a contaminant. Each well either detects the contaminant (success) or does not detect it (failure). For instance; 
+
+- Probability of detecting the contaminant (success): p = 0.4
+- Probability of not detecting the contaminant (failure): q = 1 - p = 0.6
+
+The probability of getting exactly successes in n trials is given by:
+
+$${P(X=k)}={\begin{pmatrix} n \\ k \end{pmatrix}p^k(1-p)^{n-k}}$$
+
+Where: 
+
+- ${\begin{pmatrix} n \\ k \end{pmatrix}}={{n!}\over{k!(n-k)!}}$ is the binomial coefficient.
+- $p$ is the probability of success.
+- $(1-p)$ is the probability of failure. 
+- $k$ is the number of successes. 
+
+For a Binomial(n, p) distributions: 
+
+- Mean(Expected Value):
+$$E(X) = np$$
+This tells us the average of successes over many trials. 
+- Variance 
+$$\sigma^2 = np(1-p)$$
+
+- Standard deviation
+$$\sigma = \sqrt{np(1-p)}$$
+
+In this case, for our groundwater monitoring example
+
+- Expected Value: $E(X) = 20 X 0.4 = 8$
+- Standard Deviation 
+$$\sigma = \sqrt{20 x 0.4 X 0.6} = \sqrt {4.8} = 2.19$$
+
+Lets apply R for this example of groundwater contamination. R provides four main functions to work with the binomial distribution:
+
+- `dbinom(x, size, prob)`: Computes $P(X=x$, the probability of exactly **x** successes. 
+- `pbinom(x, size, prob)`: Computes $P(\geq x)$, the cumulative probability. 
+- `qbinom(p, size, prob)`: Computes the quantile for a given probability.
+- `rbinom(n, size, prob)`: Generates random binomial values (simulating real-world experiments)
+
+<span style="color: orange;">**Try it!**</span>
+
+Lets simulate binomial outcomes 
+```{r}
+set.seed(123)  # For reproducibility
+rbinom(10, size = 20, prob = 0.4) 
+```
+This simulates 10 trials where we sample 20 wells each time, and each well has a 40% chance of detecting the contaminant.
+
+Lets try the probability of detecting the contaminant in exactly 9 wells 
+```{r}
+dbinom(9, size = 20, prob = 0.4)
+```
+
+This means there's a 15.97% chance that exactly 9 out of 20 wells will detect the contaminant.
+
+Now lets try the Probability of Detecting the Contaminant in 9 or Fewer Wells to find the cumulative probability of detecting the contaminant in at most 9 wells. 
+```{r}
+pbinom(9, size = 20, prob = 0.4)
+```
+
+Lets plot it 
+
+```{r}
+par(lend = 2)  # Adjust bar ends
+plot(0:15, dbinom(0:15, 20, 0.4), type = "h", lwd = 6,
+     xlab = "# of Wells with Contaminant", 
+     ylab = "Probability",
+     main = "Binomial Distribution (n=20, p=0.4)")
+
+```
+
+From the graph;
+
+- The most probable outcome is finding the contaminant in 8 wells.
+- Extreme values (0 or 15 wells detecting contaminants) are very unlikely.
+
+**What if?**
+
+When we increase n (e.g., testing 100 wells instead of 20), the distribution becomes smoother and begins to resemble a normal distribution.
+```{r}
+plot(0:40, dbinom(0:40, 100, 0.4), type = "h", lwd = 6,
+     xlab = "# of Wells with Contaminant",
+     ylab = "Probability",
+     main = "Binomial Distribution (n=100, p=0.4)")
+```
+
+The graph is left skewed when N was adjusted
+
+
+
+
+
 ##### **Poisson Distribution** 
 
 
