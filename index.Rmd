@@ -839,12 +839,65 @@ plot(0:40, dbinom(0:40, 100, 0.4), type = "h", lwd = 6,
 
 The graph is left skewed when N was adjusted
 
-
-
-
-
 ##### **Poisson Distribution** 
 
+Suppose a count of the wood turtle, a protected species under the New Jersey Endangered Species Statute, is conducted in a specific geographic region. What would be a suitable data distribution model for the results obtained? Since counts are discrete rather than continuous (e.g., there can be 5 or 12 turtles, but not 7.4 turtles), continuous distribution models such as the normal, lognormal, and gamma distributions would not be appropriate. Additionally, because we are interested in the number of turtles rather than their presence or absence, the binomial distribution—though discrete—would also not be suitable, as it is designed for binary data (i.e., yes/no types of data).
+
+The Poisson distribution, named after Siméon Poisson, is a discrete probability distribution used to model the number of events occurring within a fixed space or time interval, given an estimated average rate of occurrence (denoted by λ). If our focus were on the presence or absence of turtles in a given area rather than their actual count, the binomial distribution would be the appropriate choice.
+
+The probability mass function (PMF) for the Poisson distribution is given by:
+
+$$P(X=k) = {{e^{-\lambda}\lambda^k}\over{k!}}$$
+Where: 
+
+- $P(X=k)$ is the probability that the Poisson-distributed random variable $X$ takes a value $k$ (where $k$  can be 0, 1, 2, etc)
+- $\lambda$ is the mean or expected number of occurrences.
+- $e$ is the base of the natural logarithm (apporximately 2.71828)
+- $k!$(k factorial)  is computed as $k \times (k-1) \times(k-2) \times...\times 1$
+
+
+For the Poisson distribution, the mean (expected value) is $\lambda$, and the variance is also equal to $\lambda$, meaning the distribution’s spread is directly tied to the mean.
+
+Consider a scenario where the expected number of turtles per hectare is 5. The probability of finding exactly 10 turtles per hectare can be computed in R as:
+```{r}
+dpois(10, 5)
+```
+
+This yields approximately 0.0181 (or 1.81%). Conversely, the probability of finding 10 or fewer turtles can be obtained using:
+```{r}
+ppois(10, 5)
+```
+
+which results in 0.9863 (or 98.63%). Thus, the probability of finding more than 10 turtles is:
+$$1 - 0.9863 = 0.0137$$
+
+Lets visualize this;
+
+The following R script generates Poisson probability mass function plots for different values of $\lambda$ (2, 5, and 20):
+```{r}
+par(mfrow = c(1, 3))
+par(lend = 2)
+
+plot(0:10, dpois(0:10, 2), type = 'h', lwd = 6, xlab = 'Count or # of Occurrences (k)',
+ylab = 'Probability (P(X = k))')
+mtext(side = 3, line = 0.5, expression(lambda == 2))
+
+plot(0:15, dpois(0:15, 5), type = 'h', lwd = 4, xlab = 'Count or # of Occurrences (k)',
+ylab = 'Probability (P(X = k))')
+mtext(side = 3, line = 0.5, expression(lambda == 5))
+
+plot(0:40, dpois(0:40, 20), type = 'h', lwd = 2, xlab = 'Count or # of Occurrences (k)',
+ylab = 'Probability (P(X = k))')
+mtext(side = 3, line = 0.5, expression(lambda == 20))
+```
+
+As $\lambda$ increases, the Poisson distribution becomes more symmetric and begins to resemble the normal distribution. The Poisson distribution can also serve as an approximation for the binomial distribution when the number of trials ($n$) is large and the probability of success ($p$) is small, such that $\lambda = np$. Typically, the Poisson approximation to the binomial is valid when $n \geq 20$ and $p\leq 0.05$, or when  $n \geq 100$ and $np \geq 10$.
+
+A common application of the Poisson distribution in environmental science is Poisson regression, where the response variable consists of event counts assumed to follow a Poisson distribution, while predictor variables influence these counts. For instance, turtle population density per hectare might be modeled as a function of habitat type (e.g., forested wetlands, upland forests, agricultural fields) and proximity to roadways or urban areas.
+
+A key issue in Poisson regression is overdispersion—when the observed data variance significantly exceeds the mean. Overdispersion can lead to poor model fit and necessitate alternative models, such as the negative binomial distribution.
+
+In summary, the Poisson distribution provides a useful model for count data, particularly when events occur independently over a fixed interval of time or space.
 
 ## <span style="color: green;">**Hands-on Exercises**</span> 
 
