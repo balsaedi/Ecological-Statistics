@@ -214,6 +214,14 @@ Here are the important considerations when performing parametric two sample test
 
 <span style="color: green;">**Practical exercises**</span>
 
+Industrial fertilizer use can increase organic carbon levels in groundwater, potentially impacting water quality and ecosystem health. In this exercise, you will use three parametric tests to answer the following questions:
+
+- **Single-Sample Test:** Is the average organic carbon concentration in background (control) wells significantly different from a regulatory threshold (e.g., 25 ppm)?
+- **Paired Two-Sample Test:** Is there a significant difference in organic carbon concentration between cleaned water and before? 
+- **Independent Two-Sample Test:**
+
+Your are provided with water portability data set that can be downloaded from [here](https://www.kaggle.com/code/moosecat/water-quality-eda-cleaning-and-prediction?select=water_potability.csv)
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
 
