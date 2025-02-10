@@ -284,8 +284,43 @@ The Wilcoxon Signed-Rank Test is a useful nonparametric alternative to the one-s
 
 <span style="color: green;">**Practical Exercise**</span>
 
+Acid rain is a major environmental concern, particularly in industrial areas. In our study, we are interested in understanding the effect of emission controls on rainwater acidity. Rainwater pH values are recorded before and after the intervention at the same 15 monitoring stations. Because pH measurements are continuous but the data set is relatively small and may not meet the assumptions of parametric tests, nonparametric methods offer a robust alternative.
+
+You are required to perform to use the `acid_rain` data set provided by the instructor to perform Nonparametric One-Sample Wilcoxon Signed-Rank Test. The objective of this project is to test whether the median rainwater pH before the intervention is different from the regulatory standard of 5.5. 
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+**Project Objective**: Test whether the median rainwater pH before the intervention is different from the regulatory standard of 5.5. 
+
+**Hypotheses**: 
+
+- *Null Hypothesis*: The median pH before intervention is 5.5
+- *Alternative Hypothesis*: The median pH before intervention is not 5.5.
+
+**Mathematical Concept:** 
+
+For each observation, compute the difference: 
+$$d_i = pH_i - 5.5$$
+Then rank the absolute differences $|d_i|$ (ignoring zeros) and sum the ranks for positive differences. The Wilcoxon test statistic $W$ is compared against its distribution to determine significance.
+```{r}
+# Load necessary library
+library(dplyr)
+
+# Read the dataset (adjust the URL as needed)
+acid_data <- read.csv("data/acid_rain.csv")
+
+# View the first few rows
+#head(acid_data)
+
+# Nonparametric One-Sample Wilcoxon Signed-Rank Test on 'Before' pH values
+# Test if the median pH before intervention is 5.5
+wilcox_test_before <- wilcox.test(acid_data$Before, mu = 5.5, alternative = "two.sided")
+print(wilcox_test_before)
+```
+
+p-value is above 0.05 therefore the null hypothesis is accepted where we conclude that the median pH before the intervention is 5.5. 
+
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
@@ -356,13 +391,68 @@ The Wilcoxon Rank Sum Test is a useful nonparametric alternative to the two-samp
 
 <span style="color: green;">**Practical Exercise**</span> 
 
+Using the "acid rain" above determine if there is a consistent direction of change in pH values (i.e., whether more stations show an increase or decrease in pH after the intervention). Use the non-parametric paired sign test. 
+
+Repeat what you have done with Nonparametric Paired Wilcoxon Signed-Rank Test. However, in this case, test whether there is a statistically significant difference between the pH values before and after the intervention.
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+**Project Objective**: Is there a consistent direction of change in pH values (i.e., whether more stations show an increase or decrease in pH after the intervention).
+
+**Hypotheses**
+
+- *Null Hypothesis:* There is no difference in the number of stations with increased versus decreased pH.
+- *Alternate Hypothesis:*  There is a significant difference in the number of stations showing an increase compared to a decrease. 
+
+**Methods** 
+
+For each station, calculate: 
+
+$$
+sign(d_i) = 
+\begin{cases} 
+1, & \text{if } After - Before > 0 \\ 
+0, & \text{if } After - Before = 0 \\ 
+-1, & \text{if } After - Before < 0
+\end{cases}
+
+$$
+Count the number of positive differences and use a binomial test to see if it deviates from the expected 50% chance.
+```{r}
+# Compute differences between After and Before pH values
+acid_data <- acid_data %>% mutate(Diff = After - Before)
+
+# Count number of positive changes (excluding ties)
+positive_changes <- sum(acid_data$Diff > 0)
+total_nonzero <- sum(acid_data$Diff != 0)
+
+# Perform a binomial test assuming a 50% chance of an increase
+sign_test <- binom.test(positive_changes, total_nonzero, p = 0.5)
+print(sign_test)
+
+```
+
+p-value is above 0.05 therefore the null hypothesis is accepted. We will conclude that there is no difference in the number of stations with increased versus decreased pH. 
+
+Lets repeat the same for *Nonparametric Paired Wilcoxon Signed-Rank Test* 
+
+**Project Objective** : Test whether there is a statistically significant difference between the pH values before and after the intervention.
+
+**Hypotheses**:
+
+- *Null hypothesis*: The median difference between paired pH values (After - Before) is zero.
+- *Alternate hypothesis*: The median difference is not zero.
+```{r}
+# Paired Wilcoxon Signed-Rank Test
+paired_wilcox <- wilcox.test(acid_data$Before, acid_data$After, paired = TRUE, alternative = "two.sided")
+print(paired_wilcox)
+```
+
+The p-value is above -.-5 therefore there is no significant change in pH after the intervention. 
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
 ## One-Way ANOVA 
-
 
 ANOVA (Analysis of Variance) is a statistical method used to compare three or more groups to determine whether their means or medians significantly differ, or if they belong to the same population. It is particularly useful in scenarios where multiple groups need to be analyzed simultaneously, reducing the risk of errors that arise from multiple two-sample tests. ANOVA can be categorized into parametric (assuming normality and equal variances) and nonparametric (distribution-free) methods. Variants include One-Way ANOVA (influenced by a single factor) and Two-Way or Multifactor ANOVA (considering multiple factors). While ANOVA helps identify overall differences, post hoc tests are often needed to determine which groups specifically differ
 

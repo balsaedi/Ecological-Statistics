@@ -495,8 +495,50 @@ Where:</p></li>
 </ul>
 <p>The Wilcoxon Signed-Rank Test is a useful nonparametric alternative to the one-sample t-test when normality is questionable. It provides a robust way to assess median differences while taking data magnitudes into account.</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Acid rain is a major environmental concern, particularly in industrial areas. In our study, we are interested in understanding the effect of emission controls on rainwater acidity. Rainwater pH values are recorded before and after the intervention at the same 15 monitoring stations. Because pH measurements are continuous but the data set is relatively small and may not meet the assumptions of parametric tests, nonparametric methods offer a robust alternative.</p>
+<p>You are required to perform to use the <code>acid_rain</code> data set provided by the instructor to perform Nonparametric One-Sample Wilcoxon Signed-Rank Test. The objective of this project is to test whether the median rainwater pH before the intervention is different from the regulatory standard of 5.5.</p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><strong>Project Objective</strong>: Test whether the median rainwater pH before the intervention is different from the regulatory standard of 5.5.</p>
+<p><strong>Hypotheses</strong>:</p>
+<ul>
+<li><em>Null Hypothesis</em>: The median pH before intervention is 5.5</li>
+<li><em>Alternative Hypothesis</em>: The median pH before intervention is not 5.5.</li>
+</ul>
+<p><strong>Mathematical Concept:</strong></p>
+<p>For each observation, compute the difference:
+<span class="math display">\[d_i = pH_i - 5.5\]</span>
+Then rank the absolute differences <span class="math inline">\(|d_i|\)</span> (ignoring zeros) and sum the ranks for positive differences. The Wilcoxon test statistic <span class="math inline">\(W\)</span> is compared against its distribution to determine significance.</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="hypothesis-testing.html#cb72-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb72-2"><a href="hypothesis-testing.html#cb72-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="hypothesis-testing.html#cb77-1" tabindex="-1"></a><span class="co"># Read the dataset (adjust the URL as needed)</span></span>
+<span id="cb77-2"><a href="hypothesis-testing.html#cb77-2" tabindex="-1"></a>acid_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/acid_rain.csv&quot;</span>)</span>
+<span id="cb77-3"><a href="hypothesis-testing.html#cb77-3" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="hypothesis-testing.html#cb77-4" tabindex="-1"></a><span class="co"># View the first few rows</span></span>
+<span id="cb77-5"><a href="hypothesis-testing.html#cb77-5" tabindex="-1"></a><span class="co">#head(acid_data)</span></span>
+<span id="cb77-6"><a href="hypothesis-testing.html#cb77-6" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="hypothesis-testing.html#cb77-7" tabindex="-1"></a><span class="co"># Nonparametric One-Sample Wilcoxon Signed-Rank Test on &#39;Before&#39; pH values</span></span>
+<span id="cb77-8"><a href="hypothesis-testing.html#cb77-8" tabindex="-1"></a><span class="co"># Test if the median pH before intervention is 5.5</span></span>
+<span id="cb77-9"><a href="hypothesis-testing.html#cb77-9" tabindex="-1"></a>wilcox_test_before <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(acid_data<span class="sc">$</span>Before, <span class="at">mu =</span> <span class="fl">5.5</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span>
+<span id="cb77-10"><a href="hypothesis-testing.html#cb77-10" tabindex="-1"></a><span class="fu">print</span>(wilcox_test_before)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon signed rank exact test
+## 
+## data:  acid_data$Before
+## V = 67, p-value = 0.7197
+## alternative hypothesis: true location is not equal to 5.5</code></pre>
+<p>p-value is above 0.05 therefore the null hypothesis is accepted where we conclude that the median pH before the intervention is 5.5.</p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 <div id="nonparametric-two-sample-paired-sign-test-and-paired-wilcoxon-signed-rank-test" class="section level3 hasAnchor" number="2.3.2">
@@ -529,12 +571,12 @@ Where:</p></li>
 </ul>
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>Lets test between two groups</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="hypothesis-testing.html#cb72-1" tabindex="-1"></a><span class="co"># Sample data</span></span>
-<span id="cb72-2"><a href="hypothesis-testing.html#cb72-2" tabindex="-1"></a>group1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>)</span>
-<span id="cb72-3"><a href="hypothesis-testing.html#cb72-3" tabindex="-1"></a>group2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">12</span>)</span>
-<span id="cb72-4"><a href="hypothesis-testing.html#cb72-4" tabindex="-1"></a></span>
-<span id="cb72-5"><a href="hypothesis-testing.html#cb72-5" tabindex="-1"></a><span class="co"># Perform Wilcoxon Rank Sum Test</span></span>
-<span id="cb72-6"><a href="hypothesis-testing.html#cb72-6" tabindex="-1"></a><span class="fu">wilcox.test</span>(group1, group2, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="hypothesis-testing.html#cb79-1" tabindex="-1"></a><span class="co"># Sample data</span></span>
+<span id="cb79-2"><a href="hypothesis-testing.html#cb79-2" tabindex="-1"></a>group1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>, <span class="dv">5</span>, <span class="dv">9</span>, <span class="dv">10</span>, <span class="dv">15</span>)</span>
+<span id="cb79-3"><a href="hypothesis-testing.html#cb79-3" tabindex="-1"></a>group2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">4</span>, <span class="dv">6</span>, <span class="dv">8</span>, <span class="dv">12</span>)</span>
+<span id="cb79-4"><a href="hypothesis-testing.html#cb79-4" tabindex="-1"></a></span>
+<span id="cb79-5"><a href="hypothesis-testing.html#cb79-5" tabindex="-1"></a><span class="co"># Perform Wilcoxon Rank Sum Test</span></span>
+<span id="cb79-6"><a href="hypothesis-testing.html#cb79-6" tabindex="-1"></a><span class="fu">wilcox.test</span>(group1, group2, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Wilcoxon rank sum exact test
 ## 
@@ -545,10 +587,10 @@ Where:</p></li>
 <p>install the <code>exactRankTests</code></p>
 <pre><code>install.packages(&quot;exactRankTests&quot;)</code></pre>
 <p>Run the test</p>
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb75-1"><a href="hypothesis-testing.html#cb75-1" tabindex="-1"></a><span class="fu">library</span>(exactRankTests)</span></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="hypothesis-testing.html#cb82-1" tabindex="-1"></a><span class="fu">library</span>(exactRankTests)</span></code></pre></div>
 <pre><code>##  Package &#39;exactRankTests&#39; is no longer under development.
 ##  Please consider using package &#39;coin&#39; instead.</code></pre>
-<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="hypothesis-testing.html#cb77-1" tabindex="-1"></a><span class="fu">wilcox.exact</span>(group1, group2, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="hypothesis-testing.html#cb84-1" tabindex="-1"></a><span class="fu">wilcox.exact</span>(group1, group2, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span></code></pre></div>
 <pre><code>## 
 ##  Exact Wilcoxon rank sum test
 ## 
@@ -557,7 +599,7 @@ Where:</p></li>
 ## alternative hypothesis: true mu is not equal to 0</code></pre>
 <p>Using <code>coin</code> package for more complex cases. First install the package <code>install.packages("coin")</code></p>
 <p>Run the test</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="hypothesis-testing.html#cb79-1" tabindex="-1"></a><span class="fu">library</span>(coin)</span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="hypothesis-testing.html#cb86-1" tabindex="-1"></a><span class="fu">library</span>(coin)</span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;coin&#39;</code></pre>
 <pre><code>## The following object is masked _by_ &#39;.GlobalEnv&#39;:
@@ -566,11 +608,69 @@ Where:</p></li>
 <pre><code>## The following objects are masked from &#39;package:exactRankTests&#39;:
 ## 
 ##     dperm, pperm, qperm, rperm</code></pre>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="hypothesis-testing.html#cb83-1" tabindex="-1"></a><span class="co"># wilcox_test(group1 ~ group2)</span></span></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="hypothesis-testing.html#cb90-1" tabindex="-1"></a><span class="co"># wilcox_test(group1 ~ group2)</span></span></code></pre></div>
 <p>The Wilcoxon Rank Sum Test is a useful nonparametric alternative to the two-sample t-test when normality cannot be assumed. It is robust to outliers and does not require knowledge of the underlying data distribution. R provides multiple functions for computing the test, with options for handling ties and computing exact p-values.</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
-<hr />
-<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p>Using the “acid rain” above determine if there is a consistent direction of change in pH values (i.e., whether more stations show an increase or decrease in pH after the intervention). Use the non-parametric paired sign test.</p>
+<p>Repeat what you have done with Nonparametric Paired Wilcoxon Signed-Rank Test. However, in this case, test whether there is a statistically significant difference between the pH values before and after the intervention.
+_______________________________________________________________________
+<span style="color: brown;"><strong>Solution</strong></span></p>
+<p><strong>Project Objective</strong>: Is there a consistent direction of change in pH values (i.e., whether more stations show an increase or decrease in pH after the intervention).</p>
+<p><strong>Hypotheses</strong></p>
+<ul>
+<li><em>Null Hypothesis:</em> There is no difference in the number of stations with increased versus decreased pH.</li>
+<li><em>Alternate Hypothesis:</em> There is a significant difference in the number of stations showing an increase compared to a decrease.</li>
+</ul>
+<p><strong>Methods</strong></p>
+<p>For each station, calculate:</p>
+$$
+sign(d_i) =
+<span class="math display">\[\begin{cases}
+1, &amp; \text{if } After - Before &gt; 0 \\
+0, &amp; \text{if } After - Before = 0 \\
+-1, &amp; \text{if } After - Before &lt; 0
+\end{cases}\]</span>
+<p>$$
+Count the number of positive differences and use a binomial test to see if it deviates from the expected 50% chance.</p>
+<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="hypothesis-testing.html#cb91-1" tabindex="-1"></a><span class="co"># Compute differences between After and Before pH values</span></span>
+<span id="cb91-2"><a href="hypothesis-testing.html#cb91-2" tabindex="-1"></a>acid_data <span class="ot">&lt;-</span> acid_data <span class="sc">%&gt;%</span> <span class="fu">mutate</span>(<span class="at">Diff =</span> After <span class="sc">-</span> Before)</span>
+<span id="cb91-3"><a href="hypothesis-testing.html#cb91-3" tabindex="-1"></a></span>
+<span id="cb91-4"><a href="hypothesis-testing.html#cb91-4" tabindex="-1"></a><span class="co"># Count number of positive changes (excluding ties)</span></span>
+<span id="cb91-5"><a href="hypothesis-testing.html#cb91-5" tabindex="-1"></a>positive_changes <span class="ot">&lt;-</span> <span class="fu">sum</span>(acid_data<span class="sc">$</span>Diff <span class="sc">&gt;</span> <span class="dv">0</span>)</span>
+<span id="cb91-6"><a href="hypothesis-testing.html#cb91-6" tabindex="-1"></a>total_nonzero <span class="ot">&lt;-</span> <span class="fu">sum</span>(acid_data<span class="sc">$</span>Diff <span class="sc">!=</span> <span class="dv">0</span>)</span>
+<span id="cb91-7"><a href="hypothesis-testing.html#cb91-7" tabindex="-1"></a></span>
+<span id="cb91-8"><a href="hypothesis-testing.html#cb91-8" tabindex="-1"></a><span class="co"># Perform a binomial test assuming a 50% chance of an increase</span></span>
+<span id="cb91-9"><a href="hypothesis-testing.html#cb91-9" tabindex="-1"></a>sign_test <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(positive_changes, total_nonzero, <span class="at">p =</span> <span class="fl">0.5</span>)</span>
+<span id="cb91-10"><a href="hypothesis-testing.html#cb91-10" tabindex="-1"></a><span class="fu">print</span>(sign_test)</span></code></pre></div>
+<pre><code>## 
+##  Exact binomial test
+## 
+## data:  positive_changes and total_nonzero
+## number of successes = 10, number of trials = 15, p-value = 0.3018
+## alternative hypothesis: true probability of success is not equal to 0.5
+## 95 percent confidence interval:
+##  0.3838037 0.8817589
+## sample estimates:
+## probability of success 
+##              0.6666667</code></pre>
+<p>p-value is above 0.05 therefore the null hypothesis is accepted. We will conclude that there is no difference in the number of stations with increased versus decreased pH.</p>
+<p>Lets repeat the same for <em>Nonparametric Paired Wilcoxon Signed-Rank Test</em></p>
+<p><strong>Project Objective</strong> : Test whether there is a statistically significant difference between the pH values before and after the intervention.</p>
+<p><strong>Hypotheses</strong>:</p>
+<ul>
+<li><em>Null hypothesis</em>: The median difference between paired pH values (After - Before) is zero.</li>
+<li><em>Alternate hypothesis</em>: The median difference is not zero.</li>
+</ul>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="hypothesis-testing.html#cb93-1" tabindex="-1"></a><span class="co"># Paired Wilcoxon Signed-Rank Test</span></span>
+<span id="cb93-2"><a href="hypothesis-testing.html#cb93-2" tabindex="-1"></a>paired_wilcox <span class="ot">&lt;-</span> <span class="fu">wilcox.test</span>(acid_data<span class="sc">$</span>Before, acid_data<span class="sc">$</span>After, <span class="at">paired =</span> <span class="cn">TRUE</span>, <span class="at">alternative =</span> <span class="st">&quot;two.sided&quot;</span>)</span>
+<span id="cb93-3"><a href="hypothesis-testing.html#cb93-3" tabindex="-1"></a><span class="fu">print</span>(paired_wilcox)</span></code></pre></div>
+<pre><code>## 
+##  Wilcoxon signed rank exact test
+## 
+## data:  acid_data$Before and acid_data$After
+## V = 53, p-value = 0.7197
+## alternative hypothesis: true location shift is not equal to 0</code></pre>
+<p>The p-value is above -.-5 therefore there is no significant change in pH after the intervention.</p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
@@ -602,75 +702,64 @@ Where:</p></li>
 <p>By using One-Way ANOVA, ecologists and researchers can make informed, data-driven decisions about conservation efforts and environmental management strategies.</p>
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>—————Explain the computation of parametric one way ANOVA below———————————————————</p>
-<div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="hypothesis-testing.html#cb84-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb84-2"><a href="hypothesis-testing.html#cb84-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
-<pre><code>## 
-## Attaching package: &#39;dplyr&#39;</code></pre>
-<pre><code>## The following object is masked from &#39;package:MASS&#39;:
-## 
-##     select</code></pre>
-<pre><code>## The following objects are masked from &#39;package:stats&#39;:
-## 
-##     filter, lag</code></pre>
-<pre><code>## The following objects are masked from &#39;package:base&#39;:
-## 
-##     intersect, setdiff, setequal, union</code></pre>
-<div class="sourceCode" id="cb89"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb89-1"><a href="hypothesis-testing.html#cb89-1" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb89-2"><a href="hypothesis-testing.html#cb89-2" tabindex="-1"></a></span>
-<span id="cb89-3"><a href="hypothesis-testing.html#cb89-3" tabindex="-1"></a><span class="co"># Generate sample data</span></span>
-<span id="cb89-4"><a href="hypothesis-testing.html#cb89-4" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb89-5"><a href="hypothesis-testing.html#cb89-5" tabindex="-1"></a>group1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb89-6"><a href="hypothesis-testing.html#cb89-6" tabindex="-1"></a>group2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">55</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb89-7"><a href="hypothesis-testing.html#cb89-7" tabindex="-1"></a>group3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">60</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb89-8"><a href="hypothesis-testing.html#cb89-8" tabindex="-1"></a></span>
-<span id="cb89-9"><a href="hypothesis-testing.html#cb89-9" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb89-10"><a href="hypothesis-testing.html#cb89-10" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(group1, group2, group3),</span>
-<span id="cb89-11"><a href="hypothesis-testing.html#cb89-11" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Group1&quot;</span>, <span class="st">&quot;Group2&quot;</span>, <span class="st">&quot;Group3&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
-<span id="cb89-12"><a href="hypothesis-testing.html#cb89-12" tabindex="-1"></a>)</span>
-<span id="cb89-13"><a href="hypothesis-testing.html#cb89-13" tabindex="-1"></a></span>
-<span id="cb89-14"><a href="hypothesis-testing.html#cb89-14" tabindex="-1"></a><span class="co"># Compute group means and overall mean</span></span>
-<span id="cb89-15"><a href="hypothesis-testing.html#cb89-15" tabindex="-1"></a>means <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_value =</span> <span class="fu">mean</span>(values))</span>
-<span id="cb89-16"><a href="hypothesis-testing.html#cb89-16" tabindex="-1"></a>overall_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>values)</span>
-<span id="cb89-17"><a href="hypothesis-testing.html#cb89-17" tabindex="-1"></a></span>
-<span id="cb89-18"><a href="hypothesis-testing.html#cb89-18" tabindex="-1"></a><span class="co"># Compute sum of squares</span></span>
-<span id="cb89-19"><a href="hypothesis-testing.html#cb89-19" tabindex="-1"></a>SSBG <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="dv">10</span> <span class="sc">*</span> (means<span class="sc">$</span>mean_value <span class="sc">-</span> overall_mean)<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Between-group sum of squares</span></span>
-<span id="cb89-20"><a href="hypothesis-testing.html#cb89-20" tabindex="-1"></a>SSWG <span class="ot">&lt;-</span> <span class="fu">sum</span>((data<span class="sc">$</span>values <span class="sc">-</span> <span class="fu">ave</span>(data<span class="sc">$</span>values, data<span class="sc">$</span>group, <span class="at">FUN =</span> mean))<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Within-group sum of squares</span></span>
-<span id="cb89-21"><a href="hypothesis-testing.html#cb89-21" tabindex="-1"></a>SSTotal <span class="ot">&lt;-</span> <span class="fu">sum</span>((data<span class="sc">$</span>values <span class="sc">-</span> overall_mean)<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Total sum of squares</span></span>
-<span id="cb89-22"><a href="hypothesis-testing.html#cb89-22" tabindex="-1"></a></span>
-<span id="cb89-23"><a href="hypothesis-testing.html#cb89-23" tabindex="-1"></a>df_SSBG <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(data<span class="sc">$</span>group)) <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb89-24"><a href="hypothesis-testing.html#cb89-24" tabindex="-1"></a>df_SSWG <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data) <span class="sc">-</span> <span class="fu">length</span>(<span class="fu">unique</span>(data<span class="sc">$</span>group))</span>
-<span id="cb89-25"><a href="hypothesis-testing.html#cb89-25" tabindex="-1"></a>df_SSTotal <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data) <span class="sc">-</span> <span class="dv">1</span></span>
-<span id="cb89-26"><a href="hypothesis-testing.html#cb89-26" tabindex="-1"></a></span>
-<span id="cb89-27"><a href="hypothesis-testing.html#cb89-27" tabindex="-1"></a><span class="co"># Compute mean squares</span></span>
-<span id="cb89-28"><a href="hypothesis-testing.html#cb89-28" tabindex="-1"></a>MSG <span class="ot">&lt;-</span> SSBG <span class="sc">/</span> df_SSBG</span>
-<span id="cb89-29"><a href="hypothesis-testing.html#cb89-29" tabindex="-1"></a>MSE <span class="ot">&lt;-</span> SSWG <span class="sc">/</span> df_SSWG</span>
-<span id="cb89-30"><a href="hypothesis-testing.html#cb89-30" tabindex="-1"></a></span>
-<span id="cb89-31"><a href="hypothesis-testing.html#cb89-31" tabindex="-1"></a><span class="co"># Compute F-statistic</span></span>
-<span id="cb89-32"><a href="hypothesis-testing.html#cb89-32" tabindex="-1"></a>F0 <span class="ot">&lt;-</span> MSG <span class="sc">/</span> MSE</span>
-<span id="cb89-33"><a href="hypothesis-testing.html#cb89-33" tabindex="-1"></a></span>
-<span id="cb89-34"><a href="hypothesis-testing.html#cb89-34" tabindex="-1"></a><span class="co"># Compute critical F value</span></span>
-<span id="cb89-35"><a href="hypothesis-testing.html#cb89-35" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
-<span id="cb89-36"><a href="hypothesis-testing.html#cb89-36" tabindex="-1"></a>F_critical <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, df_SSBG, df_SSWG)</span>
-<span id="cb89-37"><a href="hypothesis-testing.html#cb89-37" tabindex="-1"></a></span>
-<span id="cb89-38"><a href="hypothesis-testing.html#cb89-38" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
-<span id="cb89-39"><a href="hypothesis-testing.html#cb89-39" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F0, df_SSBG, df_SSWG)</span>
-<span id="cb89-40"><a href="hypothesis-testing.html#cb89-40" tabindex="-1"></a></span>
-<span id="cb89-41"><a href="hypothesis-testing.html#cb89-41" tabindex="-1"></a><span class="co"># Display results</span></span>
-<span id="cb89-42"><a href="hypothesis-testing.html#cb89-42" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Between-group sum of squares (SSBG):&quot;</span>, SSBG, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="hypothesis-testing.html#cb95-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb95-2"><a href="hypothesis-testing.html#cb95-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb95-3"><a href="hypothesis-testing.html#cb95-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb95-4"><a href="hypothesis-testing.html#cb95-4" tabindex="-1"></a></span>
+<span id="cb95-5"><a href="hypothesis-testing.html#cb95-5" tabindex="-1"></a><span class="co"># Generate sample data</span></span>
+<span id="cb95-6"><a href="hypothesis-testing.html#cb95-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb95-7"><a href="hypothesis-testing.html#cb95-7" tabindex="-1"></a>group1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">50</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb95-8"><a href="hypothesis-testing.html#cb95-8" tabindex="-1"></a>group2 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">55</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb95-9"><a href="hypothesis-testing.html#cb95-9" tabindex="-1"></a>group3 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">60</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb95-10"><a href="hypothesis-testing.html#cb95-10" tabindex="-1"></a></span>
+<span id="cb95-11"><a href="hypothesis-testing.html#cb95-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb95-12"><a href="hypothesis-testing.html#cb95-12" tabindex="-1"></a>  <span class="at">values =</span> <span class="fu">c</span>(group1, group2, group3),</span>
+<span id="cb95-13"><a href="hypothesis-testing.html#cb95-13" tabindex="-1"></a>  <span class="at">group =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Group1&quot;</span>, <span class="st">&quot;Group2&quot;</span>, <span class="st">&quot;Group3&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
+<span id="cb95-14"><a href="hypothesis-testing.html#cb95-14" tabindex="-1"></a>)</span>
+<span id="cb95-15"><a href="hypothesis-testing.html#cb95-15" tabindex="-1"></a></span>
+<span id="cb95-16"><a href="hypothesis-testing.html#cb95-16" tabindex="-1"></a><span class="co"># Compute group means and overall mean</span></span>
+<span id="cb95-17"><a href="hypothesis-testing.html#cb95-17" tabindex="-1"></a>means <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(group) <span class="sc">%&gt;%</span> <span class="fu">summarise</span>(<span class="at">mean_value =</span> <span class="fu">mean</span>(values))</span>
+<span id="cb95-18"><a href="hypothesis-testing.html#cb95-18" tabindex="-1"></a>overall_mean <span class="ot">&lt;-</span> <span class="fu">mean</span>(data<span class="sc">$</span>values)</span>
+<span id="cb95-19"><a href="hypothesis-testing.html#cb95-19" tabindex="-1"></a></span>
+<span id="cb95-20"><a href="hypothesis-testing.html#cb95-20" tabindex="-1"></a><span class="co"># Compute sum of squares</span></span>
+<span id="cb95-21"><a href="hypothesis-testing.html#cb95-21" tabindex="-1"></a>SSBG <span class="ot">&lt;-</span> <span class="fu">sum</span>(<span class="dv">10</span> <span class="sc">*</span> (means<span class="sc">$</span>mean_value <span class="sc">-</span> overall_mean)<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Between-group sum of squares</span></span>
+<span id="cb95-22"><a href="hypothesis-testing.html#cb95-22" tabindex="-1"></a>SSWG <span class="ot">&lt;-</span> <span class="fu">sum</span>((data<span class="sc">$</span>values <span class="sc">-</span> <span class="fu">ave</span>(data<span class="sc">$</span>values, data<span class="sc">$</span>group, <span class="at">FUN =</span> mean))<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Within-group sum of squares</span></span>
+<span id="cb95-23"><a href="hypothesis-testing.html#cb95-23" tabindex="-1"></a>SSTotal <span class="ot">&lt;-</span> <span class="fu">sum</span>((data<span class="sc">$</span>values <span class="sc">-</span> overall_mean)<span class="sc">^</span><span class="dv">2</span>) <span class="co"># Total sum of squares</span></span>
+<span id="cb95-24"><a href="hypothesis-testing.html#cb95-24" tabindex="-1"></a></span>
+<span id="cb95-25"><a href="hypothesis-testing.html#cb95-25" tabindex="-1"></a>df_SSBG <span class="ot">&lt;-</span> <span class="fu">length</span>(<span class="fu">unique</span>(data<span class="sc">$</span>group)) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb95-26"><a href="hypothesis-testing.html#cb95-26" tabindex="-1"></a>df_SSWG <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data) <span class="sc">-</span> <span class="fu">length</span>(<span class="fu">unique</span>(data<span class="sc">$</span>group))</span>
+<span id="cb95-27"><a href="hypothesis-testing.html#cb95-27" tabindex="-1"></a>df_SSTotal <span class="ot">&lt;-</span> <span class="fu">nrow</span>(data) <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb95-28"><a href="hypothesis-testing.html#cb95-28" tabindex="-1"></a></span>
+<span id="cb95-29"><a href="hypothesis-testing.html#cb95-29" tabindex="-1"></a><span class="co"># Compute mean squares</span></span>
+<span id="cb95-30"><a href="hypothesis-testing.html#cb95-30" tabindex="-1"></a>MSG <span class="ot">&lt;-</span> SSBG <span class="sc">/</span> df_SSBG</span>
+<span id="cb95-31"><a href="hypothesis-testing.html#cb95-31" tabindex="-1"></a>MSE <span class="ot">&lt;-</span> SSWG <span class="sc">/</span> df_SSWG</span>
+<span id="cb95-32"><a href="hypothesis-testing.html#cb95-32" tabindex="-1"></a></span>
+<span id="cb95-33"><a href="hypothesis-testing.html#cb95-33" tabindex="-1"></a><span class="co"># Compute F-statistic</span></span>
+<span id="cb95-34"><a href="hypothesis-testing.html#cb95-34" tabindex="-1"></a>F0 <span class="ot">&lt;-</span> MSG <span class="sc">/</span> MSE</span>
+<span id="cb95-35"><a href="hypothesis-testing.html#cb95-35" tabindex="-1"></a></span>
+<span id="cb95-36"><a href="hypothesis-testing.html#cb95-36" tabindex="-1"></a><span class="co"># Compute critical F value</span></span>
+<span id="cb95-37"><a href="hypothesis-testing.html#cb95-37" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="fl">0.05</span></span>
+<span id="cb95-38"><a href="hypothesis-testing.html#cb95-38" tabindex="-1"></a>F_critical <span class="ot">&lt;-</span> <span class="fu">qf</span>(<span class="dv">1</span> <span class="sc">-</span> alpha, df_SSBG, df_SSWG)</span>
+<span id="cb95-39"><a href="hypothesis-testing.html#cb95-39" tabindex="-1"></a></span>
+<span id="cb95-40"><a href="hypothesis-testing.html#cb95-40" tabindex="-1"></a><span class="co"># Compute p-value</span></span>
+<span id="cb95-41"><a href="hypothesis-testing.html#cb95-41" tabindex="-1"></a>p_value <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pf</span>(F0, df_SSBG, df_SSWG)</span>
+<span id="cb95-42"><a href="hypothesis-testing.html#cb95-42" tabindex="-1"></a></span>
+<span id="cb95-43"><a href="hypothesis-testing.html#cb95-43" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb95-44"><a href="hypothesis-testing.html#cb95-44" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Between-group sum of squares (SSBG):&quot;</span>, SSBG, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Between-group sum of squares (SSBG): 223.5015</code></pre>
-<div class="sourceCode" id="cb91"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb91-1"><a href="hypothesis-testing.html#cb91-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Within-group sum of squares (SSWG):&quot;</span>, SSWG, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="hypothesis-testing.html#cb97-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Within-group sum of squares (SSWG):&quot;</span>, SSWG, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Within-group sum of squares (SSWG): 2568.336</code></pre>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="hypothesis-testing.html#cb93-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Total sum of squares (SSTotal):&quot;</span>, SSTotal, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="hypothesis-testing.html#cb99-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Total sum of squares (SSTotal):&quot;</span>, SSTotal, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Total sum of squares (SSTotal): 2791.837</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="hypothesis-testing.html#cb95-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;F-statistic (Fo):&quot;</span>, F0, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="hypothesis-testing.html#cb101-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;F-statistic (Fo):&quot;</span>, F0, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## F-statistic (Fo): 1.174796</code></pre>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="hypothesis-testing.html#cb97-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Critical F value (Fc):&quot;</span>, F_critical, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="hypothesis-testing.html#cb103-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Critical F value (Fc):&quot;</span>, F_critical, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Critical F value (Fc): 3.354131</code></pre>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="hypothesis-testing.html#cb99-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;p-value:&quot;</span>, p_value, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb105"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb105-1"><a href="hypothesis-testing.html#cb105-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;p-value:&quot;</span>, p_value, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## p-value: 0.3241775</code></pre>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="hypothesis-testing.html#cb101-1" tabindex="-1"></a><span class="co"># Perform ANOVA using built-in function</span></span>
-<span id="cb101-2"><a href="hypothesis-testing.html#cb101-2" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(values <span class="sc">~</span> group, <span class="at">data =</span> data)</span>
-<span id="cb101-3"><a href="hypothesis-testing.html#cb101-3" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div>
+<div class="sourceCode" id="cb107"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb107-1"><a href="hypothesis-testing.html#cb107-1" tabindex="-1"></a><span class="co"># Perform ANOVA using built-in function</span></span>
+<span id="cb107-2"><a href="hypothesis-testing.html#cb107-2" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(values <span class="sc">~</span> group, <span class="at">data =</span> data)</span>
+<span id="cb107-3"><a href="hypothesis-testing.html#cb107-3" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div>
 <pre><code>##             Df Sum Sq Mean Sq F value Pr(&gt;F)
 ## group        2  223.5  111.75   1.175  0.324
 ## Residuals   27 2568.3   95.12</code></pre>
@@ -690,23 +779,23 @@ Where:</p></li>
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p><strong>Ecological Example: Testing Differences in Soil Nutrient Levels</strong></p>
 <p>Consider a study where researchers measure soil nitrogen levels in three different ecosystems: grassland, wetland, and forest. Since soil nutrient data often exhibit skewness, the Kruskal–Wallis test is a suitable choice.</p>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="hypothesis-testing.html#cb103-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb103-2"><a href="hypothesis-testing.html#cb103-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb103-3"><a href="hypothesis-testing.html#cb103-3" tabindex="-1"></a></span>
-<span id="cb103-4"><a href="hypothesis-testing.html#cb103-4" tabindex="-1"></a><span class="co"># Simulated soil nitrogen data (in mg/kg)</span></span>
-<span id="cb103-5"><a href="hypothesis-testing.html#cb103-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb103-6"><a href="hypothesis-testing.html#cb103-6" tabindex="-1"></a>grassland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">30</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb103-7"><a href="hypothesis-testing.html#cb103-7" tabindex="-1"></a>wetland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">40</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb103-8"><a href="hypothesis-testing.html#cb103-8" tabindex="-1"></a>forest <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">35</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb103-9"><a href="hypothesis-testing.html#cb103-9" tabindex="-1"></a></span>
-<span id="cb103-10"><a href="hypothesis-testing.html#cb103-10" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
-<span id="cb103-11"><a href="hypothesis-testing.html#cb103-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb103-12"><a href="hypothesis-testing.html#cb103-12" tabindex="-1"></a>  <span class="at">Nitrogen =</span> <span class="fu">c</span>(grassland, wetland, forest),</span>
-<span id="cb103-13"><a href="hypothesis-testing.html#cb103-13" tabindex="-1"></a>  <span class="at">Ecosystem =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Grassland&quot;</span>, <span class="st">&quot;Wetland&quot;</span>, <span class="st">&quot;Forest&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
-<span id="cb103-14"><a href="hypothesis-testing.html#cb103-14" tabindex="-1"></a>)</span>
-<span id="cb103-15"><a href="hypothesis-testing.html#cb103-15" tabindex="-1"></a></span>
-<span id="cb103-16"><a href="hypothesis-testing.html#cb103-16" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test</span></span>
-<span id="cb103-17"><a href="hypothesis-testing.html#cb103-17" tabindex="-1"></a><span class="fu">kruskal.test</span>(Nitrogen <span class="sc">~</span> Ecosystem, <span class="at">data =</span> data)</span></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="hypothesis-testing.html#cb109-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb109-2"><a href="hypothesis-testing.html#cb109-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb109-3"><a href="hypothesis-testing.html#cb109-3" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="hypothesis-testing.html#cb109-4" tabindex="-1"></a><span class="co"># Simulated soil nitrogen data (in mg/kg)</span></span>
+<span id="cb109-5"><a href="hypothesis-testing.html#cb109-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb109-6"><a href="hypothesis-testing.html#cb109-6" tabindex="-1"></a>grassland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">30</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb109-7"><a href="hypothesis-testing.html#cb109-7" tabindex="-1"></a>wetland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">40</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb109-8"><a href="hypothesis-testing.html#cb109-8" tabindex="-1"></a>forest <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">35</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb109-9"><a href="hypothesis-testing.html#cb109-9" tabindex="-1"></a></span>
+<span id="cb109-10"><a href="hypothesis-testing.html#cb109-10" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
+<span id="cb109-11"><a href="hypothesis-testing.html#cb109-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb109-12"><a href="hypothesis-testing.html#cb109-12" tabindex="-1"></a>  <span class="at">Nitrogen =</span> <span class="fu">c</span>(grassland, wetland, forest),</span>
+<span id="cb109-13"><a href="hypothesis-testing.html#cb109-13" tabindex="-1"></a>  <span class="at">Ecosystem =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Grassland&quot;</span>, <span class="st">&quot;Wetland&quot;</span>, <span class="st">&quot;Forest&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
+<span id="cb109-14"><a href="hypothesis-testing.html#cb109-14" tabindex="-1"></a>)</span>
+<span id="cb109-15"><a href="hypothesis-testing.html#cb109-15" tabindex="-1"></a></span>
+<span id="cb109-16"><a href="hypothesis-testing.html#cb109-16" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test</span></span>
+<span id="cb109-17"><a href="hypothesis-testing.html#cb109-17" tabindex="-1"></a><span class="fu">kruskal.test</span>(Nitrogen <span class="sc">~</span> Ecosystem, <span class="at">data =</span> data)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
