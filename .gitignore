@@ -2,3 +2,6 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# Data Simulations folder
+data_simulation_scripts
