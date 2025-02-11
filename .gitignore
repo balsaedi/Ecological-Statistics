@@ -5,3 +5,6 @@
 
 # Data Simulations folder
 data_simulation_scripts
+
+# Big data files
+data/AirQualityDataIndia.csv
