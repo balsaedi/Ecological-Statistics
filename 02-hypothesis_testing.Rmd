@@ -488,7 +488,19 @@ By using One-Way ANOVA, ecologists and researchers can make informed, data-drive
 
 <span style="color: orange;">**Try it!**</span> 
 
----------------Explain the computation of parametric one way ANOVA below---------------------------------------------------------
+In our case, we have have generated the sample data for three groups; `group1`, `group2` and `group3`. Formulating the null hypothesis; 
+
+- *Null Hypothesis*: The mean is the same across all gropu populations. 
+- *Alternate hypothesis*: At least one group population has a different mean from the rest of the group. 
+
+When modelling the parametric one-way ANOVA, the **F-statistic** is computed as; 
+$${F} = {{\text Between-Groups Variance(MSG)}\over{\text Within-Group Variance(MSEE)}}$$
+Where;
+
+- $MSG = {{SSBG}\over{k-1}}$, the $SSBG$ is the sum of squares.
+- $MSE = {{SSWG}\over{N-k}}$, the $SSWG$ is the between group sum of squares.
+
+$k$ as the number of groups and $N$ as the total number of observaions.
 
 ```{r}
 # Load necessary library
@@ -546,17 +558,38 @@ anova_result <- aov(values ~ group, data = data)
 summary(anova_result)
 ```
 
-<span style="color: green;">**Practical Exercise**</span> 
+<span style="color: green;">**Practical Exercise**</span>
+
+Air quality is an important ecological and public health concern. For example, understanding whether Nitrogen Dioxide ($NO_2$) concentrations differ significantly across different states can inform regulatory decisions and resource management. In this exercise, you will use the “Air Quality Data in India” dataset, which is publicly available on Kaggle, to test the following:
+
+You are required to use the **Parametric One-Way ANOVA** to compare the means of the pollutant levels across different groups.
 
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+```{r}
+# Load the required libraries
+library(dplyr)
+
+# Load the data 
+air_data <- read.csv("data/AirQualityDataIndia.csv")
+
+
+# Perform one-way ANOVA
+anova_result <- aov(no2 ~ state, data = air_data)
+summary(anova_result)
+```
+
+Although there were missing values in the data set, The F-statistic was 7511 and 33 degrees of freedom.
+
+The p-value was far much less than 0.05 therefore there is enough evidence to reject the null hypothesis. We conclude that *atleast one state had a different mean concentration of Nitrogen dioxide from the rest of the states*
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
 
 ### Nonparametric One-Way ANOVA (Kruskal-Wallis Test)
 
-When conducting a parametric one-way ANOVA, one of the key assumptions is that the residuals follow a normal distribution. If this assumption is violated, a common approach is to apply a logarithmic transformation—using either the natural logarithm (ln) or the base-10 logarithm (log10)—to the data. If this transformation successfully normalizes the data and satisfies the assumption of homogeneity of variances, then the ANOVA can be performed on the transformed values.
+When conducting a parametric one-way ANOVA, one of the key assumptions is that the residuals follow a normal distribution. If this assumption is violated, a common approach is to apply a logarithmic transformation—using either the natural logarithm ($ln$) or the base-10 logarithm (log10)—to the data. If this transformation successfully normalizes the data and satisfies the assumption of homogeneity of variances, then the ANOVA can be performed on the transformed values.
 
 However, if both the original and log-transformed data fail to meet the assumptions required for parametric ANOVA, an alternative nonparametric test, the **Kruskal–Wallis test**, can be used. Unlike parametric ANOVA, the Kruskal–Wallis test does not assume normality but does require that the distributions of the populations have similar shapes, particularly regarding skewness and variance. This test also assumes that the data points are independent and do not exhibit trends.
 
@@ -566,7 +599,7 @@ If the presence of a trend affects the data, one approach is to use the **Friedm
 
 The Kruskal–Wallis test examines differences in the medians of multiple groups rather than their means. It is performed by ranking all data values across groups and using the calculating a test statistic:
 
-This statistic follows a chi-square () distribution with  degrees of freedom, where  is the number of groups. If  exceeds the critical value at a chosen significance level (), or if the p-value is below , the null hypothesis of equal medians is rejected.
+This statistic follows a `chi-square()` distribution with  degrees of freedom, where  is the number of groups. If  exceeds the critical value at a chosen `significance level()`, or if the p-value is below 0.05, the null hypothesis of equal medians is rejected.
 
 <span style="color: orange;">**Try it!**</span> 
 
@@ -595,10 +628,26 @@ kruskal.test(Nitrogen ~ Ecosystem, data = data)
 
 Since the p-value (0.1222) is greater than 0.05, we fail to reject the null hypothesis. This suggests that there is no statistically significant difference in median soil nitrogen levels among the three ecosystems. If a lower p-value had been obtained, further analysis using post hoc pairwise comparisons would be required to determine which specific ecosystems differ.
 
-<span style="color: green;">**Practical Exercise**</span> 
+<span style="color: green;">**Practical Exercise**</span>
+
+Using the air quality data in India from the previous exercise, perform non-parametric one-way ANOVA(Kruskal-Wallis Test) to compare the medians when data assumptions for ANOVA might not hold. 
 
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+Formulate the hypothesis;
+
+- *Null hypothesis:* The median Nitrogen dioxide concentration is the same across all states.
+- *Alternate hypothesis:* At least one state has a median Nitrogen dioxide concentration that is different. 
+```{r}
+# Perform the Kruskal-Wallis test
+kruskal_result <- kruskal.test(no2 ~ state, data = air_data)
+print(kruskal_result)
+```
+
+The p-value is far much below 0.05 therefore the null hypothesis is rejected. It is concluded that at least one state has a median Nitrogen dioxide contration that is different. 
+
+
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 

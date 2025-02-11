@@ -701,7 +701,19 @@ Count the number of positive differences and use a binomial test to see if it de
 <p>For example, an ecologist studying wetland ecosystems might apply One-Way ANOVA to determine whether soil nitrogen levels significantly affect plant biodiversity across different wetland sites. If the test finds a significant difference, post hoc tests like Tukey’s HSD can identify which specific wetland sites differ.</p>
 <p>By using One-Way ANOVA, ecologists and researchers can make informed, data-driven decisions about conservation efforts and environmental management strategies.</p>
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
-<p>—————Explain the computation of parametric one way ANOVA below———————————————————</p>
+<p>In our case, we have have generated the sample data for three groups; <code>group1</code>, <code>group2</code> and <code>group3</code>. Formulating the null hypothesis;</p>
+<ul>
+<li><em>Null Hypothesis</em>: The mean is the same across all gropu populations.</li>
+<li><em>Alternate hypothesis</em>: At least one group population has a different mean from the rest of the group.</li>
+</ul>
+<p>When modelling the parametric one-way ANOVA, the <strong>F-statistic</strong> is computed as;
+<span class="math display">\[{F} = {{\text Between-Groups Variance(MSG)}\over{\text Within-Group Variance(MSEE)}}\]</span>
+Where;</p>
+<ul>
+<li><span class="math inline">\(MSG = {{SSBG}\over{k-1}}\)</span>, the <span class="math inline">\(SSBG\)</span> is the sum of squares.</li>
+<li><span class="math inline">\(MSE = {{SSWG}\over{N-k}}\)</span>, the <span class="math inline">\(SSWG\)</span> is the between group sum of squares.</li>
+</ul>
+<p><span class="math inline">\(k\)</span> as the number of groups and <span class="math inline">\(N\)</span> as the total number of observaions.</p>
 <div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="hypothesis-testing.html#cb95-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
 <span id="cb95-2"><a href="hypothesis-testing.html#cb95-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
 <span id="cb95-3"><a href="hypothesis-testing.html#cb95-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -764,38 +776,58 @@ Count the number of positive differences and use a binomial test to see if it de
 ## group        2  223.5  111.75   1.175  0.324
 ## Residuals   27 2568.3   95.12</code></pre>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Air quality is an important ecological and public health concern. For example, understanding whether Nitrogen Dioxide (<span class="math inline">\(NO_2\)</span>) concentrations differ significantly across different states can inform regulatory decisions and resource management. In this exercise, you will use the “Air Quality Data in India” dataset, which is publicly available on Kaggle, to test the following:</p>
+<p>You are required to use the <strong>Parametric One-Way ANOVA</strong> to compare the means of the pollutant levels across different groups.</p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="hypothesis-testing.html#cb109-1" tabindex="-1"></a><span class="co"># Load the required libraries</span></span>
+<span id="cb109-2"><a href="hypothesis-testing.html#cb109-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb109-3"><a href="hypothesis-testing.html#cb109-3" tabindex="-1"></a></span>
+<span id="cb109-4"><a href="hypothesis-testing.html#cb109-4" tabindex="-1"></a><span class="co"># Load the data </span></span>
+<span id="cb109-5"><a href="hypothesis-testing.html#cb109-5" tabindex="-1"></a>air_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/AirQualityDataIndia.csv&quot;</span>)</span>
+<span id="cb109-6"><a href="hypothesis-testing.html#cb109-6" tabindex="-1"></a></span>
+<span id="cb109-7"><a href="hypothesis-testing.html#cb109-7" tabindex="-1"></a></span>
+<span id="cb109-8"><a href="hypothesis-testing.html#cb109-8" tabindex="-1"></a><span class="co"># Perform one-way ANOVA</span></span>
+<span id="cb109-9"><a href="hypothesis-testing.html#cb109-9" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(no2 <span class="sc">~</span> state, <span class="at">data =</span> air_data)</span>
+<span id="cb109-10"><a href="hypothesis-testing.html#cb109-10" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div>
+<pre><code>##                 Df   Sum Sq Mean Sq F value Pr(&gt;F)    
+## state           33 53343341 1616465    7511 &lt;2e-16 ***
+## Residuals   419475 90281183     215                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 16233 observations deleted due to missingness</code></pre>
+<p>Although there were missing values in the data set, The F-statistic was 7511 and 33 degrees of freedom.</p>
+<p>The p-value was far much less than 0.05 therefore there is enough evidence to reject the null hypothesis. We conclude that <em>atleast one state had a different mean concentration of Nitrogen dioxide from the rest of the states</em></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 <div id="nonparametric-one-way-anova-kruskal-wallis-test" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Nonparametric One-Way ANOVA (Kruskal-Wallis Test)<a href="hypothesis-testing.html#nonparametric-one-way-anova-kruskal-wallis-test" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>When conducting a parametric one-way ANOVA, one of the key assumptions is that the residuals follow a normal distribution. If this assumption is violated, a common approach is to apply a logarithmic transformation—using either the natural logarithm (ln) or the base-10 logarithm (log10)—to the data. If this transformation successfully normalizes the data and satisfies the assumption of homogeneity of variances, then the ANOVA can be performed on the transformed values.</p>
+<p>When conducting a parametric one-way ANOVA, one of the key assumptions is that the residuals follow a normal distribution. If this assumption is violated, a common approach is to apply a logarithmic transformation—using either the natural logarithm (<span class="math inline">\(ln\)</span>) or the base-10 logarithm (log10)—to the data. If this transformation successfully normalizes the data and satisfies the assumption of homogeneity of variances, then the ANOVA can be performed on the transformed values.</p>
 <p>However, if both the original and log-transformed data fail to meet the assumptions required for parametric ANOVA, an alternative nonparametric test, the <strong>Kruskal–Wallis test</strong>, can be used. Unlike parametric ANOVA, the Kruskal–Wallis test does not assume normality but does require that the distributions of the populations have similar shapes, particularly regarding skewness and variance. This test also assumes that the data points are independent and do not exhibit trends.</p>
 <p>If the presence of a trend affects the data, one approach is to use the <strong>Friedman test</strong>, which accounts for structured variability by analyzing data within blocks. Another option for handling seasonal or cyclical trends is <strong>deseasonalization</strong> before applying the Kruskal–Wallis test.</p>
 <p><strong>Kruskal–Wallis Test Procedure</strong></p>
 <p>The Kruskal–Wallis test examines differences in the medians of multiple groups rather than their means. It is performed by ranking all data values across groups and using the calculating a test statistic:</p>
-<p>This statistic follows a chi-square () distribution with degrees of freedom, where is the number of groups. If exceeds the critical value at a chosen significance level (), or if the p-value is below , the null hypothesis of equal medians is rejected.</p>
+<p>This statistic follows a <code>chi-square()</code> distribution with degrees of freedom, where is the number of groups. If exceeds the critical value at a chosen <code>significance level()</code>, or if the p-value is below 0.05, the null hypothesis of equal medians is rejected.</p>
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p><strong>Ecological Example: Testing Differences in Soil Nutrient Levels</strong></p>
 <p>Consider a study where researchers measure soil nitrogen levels in three different ecosystems: grassland, wetland, and forest. Since soil nutrient data often exhibit skewness, the Kruskal–Wallis test is a suitable choice.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="hypothesis-testing.html#cb109-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb109-2"><a href="hypothesis-testing.html#cb109-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb109-3"><a href="hypothesis-testing.html#cb109-3" tabindex="-1"></a></span>
-<span id="cb109-4"><a href="hypothesis-testing.html#cb109-4" tabindex="-1"></a><span class="co"># Simulated soil nitrogen data (in mg/kg)</span></span>
-<span id="cb109-5"><a href="hypothesis-testing.html#cb109-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
-<span id="cb109-6"><a href="hypothesis-testing.html#cb109-6" tabindex="-1"></a>grassland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">30</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb109-7"><a href="hypothesis-testing.html#cb109-7" tabindex="-1"></a>wetland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">40</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb109-8"><a href="hypothesis-testing.html#cb109-8" tabindex="-1"></a>forest <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">35</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
-<span id="cb109-9"><a href="hypothesis-testing.html#cb109-9" tabindex="-1"></a></span>
-<span id="cb109-10"><a href="hypothesis-testing.html#cb109-10" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
-<span id="cb109-11"><a href="hypothesis-testing.html#cb109-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
-<span id="cb109-12"><a href="hypothesis-testing.html#cb109-12" tabindex="-1"></a>  <span class="at">Nitrogen =</span> <span class="fu">c</span>(grassland, wetland, forest),</span>
-<span id="cb109-13"><a href="hypothesis-testing.html#cb109-13" tabindex="-1"></a>  <span class="at">Ecosystem =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Grassland&quot;</span>, <span class="st">&quot;Wetland&quot;</span>, <span class="st">&quot;Forest&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
-<span id="cb109-14"><a href="hypothesis-testing.html#cb109-14" tabindex="-1"></a>)</span>
-<span id="cb109-15"><a href="hypothesis-testing.html#cb109-15" tabindex="-1"></a></span>
-<span id="cb109-16"><a href="hypothesis-testing.html#cb109-16" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test</span></span>
-<span id="cb109-17"><a href="hypothesis-testing.html#cb109-17" tabindex="-1"></a><span class="fu">kruskal.test</span>(Nitrogen <span class="sc">~</span> Ecosystem, <span class="at">data =</span> data)</span></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="hypothesis-testing.html#cb111-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb111-2"><a href="hypothesis-testing.html#cb111-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb111-3"><a href="hypothesis-testing.html#cb111-3" tabindex="-1"></a></span>
+<span id="cb111-4"><a href="hypothesis-testing.html#cb111-4" tabindex="-1"></a><span class="co"># Simulated soil nitrogen data (in mg/kg)</span></span>
+<span id="cb111-5"><a href="hypothesis-testing.html#cb111-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb111-6"><a href="hypothesis-testing.html#cb111-6" tabindex="-1"></a>grassland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">30</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb111-7"><a href="hypothesis-testing.html#cb111-7" tabindex="-1"></a>wetland <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">40</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb111-8"><a href="hypothesis-testing.html#cb111-8" tabindex="-1"></a>forest <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">10</span>, <span class="at">mean =</span> <span class="dv">35</span>, <span class="at">sd =</span> <span class="dv">5</span>)</span>
+<span id="cb111-9"><a href="hypothesis-testing.html#cb111-9" tabindex="-1"></a></span>
+<span id="cb111-10"><a href="hypothesis-testing.html#cb111-10" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
+<span id="cb111-11"><a href="hypothesis-testing.html#cb111-11" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb111-12"><a href="hypothesis-testing.html#cb111-12" tabindex="-1"></a>  <span class="at">Nitrogen =</span> <span class="fu">c</span>(grassland, wetland, forest),</span>
+<span id="cb111-13"><a href="hypothesis-testing.html#cb111-13" tabindex="-1"></a>  <span class="at">Ecosystem =</span> <span class="fu">rep</span>(<span class="fu">c</span>(<span class="st">&quot;Grassland&quot;</span>, <span class="st">&quot;Wetland&quot;</span>, <span class="st">&quot;Forest&quot;</span>), <span class="at">each =</span> <span class="dv">10</span>)</span>
+<span id="cb111-14"><a href="hypothesis-testing.html#cb111-14" tabindex="-1"></a>)</span>
+<span id="cb111-15"><a href="hypothesis-testing.html#cb111-15" tabindex="-1"></a></span>
+<span id="cb111-16"><a href="hypothesis-testing.html#cb111-16" tabindex="-1"></a><span class="co"># Perform Kruskal-Wallis test</span></span>
+<span id="cb111-17"><a href="hypothesis-testing.html#cb111-17" tabindex="-1"></a><span class="fu">kruskal.test</span>(Nitrogen <span class="sc">~</span> Ecosystem, <span class="at">data =</span> data)</span></code></pre></div>
 <pre><code>## 
 ##  Kruskal-Wallis rank sum test
 ## 
@@ -803,8 +835,23 @@ Count the number of positive differences and use a binomial test to see if it de
 ## Kruskal-Wallis chi-squared = 4.2039, df = 2, p-value = 0.1222</code></pre>
 <p>Since the p-value (0.1222) is greater than 0.05, we fail to reject the null hypothesis. This suggests that there is no statistically significant difference in median soil nitrogen levels among the three ecosystems. If a lower p-value had been obtained, further analysis using post hoc pairwise comparisons would be required to determine which specific ecosystems differ.</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Using the air quality data in India from the previous exercise, perform non-parametric one-way ANOVA(Kruskal-Wallis Test) to compare the medians when data assumptions for ANOVA might not hold.</p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p>Formulate the hypothesis;</p>
+<ul>
+<li><em>Null hypothesis:</em> The median Nitrogen dioxide concentration is the same across all states.</li>
+<li><em>Alternate hypothesis:</em> At least one state has a median Nitrogen dioxide concentration that is different.</li>
+</ul>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="hypothesis-testing.html#cb113-1" tabindex="-1"></a><span class="co"># Perform the Kruskal-Wallis test</span></span>
+<span id="cb113-2"><a href="hypothesis-testing.html#cb113-2" tabindex="-1"></a>kruskal_result <span class="ot">&lt;-</span> <span class="fu">kruskal.test</span>(no2 <span class="sc">~</span> state, <span class="at">data =</span> air_data)</span>
+<span id="cb113-3"><a href="hypothesis-testing.html#cb113-3" tabindex="-1"></a><span class="fu">print</span>(kruskal_result)</span></code></pre></div>
+<pre><code>## 
+##  Kruskal-Wallis rank sum test
+## 
+## data:  no2 by state
+## Kruskal-Wallis chi-squared = 166893, df = 33, p-value &lt; 2.2e-16</code></pre>
+<p>The p-value is far much below 0.05 therefore the null hypothesis is rejected. It is concluded that at least one state has a median Nitrogen dioxide contration that is different.</p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
