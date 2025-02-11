@@ -5,3 +5,4 @@
 - California Water Quality Status - https://data.ca.gov/dataset/a7601751-8e18-4d1b-a7f1-e395ca9d3517/resource/4f9dcf98-5fb4-477b-8780-4411c083fee8/download/fig.-4-5.-sum-pyrethroid-toxic-units.csv
 - Water Portability Data - https://www.kaggle.com/code/moosecat/water-quality-eda-cleaning-and-prediction?select=water_potability.csv
 - Air Quality Data India - https://www.kaggle.com/datasets/shrutibhargava94/india-air-quality-data
+- Daily Temperature of Melbourne - https://www.kaggle.com/code/samfaraday/melbourne-daily-min-temperatures-eda

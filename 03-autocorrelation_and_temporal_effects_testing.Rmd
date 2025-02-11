@@ -58,6 +58,57 @@ As a summary, the normally distributed data, $r_k$ should be close to zero if th
 
 <span style="color: orange;">**Try it!**</span> 
 
+Climate and weather data are central to ecological research, helping us understand environmental trends and variability. In this exercise, you'll examine whether daily temperature data from Melbourne exhibit autocorrelation over time. Autocorrelation indicates that today's temperature might be correlated with yesterday’s, the day before, and so on. Detecting significant autocorrelation is important because it affects how we model and predict future climate patterns.
+
+You are required to retrieve the [daily Temperature of Melbourne](https://www.kaggle.com/code/samfaraday/melbourne-daily-min-temperatures-eda) and save it as a csv file. 
+Formulate the hypothesis;
+
+- **Null hypothesis:** The daily minimum temperature series is random(i.e there is no significant autocorrelation)
+- **Alternate hypothesis:** The daily temperature time series exhibits significant autocorrelation (i.e., past values influence future values).
+
+Perform the analysis with R
+```{r}
+# Load necessary libraries
+library(readr)
+library(ggplot2)
+
+# Load the data set
+melbourne_temp <- read_csv("data/melboune-daily-temperature.csv")
+
+# Inspect the data structure
+str(melbourne_temp)
+
+# Convert the 'Date' column to Date format.
+melbourne_temp$Date <- as.Date(melbourne_temp$Date, format = "%Y-%m-%d")
+
+# Rename the temperature column
+names(melbourne_temp)[names(melbourne_temp) == 'Daily minimum temperatures in Melbourne, Australia, 1981-1990'] <- 'Temperature'
+
+# Convert to numeric 
+melbourne_temp <- transform(melbourne_temp, Temperature = as.numeric(Temperature))
+
+# Remove rows with missing values 
+melbourne_temp <- na.omit(melbourne_temp)
+
+# Sort data by date if not already sorted
+melbourne_temp <- melbourne_temp[order(melbourne_temp$Date), ]
+
+# Create a time series object (assuming daily data; adjust the 'frequency' parameter if needed)
+# Here, we assume the data is daily, so frequency = 365
+temp_ts <- ts(melbourne_temp$Temp, frequency = 365)
+
+# Plot the time series to visualize trends
+plot(temp_ts, main = "Daily Temperature Time Series (Melbourne)",
+     xlab = "Time", ylab = "Temperature (°C)")
+
+# Compute and plot the Sample Autocorrelation Function (ACF)
+acf(temp_ts, main = "ACF of Melbourne Daily Temperature")
+```
+
+The results show the time series of daily temperature in Melbourne and its corresponding autocorrelation function (ACF). There is a cyclic trends in temperature over time  and the ACF plot suggests strong autocorrelation at shorter lags, indicating a temporal dependency in the data.
+
+
+
 ## An Example on Site-Wide Temporal Effects
 **Analysis of Site-Wide Temporal Effects on Groundwater Manganese Concentrations**
 
