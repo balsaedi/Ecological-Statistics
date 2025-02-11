@@ -195,13 +195,6 @@ summary(Mn2.anova2)
 
 P-value is far much less than 0.05. The results confirm that manganese concentrations vary significantly over time.
 
-<span style="color: green;">**Practical Exercise**</span> 
-
-_______________________________________________________________________
-<span style="color: brown;">**Solution**</span> 
-
-<span style="color: brown;">**________________________________________________________________________________**</span>
-
 ## TESTS FOR TREND 
 
 When working with data that has a time component (i.e., data collected at different points in time), a time series plot is a useful first step in exploring whether the values are randomly distributed or if a trend or pattern exists. If the plot suggests a trend, the next step is to determine whether this trend is statistically significant or just a random occurrence.
@@ -233,7 +226,7 @@ A statistically significant **positive slope**($\beta_1>0$) suggests an increasi
 To determine if the trend is significant, we set up the following hypotheses: 
 
 - **Null hypothesis**($H_0$): There is no trend; the true slope is zero ($\beta_1=0$).
-- Alternative Hypothesis ($H_a$): A trend exists; the slope is not zero ($\beta_1≠0$).
+- **Alternative Hypothesis** ($H_a$): A trend exists; the slope is not zero ($\beta_1≠0$).
 
 The **t-test** is used to check the significance of $\beta_1$:
 $${t} = {{\hat\beta_1}\over{SE(\hat\beta_1)}}$$
@@ -249,7 +242,7 @@ Here are the assumptions must be satisfied for valid results;
 
 <span style="color: orange;">**Try it!**</span>: **Detecting Trends in River Nitrate Levels**
 
-n ecological studies, trend analysis is often applied to environmental parameters such as nitrate concentration in rivers over time. The dataset below simulates nitrate levels (mg/L) measured monthly over several years.
+In ecological studies, trend analysis is often applied to environmental parameters such as nitrate concentration in rivers over time. The dataset below simulates nitrate levels (mg/L) measured monthly over several years.
 ```{r}
 # Load necessary libraries
 library(ggplot2)
@@ -301,8 +294,44 @@ This suggests that nitrate levels are increasing over time, which could indicate
 
 <span style="color: green;">**Practical Exercise**</span> 
 
+Using the Melbourne daily temperature(Used in Sample Autocorrelation Coeefficient Exercise), determine whether there is a statistically significant trend in temperature over time. 
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+Formulate the hypotheses; 
+
+- **Null hypothesis**: There is no significant trend in temperature over time.
+- **Alternate hypothesis**: There is a significant increasing or decreasing trend in temperature over time.
+
+Here is  the simple linear regression model;
+$$Temperatur = \beta_0 + \beta_1.Time + \epsilon$$ 
+where $\beta_1$ is the slope coefficient. 
+```{r}
+# data set - melbourne_temp(reuse the variable name from the previous exercise)
+
+# Calculate time difference since the beginning 
+melbourne_temp$Time <- as.numeric(as.Date(melbourne_temp$Date) - min(as.Date(melbourne_temp$Date)))  # Convert Date to numerical
+
+# Visualize the time series 
+ggplot(melbourne_temp, aes(x = Date, y = Temperature)) +
+  geom_line() +
+  labs(title = "Daily Temperature Time Series (Melbourne)", y = "Temperature (°C)", x = "Date")
+
+# Parametric Test for Trend: Linear Regression
+model <- lm(Temperature ~ Time, data = melbourne_temp)
+summary(model)  # Get regression output
+
+# Plot regression line
+ggplot(melbourne_temp, aes(x = Time, y = Temperature)) +
+  geom_point(alpha = 0.5) +
+  geom_smooth(method = "lm", col = "red") +
+  labs(title = "Linear Trend in Melbourne's Temperature", x = "Time", y = "Temperature (°C)")
+```
+
+The p-value(statistical significance) is 0.5406 which above 0.05, therefore the null hypothesis(*There is no significant trend in temperature over time*) is accepted. Furthermore the slope coefficient($\beta_1$) is $3.904 \times 10^{-5}$(which is close to zero) suggests that temperature does not change significantly over time.
+
+We can conclude that there is no change in temperature over time. 
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
@@ -316,20 +345,18 @@ In ecological statistics, detecting trends in environmental data is crucial for 
 The Mann-Kendall test is a rank-based nonparametric test used to detect a monotonic trend in time-series data, whether linear or nonlinear.
 
 
-Given a dataset $ X = \{x_1, x_2, ..., x_n\} $, the Mann-Kendall test examines all possible pairs $ x_i, x_j $ where $ i < j $, and assigns a score based on their relative magnitudes:
+Given a data set $ X = \{x_1, x_2, ..., x_n\} $, the Mann-Kendall test examines all possible pairs $ x_i, x_j $ where $ i < j $, and assigns a score based on their relative magnitudes:
 
 $$S = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \text{sgn}(x_j - x_i)$$
 
 where the sign function is defined as:
 
-$$
-\text{sgn}(x_j - x_i) =
+$$\text{sgn}(x_j - x_i) =
 \begin{cases} 
 +1, & \text{if } x_j > x_i \\ 
 0, & \text{if } x_j = x_i \\ 
 -1, & \text{if } x_j < x_i
-\end{cases}
-$$
+\end{cases}$$
 
 A positive $S$ indicates an increasing trend, while a negative $S$ suggests a decreasing trend.
 
@@ -340,15 +367,12 @@ Where t represents the number of tied ranks in the data set.
 
 The standardized test statistic (Z-score) is given by:
 
-$$
-{Z} = 
-
+$${Z} = 
 \begin{cases} 
 {{s-1}\over{Var(S)}}, \text if \space S>0\\ 
 0,  \text if \space S = 0\\ 
 {{s-1}\over{Var(S)}}, \text if \space S<0
-\end{cases}
-$$
+\end{cases}$$
 
 Lets formulate the hypothesis;
 
@@ -411,8 +435,63 @@ seasonal_data <- data.frame(Date=dates, Value=data_values)
 
 <span style="color: green;">**Practical Exercise**</span> 
 
+
+Using the Melbourne daily temperature data set, perform the following non-parametric tests to find if there is a significant trend in temperature over time;
+
+- **Mann-Kendall Test**
+- **Seasonal Mann-Kendall Test**
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+- **Mann-Kendall Test**
+```{r}
+# Load the required library 
+library(Kendall)
+
+# Perform the test
+mk_test <- MannKendall(melbourne_temp$Temperature)
+print(mk_test)
+```
+
+$\tau$ = 0.0121 is small thus suggesting a slight increasing trend, though very weak. A value closer to -ve or +ve 1 would indicate a strong trend. The p-value is 0.27545(which is above 0.05) therefore we fail to reject the null hypothesis. This means **there is no significant trend detected in the Melboourne**. Lets try working on the *Seasonall Mann-Kendall Test.*
+
+- **Seasonal Mann-Kendall Test** 
+```{r}
+# Install the package if not already installed
+# install.packages("trend")
+
+# Load the package
+library(trend)
+
+# Convert data to time series format
+melbourne_ts <- ts(melbourne_temp$Temperature, frequency = 365) 
+
+# Perform Seasonal Mann-Kendall Test
+smk_test <- smk.test(melbourne_ts)
+print(smk_test)
+```
+
+Alternatively, you can use the `Kendall` package
+```{r}
+# install.packages("Kendall")
+library(Kendall)
+
+# Convert time into a time series object
+melbourne_ts <- ts(melbourne_temp$Temperature, frequency = 365)
+
+# Perform Seasonal Mann-Kendall Test
+smk_test <- SeasonalMannKendall(melbourne_ts)
+print(smk_test)
+```
+
+After taking a closer looking using the Seasonal Mann-Kendall test we find that;
+
+- The **test statistic (z)** = 2.802 -- a positive value that suggests an increasing trend in temperature. 
+- P-value of less than 0.05 -- Meaning that we reject the null hypothesis.
+- **S (Mann-Kendall Statistic) ** = 598 -- A positive S value further confirms an upward trend. 
+
+It can be conclude that since **p-value is low (p < 0.05)**, we reject the null hypothesis and conclude that there is a significant increasing trend in Melbourne's temperature over time.
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
@@ -499,7 +578,22 @@ ggplot(data, aes(x = Year, y = Nitrate)) +
 
 <span style="color: green;">**Practical Exercise**</span> 
 
+Finally, lets repeat the analysis(Melbourne daily temperature performed in the exercises earlier). Thjis time you will be required to perform the **Theil-Sen Slope Estimator**.
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+```{r}
+# Perform the Theil-Sen Slope Estimator
+theil_sen <- sens.slope(melbourne_temp$Temperature)
+print(theil_sen)
+```
+
+The Theil-sen slope estimate = $6.736 \times 10^{-5}$ indicates a very small positive value that suggests a slight increasing trend. Contrary to the **Seasonal Mann-Kendall** test, the p-value = 0.2754(above 0.05) indicating that we fail to reject the null hypothesis and there is trend is not statistically significant. 
+
+Taking a closer look, the Seasonal Mann-Kendall found a significant trend while Theil-Sen test failed to find, this discrepancy might be due to; 
+
+1. Seasonal effects influencing the Mann-Kendall test but having less impact in the Theil-Sen slope.
+2. High variance in temperature data, reducing the power of the Theil-Sen test.
 
 <span style="color: brown;">**________________________________________________________________________________**</span>

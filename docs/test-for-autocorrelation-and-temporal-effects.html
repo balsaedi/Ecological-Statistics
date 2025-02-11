@@ -444,10 +444,6 @@ Where:</p>
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
 <p>P-value is far much less than 0.05. The results confirm that manganese concentrations vary significantly over time.</p>
-<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
-<hr />
-<p><span style="color: brown;"><strong>Solution</strong></span></p>
-<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 <div id="tests-for-trend" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> TESTS FOR TREND<a href="test-for-autocorrelation-and-temporal-effects.html#tests-for-trend" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -478,7 +474,7 @@ Where:</p>
 <p>To determine if the trend is significant, we set up the following hypotheses:</p>
 <ul>
 <li><strong>Null hypothesis</strong>(<span class="math inline">\(H_0\)</span>): There is no trend; the true slope is zero (<span class="math inline">\(\beta_1=0\)</span>).</li>
-<li>Alternative Hypothesis (<span class="math inline">\(H_a\)</span>): A trend exists; the slope is not zero (<span class="math inline">\(\beta_1≠0\)</span>).</li>
+<li><strong>Alternative Hypothesis</strong> (<span class="math inline">\(H_a\)</span>): A trend exists; the slope is not zero (<span class="math inline">\(\beta_1≠0\)</span>).</li>
 </ul>
 <p>The <strong>t-test</strong> is used to check the significance of <span class="math inline">\(\beta_1\)</span>:
 <span class="math display">\[{t} = {{\hat\beta_1}\over{SE(\hat\beta_1)}}\]</span>
@@ -492,7 +488,7 @@ Where <span class="math inline">\(\hat\beta_1\)</span> is the setimated slope an
 <li><strong>Sufficient Data Points</strong>: At least 8–10 observations are recommended.</li>
 </ol>
 <p><span style="color: orange;"><strong>Try it!</strong></span>: <strong>Detecting Trends in River Nitrate Levels</strong></p>
-<p>n ecological studies, trend analysis is often applied to environmental parameters such as nitrate concentration in rivers over time. The dataset below simulates nitrate levels (mg/L) measured monthly over several years.</p>
+<p>In ecological studies, trend analysis is often applied to environmental parameters such as nitrate concentration in rivers over time. The dataset below simulates nitrate levels (mg/L) measured monthly over several years.</p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb130-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
 <span id="cb130-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb130-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
 <span id="cb130-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb130-3" tabindex="-1"></a><span class="fu">library</span>(lmtest)</span></code></pre></div>
@@ -563,8 +559,57 @@ Where <span class="math inline">\(\hat\beta_1\)</span> is the setimated slope an
 </ul>
 <p>This suggests that nitrate levels are increasing over time, which could indicate environmental pollution or agricultural runoff.</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Using the Melbourne daily temperature(Used in Sample Autocorrelation Coeefficient Exercise), determine whether there is a statistically significant trend in temperature over time.</p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p>Formulate the hypotheses;</p>
+<ul>
+<li><strong>Null hypothesis</strong>: There is no significant trend in temperature over time.</li>
+<li><strong>Alternate hypothesis</strong>: There is a significant increasing or decreasing trend in temperature over time.</li>
+</ul>
+<p>Here is the simple linear regression model;
+<span class="math display">\[Temperatur = \beta_0 + \beta_1.Time + \epsilon\]</span>
+where <span class="math inline">\(\beta_1\)</span> is the slope coefficient.</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-1" tabindex="-1"></a><span class="co"># data set - melbourne_temp(reuse the variable name from the previous exercise)</span></span>
+<span id="cb140-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-2" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-3" tabindex="-1"></a><span class="co"># Calculate time difference since the beginning </span></span>
+<span id="cb140-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-4" tabindex="-1"></a>melbourne_temp<span class="sc">$</span>Time <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">as.Date</span>(melbourne_temp<span class="sc">$</span>Date) <span class="sc">-</span> <span class="fu">min</span>(<span class="fu">as.Date</span>(melbourne_temp<span class="sc">$</span>Date)))  <span class="co"># Convert Date to numerical</span></span>
+<span id="cb140-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-5" tabindex="-1"></a></span>
+<span id="cb140-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-6" tabindex="-1"></a><span class="co"># Visualize the time series </span></span>
+<span id="cb140-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-7" tabindex="-1"></a><span class="fu">ggplot</span>(melbourne_temp, <span class="fu">aes</span>(<span class="at">x =</span> Date, <span class="at">y =</span> Temperature)) <span class="sc">+</span></span>
+<span id="cb140-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-8" tabindex="-1"></a>  <span class="fu">geom_line</span>() <span class="sc">+</span></span>
+<span id="cb140-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb140-9" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Daily Temperature Time Series (Melbourne)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Temperature (°C)&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Date&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-1.png" width="672" /></p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-1" tabindex="-1"></a><span class="co"># Parametric Test for Trend: Linear Regression</span></span>
+<span id="cb141-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-2" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Temperature <span class="sc">~</span> Time, <span class="at">data =</span> melbourne_temp)</span>
+<span id="cb141-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-3" tabindex="-1"></a><span class="fu">summary</span>(model)  <span class="co"># Get regression output</span></span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Temperature ~ Time, data = melbourne_temp)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -11.1518  -2.8964  -0.1497   2.7674  15.1686 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 1.112e+01  1.345e-01  82.628   &lt;2e-16 ***
+## Time        3.904e-05  6.380e-05   0.612    0.541    
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.062 on 3645 degrees of freedom
+## Multiple R-squared:  0.0001028,  Adjusted R-squared:  -0.0001716 
+## F-statistic: 0.3746 on 1 and 3645 DF,  p-value: 0.5406</code></pre>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb143-1" tabindex="-1"></a><span class="co"># Plot regression line</span></span>
+<span id="cb143-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb143-2" tabindex="-1"></a><span class="fu">ggplot</span>(melbourne_temp, <span class="fu">aes</span>(<span class="at">x =</span> Time, <span class="at">y =</span> Temperature)) <span class="sc">+</span></span>
+<span id="cb143-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb143-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span></span>
+<span id="cb143-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb143-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb143-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb143-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Linear Trend in Melbourne&#39;s Temperature&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Time&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Temperature (°C)&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-57-2.png" width="672" /></p>
+<p>The p-value(statistical significance) is 0.5406 which above 0.05, therefore the null hypothesis(<em>There is no significant trend in temperature over time</em>) is accepted. Furthermore the slope coefficient(<span class="math inline">\(\beta_1\)</span>) is <span class="math inline">\(3.904 \times 10^{-5}\)</span>(which is close to zero) suggests that temperature does not change significantly over time.</p>
+<p>We can conclude that there is no change in temperature over time.</p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 <div id="nonparametric-test-for-trends" class="section level3 hasAnchor" number="3.3.2">
@@ -575,30 +620,26 @@ Where <span class="math inline">\(\hat\beta_1\)</span> is the setimated slope an
 <div id="mann-kendall-trend-test" class="section level5 hasAnchor" number="3.3.2.1.1">
 <h5><span class="header-section-number">3.3.2.1.1</span> Mann-Kendall Trend Test<a href="test-for-autocorrelation-and-temporal-effects.html#mann-kendall-trend-test" class="anchor-section" aria-label="Anchor link to header"></a></h5>
 <p>The Mann-Kendall test is a rank-based nonparametric test used to detect a monotonic trend in time-series data, whether linear or nonlinear.</p>
-<p>Given a dataset $ X = {x_1, x_2, …, x_n} $, the Mann-Kendall test examines all possible pairs $ x_i, x_j $ where $ i &lt; j $, and assigns a score based on their relative magnitudes:</p>
+<p>Given a data set $ X = {x_1, x_2, …, x_n} $, the Mann-Kendall test examines all possible pairs $ x_i, x_j $ where $ i &lt; j $, and assigns a score based on their relative magnitudes:</p>
 <p><span class="math display">\[S = \sum_{i=1}^{n-1} \sum_{j=i+1}^{n} \text{sgn}(x_j - x_i)\]</span></p>
 <p>where the sign function is defined as:</p>
-<p><span class="math display">\[
-\text{sgn}(x_j - x_i) =
+<p><span class="math display">\[\text{sgn}(x_j - x_i) =
 \begin{cases}
 +1, &amp; \text{if } x_j &gt; x_i \\
 0, &amp; \text{if } x_j = x_i \\
 -1, &amp; \text{if } x_j &lt; x_i
-\end{cases}
-\]</span></p>
+\end{cases}\]</span></p>
 <p>A positive <span class="math inline">\(S\)</span> indicates an increasing trend, while a negative <span class="math inline">\(S\)</span> suggests a decreasing trend.</p>
 <p>For large samples (<span class="math inline">\(n&gt;10\)</span>), the test statistic <span class="math inline">\(S\)</span> follows an approximately normal distribution with mean 0 and variance:</p>
 <p><span class="math display">\[{Var(S)} = {{n(n-1)(2n-5)- \sum_t t(t-1)(2t+5)}\over{18}}\]</span>
 Where t represents the number of tied ranks in the data set.</p>
 <p>The standardized test statistic (Z-score) is given by:</p>
-<p>$$
-{Z} =</p>
-<span class="math display">\[\begin{cases}
+<p><span class="math display">\[{Z} =
+\begin{cases}
 {{s-1}\over{Var(S)}}, \text if \space S&gt;0\\
 0,  \text if \space S = 0\\
 {{s-1}\over{Var(S)}}, \text if \space S&lt;0
-\end{cases}\]</span>
-<p>$$</p>
+\end{cases}\]</span></p>
 <p>Lets formulate the hypothesis;</p>
 <ul>
 <li><strong>Null hypothesis</strong>(<span class="math inline">\(H_0\)</span>): No trend in the data.</li>
@@ -609,15 +650,15 @@ Where t represents the number of tied ranks in the data set.</p>
 <p>A package <code>trend</code> is needed for this practical and can be installed by;</p>
 <pre><code>install.packages(&quot;trend&quot;)</code></pre>
 <p>Run the analysis</p>
-<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-1" tabindex="-1"></a><span class="fu">library</span>(trend)</span>
-<span id="cb141-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-2" tabindex="-1"></a></span>
-<span id="cb141-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-3" tabindex="-1"></a><span class="co"># Example dataset: Monthly average temperature</span></span>
-<span id="cb141-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.4</span>, <span class="fl">12.8</span>, <span class="fl">13.1</span>, <span class="fl">12.9</span>, <span class="fl">13.5</span>, <span class="fl">13.7</span>, <span class="fl">13.9</span>, <span class="fl">14.0</span>, <span class="fl">14.1</span>, <span class="fl">14.5</span>, <span class="fl">14.8</span>, <span class="fl">15.0</span>)</span>
-<span id="cb141-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-5" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2000</span>, <span class="dv">2011</span>)</span>
-<span id="cb141-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-6" tabindex="-1"></a></span>
-<span id="cb141-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-7" tabindex="-1"></a><span class="co"># Perform Mann-Kendall Test</span></span>
-<span id="cb141-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-8" tabindex="-1"></a>mk_result <span class="ot">&lt;-</span> <span class="fu">mk.test</span>(data)</span>
-<span id="cb141-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb141-9" tabindex="-1"></a><span class="fu">print</span>(mk_result)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-1" tabindex="-1"></a><span class="fu">library</span>(trend)</span>
+<span id="cb146-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-2" tabindex="-1"></a></span>
+<span id="cb146-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-3" tabindex="-1"></a><span class="co"># Example dataset: Monthly average temperature</span></span>
+<span id="cb146-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-4" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">12.4</span>, <span class="fl">12.8</span>, <span class="fl">13.1</span>, <span class="fl">12.9</span>, <span class="fl">13.5</span>, <span class="fl">13.7</span>, <span class="fl">13.9</span>, <span class="fl">14.0</span>, <span class="fl">14.1</span>, <span class="fl">14.5</span>, <span class="fl">14.8</span>, <span class="fl">15.0</span>)</span>
+<span id="cb146-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-5" tabindex="-1"></a>time <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">2000</span>, <span class="dv">2011</span>)</span>
+<span id="cb146-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-6" tabindex="-1"></a></span>
+<span id="cb146-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-7" tabindex="-1"></a><span class="co"># Perform Mann-Kendall Test</span></span>
+<span id="cb146-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-8" tabindex="-1"></a>mk_result <span class="ot">&lt;-</span> <span class="fu">mk.test</span>(data)</span>
+<span id="cb146-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb146-9" tabindex="-1"></a><span class="fu">print</span>(mk_result)</span></code></pre></div>
 <pre><code>## 
 ##  Mann-Kendall trend test
 ## 
@@ -641,21 +682,79 @@ Where t represents the number of tied ranks in the data set.</p>
 <p>A package <code>Kendall</code> is required for this analysis and can be installed by;</p>
 <pre><code>install.packages(&quot;Kendall&quot;)</code></pre>
 <p>Run the analysis</p>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-1" tabindex="-1"></a><span class="co"># Load the library </span></span>
-<span id="cb144-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-2" tabindex="-1"></a><span class="fu">library</span>(Kendall)</span>
-<span id="cb144-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-3" tabindex="-1"></a></span>
-<span id="cb144-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-4" tabindex="-1"></a><span class="co"># Example dataset: Monthly pollutant concentrations across 5 years</span></span>
-<span id="cb144-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb144-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-6" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2014-12-01&quot;</span>), <span class="at">by=</span><span class="st">&quot;month&quot;</span>)</span>
-<span id="cb144-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-7" tabindex="-1"></a>data_values <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(dates), <span class="at">mean=</span><span class="dv">50</span>, <span class="at">sd=</span><span class="dv">5</span>)</span>
-<span id="cb144-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-8" tabindex="-1"></a>seasonal_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date=</span>dates, <span class="at">Value=</span>data_values)</span>
-<span id="cb144-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-9" tabindex="-1"></a></span>
-<span id="cb144-10"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-10" tabindex="-1"></a><span class="co"># Perform Seasonal Mann-Kendall Test</span></span>
-<span id="cb144-11"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-11" tabindex="-1"></a><span class="co">#smk_result &lt;- SeasonalMannKendall(seasonal_data$Value ~ #as.POSIXlt(seasonal_data$Date)$mon + #as.POSIXlt(seasonal_data$Date)$year)</span></span>
-<span id="cb144-12"><a href="test-for-autocorrelation-and-temporal-effects.html#cb144-12" tabindex="-1"></a><span class="co">#print(smk_result)</span></span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-1" tabindex="-1"></a><span class="co"># Load the library </span></span>
+<span id="cb149-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-2" tabindex="-1"></a><span class="fu">library</span>(Kendall)</span>
+<span id="cb149-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-3" tabindex="-1"></a></span>
+<span id="cb149-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-4" tabindex="-1"></a><span class="co"># Example dataset: Monthly pollutant concentrations across 5 years</span></span>
+<span id="cb149-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-5" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb149-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-6" tabindex="-1"></a>dates <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="fu">as.Date</span>(<span class="st">&quot;2010-01-01&quot;</span>), <span class="fu">as.Date</span>(<span class="st">&quot;2014-12-01&quot;</span>), <span class="at">by=</span><span class="st">&quot;month&quot;</span>)</span>
+<span id="cb149-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-7" tabindex="-1"></a>data_values <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="fu">length</span>(dates), <span class="at">mean=</span><span class="dv">50</span>, <span class="at">sd=</span><span class="dv">5</span>)</span>
+<span id="cb149-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-8" tabindex="-1"></a>seasonal_data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Date=</span>dates, <span class="at">Value=</span>data_values)</span>
+<span id="cb149-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-9" tabindex="-1"></a></span>
+<span id="cb149-10"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-10" tabindex="-1"></a><span class="co"># Perform Seasonal Mann-Kendall Test</span></span>
+<span id="cb149-11"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-11" tabindex="-1"></a><span class="co">#smk_result &lt;- SeasonalMannKendall(seasonal_data$Value ~ #as.POSIXlt(seasonal_data$Date)$mon + #as.POSIXlt(seasonal_data$Date)$year)</span></span>
+<span id="cb149-12"><a href="test-for-autocorrelation-and-temporal-effects.html#cb149-12" tabindex="-1"></a><span class="co">#print(smk_result)</span></span></code></pre></div>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Using the Melbourne daily temperature data set, perform the following non-parametric tests to find if there is a significant trend in temperature over time;</p>
+<ul>
+<li><strong>Mann-Kendall Test</strong></li>
+<li><strong>Seasonal Mann-Kendall Test</strong></li>
+</ul>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<ul>
+<li><strong>Mann-Kendall Test</strong></li>
+</ul>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb150-1" tabindex="-1"></a><span class="co"># Load the required library </span></span>
+<span id="cb150-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb150-2" tabindex="-1"></a><span class="fu">library</span>(Kendall)</span>
+<span id="cb150-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb150-3" tabindex="-1"></a></span>
+<span id="cb150-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb150-4" tabindex="-1"></a><span class="co"># Perform the test</span></span>
+<span id="cb150-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb150-5" tabindex="-1"></a>mk_test <span class="ot">&lt;-</span> <span class="fu">MannKendall</span>(melbourne_temp<span class="sc">$</span>Temperature)</span>
+<span id="cb150-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb150-6" tabindex="-1"></a><span class="fu">print</span>(mk_test)</span></code></pre></div>
+<pre><code>## tau = 0.0121, 2-sided pvalue =0.27545</code></pre>
+<p><span class="math inline">\(\tau\)</span> = 0.0121 is small thus suggesting a slight increasing trend, though very weak. A value closer to -ve or +ve 1 would indicate a strong trend. The p-value is 0.27545(which is above 0.05) therefore we fail to reject the null hypothesis. This means <strong>there is no significant trend detected in the Melboourne</strong>. Lets try working on the <em>Seasonall Mann-Kendall Test.</em></p>
+<ul>
+<li><strong>Seasonal Mann-Kendall Test</strong></li>
+</ul>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-1" tabindex="-1"></a><span class="co"># Install the package if not already installed</span></span>
+<span id="cb152-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-2" tabindex="-1"></a><span class="co"># install.packages(&quot;trend&quot;)</span></span>
+<span id="cb152-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-3" tabindex="-1"></a></span>
+<span id="cb152-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-4" tabindex="-1"></a><span class="co"># Load the package</span></span>
+<span id="cb152-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-5" tabindex="-1"></a><span class="fu">library</span>(trend)</span>
+<span id="cb152-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-6" tabindex="-1"></a></span>
+<span id="cb152-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-7" tabindex="-1"></a><span class="co"># Convert data to time series format</span></span>
+<span id="cb152-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-8" tabindex="-1"></a>melbourne_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(melbourne_temp<span class="sc">$</span>Temperature, <span class="at">frequency =</span> <span class="dv">365</span>) </span>
+<span id="cb152-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-9" tabindex="-1"></a></span>
+<span id="cb152-10"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-10" tabindex="-1"></a><span class="co"># Perform Seasonal Mann-Kendall Test</span></span>
+<span id="cb152-11"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-11" tabindex="-1"></a>smk_test <span class="ot">&lt;-</span> <span class="fu">smk.test</span>(melbourne_ts)</span>
+<span id="cb152-12"><a href="test-for-autocorrelation-and-temporal-effects.html#cb152-12" tabindex="-1"></a><span class="fu">print</span>(smk_test)</span></code></pre></div>
+<pre><code>## 
+##  Seasonal Mann-Kendall trend test (Hirsch-Slack test)
+## 
+## data:  melbourne_ts
+## z = 2.8042, p-value = 0.005044
+## alternative hypothesis: true S is not equal to 0
+## sample estimates:
+##        S     varS 
+##   598.00 45324.67</code></pre>
+<p>Alternatively, you can use the <code>Kendall</code> package</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-1" tabindex="-1"></a><span class="co"># install.packages(&quot;Kendall&quot;)</span></span>
+<span id="cb154-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-2" tabindex="-1"></a><span class="fu">library</span>(Kendall)</span>
+<span id="cb154-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-3" tabindex="-1"></a></span>
+<span id="cb154-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-4" tabindex="-1"></a><span class="co"># Convert time into a time series object</span></span>
+<span id="cb154-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-5" tabindex="-1"></a>melbourne_ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(melbourne_temp<span class="sc">$</span>Temperature, <span class="at">frequency =</span> <span class="dv">365</span>)</span>
+<span id="cb154-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-6" tabindex="-1"></a></span>
+<span id="cb154-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-7" tabindex="-1"></a><span class="co"># Perform Seasonal Mann-Kendall Test</span></span>
+<span id="cb154-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-8" tabindex="-1"></a>smk_test <span class="ot">&lt;-</span> <span class="fu">SeasonalMannKendall</span>(melbourne_ts)</span>
+<span id="cb154-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb154-9" tabindex="-1"></a><span class="fu">print</span>(smk_test)</span></code></pre></div>
+<pre><code>## tau = 0.0367, 2-sided pvalue =0.0049713</code></pre>
+<p>After taking a closer looking using the Seasonal Mann-Kendall test we find that;</p>
+<ul>
+<li>The <strong>test statistic (z)</strong> = 2.802 – a positive value that suggests an increasing trend in temperature.</li>
+<li>P-value of less than 0.05 – Meaning that we reject the null hypothesis.</li>
+<li><strong>S (Mann-Kendall Statistic) </strong> = 598 – A positive S value further confirms an upward trend.</li>
+</ul>
+<p>It can be conclude that since <strong>p-value is low (p &lt; 0.05)</strong>, we reject the null hypothesis and conclude that there is a significant increasing trend in Melbourne’s temperature over time.</p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
@@ -672,18 +771,18 @@ Where t represents the number of tied ranks in the data set.</p>
 <p><strong>Analyzing Water Quality Trends</strong></p>
 <p>In this exercise, we will analyze nitrate concentrations in a river over time to detect pollution trends. We will simulated data.</p>
 <p>Lets break it down step by step</p>
-<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb145-1" tabindex="-1"></a><span class="co"># Install required packages if not already installed</span></span>
-<span id="cb145-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb145-2" tabindex="-1"></a><span class="co">#install.packages(&quot;NADA&quot;)  # For dealing with non-detects</span></span>
-<span id="cb145-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb145-3" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)  # For data manipulation &amp; visualization</span></span>
-<span id="cb145-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb145-4" tabindex="-1"></a></span>
-<span id="cb145-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb145-5" tabindex="-1"></a><span class="co"># Load libraries</span></span>
-<span id="cb145-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb145-6" tabindex="-1"></a><span class="fu">library</span>(NADA)  </span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb156-1" tabindex="-1"></a><span class="co"># Install required packages if not already installed</span></span>
+<span id="cb156-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb156-2" tabindex="-1"></a><span class="co">#install.packages(&quot;NADA&quot;)  # For dealing with non-detects</span></span>
+<span id="cb156-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb156-3" tabindex="-1"></a><span class="co">#install.packages(&quot;tidyverse&quot;)  # For data manipulation &amp; visualization</span></span>
+<span id="cb156-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb156-4" tabindex="-1"></a></span>
+<span id="cb156-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb156-5" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb156-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb156-6" tabindex="-1"></a><span class="fu">library</span>(NADA)  </span></code></pre></div>
 <pre><code>## 
 ## Attaching package: &#39;NADA&#39;</code></pre>
 <pre><code>## The following object is masked from &#39;package:stats&#39;:
 ## 
 ##     cor</code></pre>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb148-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb159-1" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <pre><code>## ── Attaching core tidyverse packages ────────────
 ## ✔ forcats   1.0.0     ✔ stringr   1.5.1
 ## ✔ lubridate 1.9.4     ✔ tibble    3.2.1
@@ -697,15 +796,15 @@ Where t represents the number of tied ranks in the data set.</p>
 <li>Simulate Nitrate Concentration Data</li>
 </ul>
 <p>Imagine we are monitoring nitrate levels (mg/L) in a river over 10 years (2010-2019). Some measurements were below the detection limit (<code>ND</code> = non-detects).</p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-1" tabindex="-1"></a><span class="co"># Create a dataset of nitrate levels over time</span></span>
-<span id="cb151-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
-<span id="cb151-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-3" tabindex="-1"></a>  <span class="at">Year =</span> <span class="dv">2010</span><span class="sc">:</span><span class="dv">2019</span>,</span>
-<span id="cb151-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-4" tabindex="-1"></a>  <span class="at">Nitrate =</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">2.5</span>, <span class="fl">2.3</span>, <span class="fl">2.7</span>, <span class="fl">2.8</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>, <span class="fl">3.8</span>, <span class="cn">NA</span>, <span class="fl">4.2</span>),  <span class="co"># Some missing values</span></span>
-<span id="cb151-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-5" tabindex="-1"></a>  <span class="at">Detection_Limit =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="cn">NA</span>)  <span class="co"># Limit for ND values</span></span>
-<span id="cb151-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-6" tabindex="-1"></a>)</span>
-<span id="cb151-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-7" tabindex="-1"></a></span>
-<span id="cb151-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-8" tabindex="-1"></a><span class="co"># View data</span></span>
-<span id="cb151-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb151-9" tabindex="-1"></a><span class="fu">print</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-1" tabindex="-1"></a><span class="co"># Create a dataset of nitrate levels over time</span></span>
+<span id="cb162-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">tibble</span>(</span>
+<span id="cb162-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-3" tabindex="-1"></a>  <span class="at">Year =</span> <span class="dv">2010</span><span class="sc">:</span><span class="dv">2019</span>,</span>
+<span id="cb162-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-4" tabindex="-1"></a>  <span class="at">Nitrate =</span> <span class="fu">c</span>(<span class="fl">2.1</span>, <span class="fl">2.5</span>, <span class="fl">2.3</span>, <span class="fl">2.7</span>, <span class="fl">2.8</span>, <span class="fl">3.0</span>, <span class="fl">3.5</span>, <span class="fl">3.8</span>, <span class="cn">NA</span>, <span class="fl">4.2</span>),  <span class="co"># Some missing values</span></span>
+<span id="cb162-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-5" tabindex="-1"></a>  <span class="at">Detection_Limit =</span> <span class="fu">c</span>(<span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="cn">NA</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="cn">NA</span>)  <span class="co"># Limit for ND values</span></span>
+<span id="cb162-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-6" tabindex="-1"></a>)</span>
+<span id="cb162-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-7" tabindex="-1"></a></span>
+<span id="cb162-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-8" tabindex="-1"></a><span class="co"># View data</span></span>
+<span id="cb162-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb162-9" tabindex="-1"></a><span class="fu">print</span>(data)</span></code></pre></div>
 <pre><code>## # A tibble: 10 × 3
 ##     Year Nitrate Detection_Limit
 ##    &lt;int&gt;   &lt;dbl&gt;           &lt;dbl&gt;
@@ -724,14 +823,14 @@ Where t represents the number of tied ranks in the data set.</p>
 <li>Perform the Theil-Sen Estimation</li>
 </ul>
 <p>To compute the trend, we use <code>cenken()</code>, which handles both detected and non-detect values.</p>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-1" tabindex="-1"></a><span class="co"># Replace non-detects (NDs) with detection limits</span></span>
-<span id="cb153-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-2" tabindex="-1"></a>data<span class="sc">$</span>Nitrate[<span class="fu">is.na</span>(data<span class="sc">$</span>Nitrate)] <span class="ot">&lt;-</span> data<span class="sc">$</span>Detection_Limit[<span class="fu">is.na</span>(data<span class="sc">$</span>Nitrate)]</span>
-<span id="cb153-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-3" tabindex="-1"></a></span>
-<span id="cb153-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-4" tabindex="-1"></a><span class="co"># Apply Theil-Sen estimator</span></span>
-<span id="cb153-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-5" tabindex="-1"></a><span class="co">#result &lt;- cenken(Year, Nitrate, data = data)</span></span>
-<span id="cb153-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-6" tabindex="-1"></a></span>
-<span id="cb153-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-7" tabindex="-1"></a><span class="co"># Print result</span></span>
-<span id="cb153-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb153-8" tabindex="-1"></a><span class="co">#print(result)</span></span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-1" tabindex="-1"></a><span class="co"># Replace non-detects (NDs) with detection limits</span></span>
+<span id="cb164-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-2" tabindex="-1"></a>data<span class="sc">$</span>Nitrate[<span class="fu">is.na</span>(data<span class="sc">$</span>Nitrate)] <span class="ot">&lt;-</span> data<span class="sc">$</span>Detection_Limit[<span class="fu">is.na</span>(data<span class="sc">$</span>Nitrate)]</span>
+<span id="cb164-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-3" tabindex="-1"></a></span>
+<span id="cb164-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-4" tabindex="-1"></a><span class="co"># Apply Theil-Sen estimator</span></span>
+<span id="cb164-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-5" tabindex="-1"></a><span class="co">#result &lt;- cenken(Year, Nitrate, data = data)</span></span>
+<span id="cb164-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-6" tabindex="-1"></a></span>
+<span id="cb164-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-7" tabindex="-1"></a><span class="co"># Print result</span></span>
+<span id="cb164-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb164-8" tabindex="-1"></a><span class="co">#print(result)</span></span></code></pre></div>
 <p>Lets visualize the trend</p>
 <pre><code># Extract slope and intercept
 slope &lt;- result$coefficients[2]
@@ -751,8 +850,29 @@ ggplot(data, aes(x = Year, y = Nitrate)) +
        y = &quot;Nitrate Concentration (mg/L)&quot;) +
   theme_minimal()</code></pre>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Finally, lets repeat the analysis(Melbourne daily temperature performed in the exercises earlier). Thjis time you will be required to perform the <strong>Theil-Sen Slope Estimator</strong>.</p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb166-1" tabindex="-1"></a><span class="co"># Perform the Theil-Sen Slope Estimator</span></span>
+<span id="cb166-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb166-2" tabindex="-1"></a>theil_sen <span class="ot">&lt;-</span> <span class="fu">sens.slope</span>(melbourne_temp<span class="sc">$</span>Temperature)</span>
+<span id="cb166-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb166-3" tabindex="-1"></a><span class="fu">print</span>(theil_sen)</span></code></pre></div>
+<pre><code>## 
+##  Sen&#39;s slope
+## 
+## data:  melbourne_temp$Temperature
+## z = 1.0906, n = 3647, p-value = 0.2754
+## alternative hypothesis: true z is not equal to 0
+## 95 percent confidence interval:
+##  -4.861449e-05  2.023472e-04
+## sample estimates:
+##  Sen&#39;s slope 
+## 6.736275e-05</code></pre>
+<p>The Theil-sen slope estimate = <span class="math inline">\(6.736 \times 10^{-5}\)</span> indicates a very small positive value that suggests a slight increasing trend. Contrary to the <strong>Seasonal Mann-Kendall</strong> test, the p-value = 0.2754(above 0.05) indicating that we fail to reject the null hypothesis and there is trend is not statistically significant.</p>
+<p>Taking a closer look, the Seasonal Mann-Kendall found a significant trend while Theil-Sen test failed to find, this discrepancy might be due to;</p>
+<ol style="list-style-type: decimal">
+<li>Seasonal effects influencing the Mann-Kendall test but having less impact in the Theil-Sen slope.</li>
+<li>High variance in temperature data, reducing the power of the Theil-Sen test.</li>
+</ol>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 
 </div>
