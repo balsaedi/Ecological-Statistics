@@ -110,6 +110,13 @@ The degree of freedom is calculated by; $$df = n -2 $$
 
 ----------------------------**remember to put this into practice--------------------------------------------------
 
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
 ### Spearman's and Kendall's Correlaton Coeefficients
 
 In ecological studies, researchers often analyze relationships between variables that may not follow normal distributions or linear trends. Nonparametric correlation methods like Spearman’s Rho ($\rho$) and Kendall’s Tau ($\tau$) are particularly useful in such scenarios. These methods allow for the exploration of monotonic relationships—either linear or nonlinear—without relying on strict parametric assumptions.
