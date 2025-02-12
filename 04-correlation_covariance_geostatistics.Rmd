@@ -110,6 +110,31 @@ The degree of freedom is calculated by; $$df = n -2 $$
 
 ----------------------------**remember to put this into practice--------------------------------------------------
 
+<span style="color: orange;">**Try it!**</span>
+
+Lets have a practice on an ecological problem. we'll utilize the Forest Health and Ecological Diversity dataset, which offers a comprehensive collection of ecological and environmental measurements focused on tree characteristics and site conditions. This data set is publicly available on Kaggle. Download it from [here](https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity). First lets perform a pearson correlation to measure the linear relationship between two continuous variables. 
+
+In this case we will focus on the tree height(`Tree_Height`) versus Diameter at breast height(`DBH`). 
+```{r}
+# Load the required libraries
+library(ggplot2)
+
+# Load the required data set 
+forest_data <- read.csv("data/forest_health/forest_health_data.csv")
+
+# Compute Pearson’s correlation coefficient
+pearson_corr <- cor(forest_data$Tree_Height, forest_data$DBH, method = "pearson", use = "complete.obs")
+print(pearson_corr)
+
+# Visualize correlation
+ggplot(forest_data, aes(x = DBH, y = Tree_Height)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Scatter Plot of Tree Height vs. DBH", x = "DBH", y = "Tree Height")
+```
+
+The Pearson's correlation coefficient is nearly 0 and the scatter plot along with the regression line shows no sign of linear relationship. This shows that there is little to no relationship between Diameter at Breast height and height of the tree itself in the forest
+
 <span style="color: green;">**Practical Exercise**</span> 
 
 _______________________________________________________________________
@@ -168,7 +193,74 @@ Kendall's $\tau$ could evaluate the relationship between water quality indicator
 - Are best when the relationship between variables is monotonic but not linear (e.g., species richness and disturbance level).
 - Pearson's Correlation assumes normality and linearity, which may not hold for ecological data, such as seasonal variations in bird populations.
 
+<span style="color: orange;">**Try it!**</span> 
+
+Still on the forest and ecological diversity data we used in the example above we will now calculate the spearman's and Kendall's correlation correlation between tree height and and its elevation. 
+
+Remember that *Spearman’s and Kendall’s correlations measure monotonic relationships and are more robust to non-normal data.*
+```{r}
+# Compute Spearman’s correlation
+spearman_corr <- cor(forest_data$Tree_Height, forest_data$Elevation, method = "spearman", use = "complete.obs")
+print(spearman_corr)
+
+# Compute Kendall’s correlation
+kendall_corr <- cor(forest_data$Tree_Height, forest_data$Elevation, method = "kendall", use = "complete.obs")
+print(kendall_corr)
+```
+
+Both the Spearmans($\rho$) and Kendall's($\tau$) correlations are very low indicating a weak monotonic relationship between the tree height and its elevation within the forest. 
+
+**Note:** *Pearson’s correlation shows linear relationships, while Spearman’s and Kendall’s are better for ranked data*
+
+Finally, lets visualize a joint relationship(correlation, particularly Pearson's) between all variables
+```{r}
+# Load the required libraries 
+library(dplyr)
+library(ggcorrplot)
+
+# Compute correlation matrix
+cor_matrix <- cor(forest_data %>% select_if(is.numeric), use = "complete.obs")
+
+# Plot heatmap
+ggcorrplot(cor_matrix, method = "circle", lab = TRUE, colors = c("red", "white", "blue"))
+```
+
+From the chart, an increase in blue shows a stronger positive linear relationship between the matching variables while increase in red shows a stronger negative linear relationship between the matching variables. White dots shows little to no relationship. 
+
+In the correlation plot(heatmap-like) it is evident that the variables have little linear relationship among each other(low correlation)
+
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
+
+## COVARIANCE
+
+
 ---- Remember to add content on Covariance ----------------
+
+<span style="color: orange;">**Try it!**</span>
+
+Still using the `forest_data` used in the examples above. We will find the covariance between the trees' diameter at breast height (`DBH`) and the Soil Nuitrients which is affected by the available phosphorous in the Soil(`Soil_AP`). 
+
+Remember that *Covariance measures how two variables vary together but is scale-dependent.*
+```{r}
+# Compute covariance
+covariance_value <- cov(forest_data$DBH, forest_data$Soil_AP, use = "complete.obs")
+print(covariance_value)
+```
+
+The covariance is positive which indicates that increase in available phosphorous, `Soil_AP`(Soil Nutrients) has an influence in the Diameter at breast height, `DBH`. 
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 ## GEOSTATISTICS 
 

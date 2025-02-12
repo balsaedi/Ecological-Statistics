@@ -186,10 +186,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>4.2.1</b> Pearson’s Correlation Coefficient</a></li>
 <li class="chapter" data-level="4.2.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#spearmans-and-kendalls-correlaton-coeefficients"><i class="fa fa-check"></i><b>4.2.2</b> Spearman’s and Kendall’s Correlaton Coeefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.3</b> GEOSTATISTICS</a>
+<li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#covariance"><i class="fa fa-check"></i><b>4.3</b> COVARIANCE</a></li>
+<li class="chapter" data-level="4.4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.4</b> GEOSTATISTICS</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#variogram-modelling"><i class="fa fa-check"></i><b>4.3.1</b> Variogram Modelling</a></li>
-<li class="chapter" data-level="4.3.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#kriging"><i class="fa fa-check"></i><b>4.3.2</b> Kriging</a></li>
+<li class="chapter" data-level="4.4.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#variogram-modelling"><i class="fa fa-check"></i><b>4.4.1</b> Variogram Modelling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#kriging"><i class="fa fa-check"></i><b>4.4.2</b> Kriging</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html"><i class="fa fa-check"></i><b>5</b> LINEAR REGRESSION ANALYSIS</a>
@@ -291,12 +292,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Load the data set</li>
 </ul>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="linear-regression-analysis.html#cb168-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="linear-regression-analysis.html#cb179-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>The goal of this analysis is to find the linear association between the plant height and the temperature, particularly if plant height is dependent on the temperature.</p></li>
 <li><p><em>Define the independent and dependent variables:</em> temperature(<code>temp</code>) is the independent variable while plant height(<code>loght</code>) is the dependent variable</p></li>
 </ul>
-<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="linear-regression-analysis.html#cb169-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="linear-regression-analysis.html#cb180-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)
@@ -309,8 +310,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.1.2</span> Interpreting the regression results<a href="linear-regression-analysis.html#interpreting-the-regression-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To get a detailed breakdown of the regression results, such as the coefficient values, <span class="math inline">\(R^2\)</span>, test statistics, p-values, and confidence intervals, you need to save the output of the <code>lm</code> function to an object. Then, use the <code>summary()</code> function on that object to extract and review the analysis details.</p>
 <p>Note: <code>loght</code> is log(plant height).</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="linear-regression-analysis.html#cb171-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
-<span id="cb171-2"><a href="linear-regression-analysis.html#cb171-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="linear-regression-analysis.html#cb182-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
+<span id="cb182-2"><a href="linear-regression-analysis.html#cb182-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)

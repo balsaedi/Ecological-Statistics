@@ -186,10 +186,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.2.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#pearsons-correlation-coefficient"><i class="fa fa-check"></i><b>4.2.1</b> Pearson’s Correlation Coefficient</a></li>
 <li class="chapter" data-level="4.2.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#spearmans-and-kendalls-correlaton-coeefficients"><i class="fa fa-check"></i><b>4.2.2</b> Spearman’s and Kendall’s Correlaton Coeefficients</a></li>
 </ul></li>
-<li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.3</b> GEOSTATISTICS</a>
+<li class="chapter" data-level="4.3" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#covariance"><i class="fa fa-check"></i><b>4.3</b> COVARIANCE</a></li>
+<li class="chapter" data-level="4.4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#geostatistics"><i class="fa fa-check"></i><b>4.4</b> GEOSTATISTICS</a>
 <ul>
-<li class="chapter" data-level="4.3.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#variogram-modelling"><i class="fa fa-check"></i><b>4.3.1</b> Variogram Modelling</a></li>
-<li class="chapter" data-level="4.3.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#kriging"><i class="fa fa-check"></i><b>4.3.2</b> Kriging</a></li>
+<li class="chapter" data-level="4.4.1" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#variogram-modelling"><i class="fa fa-check"></i><b>4.4.1</b> Variogram Modelling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html#kriging"><i class="fa fa-check"></i><b>4.4.2</b> Kriging</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="linear-regression-analysis.html"><a href="linear-regression-analysis.html"><i class="fa fa-check"></i><b>5</b> LINEAR REGRESSION ANALYSIS</a>
@@ -319,6 +320,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Determine the critical value, pvalue and make your decision</li>
 </ol>
 <p>—————————-**remember to put this into practice————————————————–</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Lets have a practice on an ecological problem. we’ll utilize the Forest Health and Ecological Diversity dataset, which offers a comprehensive collection of ecological and environmental measurements focused on tree characteristics and site conditions. This data set is publicly available on Kaggle. Download it from <a href="https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity">here</a>. First lets perform a pearson correlation to measure the linear relationship between two continuous variables.</p>
+<p>In this case we will focus on the tree height(<code>Tree_Height</code>) versus Diameter at breast height(<code>DBH</code>).</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="correlation-covariance-geostatistics.html#cb168-1" tabindex="-1"></a><span class="co"># Load the required libraries</span></span>
+<span id="cb168-2"><a href="correlation-covariance-geostatistics.html#cb168-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb168-3"><a href="correlation-covariance-geostatistics.html#cb168-3" tabindex="-1"></a></span>
+<span id="cb168-4"><a href="correlation-covariance-geostatistics.html#cb168-4" tabindex="-1"></a><span class="co"># Load the required data set </span></span>
+<span id="cb168-5"><a href="correlation-covariance-geostatistics.html#cb168-5" tabindex="-1"></a>forest_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/forest_health/forest_health_data.csv&quot;</span>)</span>
+<span id="cb168-6"><a href="correlation-covariance-geostatistics.html#cb168-6" tabindex="-1"></a></span>
+<span id="cb168-7"><a href="correlation-covariance-geostatistics.html#cb168-7" tabindex="-1"></a><span class="co"># Compute Pearson’s correlation coefficient</span></span>
+<span id="cb168-8"><a href="correlation-covariance-geostatistics.html#cb168-8" tabindex="-1"></a>pearson_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>DBH, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb168-9"><a href="correlation-covariance-geostatistics.html#cb168-9" tabindex="-1"></a><span class="fu">print</span>(pearson_corr)</span></code></pre></div>
+<pre><code>## [1] -0.01355993</code></pre>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="correlation-covariance-geostatistics.html#cb170-1" tabindex="-1"></a><span class="co"># Visualize correlation</span></span>
+<span id="cb170-2"><a href="correlation-covariance-geostatistics.html#cb170-2" tabindex="-1"></a><span class="fu">ggplot</span>(forest_data, <span class="fu">aes</span>(<span class="at">x =</span> DBH, <span class="at">y =</span> Tree_Height)) <span class="sc">+</span></span>
+<span id="cb170-3"><a href="correlation-covariance-geostatistics.html#cb170-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb170-4"><a href="correlation-covariance-geostatistics.html#cb170-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb170-5"><a href="correlation-covariance-geostatistics.html#cb170-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Scatter Plot of Tree Height vs. DBH&quot;</span>, <span class="at">x =</span> <span class="st">&quot;DBH&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tree Height&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p>The Pearson’s correlation coefficient is nearly 0 and the scatter plot along with the regression line shows no sign of linear relationship. This shows that there is little to no relationship between Diameter at Breast height and height of the tree itself in the forest</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
@@ -371,17 +393,62 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Are best when the relationship between variables is monotonic but not linear (e.g., species richness and disturbance level).</li>
 <li>Pearson’s Correlation assumes normality and linearity, which may not hold for ecological data, such as seasonal variations in bird populations.</li>
 </ul>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Still on the forest and ecological diversity data we used in the example above we will now calculate the spearman’s and Kendall’s correlation correlation between tree height and and its elevation.</p>
+<p>Remember that <em>Spearman’s and Kendall’s correlations measure monotonic relationships and are more robust to non-normal data.</em></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="correlation-covariance-geostatistics.html#cb172-1" tabindex="-1"></a><span class="co"># Compute Spearman’s correlation</span></span>
+<span id="cb172-2"><a href="correlation-covariance-geostatistics.html#cb172-2" tabindex="-1"></a>spearman_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>Elevation, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb172-3"><a href="correlation-covariance-geostatistics.html#cb172-3" tabindex="-1"></a><span class="fu">print</span>(spearman_corr)</span></code></pre></div>
+<pre><code>## [1] -0.02439385</code></pre>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="correlation-covariance-geostatistics.html#cb174-1" tabindex="-1"></a><span class="co"># Compute Kendall’s correlation</span></span>
+<span id="cb174-2"><a href="correlation-covariance-geostatistics.html#cb174-2" tabindex="-1"></a>kendall_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>Elevation, <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb174-3"><a href="correlation-covariance-geostatistics.html#cb174-3" tabindex="-1"></a><span class="fu">print</span>(kendall_corr)</span></code></pre></div>
+<pre><code>## [1] -0.01692893</code></pre>
+<p>Both the Spearmans(<span class="math inline">\(\rho\)</span>) and Kendall’s(<span class="math inline">\(\tau\)</span>) correlations are very low indicating a weak monotonic relationship between the tree height and its elevation within the forest.</p>
+<p><strong>Note:</strong> <em>Pearson’s correlation shows linear relationships, while Spearman’s and Kendall’s are better for ranked data</em></p>
+<p>Finally, lets visualize a joint relationship(correlation, particularly Pearson’s) between all variables</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="correlation-covariance-geostatistics.html#cb176-1" tabindex="-1"></a><span class="co"># Load the required libraries </span></span>
+<span id="cb176-2"><a href="correlation-covariance-geostatistics.html#cb176-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb176-3"><a href="correlation-covariance-geostatistics.html#cb176-3" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb176-4"><a href="correlation-covariance-geostatistics.html#cb176-4" tabindex="-1"></a></span>
+<span id="cb176-5"><a href="correlation-covariance-geostatistics.html#cb176-5" tabindex="-1"></a><span class="co"># Compute correlation matrix</span></span>
+<span id="cb176-6"><a href="correlation-covariance-geostatistics.html#cb176-6" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data <span class="sc">%&gt;%</span> <span class="fu">select_if</span>(is.numeric), <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb176-7"><a href="correlation-covariance-geostatistics.html#cb176-7" tabindex="-1"></a></span>
+<span id="cb176-8"><a href="correlation-covariance-geostatistics.html#cb176-8" tabindex="-1"></a><span class="co"># Plot heatmap</span></span>
+<span id="cb176-9"><a href="correlation-covariance-geostatistics.html#cb176-9" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">lab =</span> <span class="cn">TRUE</span>, <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<p>From the chart, an increase in blue shows a stronger positive linear relationship between the matching variables while increase in red shows a stronger negative linear relationship between the matching variables. White dots shows little to no relationship.</p>
+<p>In the correlation plot(heatmap-like) it is evident that the variables have little linear relationship among each other(low correlation)</p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+</div>
+</div>
+</div>
+<div id="covariance" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> COVARIANCE<a href="correlation-covariance-geostatistics.html#covariance" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>—- Remember to add content on Covariance —————-</p>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p>Still using the <code>forest_data</code> used in the examples above. We will find the covariance between the trees’ diameter at breast height (<code>DBH</code>) and the Soil Nuitrients which is affected by the available phosphorous in the Soil(<code>Soil_AP</code>).</p>
+<p>Remember that <em>Covariance measures how two variables vary together but is scale-dependent.</em></p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="correlation-covariance-geostatistics.html#cb177-1" tabindex="-1"></a><span class="co"># Compute covariance</span></span>
+<span id="cb177-2"><a href="correlation-covariance-geostatistics.html#cb177-2" tabindex="-1"></a>covariance_value <span class="ot">&lt;-</span> <span class="fu">cov</span>(forest_data<span class="sc">$</span>DBH, forest_data<span class="sc">$</span>Soil_AP, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb177-3"><a href="correlation-covariance-geostatistics.html#cb177-3" tabindex="-1"></a><span class="fu">print</span>(covariance_value)</span></code></pre></div>
+<pre><code>## [1] 0.3007336</code></pre>
+<p>The covariance is positive which indicates that increase in available phosphorous, <code>Soil_AP</code>(Soil Nutrients) has an influence in the Diameter at breast height, <code>DBH</code>.</p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
-</div>
-</div>
-<div id="geostatistics" class="section level2 hasAnchor" number="4.3">
-<h2><span class="header-section-number">4.3</span> GEOSTATISTICS<a href="correlation-covariance-geostatistics.html#geostatistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="geostatistics" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> GEOSTATISTICS<a href="correlation-covariance-geostatistics.html#geostatistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Geostatistics is a specialized branch of statistics focused on analyzing and estimating spatially correlated data. It is widely used in fields such as ecology, geology, and environmental science to predict values at unsampled locations based on the spatial relationships observed in sampled data.</p>
 <p>A geostatistical analysis typically unfolds in two main steps: <strong>variogram modeling</strong> and <strong>kriging</strong>. Together, these steps help estimate unknown values and assess the precision of those estimates, enabling informed decision-making in spatial studies.</p>
 <p><strong>Lets introduce each of them will break down later with live examples</strong></p>
-<div id="variogram-modelling" class="section level3 hasAnchor" number="4.3.1">
-<h3><span class="header-section-number">4.3.1</span> Variogram Modelling<a href="correlation-covariance-geostatistics.html#variogram-modelling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="variogram-modelling" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Variogram Modelling<a href="correlation-covariance-geostatistics.html#variogram-modelling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The first step in geostatistical analysis involves developing a model to describe the spatial relationships between sampled and unsampled locations. This model is known as a <em>variogram</em> or <em>semivariogram</em>.</p>
 <p>Here are the some of key features of the Variogram:</p>
 <ul>
@@ -391,8 +458,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>A varigram can be used n a study of soil nutrient distribution across a forest, the variogram might reveal that nutrient concentrations are strongly correlated within a radius of 50 meters but weaken beyond that distance.</p>
 <p><strong>———————Expand on this———————-</strong>(content from the book)</p>
 </div>
-<div id="kriging" class="section level3 hasAnchor" number="4.3.2">
-<h3><span class="header-section-number">4.3.2</span> Kriging<a href="correlation-covariance-geostatistics.html#kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="kriging" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Kriging<a href="correlation-covariance-geostatistics.html#kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Once the variogram is established, the second step—<strong>kriging</strong>—is performed to estimate unknown measurements at unsampled locations.</p>
 <p>This is how kriging works:</p>
 <ul>

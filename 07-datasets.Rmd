@@ -6,3 +6,4 @@
 - Water Portability Data - https://www.kaggle.com/code/moosecat/water-quality-eda-cleaning-and-prediction?select=water_potability.csv
 - Air Quality Data India - https://www.kaggle.com/datasets/shrutibhargava94/india-air-quality-data
 - Daily Temperature of Melbourne - https://www.kaggle.com/code/samfaraday/melbourne-daily-min-temperatures-eda
+- Forest Health and Ecological Diversity - https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity

@@ -40,6 +40,7 @@ pearsons-correlation-coefficient
 spearmans-and-kendalls-correlaton-coeefficients
 spearmans-rhorho
 kendalls-tau-tau
+covariance
 geostatistics
 variogram-modelling
 kriging
