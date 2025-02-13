@@ -359,10 +359,137 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>The <span class="math inline">\(R^2\)</span> value (0.2463) shows that approximately 24.6% of the variation in plant height is explained by temperature.</li>
 <li>The adjusted <span class="math inline">\(R^2\)</span> (0.242) slightly adjusts for the model’s complexity and is more relevant when comparing models</li>
 </ul>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>You will be provided the <code>creek_basin_data.csv</code> file by your instructor. The data is about the effect of the amount of rainfall on the creek run off. The objective is to investigate for a linear relationship between the amount of rainfall and the creek run off. You are required to;</p>
+<ul>
+<li>Build a simple linear regression model</li>
+<li>Evaluate R-squared and Adjusted r-squared to find if the the linear model is effective.</li>
+<li>Finally, visualize the model</li>
+</ul>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<ul>
+<li>Build a simple linear regression model</li>
+</ul>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="linear-regression-analysis.html#cb184-1" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb184-2"><a href="linear-regression-analysis.html#cb184-2" tabindex="-1"></a>creek_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/creek_basin_data.csv&quot;</span>)</span>
+<span id="cb184-3"><a href="linear-regression-analysis.html#cb184-3" tabindex="-1"></a></span>
+<span id="cb184-4"><a href="linear-regression-analysis.html#cb184-4" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
+<span id="cb184-5"><a href="linear-regression-analysis.html#cb184-5" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Runoff_cm <span class="sc">~</span> Rainfall_cm, <span class="at">data =</span> creek_data)</span>
+<span id="cb184-6"><a href="linear-regression-analysis.html#cb184-6" tabindex="-1"></a></span>
+<span id="cb184-7"><a href="linear-regression-analysis.html#cb184-7" tabindex="-1"></a><span class="co"># Display model summary</span></span>
+<span id="cb184-8"><a href="linear-regression-analysis.html#cb184-8" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Runoff_cm ~ Rainfall_cm, data = creek_data)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.4759 -1.2265 -0.0395  1.1927  4.4345 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.01801    0.51541   0.035    0.972    
+## Rainfall_cm  0.69281    0.02735  25.335   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.939 on 98 degrees of freedom
+## Multiple R-squared:  0.8675, Adjusted R-squared:  0.8662 
+## F-statistic: 641.9 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The regression line equation inform of <span class="math inline">\(y = \alpha + \beta x + \epsilon\)</span> goes by;
+<span class="math display">\[\text Runoff = 0.01801 + 0.69281 \times Rainfall + \epsilon\]</span>
+This means that a 0cm rain would yield to approximately 0.01801cm runoff
+The p-value for rainfall is <span class="math inline">\(2 \times 10^{-16}\)</span>, meaning that the rainfall is a significant predictor for ruin off</p>
+<ul>
+<li>Evaluate R-squared and Adjusted r-squared to find if the the linear model is effective.</li>
+</ul>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="linear-regression-analysis.html#cb186-1" tabindex="-1"></a><span class="co"># Extract R-squared and Adjusted R-squared to present it clearly</span></span>
+<span id="cb186-2"><a href="linear-regression-analysis.html#cb186-2" tabindex="-1"></a>r_squared <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared</span>
+<span id="cb186-3"><a href="linear-regression-analysis.html#cb186-3" tabindex="-1"></a>adjusted_r_squared <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb186-4"><a href="linear-regression-analysis.html#cb186-4" tabindex="-1"></a></span>
+<span id="cb186-5"><a href="linear-regression-analysis.html#cb186-5" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;R-Squared:&quot;</span>, r_squared, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## R-Squared: 0.8675463</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="linear-regression-analysis.html#cb188-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Adjusted R-Squared:&quot;</span>, adjusted_r_squared, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<pre><code>## Adjusted R-Squared: 0.8661947</code></pre>
+<p>The Multiple r-squared = 08675, that is approximately 87% of the variability in runoff is explained by rainfall.
+Since it is a simple linear regression problem and we only have one predictor, R² and Adjusted R² are very close.</p>
+<ul>
+<li>Finally, visualize the model</li>
+</ul>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="linear-regression-analysis.html#cb190-1" tabindex="-1"></a><span class="co"># Load the required library</span></span>
+<span id="cb190-2"><a href="linear-regression-analysis.html#cb190-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb190-3"><a href="linear-regression-analysis.html#cb190-3" tabindex="-1"></a></span>
+<span id="cb190-4"><a href="linear-regression-analysis.html#cb190-4" tabindex="-1"></a><span class="co"># Scatter plot with regression line</span></span>
+<span id="cb190-5"><a href="linear-regression-analysis.html#cb190-5" tabindex="-1"></a><span class="fu">ggplot</span>(creek_data, <span class="fu">aes</span>(<span class="at">x =</span> Rainfall_cm, <span class="at">y =</span> Runoff_cm)) <span class="sc">+</span></span>
+<span id="cb190-6"><a href="linear-regression-analysis.html#cb190-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb190-7"><a href="linear-regression-analysis.html#cb190-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb190-8"><a href="linear-regression-analysis.html#cb190-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rainfall vs Runoff&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Rainfall (cm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Runoff (cm)&quot;</span>)</span></code></pre></div>
+<pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
 <div id="data-transformation-versus-generalized-linear-model" class="section level2 hasAnchor" number="5.2">
 <h2><span class="header-section-number">5.2</span> Data transformation versus generalized linear model<a href="linear-regression-analysis.html#data-transformation-versus-generalized-linear-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span style="color: orange;"><strong>Try it!</strong></span></p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p>Using the <code>creek_basin_data.csv</code>, Log transform the data and fit with a generalized linear model. If the the transformation improves the R-squared value(from the simple linear regression model), then its is more appropriate(Shows the residuals may not be normally distributed)</p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p>Lets log transform the data</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="linear-regression-analysis.html#cb192-1" tabindex="-1"></a><span class="co"># Apply log transformation to both variables</span></span>
+<span id="cb192-2"><a href="linear-regression-analysis.html#cb192-2" tabindex="-1"></a>creek_data<span class="sc">$</span>log_Rainfall <span class="ot">&lt;-</span> <span class="fu">log</span>(creek_data<span class="sc">$</span>Rainfall_cm)</span>
+<span id="cb192-3"><a href="linear-regression-analysis.html#cb192-3" tabindex="-1"></a>creek_data<span class="sc">$</span>log_Runoff <span class="ot">&lt;-</span> <span class="fu">log</span>(creek_data<span class="sc">$</span>Runoff_cm)</span>
+<span id="cb192-4"><a href="linear-regression-analysis.html#cb192-4" tabindex="-1"></a></span>
+<span id="cb192-5"><a href="linear-regression-analysis.html#cb192-5" tabindex="-1"></a><span class="co"># Fit linear model with log-transformed data</span></span>
+<span id="cb192-6"><a href="linear-regression-analysis.html#cb192-6" tabindex="-1"></a>log_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_Runoff <span class="sc">~</span> log_Rainfall, <span class="at">data =</span> creek_data)</span>
+<span id="cb192-7"><a href="linear-regression-analysis.html#cb192-7" tabindex="-1"></a><span class="fu">summary</span>(log_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = log_Runoff ~ log_Rainfall, data = creek_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.42140 -0.09909  0.01952  0.10424  0.61348 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  -0.52368    0.14773  -3.545 0.000604 ***
+## log_Rainfall  1.04825    0.05274  19.877  &lt; 2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 0.2447 on 98 degrees of freedom
+## Multiple R-squared:  0.8013, Adjusted R-squared:  0.7992 
+## F-statistic: 395.1 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
+<p>The model above captures the nonlinear relationship of the rainfall amount the run off, however it is a lower accuracy than the simple linear model. Accuracy reduced by 0.05 which is 5%.</p>
+<p>Now we fit a generalized Linear model</p>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="linear-regression-analysis.html#cb194-1" tabindex="-1"></a><span class="co"># Fit GLM (Gaussian with identity link function)</span></span>
+<span id="cb194-2"><a href="linear-regression-analysis.html#cb194-2" tabindex="-1"></a>glm_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Runoff_cm <span class="sc">~</span> Rainfall_cm, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>), <span class="at">data =</span> creek_data)</span>
+<span id="cb194-3"><a href="linear-regression-analysis.html#cb194-3" tabindex="-1"></a><span class="fu">summary</span>(glm_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Runoff_cm ~ Rainfall_cm, family = gaussian(link = &quot;identity&quot;), 
+##     data = creek_data)
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.01801    0.51541   0.035    0.972    
+## Rainfall_cm  0.69281    0.02735  25.335   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 3.758101)
+## 
+##     Null deviance: 2780.55  on 99  degrees of freedom
+## Residual deviance:  368.29  on 98  degrees of freedom
+## AIC: 420.16
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>The GLM results are almost identical to the original linear model and the AIC = 420.16 confirms a relatively good model fit, though the log-transformed model had a stronger R².</p>
+<p>If the residuals in the original linear model are not normal, the GLM can handle that better.</p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 <div id="multiple-linear-regression-mlr-model" class="section level2 hasAnchor" number="5.3">
 <h2><span class="header-section-number">5.3</span> Multiple Linear Regression (MLR) model<a href="linear-regression-analysis.html#multiple-linear-regression-mlr-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>

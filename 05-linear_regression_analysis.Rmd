@@ -134,10 +134,97 @@ Like our model above shows that:
 - The $R^2$ value (0.2463) shows that approximately 24.6% of the variation in plant height is explained by temperature.
 - The adjusted $R^2$ (0.242) slightly adjusts for the model's complexity and is more relevant when comparing models
 
+<span style="color: green;">**Practical Exercise**</span> 
 
+You will be provided the `creek_basin_data.csv` file by your instructor. The data is about the effect of the amount of rainfall on the creek run off. The objective is to investigate for a linear relationship between the amount of rainfall and the creek run off. You are required to;
+
+- Build a simple linear regression model
+- Evaluate R-squared and Adjusted r-squared to find if the the linear model is effective.
+- Finally, visualize the model
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+- Build a simple linear regression model
+```{r}
+# Load the data
+creek_data <- read.csv("data/creek_basin_data.csv")
+
+# Fit linear regression model
+model <- lm(Runoff_cm ~ Rainfall_cm, data = creek_data)
+
+# Display model summary
+summary(model)
+```
+
+The regression line equation inform of $y = \alpha + \beta x + \epsilon$ goes by; 
+$$\text Runoff = 0.01801 + 0.69281 \times Rainfall + \epsilon$$
+This means that a 0cm rain would yield to approximately 0.01801cm runoff
+The p-value for rainfall is $2 \times 10^{-16}$, meaning that the rainfall is a significant predictor for ruin off
+
+- Evaluate R-squared and Adjusted r-squared to find if the the linear model is effective.
+```{r}
+# Extract R-squared and Adjusted R-squared to present it clearly
+r_squared <- summary(model)$r.squared
+adjusted_r_squared <- summary(model)$adj.r.squared
+
+cat("R-Squared:", r_squared, "\n")
+cat("Adjusted R-Squared:", adjusted_r_squared, "\n")
+
+```
+
+The Multiple r-squared = 08675, that is approximately 87% of the variability in runoff is explained by rainfall.
+Since it is a simple linear regression problem and we only have one predictor, R² and Adjusted R² are very close. 
+
+- Finally, visualize the model
+```{r}
+# Load the required library
+library(ggplot2)
+
+# Scatter plot with regression line
+ggplot(creek_data, aes(x = Rainfall_cm, y = Runoff_cm)) +
+  geom_point() +
+  geom_smooth(method = "lm", col = "blue") +
+  labs(title = "Rainfall vs Runoff", x = "Rainfall (cm)", y = "Runoff (cm)")
+```
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 ## Data transformation versus generalized linear model
 
+<span style="color: orange;">**Try it!**</span>
+
+<span style="color: green;">**Practical Exercise**</span> 
+
+Using the `creek_basin_data.csv`, Log transform the data and fit with a generalized linear model. If the the transformation improves the R-squared value(from the simple linear regression model), then its is more appropriate(Shows the residuals may not be normally distributed)
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+Lets log transform the data 
+```{r}
+# Apply log transformation to both variables
+creek_data$log_Rainfall <- log(creek_data$Rainfall_cm)
+creek_data$log_Runoff <- log(creek_data$Runoff_cm)
+
+# Fit linear model with log-transformed data
+log_model <- lm(log_Runoff ~ log_Rainfall, data = creek_data)
+summary(log_model)
+```
+The model above captures the nonlinear relationship of the rainfall amount the run off, however it is a lower accuracy than the simple linear model. Accuracy reduced by 0.05 which is 5%. 
+
+Now we fit a generalized Linear model
+```{r}
+# Fit GLM (Gaussian with identity link function)
+glm_model <- glm(Runoff_cm ~ Rainfall_cm, family = gaussian(link = "identity"), data = creek_data)
+summary(glm_model)
+```
+
+The GLM results are almost identical to the original linear model and the AIC = 420.16 confirms a relatively good model fit, though the log-transformed model had a stronger R².
+
+If the residuals in the original linear model are not normal, the GLM can handle that better.
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 ## Multiple Linear Regression (MLR) model
 Unlike simple linear regression, multiple linear regression describes the linear relationship between two or more independent variables with one target(dependent) variable. The objective of multiple linear regression is to;-
