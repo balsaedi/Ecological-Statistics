@@ -66,9 +66,60 @@ soil-to-skin adherence factor in milligrams per square centimeters per soil cont
 
 <span style="color: orange;">**Try it!**</span> 
 
----------**Add Examples**-------------------
+We will access the potential health risks associated with consuming water from various sources, utilizing both Conventional (Point) Risk Estimation. The dataset we'll use is the Water Quality and Potability dataset from Kaggle, which contains water quality measurements and assessments related to potability. The data can be downloaded from [here](https://www.kaggle.com/datasets/uom190346a/water-quality-and-potability).  We will;
+
+- Calculate the Average Daily Intake (ADI) of a specific contaminant (e.g., Trihalomethanes) using standard exposure assumptions.
+- Estimate the potential health risk based on the computed ADI.
+
+Before we solve the above, it assumed that;
+
+- Body Weight(BW):70kg
+- Water Ingestion Rate (IR): 2 liters/day
+- Exposure Frequency (EF): 350 days/year
+- Exposure Duration (ED): 30 years
+- Averaging Time(AT): 
+
+  - For non-carcinogens: $AT = ED \times 365$
+  - For carcinogens: $AT = 70 \times 365$
+  
+and the formula for **Average Daily Intake(ADI):**
+$${ADI} = {{C \times IR \times EF \times ED}\over{BW \times AT}}$$
+
+```{r}
+# Load the data
+df <-read.csv("data/water_potability.csv")
+
+# Focus on the Trihalomethanes column
+trihalo_data <- df$Trihalomethanes
+
+# Define constants
+BW <- 70  # kg
+IR <- 2  # liters/day
+EF <- 350  # days/year
+ED <- 30  # years
+AT_noncarcinogen <- ED * 365  # days
+AT_carcinogen <- 70 * 365  # days
+
+# Compute average concentration of Trihalomethanes
+C_avg <- mean(trihalo_data, na.rm = TRUE)  # mg/L
+
+# Compute ADI
+ADI_noncarcinogen <- (C_avg * IR * EF * ED) / (BW * AT_noncarcinogen)
+ADI_carcinogen <- (C_avg * IR * EF * ED) / (BW * AT_carcinogen)
+
+# Display results
+cat(sprintf("Average Daily Intake (ADI) for Non-Carcinogens: %.6f mg/kg/day\n", ADI_noncarcinogen))
+cat(sprintf("Average Daily Intake (ADI) for Carcinogens: %.6f mg/kg/day\n", ADI_carcinogen))
+```
+
+
+<span style="color: green;">**Practical Exercise**</span>
 
 One of the examples is the inhalation risk assessment (example 21.1)
+
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>
 
 ## Probabilistic Risk Assessment Using Monte Carlo Simulation
 
@@ -82,13 +133,68 @@ Similarly, probability distributions are speciﬁed for other exposure character
 
 <span style="color: orange;">**Try it!**</span> 
 
----------**Add Examples**-------------------
+Using the water potability data set(used in the previous example), we will; 
 
-One of the examples is the inhalation risk assessment (example 21.2). Will search examples from online 
+- Define probability distributions for exposure parameters (e.g., normal distribution for body weight, log-normal for ingestion rate).
+- Use Monte Carlo simulation to generate a large number of possible exposure scenarios.
+- Calculate the ADI for each scenario and develop a risk distribution.
+- Interpret the probability distribution of risks to assess the likelihood of adverse health effects.
+
+
+By defining the probability distributions(SD= standard deviation); 
+
+* Body weight(BW): Normal distribution, mean = 70kg, SD = 10kg
+* Water Ingestion Rate (IR): Log-normal distribution, mean = 2litres/day, SD=0.5litres
+* Trihalomethanes Concentration (C): Will find from the data values, `trihalo_data`. 
+```{r}
+# Load necessary library
+library(MASS)
+library(ggplot2)
+
+# Number of simulations
+num_simulations <- 10000
+
+# Generate random values from distributions
+set.seed(123)  # for reproducibility
+BW_sim <- rnorm(num_simulations, mean = 70, sd = 10)
+IR_sim <- rlnorm(num_simulations, meanlog = log(2), sdlog = 0.5)
+C_sim <- sample(trihalo_data, num_simulations, replace = TRUE)
+
+# Compute ADI for each simulation
+ADI_sim <- (C_sim * IR_sim * EF * ED) / (BW_sim * AT_carcinogen)
+
+# Convert to data frame for visualization
+ADI_df <- data.frame(ADI_sim)
+
+# Plot probability distribution of ADI values
+ggplot(ADI_df, aes(x = ADI_sim)) +
+  geom_histogram(bins = 50, color = "black", fill = "blue", alpha = 0.7) +
+  labs(title = "Probability Distribution of ADI (Monte Carlo Simulation)",
+       x = "ADI (mg/kg/day)", y = "Frequency") +
+  theme_minimal()
+```
+
+Finally, lets compute the risk probabilities. We will determine the percentage of cases where ADI(calculated in the previous example exercise) exceeds the reference dose(RfD) -- will find from USEPA. 
+```{r}
+# Assume reference dose (RfD) from U.S. EPA for Trihalomethanes
+RfD <- 0.01  # mg/kg/day (example value)
+
+# Compute probability of exceeding RfD
+prob_exceedance <- mean(ADI_sim > RfD, na.rm=TRUE) * 100
+
+# Display result
+cat(sprintf("Probability of Exceeding Safe Limit (RfD): %.2f%%\n", prob_exceedance))
+
+```
+
+
+There is a high risk of carcinogenic substances in the water which should be taken care of. 
 
 ## <span style="color: green;">**Practical Exercise**</span> 
 
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+One of the examples is the inhalation risk assessment (example 21.2). Will search examples from online 
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
