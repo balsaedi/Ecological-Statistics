@@ -50,6 +50,8 @@ empirical-model-building-regression-analysis
 interpreting-the-regression-results
 r-squared-and-adjusted-r-squared
 data-transformation-versus-generalized-linear-model
+data-transformation-approach-log-transformation
+generalized-linear-modelglm
 multiple-linear-regression-mlr-model
 hands-on-exercise-1
 conventional-and-probabilistic-risk-assessment

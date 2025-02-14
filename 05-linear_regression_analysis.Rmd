@@ -191,8 +191,113 @@ ggplot(creek_data, aes(x = Rainfall_cm, y = Runoff_cm)) +
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
 ## Data transformation versus generalized linear model
+### Data Transformation Approach (Log Transformation)
+
+In this sub-course, we will consider a study where we examine how pollution levels affect fish abundance in a river system. We assume:
+
+- Low pollution results in higher fish abundance.
+- High pollution results in lower fish abundance.
+- Fish abundance is a count variable (discrete, non-negative).
+
+
+Ecological data is often skewed (many low values, few high values). Log transformation stabilizes variance and makes the distribution closer to normal:
+$$Y'= log(Y + 1)$$
+where; 
+
+- $Y'$ is the transformed fish abundance
+- $Y$ is the original fish abundance (adding 1 prevents log(0)). 
+
+A linear regression model can be used after transformation: 
+$$log(Y+1) = \beta_0 + \beta_1X + \epsilon$$
+as described. However transformation posses with several limitations such as; 
+
+- Interpretation is difficult because the response variable is no longer on the original scale.
+- Transformation may not fully address skewness in highly non-normal data.
+- Not ideal for count data, which follow discrete probability distributions.
+
+### Generalized Linear Model(GLM)
+
+Instead of transforming the data, we can use a Poisson regression model, which assumes that fish abundance follows a Poisson distribution:
+$$Y \text ~ Poisson(\lambda)$$
+where $Y$ is the data value count(count of observed fish) and $\lambda$ is the expected abundance(fish abundance in our case)
+
+GLMs use a log-link function to model the expected count directly:
+$$log(\lambda) = \beta_0 + \beta_1X$$
+Solving for $\lambda$;
+$$\lambda = e^{\beta_o + \beta_1X}$$
+Keep in mind that; 
+
+- $e^{\beta_o}$ is the expected abundance in low pollution areas
+- $e^{\beta_1X}$ is the multiplicative effect of pollution. 
+
+GLM(Poisson Regression model) posses various advantages where it; 
+
+- Maintains original scale of the response variable (counts).
+- is more appropriate for count data, which are often non-normal.
+- Exponential interpretation: $e^{\beta_1}$ gives the factor by which abundance changes due to pollution.
+
 
 <span style="color: orange;">**Try it!**</span>
+
+Lets simulate the fish population in respect to pollution levels using R. 
+
+Step 1: Generate the data 
+```{r}
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+
+# Set seed for reproducibility
+set.seed(123)
+
+# Simulate pollution levels (Low = 0, High = 1)
+n <- 100  # Number of observations
+pollution <- sample(0:1, n, replace = TRUE)
+
+# Generate fish abundance (count data)
+fish_abundance <- rpois(n, lambda = ifelse(pollution == 0, 15, 5)) # Lower in polluted areas
+
+# Combine into a data frame
+data <- data.frame(Pollution = factor(pollution, levels = c(0, 1), labels = c("Low", "High")),
+                   Fish_Abundance = fish_abundance)
+
+# Check its distribution 
+hist(data$Fish_Abundance)
+
+# Summary of simulated data
+summary(data)
+```
+
+Apply log transformation since the data is right-skewed
+```{r}
+# Log transform fish abundance (add 1 to avoid log(0))
+data$Log_Abundance <- log(data$Fish_Abundance + 1)
+
+# Boxplot to visualize transformed vs. untransformed data
+ggplot(data, aes(x = Pollution, y = Fish_Abundance)) +
+  geom_boxplot() +
+  labs(title = "Raw Fish Abundance vs. Pollution Level") +
+  theme_minimal()
+
+ggplot(data, aes(x = Pollution, y = Log_Abundance)) +
+  geom_boxplot(fill = "lightblue") +
+  labs(title = "Log-Transformed Fish Abundance vs. Pollution Level") +
+  theme_minimal()
+```
+The log transformation helps stabilize variance and make the distribution more normal.
+However, using transformed data in regression may not always be statistically appropriate for count data.
+
+Instead of transforming, we use a Poisson (GLM), which is designed for count data.
+```{r}
+# Fit Poisson GLM
+glm_model <- glm(Fish_Abundance ~ Pollution, family = poisson, data = data)
+
+# Model summary
+summary(glm_model)
+```
+
+The Poisson model directly models count data without transformation.
+The coefficient for "High Pollution" = -1.06948 shows how pollution reduces fish abundance in a statistically valid way. A negative correlation where increase in pollution results in decrease in fish abundance and vice versa.
 
 <span style="color: green;">**Practical Exercise**</span> 
 
