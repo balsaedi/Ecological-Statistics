@@ -1,0 +1,196 @@
+SEC.Type,SEC,Activity,Sub.Activity,Stressor,Area,U_area,Depth,U_depth,Temporal,U_temp,Intensity,U_int,Intensity2,U_int2,AcuteChange,U_ac,ChronicChange,U_cc,MaxAge,U_ma,MaxSize,U_ms,vonBert,U_vb,AgeMat,U_am,LifeStage,U_ls,PopConn,U_pc,NatMort,U_nm,Listed,U_list,Fecundity,U_fec
+Species,Bocaccio,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,0,4,3,5,3,2,2,3,3,2,3,2,3,3,2,4,2,3,3,1,1,2
+Species,Bocaccio,Vessel,Discharge,Debris,2,5,2,5,4,3,2,4,4,2,1,3,1,5,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,2,1,5,1,5,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Vessel,Discharge,Oils/contaminants,2,5,2,5,3,3,2,5,4,2,1,3,1,5,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,0,3,2,4,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,3,3,3,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,3,4,3,2,3,3,3,3,3,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,3,1,3,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Research,Sampling,Removal of organisms,1,2,1,2,1,3,1,1,3,1,1,1,0,3,3,2,2,3,3,2,3,2,3,5,2,4,2,3,3,1,1,2
+Species,Bocaccio,Research,Submersible operations,Aquatic Invasive Species,2,5,2,5,4,4,2,1,3,1,0,4,3,5,3,2,2,3,3,2,3,2,3,3,2,4,2,3,3,1,1,2
+Species,Bocaccio,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,3,5,4,5,1,4,1,5,0,4,3,5,3,2,2,3,3,2,3,2,3,3,2,4,2,3,3,1,1,2
+Species,Bocaccio,Fishing,Trap/Pot Fishing,Entrapment/Entanglement,2,5,4,3,4,3,1,4,4,2,1,4,0,3,3,2,2,3,3,2,3,2,1,3,2,4,2,3,3,1,1,2
+Habitat,Coralline algae,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,3,5,1,5,2,5,3,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Vessel,Discharge,Debris,2,4,2,4,3,1,2,5,4,2,1,5,1,5,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Vessel,Discharge,Nutrients,2,4,2,4,2,3,2,5,4,2,2,4,1,4,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Vessel,Discharge,Oils/contaminants,2,5,2,5,4,3,2,5,4,2,1,5,1,5,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Vessel,Grounding,Disturbance (crushing),3,2,3,2,1,3,4,3,1,3,3,3,1,4,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Vessel,Grounding,Disturbance (sediment resuspension),3,2,3,2,1,3,4,3,1,3,3,3,1,4,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Vessel,Oil Spill,Oil,4,5,4,4,4,3,4,5,1,2,3,3,3,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,4,1,4,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Equipment installation,Disturbance (crushing),2,4,2,4,1,1,1,1,3,1,0,4,1,4,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Equipment installation,Disturbance (sediment resuspension),2,4,2,4,1,3,1,1,3,1,0,4,1,4,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Sampling,Removal of organisms,1,2,1,2,1,3,1,1,3,1,1,3,1,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Sampling,Disturbance (crushing),2,3,2,3,1,3,1,1,3,1,1,3,1,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Sampling,Disturbance (sediment resuspension),2,3,2,3,1,3,1,1,3,1,1,3,1,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Scuba,Disturbance (crushing),2,3,2,3,1,3,1,1,1,1,0,3,1,5,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Scuba,Disturbance (sediment resuspension),2,3,2,3,1,3,1,1,1,1,0,3,1,5,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Submersible operations,Aquatic Invasive Species,3,5,3,5,4,4,4,5,3,1,1,5,3,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Submersible operations,Disturbance (crushing),2,3,4,3,1,3,1,1,3,1,0,3,1,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Coralline algae,Research,Submersible operations,Disturbance (sediment resuspension),2,3,4,3,1,3,1,1,3,1,0,3,1,3,1,5,2,3,NA,NA,1,3,1,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Vessel,Discharge,Debris,2,4,2,4,3,4,2,5,4,3,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Vessel,Discharge,Nutrients,1,4,1,4,2,3,2,5,4,3,1,4,0,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Vessel,Discharge,Oils/contaminants,2,5,2,5,4,3,2,5,4,2,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Vessel,Grounding,Disturbance (crushing),1,4,1,4,1,4,4,5,1,2,2,5,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Vessel,Grounding,Disturbance (sediment resuspension),1,4,1,4,1,4,3,5,1,2,2,5,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Vessel,Oil Spill,Oil,2,5,2,4,4,3,4,5,1,2,3,3,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Equipment abandonment,Contamination,2,4,2,4,4,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Equipment installation,Disturbance (crushing),2,4,2,4,1,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Equipment installation,Disturbance (sediment resuspension),2,4,2,4,1,4,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Sampling,Removal of organisms,2,3,2,3,1,3,1,1,3,1,1,3,1,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Sampling,Disturbance (crushing),2,3,2,3,1,3,1,1,3,1,1,3,0,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Sampling,Disturbance (sediment resuspension),2,3,2,3,1,3,1,1,3,1,1,3,0,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Submersible operations,Aquatic Invasive Species,2,5,2,5,4,4,4,5,1,1,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Submersible operations,Disturbance (crushing),2,3,4,3,1,3,1,1,3,1,0,3,1,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Research,Submersible operations,Disturbance (sediment resuspension),2,3,4,3,1,3,1,1,3,1,0,3,1,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,4,3,4,5,1,4,1,5,3,5,3,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Fishing,Trap/Pot Fishing,Removal of biological material,3,5,4,3,2,4,2,4,3,2,2,5,2,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Fishing,Trap/Pot Fishing,Disturbance (crushing),3,5,4,3,1,3,2,4,4,3,3,5,3,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Corals,Fishing,Trap/Pot Fishing,Disturbance (sediment resuspension),3,5,4,3,1,3,2,4,4,3,2,5,2,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Halibut,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,1,5,2,5,3,3,3,3,3,3,3,3,3,3,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Vessel,Discharge,Debris,2,5,2,5,4,3,2,4,4,2,1,3,1,5,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,2,1,5,0,5,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Vessel,Discharge,Oils/contaminants,2,5,2,5,3,3,2,5,4,2,1,3,1,5,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,0,3,1,4,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,2,4,1,2,3,3,3,3,3,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,3,1,3,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Research,Sampling,Removal of organisms,1,1,1,1,1,1,1,1,3,1,1,1,0,3,3,3,3,3,3,3,3,3,3,5,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Research,Submersible operations,Aquatic Invasive Species,2,4,2,4,4,5,2,1,1,5,1,5,2,5,3,3,3,3,3,3,3,3,3,3,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,4,3,4,5,1,4,1,5,0,5,2,5,3,3,3,3,3,3,3,3,3,3,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Fishing,Trap/Pot Fishing,Entrapment/Entanglement,2,4,4,3,3,3,1,4,4,2,1,5,1,5,3,3,3,3,3,3,3,3,1,3,3,5,NA,NA,NA,NA,1,3
+Species,Halibut,Fishing,Trap/Pot Fishing,Removal of biological material,2,4,4,2,3,1,2,3,4,1,1,3,0,3,3,3,3,3,3,3,3,3,1,3,3,5,NA,NA,NA,NA,1,3
+Species,Isadella,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Vessel,Discharge,Debris,2,4,2,4,4,2,2,5,4,2,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Vessel,Discharge,Nutrients,1,5,1,5,1,3,2,5,4,3,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Vessel,Discharge,Oils/contaminants,2,5,2,5,4,3,2,5,4,2,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Vessel,Oil Spill,Oil,2,5,2,5,4,3,4,5,1,2,3,3,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Research,Equipment installation,Contamination,1,4,1,4,4,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Research,Equipment installation,Disturbance (crushing),1,4,4,3,1,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Research,Equipment installation,Disturbance (sediment resuspension),1,4,4,3,1,4,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Research,Submersible operations,Aquatic Invasive Species,2,5,2,5,4,4,2,5,1,5,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Research,Submersible operations,Disturbance (crushing),2,3,4,3,1,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Research,Submersible operations,Disturbance (sediment resuspension),2,3,4,3,1,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,3,5,4,3,4,5,1,4,1,5,3,5,3,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Fishing,Trap/Pot Fishing,Removal of biological material,3,4,4,3,3,2,2,4,3,2,2,5,2,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Fishing,Trap/Pot Fishing,Disturbance (crushing),3,4,4,3,3,2,2,4,4,3,3,5,3,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Isadella,Fishing,Trap/Pot Fishing,Disturbance (sediment resuspension),3,5,4,4,3,2,2,4,4,3,2,5,3,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,3,5,1,5,2,5,3,3,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Vessel,Discharge,Debris,2,4,2,4,3,2,2,5,4,2,1,5,1,5,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,2,2,4,1,4,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Vessel,Discharge,Oils/contaminants,2,5,2,5,4,3,2,5,4,2,1,5,1,5,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Vessel,Grounding,Disturbance (crushing),1,2,1,2,1,3,4,3,1,3,3,3,1,4,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Vessel,Grounding,Disturbance (sediment resuspension),3,2,3,2,1,3,4,3,1,3,3,4,1,4,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Vessel,Oil Spill,Oil,4,5,4,4,4,3,4,5,1,2,3,3,3,3,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,4,1,4,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Research,Equipment installation,Disturbance (crushing),2,4,2,4,1,3,1,1,3,1,0,4,1,4,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Research,Sampling,Removal of organisms,1,2,1,2,1,3,1,1,3,1,0,3,1,3,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Research,Submersible operations,Aquatic Invasive Species,3,5,3,5,4,4,4,5,3,1,2,5,3,5,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Research,Submersible operations,Disturbance (crushing),2,3,4,3,1,1,1,1,3,1,0,3,1,3,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Habitat,Macro algae,Research,Submersible operations,Disturbance (sediment resuspension),2,3,4,3,1,1,1,1,3,1,0,3,1,3,1,5,2,3,NA,NA,1,5,2,4,1,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,3,5,1,5,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Vessel,Discharge,Debris,2,4,2,4,3,1,2,5,4,2,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Vessel,Discharge,Nutrients,2,5,1,5,1,3,2,5,4,2,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Vessel,Discharge,Oils/contaminants,2,5,2,5,4,3,2,5,4,2,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Vessel,Grounding,Disturbance (crushing),1,2,1,2,1,3,4,3,1,3,3,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Vessel,Grounding,Disturbance (sediment resuspension),1,2,1,2,1,3,4,3,1,3,3,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Vessel,Oil Spill,Oil,2,5,2,5,4,3,4,5,1,2,3,3,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Research,Equipment installation,Contamination,1,4,1,4,4,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Research,Equipment installation,Disturbance (crushing),1,4,4,4,1,4,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Research,Equipment installation,Disturbance (sediment resuspension),2,4,4,4,1,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Research,Submersible operations,Aquatic Invasive Species,2,5,2,5,4,4,2,5,1,5,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Research,Submersible operations,Disturbance (crushing),2,3,4,3,1,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Primnoa,Research,Submersible operations,Disturbance (sediment resuspension),2,3,4,3,1,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Prowfish,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,1,5,3,5,1,2,2,2,2,2,3,2,1,3,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Vessel,Discharge,Debris,2,5,2,5,4,3,2,4,4,2,1,3,1,5,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,1,1,5,1,5,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Vessel,Discharge,Oils/contaminants,2,5,2,5,3,3,2,5,4,2,1,3,1,5,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,0,3,1,4,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,3,3,3,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,2,4,1,2,3,3,3,3,3,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,3,1,3,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Research,Sampling,Removal of organisms,1,2,1,2,1,1,1,1,3,1,1,1,0,3,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Research,Submersible operations,Aquatic Invasive Species,2,4,2,4,4,4,2,4,1,5,1,5,3,5,1,2,2,2,2,2,3,2,1,3,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,3,5,4,5,1,4,1,5,0,5,1,5,1,2,2,2,2,2,3,2,3,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Prowfish,Fishing,Trap/Pot Fishing,Entrapment/Entanglement,1,5,4,3,3,3,1,4,4,2,1,4,0,3,1,2,2,2,2,2,3,2,1,5,3,5,NA,NA,NA,NA,NA,NA
+Species,Rougheye,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,0,5,3,5,3,2,2,2,3,2,3,2,3,3,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Vessel,Discharge,Debris,2,5,2,5,4,3,2,4,4,2,1,3,1,5,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,1,1,5,1,5,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Vessel,Discharge,Oils/contaminants,2,5,2,5,3,3,2,5,4,2,1,3,1,5,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,0,3,1,4,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,3,3,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,2,4,1,2,3,3,3,3,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,3,1,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Research,Sampling,Removal of organisms,1,2,1,2,1,1,1,1,3,1,1,1,0,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Research,Submersible operations,Aquatic Invasive Species,2,4,2,4,4,4,2,1,1,5,0,5,3,5,3,2,2,2,3,2,3,2,3,3,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,4,5,4,5,1,4,1,5,0,4,3,5,3,2,2,2,3,2,3,2,3,3,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Fishing,Trap/Pot Fishing,Entrapment/Entanglement,3,4,4,2,3,4,1,4,4,2,1,4,0,4,3,2,2,2,3,2,3,2,1,3,2,4,3,2,3,1,NA,NA
+Species,Rougheye,Fishing,Trap/Pot Fishing,Removal of biological material,3,4,4,3,3,1,2,3,4,1,2,4,1,4,3,2,2,2,3,2,3,2,1,3,2,4,3,2,3,1,NA,NA
+Species,Sablefish,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,1,5,2,5,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Vessel,Discharge,Debris,2,5,2,5,4,3,2,4,4,2,1,3,1,5,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,1,1,5,0,5,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Vessel,Discharge,Oils/contaminants,2,5,2,5,3,3,2,5,4,2,1,3,1,5,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,0,3,1,4,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,3,3,3,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,2,4,1,2,3,3,3,3,3,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,3,1,3,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Research,Sampling,Removal of organisms,1,2,1,2,1,1,1,1,3,1,1,1,0,3,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Research,Submersible operations,Aquatic Invasive Species,2,5,2,5,4,5,2,1,1,5,1,5,2,5,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,3,5,4,3,4,5,1,4,1,5,0,5,2,5,3,4,2,4,2,4,3,4,3,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Fishing,Trap/Pot Fishing,Entrapment/Entanglement,3,4,3,3,3,3,1,4,4,2,1,4,0,4,3,4,2,4,2,4,3,4,1,5,2,3,NA,NA,NA,NA,1,3
+Species,Sablefish,Fishing,Trap/Pot Fishing,Removal of biological material,3,5,4,2,3,1,2,3,4,1,3,4,1,5,3,4,2,4,2,4,3,4,1,5,2,3,NA,NA,NA,NA,1,3
+Habitat,Sponges,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Vessel,Discharge,Debris,2,4,2,4,3,4,2,5,4,3,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Vessel,Discharge,Nutrients,1,4,1,4,2,3,2,5,4,3,1,4,0,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Vessel,Discharge,Oils/contaminants,2,4,2,4,4,3,2,5,4,2,1,5,1,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Vessel,Grounding,Disturbance (crushing),1,4,1,4,1,4,4,5,1,2,2,5,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Vessel,Grounding,Disturbance (sediment resuspension),1,4,1,4,1,4,3,5,1,2,2,5,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Vessel,Oil Spill,Oil,2,5,2,4,4,3,4,5,1,2,3,3,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Equipment installation,Contamination,2,4,2,4,4,3,1,1,3,1,0,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Equipment installation,Disturbance (crushing),2,4,2,4,1,3,1,1,3,1,1,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Equipment installation,Disturbance (sediment resuspension),2,4,2,4,1,4,1,1,3,1,1,4,1,4,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Sampling,Removal of organisms,2,3,2,3,1,3,1,1,3,1,1,3,1,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Sampling,Disturbance (crushing),2,3,2,3,1,3,1,1,3,1,1,3,0,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Sampling,Disturbance (sediment resuspension),2,3,2,3,1,3,1,1,3,1,1,3,0,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Submersible operations,Aquatic Invasive Species,2,5,2,5,4,4,4,5,1,1,3,5,3,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Submersible operations,Disturbance (crushing),2,3,4,3,1,3,1,1,3,1,0,3,1,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Research,Submersible operations,Disturbance (sediment resuspension),2,3,4,3,1,3,1,1,3,1,0,3,1,3,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,4,3,4,5,1,4,1,5,2,5,2,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Fishing,Trap/Pot Fishing,Removal of biological material,3,5,4,3,2,4,2,4,2,2,2,5,2,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Fishing,Trap/Pot Fishing,Disturbance (crushing),3,5,4,4,1,3,2,4,4,3,3,5,3,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Habitat,Sponges,Fishing,Trap/Pot Fishing,Disturbance (sediment resuspension),3,5,4,3,1,3,2,4,4,3,2,5,2,5,1,5,3,3,NA,NA,3,3,2,4,3,3,3,5,NA,NA,NA,NA
+Species,Squat lobster,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,0,5,1,5,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Vessel,Discharge,Debris,2,4,2,4,4,3,2,4,4,2,1,5,1,5,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Vessel,Discharge,Oils/contaminants,2,4,2,4,3,3,2,5,4,2,1,4,1,4,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,0,4,1,4,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,5,3,5,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,3,4,3,2,3,1,5,2,4,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Research,Submersible operations,Aquatic Invasive Species,2,5,2,5,4,4,2,4,1,5,0,5,1,5,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Research,Submersible operations,Light disturbance,2,4,2,4,1,2,1,3,2,1,0,3,1,5,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Squat lobster,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,4,3,4,5,1,4,1,5,0,5,1,5,1,3,1,1,1,1,2,3,3,5,2,4,1,3,NA,NA,2,4
+Species,Widow,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,1,5,3,5,3,2,1,3,NA,NA,3,2,3,3,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Vessel,Discharge,Debris,2,5,2,5,4,3,2,4,4,2,1,3,1,5,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,2,1,5,1,5,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Vessel,Discharge,Oils/contaminants,2,5,2,5,3,3,2,5,4,2,1,3,1,5,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,0,3,1,4,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,3,3,3,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,3,4,3,2,3,3,3,3,3,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,3,1,3,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Research,Sampling,Removal of organisms,1,2,1,2,1,3,1,1,3,1,1,1,0,3,3,2,1,3,NA,NA,3,2,3,5,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Research,Submersible operations,Aquatic Invasive Species,2,4,2,4,4,4,2,1,3,1,1,5,3,5,3,2,1,3,NA,NA,3,2,3,3,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,3,5,4,5,1,4,1,5,0,4,2,5,3,2,1,3,NA,NA,3,2,3,3,2,4,NA,NA,NA,NA,1,2
+Species,Widow,Fishing,Trap/Pot Fishing,Entrapment/Entanglement,2,5,4,3,3,4,1,4,4,2,1,4,0,3,3,2,1,3,NA,NA,3,2,1,3,2,4,NA,NA,NA,NA,1,2
+Species,Yelloweye,Vessel,Discharge,Aquatic Invasive Species,2,4,2,4,4,5,2,5,1,5,0,4,3,5,3,2,2,2,3,2,3,2,3,3,2,4,3,2,2,1,1,2
+Species,Yelloweye,Vessel,Discharge,Debris,2,5,2,5,4,3,2,4,4,2,1,3,1,5,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Vessel,Discharge,Nutrients,2,5,2,5,2,3,2,5,4,2,1,5,1,5,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Vessel,Discharge,Oils/contaminants,2,5,2,5,3,3,2,5,4,2,1,3,1,5,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Vessel,Movement underway,Noise disturbance,4,2,4,2,4,2,1,4,4,1,1,4,1,4,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Vessel,Oil Spill,Oil,2,5,2,5,4,3,2,5,1,2,3,3,3,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Seismic Surveys,Seismic testing / air guns,Sound generation,4,2,4,2,1,3,4,3,2,3,3,3,3,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Research,Equipment abandonment,Contamination,1,4,1,4,4,3,1,1,3,1,0,3,1,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Research,Sampling,Removal of organisms,1,2,1,2,1,3,1,1,3,1,1,1,0,3,3,2,2,2,3,2,3,2,3,5,2,4,3,2,2,1,1,2
+Species,Yelloweye,Research,Submersible operations,Aquatic Invasive Species,2,4,2,4,4,4,2,1,3,1,0,4,3,5,3,2,2,2,3,2,3,2,3,3,2,4,3,2,2,1,1,2
+Species,Yelloweye,Fishing,Trap/Pot Fishing,Aquatic Invasive Species,2,5,2,3,4,5,1,4,1,5,0,4,3,5,3,2,2,2,3,2,3,2,3,3,2,4,3,2,2,1,1,2
+Species,Yelloweye,Fishing,Trap/Pot Fishing,Entrapment/Entanglement,2,5,4,3,3,4,1,4,4,2,1,4,0,3,3,2,2,2,3,2,3,2,1,3,2,4,3,2,2,1,1,2

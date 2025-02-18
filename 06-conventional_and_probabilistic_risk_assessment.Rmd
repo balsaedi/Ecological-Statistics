@@ -198,3 +198,67 @@ _______________________________________________________________________
 One of the examples is the inhalation risk assessment (example 21.2). Will search examples from online 
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
+
+
+## <span style="color: green;">**Hands-On Exercise**</span>  
+
+In this exercise, we will utilize the **Ecological Risk Assessment Framework(ERAF)** data set from Kaggle. It provides data on various human activities and their potential impacts on sensitive ecosystems. The data set can be downloaded from [here]()
+
+You are required to; 
+
+- Calculate the risk scores for specific activity-stressor-ecosystem combinations using deterministic methods.
+
+  - Use a predefined impact ratings and exposure factors to calculate the risk score. 
+  
+- Incorporate variability and uncertainty into the risk assessment using Monte Carlo simulation. 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: red;">**The solution will be revisited!**</span>
+
+```{r}
+# Load the required libraries 
+library(dplyr)
+library(ggplot2)
+
+# Load the dataset 
+data <- read.csv("data/ERAF_dataset.csv")
+
+# Filter for specific activity-stressor-ecosystem combination -- In our case we pick natural waters
+select_data <- data %>%
+  filter(Activity == "Fishing", Stressor == "Aquatic Invasive Species")
+
+## Conventional risk assessment
+### Assume pre-defined impact rating and exposure factor
+impact_rating <- 3 # Scake of 1 to 5
+exposure_factor <- 0.7 # Scale of 0 to 1
+
+### Calculate deterministic risk score
+risk_score <- impact_rating * exposure_factor
+print(paste("Deterministic Risk Score:", risk_score))
+
+## Probabilistic Risk assessment 
+### Define distribution for impact rating 
+set.seed(123)
+impact_ratings <- sample(1:5, 1000, replace=TRUE)
+exposure_factors <- runif(1000, 0, 1)
+
+### Perform Monte Carlo simulations 
+risk_scores <- impact_ratings * exposure_factors
+
+### Distribution of risk scores 
+ggplot(data.frame(RiskScore = risk_scores), aes(x = RiskScore)) + 
+  geom_histogram(binwidth=0.5, fill="blue", alpha=0.7) + 
+  labs(
+    title = "Distribution of risk scores from Monte carlo simulation",
+    x = "Risk Score",
+    y = "Frequency"
+    )
+
+# Finally calculate summary statistics
+summary(risk_scores)
+```
+
+
+<span style="color: brown;">**________________________________________________________________________________**</span>

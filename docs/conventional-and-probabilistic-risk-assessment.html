@@ -215,6 +215,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#conventional-or-point-risk-estimation"><i class="fa fa-check"></i><b>6.2</b> Conventional or Point Risk Estimation</a></li>
 <li class="chapter" data-level="6.3" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#probabilistic-risk-assessment-using-monte-carlo-simulation"><i class="fa fa-check"></i><b>6.3</b> Probabilistic Risk Assessment Using Monte Carlo Simulation</a></li>
 <li class="chapter" data-level="6.4" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#practical-exercise"><i class="fa fa-check"></i><b>6.4</b> <span style="color: green;"><strong>Practical Exercise</strong></span></a></li>
+<li class="chapter" data-level="6.5" data-path="conventional-and-probabilistic-risk-assessment.html"><a href="conventional-and-probabilistic-risk-assessment.html#hands-on-exercise-2"><i class="fa fa-check"></i><b>6.5</b> <span style="color: green;"><strong>Hands-On Exercise</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="datasets.html"><a href="datasets.html"><i class="fa fa-check"></i><b>7</b> Datasets</a></li>
 <li class="divider"></li>
@@ -410,6 +411,64 @@ soil-to-skin adherence factor in milligrams per square centimeters per soil cont
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
 <p>One of the examples is the inhalation risk assessment (example 21.2). Will search examples from online</p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+</div>
+<div id="hands-on-exercise-2" class="section level2 hasAnchor" number="6.5">
+<h2><span class="header-section-number">6.5</span> <span style="color: green;"><strong>Hands-On Exercise</strong></span><a href="conventional-and-probabilistic-risk-assessment.html#hands-on-exercise-2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this exercise, we will utilize the <strong>Ecological Risk Assessment Framework(ERAF)</strong> data set from Kaggle. It provides data on various human activities and their potential impacts on sensitive ecosystems. The data set can be downloaded from <a href="">here</a></p>
+<p>You are required to;</p>
+<ul>
+<li><p>Calculate the risk scores for specific activity-stressor-ecosystem combinations using deterministic methods.</p>
+<ul>
+<li>Use a predefined impact ratings and exposure factors to calculate the risk score.</li>
+</ul></li>
+<li><p>Incorporate variability and uncertainty into the risk assessment using Monte Carlo simulation.</p></li>
+</ul>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: red;"><strong>The solution will be revisited!</strong></span></p>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-1" tabindex="-1"></a><span class="co"># Load the required libraries </span></span>
+<span id="cb211-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb211-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb211-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-4" tabindex="-1"></a></span>
+<span id="cb211-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-5" tabindex="-1"></a><span class="co"># Load the dataset </span></span>
+<span id="cb211-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/ERAF_dataset.csv&quot;</span>)</span>
+<span id="cb211-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-7" tabindex="-1"></a></span>
+<span id="cb211-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-8" tabindex="-1"></a><span class="co"># Filter for specific activity-stressor-ecosystem combination -- In our case we pick natural waters</span></span>
+<span id="cb211-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-9" tabindex="-1"></a>select_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb211-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-10" tabindex="-1"></a>  <span class="fu">filter</span>(Activity <span class="sc">==</span> <span class="st">&quot;Fishing&quot;</span>, Stressor <span class="sc">==</span> <span class="st">&quot;Aquatic Invasive Species&quot;</span>)</span>
+<span id="cb211-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-11" tabindex="-1"></a></span>
+<span id="cb211-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-12" tabindex="-1"></a><span class="do">## Conventional risk assessment</span></span>
+<span id="cb211-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-13" tabindex="-1"></a><span class="do">### Assume pre-defined impact rating and exposure factor</span></span>
+<span id="cb211-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-14" tabindex="-1"></a>impact_rating <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># Scake of 1 to 5</span></span>
+<span id="cb211-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-15" tabindex="-1"></a>exposure_factor <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="co"># Scale of 0 to 1</span></span>
+<span id="cb211-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-16" tabindex="-1"></a></span>
+<span id="cb211-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-17" tabindex="-1"></a><span class="do">### Calculate deterministic risk score</span></span>
+<span id="cb211-18"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-18" tabindex="-1"></a>risk_score <span class="ot">&lt;-</span> impact_rating <span class="sc">*</span> exposure_factor</span>
+<span id="cb211-19"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-19" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Deterministic Risk Score:&quot;</span>, risk_score))</span></code></pre></div>
+<pre><code>## [1] &quot;Deterministic Risk Score: 2.1&quot;</code></pre>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-1" tabindex="-1"></a><span class="do">## Probabilistic Risk assessment </span></span>
+<span id="cb213-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-2" tabindex="-1"></a><span class="do">### Define distribution for impact rating </span></span>
+<span id="cb213-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb213-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-4" tabindex="-1"></a>impact_ratings <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1000</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb213-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-5" tabindex="-1"></a>exposure_factors <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb213-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-6" tabindex="-1"></a></span>
+<span id="cb213-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-7" tabindex="-1"></a><span class="do">### Perform Monte Carlo simulations </span></span>
+<span id="cb213-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-8" tabindex="-1"></a>risk_scores <span class="ot">&lt;-</span> impact_ratings <span class="sc">*</span> exposure_factors</span>
+<span id="cb213-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-9" tabindex="-1"></a></span>
+<span id="cb213-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-10" tabindex="-1"></a><span class="do">### Distribution of risk scores </span></span>
+<span id="cb213-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">RiskScore =</span> risk_scores), <span class="fu">aes</span>(<span class="at">x =</span> RiskScore)) <span class="sc">+</span> </span>
+<span id="cb213-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="fl">0.5</span>, <span class="at">fill=</span><span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span> </span>
+<span id="cb213-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-13" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb213-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-14" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of risk scores from Monte carlo simulation&quot;</span>,</span>
+<span id="cb213-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-15" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Risk Score&quot;</span>,</span>
+<span id="cb213-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-16" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span></span>
+<span id="cb213-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-17" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb214-1" tabindex="-1"></a><span class="co"># Finally calculate summary statistics</span></span>
+<span id="cb214-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb214-2" tabindex="-1"></a><span class="fu">summary</span>(risk_scores)</span></code></pre></div>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+## 0.005396 0.535681 1.129621 1.510657 2.241480 4.981860</code></pre>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 
 </div>
