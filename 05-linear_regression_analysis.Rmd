@@ -369,3 +369,13 @@ Using the `airquality` data set, fit a multiple linear regression model whereby 
 
 
 ## <span style="color: green;">**Hands-on Exercise**</span> 
+
+In this exercise, we will utilize the **Global Species Abundance and Diversity** data set that can be downloaded from [here](). It comprises of different species and diversity from different ecological sites, offering a global perspective on biodiversity
+
+
+-------------------------------------------------------------------Will be revisited --------------------------------------------------------
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+<span style="color: brown;">**________________________________________________________________________________**</span>

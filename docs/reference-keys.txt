@@ -33,6 +33,7 @@ mannkendall-test-and-seasonal-mannkendall-test
 mann-kendall-trend-test
 seasonal-mann-kendall-smk-test
 theilsen-trend-test
+hands-on-exercises-1
 correlation-covariance-geostatistics
 introduction-2
 correlation-and-covariance

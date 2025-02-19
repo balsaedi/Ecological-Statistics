@@ -177,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#parametric-test-for-trends---simple-linear-regression"><i class="fa fa-check"></i><b>3.3.1</b> Parametric Test for Trends - Simple Linear Regression</a></li>
 <li class="chapter" data-level="3.3.2" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#nonparametric-test-for-trends"><i class="fa fa-check"></i><b>3.3.2</b> Nonparametric Test for Trends</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#hands-on-exercises-1"><i class="fa fa-check"></i><b>3.4</b> <span style="color: green;"><strong>Hands-On Exercises</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a>
 <ul>
@@ -315,31 +316,31 @@ soil-to-skin adherence factor in milligrams per square centimeters per soil cont
 </ul>
 <p>and the formula for <strong>Average Daily Intake(ADI):</strong>
 <span class="math display">\[{ADI} = {{C \times IR \times EF \times ED}\over{BW \times AT}}\]</span></p>
-<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-1" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb203-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-2" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;data/water_potability.csv&quot;</span>)</span>
-<span id="cb203-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-3" tabindex="-1"></a></span>
-<span id="cb203-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-4" tabindex="-1"></a><span class="co"># Focus on the Trihalomethanes column</span></span>
-<span id="cb203-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-5" tabindex="-1"></a>trihalo_data <span class="ot">&lt;-</span> df<span class="sc">$</span>Trihalomethanes</span>
-<span id="cb203-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-6" tabindex="-1"></a></span>
-<span id="cb203-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-7" tabindex="-1"></a><span class="co"># Define constants</span></span>
-<span id="cb203-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-8" tabindex="-1"></a>BW <span class="ot">&lt;-</span> <span class="dv">70</span>  <span class="co"># kg</span></span>
-<span id="cb203-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-9" tabindex="-1"></a>IR <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># liters/day</span></span>
-<span id="cb203-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-10" tabindex="-1"></a>EF <span class="ot">&lt;-</span> <span class="dv">350</span>  <span class="co"># days/year</span></span>
-<span id="cb203-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-11" tabindex="-1"></a>ED <span class="ot">&lt;-</span> <span class="dv">30</span>  <span class="co"># years</span></span>
-<span id="cb203-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-12" tabindex="-1"></a>AT_noncarcinogen <span class="ot">&lt;-</span> ED <span class="sc">*</span> <span class="dv">365</span>  <span class="co"># days</span></span>
-<span id="cb203-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-13" tabindex="-1"></a>AT_carcinogen <span class="ot">&lt;-</span> <span class="dv">70</span> <span class="sc">*</span> <span class="dv">365</span>  <span class="co"># days</span></span>
-<span id="cb203-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-14" tabindex="-1"></a></span>
-<span id="cb203-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-15" tabindex="-1"></a><span class="co"># Compute average concentration of Trihalomethanes</span></span>
-<span id="cb203-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-16" tabindex="-1"></a>C_avg <span class="ot">&lt;-</span> <span class="fu">mean</span>(trihalo_data, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  <span class="co"># mg/L</span></span>
-<span id="cb203-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-17" tabindex="-1"></a></span>
-<span id="cb203-18"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-18" tabindex="-1"></a><span class="co"># Compute ADI</span></span>
-<span id="cb203-19"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-19" tabindex="-1"></a>ADI_noncarcinogen <span class="ot">&lt;-</span> (C_avg <span class="sc">*</span> IR <span class="sc">*</span> EF <span class="sc">*</span> ED) <span class="sc">/</span> (BW <span class="sc">*</span> AT_noncarcinogen)</span>
-<span id="cb203-20"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-20" tabindex="-1"></a>ADI_carcinogen <span class="ot">&lt;-</span> (C_avg <span class="sc">*</span> IR <span class="sc">*</span> EF <span class="sc">*</span> ED) <span class="sc">/</span> (BW <span class="sc">*</span> AT_carcinogen)</span>
-<span id="cb203-21"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-21" tabindex="-1"></a></span>
-<span id="cb203-22"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-22" tabindex="-1"></a><span class="co"># Display results</span></span>
-<span id="cb203-23"><a href="conventional-and-probabilistic-risk-assessment.html#cb203-23" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Average Daily Intake (ADI) for Non-Carcinogens: %.6f mg/kg/day</span><span class="sc">\n</span><span class="st">&quot;</span>, ADI_noncarcinogen))</span></code></pre></div>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-1" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb213-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-2" tabindex="-1"></a>df <span class="ot">&lt;-</span><span class="fu">read.csv</span>(<span class="st">&quot;data/water_potability.csv&quot;</span>)</span>
+<span id="cb213-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-3" tabindex="-1"></a></span>
+<span id="cb213-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-4" tabindex="-1"></a><span class="co"># Focus on the Trihalomethanes column</span></span>
+<span id="cb213-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-5" tabindex="-1"></a>trihalo_data <span class="ot">&lt;-</span> df<span class="sc">$</span>Trihalomethanes</span>
+<span id="cb213-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-6" tabindex="-1"></a></span>
+<span id="cb213-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-7" tabindex="-1"></a><span class="co"># Define constants</span></span>
+<span id="cb213-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-8" tabindex="-1"></a>BW <span class="ot">&lt;-</span> <span class="dv">70</span>  <span class="co"># kg</span></span>
+<span id="cb213-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-9" tabindex="-1"></a>IR <span class="ot">&lt;-</span> <span class="dv">2</span>  <span class="co"># liters/day</span></span>
+<span id="cb213-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-10" tabindex="-1"></a>EF <span class="ot">&lt;-</span> <span class="dv">350</span>  <span class="co"># days/year</span></span>
+<span id="cb213-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-11" tabindex="-1"></a>ED <span class="ot">&lt;-</span> <span class="dv">30</span>  <span class="co"># years</span></span>
+<span id="cb213-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-12" tabindex="-1"></a>AT_noncarcinogen <span class="ot">&lt;-</span> ED <span class="sc">*</span> <span class="dv">365</span>  <span class="co"># days</span></span>
+<span id="cb213-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-13" tabindex="-1"></a>AT_carcinogen <span class="ot">&lt;-</span> <span class="dv">70</span> <span class="sc">*</span> <span class="dv">365</span>  <span class="co"># days</span></span>
+<span id="cb213-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-14" tabindex="-1"></a></span>
+<span id="cb213-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-15" tabindex="-1"></a><span class="co"># Compute average concentration of Trihalomethanes</span></span>
+<span id="cb213-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-16" tabindex="-1"></a>C_avg <span class="ot">&lt;-</span> <span class="fu">mean</span>(trihalo_data, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)  <span class="co"># mg/L</span></span>
+<span id="cb213-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-17" tabindex="-1"></a></span>
+<span id="cb213-18"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-18" tabindex="-1"></a><span class="co"># Compute ADI</span></span>
+<span id="cb213-19"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-19" tabindex="-1"></a>ADI_noncarcinogen <span class="ot">&lt;-</span> (C_avg <span class="sc">*</span> IR <span class="sc">*</span> EF <span class="sc">*</span> ED) <span class="sc">/</span> (BW <span class="sc">*</span> AT_noncarcinogen)</span>
+<span id="cb213-20"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-20" tabindex="-1"></a>ADI_carcinogen <span class="ot">&lt;-</span> (C_avg <span class="sc">*</span> IR <span class="sc">*</span> EF <span class="sc">*</span> ED) <span class="sc">/</span> (BW <span class="sc">*</span> AT_carcinogen)</span>
+<span id="cb213-21"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-21" tabindex="-1"></a></span>
+<span id="cb213-22"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-22" tabindex="-1"></a><span class="co"># Display results</span></span>
+<span id="cb213-23"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-23" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Average Daily Intake (ADI) for Non-Carcinogens: %.6f mg/kg/day</span><span class="sc">\n</span><span class="st">&quot;</span>, ADI_noncarcinogen))</span></code></pre></div>
 <pre><code>## Average Daily Intake (ADI) for Non-Carcinogens: 1.819077 mg/kg/day</code></pre>
-<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb205-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Average Daily Intake (ADI) for Carcinogens: %.6f mg/kg/day</span><span class="sc">\n</span><span class="st">&quot;</span>, ADI_carcinogen))</span></code></pre></div>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb215-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Average Daily Intake (ADI) for Carcinogens: %.6f mg/kg/day</span><span class="sc">\n</span><span class="st">&quot;</span>, ADI_carcinogen))</span></code></pre></div>
 <pre><code>## Average Daily Intake (ADI) for Carcinogens: 0.779604 mg/kg/day</code></pre>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
 <p>One of the examples is the inhalation risk assessment (example 21.1)</p>
@@ -366,43 +367,43 @@ soil-to-skin adherence factor in milligrams per square centimeters per soil cont
 <li>Water Ingestion Rate (IR): Log-normal distribution, mean = 2litres/day, SD=0.5litres</li>
 <li>Trihalomethanes Concentration (C): Will find from the data values, <code>trihalo_data</code>.</li>
 </ul>
-<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
-<span id="cb207-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
-<span id="cb207-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb207-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-4" tabindex="-1"></a></span>
-<span id="cb207-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-5" tabindex="-1"></a><span class="co"># Number of simulations</span></span>
-<span id="cb207-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-6" tabindex="-1"></a>num_simulations <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
-<span id="cb207-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-7" tabindex="-1"></a></span>
-<span id="cb207-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-8" tabindex="-1"></a><span class="co"># Generate random values from distributions</span></span>
-<span id="cb207-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-9" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
-<span id="cb207-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-10" tabindex="-1"></a>BW_sim <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(num_simulations, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
-<span id="cb207-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-11" tabindex="-1"></a>IR_sim <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(num_simulations, <span class="at">meanlog =</span> <span class="fu">log</span>(<span class="dv">2</span>), <span class="at">sdlog =</span> <span class="fl">0.5</span>)</span>
-<span id="cb207-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-12" tabindex="-1"></a>C_sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(trihalo_data, num_simulations, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb207-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-13" tabindex="-1"></a></span>
-<span id="cb207-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-14" tabindex="-1"></a><span class="co"># Compute ADI for each simulation</span></span>
-<span id="cb207-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-15" tabindex="-1"></a>ADI_sim <span class="ot">&lt;-</span> (C_sim <span class="sc">*</span> IR_sim <span class="sc">*</span> EF <span class="sc">*</span> ED) <span class="sc">/</span> (BW_sim <span class="sc">*</span> AT_carcinogen)</span>
-<span id="cb207-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-16" tabindex="-1"></a></span>
-<span id="cb207-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-17" tabindex="-1"></a><span class="co"># Convert to data frame for visualization</span></span>
-<span id="cb207-18"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-18" tabindex="-1"></a>ADI_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ADI_sim)</span>
-<span id="cb207-19"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-19" tabindex="-1"></a></span>
-<span id="cb207-20"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-20" tabindex="-1"></a><span class="co"># Plot probability distribution of ADI values</span></span>
-<span id="cb207-21"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-21" tabindex="-1"></a><span class="fu">ggplot</span>(ADI_df, <span class="fu">aes</span>(<span class="at">x =</span> ADI_sim)) <span class="sc">+</span></span>
-<span id="cb207-22"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-22" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
-<span id="cb207-23"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Probability Distribution of ADI (Monte Carlo Simulation)&quot;</span>,</span>
-<span id="cb207-24"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-24" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;ADI (mg/kg/day)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
-<span id="cb207-25"><a href="conventional-and-probabilistic-risk-assessment.html#cb207-25" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-1" tabindex="-1"></a><span class="co"># Load necessary library</span></span>
+<span id="cb217-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-2" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb217-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb217-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-4" tabindex="-1"></a></span>
+<span id="cb217-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-5" tabindex="-1"></a><span class="co"># Number of simulations</span></span>
+<span id="cb217-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-6" tabindex="-1"></a>num_simulations <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb217-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-7" tabindex="-1"></a></span>
+<span id="cb217-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-8" tabindex="-1"></a><span class="co"># Generate random values from distributions</span></span>
+<span id="cb217-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-9" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)  <span class="co"># for reproducibility</span></span>
+<span id="cb217-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-10" tabindex="-1"></a>BW_sim <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(num_simulations, <span class="at">mean =</span> <span class="dv">70</span>, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb217-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-11" tabindex="-1"></a>IR_sim <span class="ot">&lt;-</span> <span class="fu">rlnorm</span>(num_simulations, <span class="at">meanlog =</span> <span class="fu">log</span>(<span class="dv">2</span>), <span class="at">sdlog =</span> <span class="fl">0.5</span>)</span>
+<span id="cb217-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-12" tabindex="-1"></a>C_sim <span class="ot">&lt;-</span> <span class="fu">sample</span>(trihalo_data, num_simulations, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb217-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-13" tabindex="-1"></a></span>
+<span id="cb217-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-14" tabindex="-1"></a><span class="co"># Compute ADI for each simulation</span></span>
+<span id="cb217-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-15" tabindex="-1"></a>ADI_sim <span class="ot">&lt;-</span> (C_sim <span class="sc">*</span> IR_sim <span class="sc">*</span> EF <span class="sc">*</span> ED) <span class="sc">/</span> (BW_sim <span class="sc">*</span> AT_carcinogen)</span>
+<span id="cb217-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-16" tabindex="-1"></a></span>
+<span id="cb217-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-17" tabindex="-1"></a><span class="co"># Convert to data frame for visualization</span></span>
+<span id="cb217-18"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-18" tabindex="-1"></a>ADI_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(ADI_sim)</span>
+<span id="cb217-19"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-19" tabindex="-1"></a></span>
+<span id="cb217-20"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-20" tabindex="-1"></a><span class="co"># Plot probability distribution of ADI values</span></span>
+<span id="cb217-21"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-21" tabindex="-1"></a><span class="fu">ggplot</span>(ADI_df, <span class="fu">aes</span>(<span class="at">x =</span> ADI_sim)) <span class="sc">+</span></span>
+<span id="cb217-22"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-22" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">bins =</span> <span class="dv">50</span>, <span class="at">color =</span> <span class="st">&quot;black&quot;</span>, <span class="at">fill =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb217-23"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-23" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Probability Distribution of ADI (Monte Carlo Simulation)&quot;</span>,</span>
+<span id="cb217-24"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-24" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;ADI (mg/kg/day)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span>) <span class="sc">+</span></span>
+<span id="cb217-25"><a href="conventional-and-probabilistic-risk-assessment.html#cb217-25" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <pre><code>## Warning: Removed 455 rows containing non-finite outside
 ## the scale range (`stat_bin()`).</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
 <p>Finally, lets compute the risk probabilities. We will determine the percentage of cases where ADI(calculated in the previous example exercise) exceeds the reference dose(RfD) – will find from USEPA.</p>
-<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-1" tabindex="-1"></a><span class="co"># Assume reference dose (RfD) from U.S. EPA for Trihalomethanes</span></span>
-<span id="cb209-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-2" tabindex="-1"></a>RfD <span class="ot">&lt;-</span> <span class="fl">0.01</span>  <span class="co"># mg/kg/day (example value)</span></span>
-<span id="cb209-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-3" tabindex="-1"></a></span>
-<span id="cb209-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-4" tabindex="-1"></a><span class="co"># Compute probability of exceeding RfD</span></span>
-<span id="cb209-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-5" tabindex="-1"></a>prob_exceedance <span class="ot">&lt;-</span> <span class="fu">mean</span>(ADI_sim <span class="sc">&gt;</span> RfD, <span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span></span>
-<span id="cb209-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-6" tabindex="-1"></a></span>
-<span id="cb209-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-7" tabindex="-1"></a><span class="co"># Display result</span></span>
-<span id="cb209-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb209-8" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Probability of Exceeding Safe Limit (RfD): %.2f%%</span><span class="sc">\n</span><span class="st">&quot;</span>, prob_exceedance))</span></code></pre></div>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-1" tabindex="-1"></a><span class="co"># Assume reference dose (RfD) from U.S. EPA for Trihalomethanes</span></span>
+<span id="cb219-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-2" tabindex="-1"></a>RfD <span class="ot">&lt;-</span> <span class="fl">0.01</span>  <span class="co"># mg/kg/day (example value)</span></span>
+<span id="cb219-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-3" tabindex="-1"></a></span>
+<span id="cb219-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-4" tabindex="-1"></a><span class="co"># Compute probability of exceeding RfD</span></span>
+<span id="cb219-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-5" tabindex="-1"></a>prob_exceedance <span class="ot">&lt;-</span> <span class="fu">mean</span>(ADI_sim <span class="sc">&gt;</span> RfD, <span class="at">na.rm=</span><span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">100</span></span>
+<span id="cb219-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-6" tabindex="-1"></a></span>
+<span id="cb219-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-7" tabindex="-1"></a><span class="co"># Display result</span></span>
+<span id="cb219-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb219-8" tabindex="-1"></a><span class="fu">cat</span>(<span class="fu">sprintf</span>(<span class="st">&quot;Probability of Exceeding Safe Limit (RfD): %.2f%%</span><span class="sc">\n</span><span class="st">&quot;</span>, prob_exceedance))</span></code></pre></div>
 <pre><code>## Probability of Exceeding Safe Limit (RfD): 99.99%</code></pre>
 <p>There is a high risk of carcinogenic substances in the water which should be taken care of.</p>
 </div>
@@ -427,46 +428,46 @@ soil-to-skin adherence factor in milligrams per square centimeters per soil cont
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
 <p><span style="color: red;"><strong>The solution will be revisited!</strong></span></p>
-<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-1" tabindex="-1"></a><span class="co"># Load the required libraries </span></span>
-<span id="cb211-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb211-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb211-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-4" tabindex="-1"></a></span>
-<span id="cb211-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-5" tabindex="-1"></a><span class="co"># Load the dataset </span></span>
-<span id="cb211-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/ERAF_dataset.csv&quot;</span>)</span>
-<span id="cb211-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-7" tabindex="-1"></a></span>
-<span id="cb211-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-8" tabindex="-1"></a><span class="co"># Filter for specific activity-stressor-ecosystem combination -- In our case we pick natural waters</span></span>
-<span id="cb211-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-9" tabindex="-1"></a>select_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
-<span id="cb211-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-10" tabindex="-1"></a>  <span class="fu">filter</span>(Activity <span class="sc">==</span> <span class="st">&quot;Fishing&quot;</span>, Stressor <span class="sc">==</span> <span class="st">&quot;Aquatic Invasive Species&quot;</span>)</span>
-<span id="cb211-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-11" tabindex="-1"></a></span>
-<span id="cb211-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-12" tabindex="-1"></a><span class="do">## Conventional risk assessment</span></span>
-<span id="cb211-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-13" tabindex="-1"></a><span class="do">### Assume pre-defined impact rating and exposure factor</span></span>
-<span id="cb211-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-14" tabindex="-1"></a>impact_rating <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># Scake of 1 to 5</span></span>
-<span id="cb211-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-15" tabindex="-1"></a>exposure_factor <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="co"># Scale of 0 to 1</span></span>
-<span id="cb211-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-16" tabindex="-1"></a></span>
-<span id="cb211-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-17" tabindex="-1"></a><span class="do">### Calculate deterministic risk score</span></span>
-<span id="cb211-18"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-18" tabindex="-1"></a>risk_score <span class="ot">&lt;-</span> impact_rating <span class="sc">*</span> exposure_factor</span>
-<span id="cb211-19"><a href="conventional-and-probabilistic-risk-assessment.html#cb211-19" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Deterministic Risk Score:&quot;</span>, risk_score))</span></code></pre></div>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-1" tabindex="-1"></a><span class="co"># Load the required libraries </span></span>
+<span id="cb221-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb221-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb221-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-4" tabindex="-1"></a></span>
+<span id="cb221-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-5" tabindex="-1"></a><span class="co"># Load the dataset </span></span>
+<span id="cb221-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/ERAF_dataset.csv&quot;</span>)</span>
+<span id="cb221-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-7" tabindex="-1"></a></span>
+<span id="cb221-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-8" tabindex="-1"></a><span class="co"># Filter for specific activity-stressor-ecosystem combination -- In our case we pick natural waters</span></span>
+<span id="cb221-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-9" tabindex="-1"></a>select_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb221-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-10" tabindex="-1"></a>  <span class="fu">filter</span>(Activity <span class="sc">==</span> <span class="st">&quot;Fishing&quot;</span>, Stressor <span class="sc">==</span> <span class="st">&quot;Aquatic Invasive Species&quot;</span>)</span>
+<span id="cb221-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-11" tabindex="-1"></a></span>
+<span id="cb221-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-12" tabindex="-1"></a><span class="do">## Conventional risk assessment</span></span>
+<span id="cb221-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-13" tabindex="-1"></a><span class="do">### Assume pre-defined impact rating and exposure factor</span></span>
+<span id="cb221-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-14" tabindex="-1"></a>impact_rating <span class="ot">&lt;-</span> <span class="dv">3</span> <span class="co"># Scake of 1 to 5</span></span>
+<span id="cb221-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-15" tabindex="-1"></a>exposure_factor <span class="ot">&lt;-</span> <span class="fl">0.7</span> <span class="co"># Scale of 0 to 1</span></span>
+<span id="cb221-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-16" tabindex="-1"></a></span>
+<span id="cb221-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-17" tabindex="-1"></a><span class="do">### Calculate deterministic risk score</span></span>
+<span id="cb221-18"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-18" tabindex="-1"></a>risk_score <span class="ot">&lt;-</span> impact_rating <span class="sc">*</span> exposure_factor</span>
+<span id="cb221-19"><a href="conventional-and-probabilistic-risk-assessment.html#cb221-19" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Deterministic Risk Score:&quot;</span>, risk_score))</span></code></pre></div>
 <pre><code>## [1] &quot;Deterministic Risk Score: 2.1&quot;</code></pre>
-<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-1" tabindex="-1"></a><span class="do">## Probabilistic Risk assessment </span></span>
-<span id="cb213-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-2" tabindex="-1"></a><span class="do">### Define distribution for impact rating </span></span>
-<span id="cb213-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb213-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-4" tabindex="-1"></a>impact_ratings <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1000</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
-<span id="cb213-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-5" tabindex="-1"></a>exposure_factors <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
-<span id="cb213-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-6" tabindex="-1"></a></span>
-<span id="cb213-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-7" tabindex="-1"></a><span class="do">### Perform Monte Carlo simulations </span></span>
-<span id="cb213-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-8" tabindex="-1"></a>risk_scores <span class="ot">&lt;-</span> impact_ratings <span class="sc">*</span> exposure_factors</span>
-<span id="cb213-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-9" tabindex="-1"></a></span>
-<span id="cb213-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-10" tabindex="-1"></a><span class="do">### Distribution of risk scores </span></span>
-<span id="cb213-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">RiskScore =</span> risk_scores), <span class="fu">aes</span>(<span class="at">x =</span> RiskScore)) <span class="sc">+</span> </span>
-<span id="cb213-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="fl">0.5</span>, <span class="at">fill=</span><span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span> </span>
-<span id="cb213-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-13" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
-<span id="cb213-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-14" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of risk scores from Monte carlo simulation&quot;</span>,</span>
-<span id="cb213-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-15" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Risk Score&quot;</span>,</span>
-<span id="cb213-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-16" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span></span>
-<span id="cb213-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb213-17" tabindex="-1"></a>    )</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-85-1.png" width="672" /></p>
-<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb214-1" tabindex="-1"></a><span class="co"># Finally calculate summary statistics</span></span>
-<span id="cb214-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb214-2" tabindex="-1"></a><span class="fu">summary</span>(risk_scores)</span></code></pre></div>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-1" tabindex="-1"></a><span class="do">## Probabilistic Risk assessment </span></span>
+<span id="cb223-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-2" tabindex="-1"></a><span class="do">### Define distribution for impact rating </span></span>
+<span id="cb223-3"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-3" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb223-4"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-4" tabindex="-1"></a>impact_ratings <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">1000</span>, <span class="at">replace=</span><span class="cn">TRUE</span>)</span>
+<span id="cb223-5"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-5" tabindex="-1"></a>exposure_factors <span class="ot">&lt;-</span> <span class="fu">runif</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb223-6"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-6" tabindex="-1"></a></span>
+<span id="cb223-7"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-7" tabindex="-1"></a><span class="do">### Perform Monte Carlo simulations </span></span>
+<span id="cb223-8"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-8" tabindex="-1"></a>risk_scores <span class="ot">&lt;-</span> impact_ratings <span class="sc">*</span> exposure_factors</span>
+<span id="cb223-9"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-9" tabindex="-1"></a></span>
+<span id="cb223-10"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-10" tabindex="-1"></a><span class="do">### Distribution of risk scores </span></span>
+<span id="cb223-11"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-11" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="fu">data.frame</span>(<span class="at">RiskScore =</span> risk_scores), <span class="fu">aes</span>(<span class="at">x =</span> RiskScore)) <span class="sc">+</span> </span>
+<span id="cb223-12"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-12" tabindex="-1"></a>  <span class="fu">geom_histogram</span>(<span class="at">binwidth=</span><span class="fl">0.5</span>, <span class="at">fill=</span><span class="st">&quot;blue&quot;</span>, <span class="at">alpha=</span><span class="fl">0.7</span>) <span class="sc">+</span> </span>
+<span id="cb223-13"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-13" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb223-14"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-14" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">&quot;Distribution of risk scores from Monte carlo simulation&quot;</span>,</span>
+<span id="cb223-15"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-15" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">&quot;Risk Score&quot;</span>,</span>
+<span id="cb223-16"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-16" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">&quot;Frequency&quot;</span></span>
+<span id="cb223-17"><a href="conventional-and-probabilistic-risk-assessment.html#cb223-17" tabindex="-1"></a>    )</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-91-1.png" width="672" /></p>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="conventional-and-probabilistic-risk-assessment.html#cb224-1" tabindex="-1"></a><span class="co"># Finally calculate summary statistics</span></span>
+<span id="cb224-2"><a href="conventional-and-probabilistic-risk-assessment.html#cb224-2" tabindex="-1"></a><span class="fu">summary</span>(risk_scores)</span></code></pre></div>
 <pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
 ## 0.005396 0.535681 1.129621 1.510657 2.241480 4.981860</code></pre>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>

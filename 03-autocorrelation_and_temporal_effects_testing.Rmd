@@ -597,3 +597,100 @@ Taking a closer look, the Seasonal Mann-Kendall found a significant trend while 
 2. High variance in temperature data, reducing the power of the Theil-Sen test.
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
+
+## <span style="color: green;">**Hands-On Exercises**</span>
+
+You will be required to download the **Global Land Temperature by City data** that is hosted in Kaggle from [here](). The data provides historical monthly average average temperatures covering multiple countries and cities in the world. 
+
+Use the data set to find the solutions to the problems below. **Note:** *We will focus on the New York City.* 
+
+1. Load the data set, handle any missing values appropriately and sort the data chronologically.
+2. Determine if there is any autocorrelation in the historical monthly temperature. This can be achieved by; 
+
+- Compute and plot the ACF of the temperature time series.
+- Identify significant lags where autocorrelation exists in the plot. 
+
+3. Assess if there is linear trend in the temperature data over time by; 
+
+- Fitting a simple linear linear regression model with time as the predictor and temperature as the response variable. 
+- Examining the resultant slope from the regression line and the slope coefficient to determine the direction and significance of the trend. 
+
+4. You will perform different non-parametric test for trends as instructed below; 
+
+- Apply the Mann-Kendall test to the time series to test for monotonic trend in the temperature. Determine of there is significant upward or downward trend. 
+- Account for seasonality in the data while testing for trends using the Seasonal Mann-Kendall test to the monthly temperature data. 
+- Use the Theil-Sen estimator to determine the median slope of the temperature trend to estimate the slope of a trend in the presence of outliers. Evaluate the magnitude and direction of the trend. 
+
+_______________________________________________________________________
+<span style="color: brown;">**Solution**</span> 
+
+1. Load the data set, handle any missing values appropriately and sort the data chronologically.
+```{r}
+library(dplyr)
+# Load data 
+data <- read.csv("data/global_land_temperature_by_city/data.csv")
+
+# Handle missing values 
+data <- na.omit(data)
+
+# Sort the data chronologically for the New York City
+sorted_data <- data%>%
+  filter(City == "New York") %>%
+  mutate(date = as.Date(dt)) %>%
+  select(date, AverageTemperature) %>% 
+  arrange(date)
+```
+
+2. Determine if there is any autocorrelation in the historical monthly temperature. This can be achieved by; 
+
+- Compute and plot the ACF of the temperature time series.
+- Identify significant lags where autocorrelation exists in the plot. 
+```{r}
+# Test for Autocorrelation using ACF
+acf(sorted_data$AverageTemperature, 
+    main = "ACF of New York Monthly Average Temperature")
+```
+
+3. Assess if there is linear trend in the temperature data over time by; 
+
+- Fitting a simple linear linear regression model with time as the predictor and temperature as the response variable. 
+- Examining the resultant slope from the regression line and the slope coefficient to determine the direction and significance of the trend. 
+```{r}
+# Parametric Test for Trends 
+## Simple Linear Regression
+sorted_data <- sorted_data %>%
+  mutate(time = as.numeric(date - min(date))) # get difference in days
+
+lm_model <- lm(AverageTemperature ~ time, data = sorted_data)
+
+summary(lm_model)
+```
+**Remember** add a regression line to a scatter plot
+
+4. You will perform different non-parametric test for trends as instructed below; 
+
+- Apply the Mann-Kendall test to the time series to test for monotonic trend in the temperature. Determine of there is significant upward or downward trend. 
+```{r}
+# Load libraries
+library(Kendall)
+
+# Perform the test
+mk_test <- MannKendall(sorted_data$date)
+print(mk_test)
+```
+
+- Account for seasonality in the data while testing for trends using the Seasonal Mann-Kendall test to the monthly temperature data. 
+```{r}
+# Seasonal Mann Kendall test
+smk_test <- SeasonalMannKendall(ts(sorted_data$AverageTemperature, frequency = 12))
+print(smk_test)
+```
+- Use the Theil-Sen estimator to determine the median slope of the temperature trend to estimate the slope of a trend in the presence of outliers. Evaluate the magnitude and direction of the trend. 
+```{r}
+library(trend)
+# Theil-Sen Trend test 
+ts_test <- sens.slope(sorted_data$AverageTemperature)
+print(ts_test)
+```
+
+<span style="color: brown;">**________________________________________________________________________________**</span>

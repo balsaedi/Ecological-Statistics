@@ -177,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#parametric-test-for-trends---simple-linear-regression"><i class="fa fa-check"></i><b>3.3.1</b> Parametric Test for Trends - Simple Linear Regression</a></li>
 <li class="chapter" data-level="3.3.2" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#nonparametric-test-for-trends"><i class="fa fa-check"></i><b>3.3.2</b> Nonparametric Test for Trends</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#hands-on-exercises-1"><i class="fa fa-check"></i><b>3.4</b> <span style="color: green;"><strong>Hands-On Exercises</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a>
 <ul>
@@ -328,23 +329,23 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>Lets have a practice on an ecological problem. we’ll utilize the Forest Health and Ecological Diversity dataset, which offers a comprehensive collection of ecological and environmental measurements focused on tree characteristics and site conditions. This data set is publicly available on Kaggle. Download it from <a href="https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity">here</a>. First lets perform a pearson correlation to measure the linear relationship between two continuous variables.</p>
 <p>In this case we will focus on the tree height(<code>Tree_Height</code>) versus Diameter at breast height(<code>DBH</code>).</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="correlation-covariance-geostatistics.html#cb168-1" tabindex="-1"></a><span class="co"># Load the required libraries</span></span>
-<span id="cb168-2"><a href="correlation-covariance-geostatistics.html#cb168-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb168-3"><a href="correlation-covariance-geostatistics.html#cb168-3" tabindex="-1"></a></span>
-<span id="cb168-4"><a href="correlation-covariance-geostatistics.html#cb168-4" tabindex="-1"></a><span class="co"># Load the required data set </span></span>
-<span id="cb168-5"><a href="correlation-covariance-geostatistics.html#cb168-5" tabindex="-1"></a>forest_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/forest_health/forest_health_data.csv&quot;</span>)</span>
-<span id="cb168-6"><a href="correlation-covariance-geostatistics.html#cb168-6" tabindex="-1"></a></span>
-<span id="cb168-7"><a href="correlation-covariance-geostatistics.html#cb168-7" tabindex="-1"></a><span class="co"># Compute Pearson’s correlation coefficient</span></span>
-<span id="cb168-8"><a href="correlation-covariance-geostatistics.html#cb168-8" tabindex="-1"></a>pearson_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>DBH, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb168-9"><a href="correlation-covariance-geostatistics.html#cb168-9" tabindex="-1"></a><span class="fu">print</span>(pearson_corr)</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="correlation-covariance-geostatistics.html#cb178-1" tabindex="-1"></a><span class="co"># Load the required libraries</span></span>
+<span id="cb178-2"><a href="correlation-covariance-geostatistics.html#cb178-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb178-3"><a href="correlation-covariance-geostatistics.html#cb178-3" tabindex="-1"></a></span>
+<span id="cb178-4"><a href="correlation-covariance-geostatistics.html#cb178-4" tabindex="-1"></a><span class="co"># Load the required data set </span></span>
+<span id="cb178-5"><a href="correlation-covariance-geostatistics.html#cb178-5" tabindex="-1"></a>forest_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/forest_health/forest_health_data.csv&quot;</span>)</span>
+<span id="cb178-6"><a href="correlation-covariance-geostatistics.html#cb178-6" tabindex="-1"></a></span>
+<span id="cb178-7"><a href="correlation-covariance-geostatistics.html#cb178-7" tabindex="-1"></a><span class="co"># Compute Pearson’s correlation coefficient</span></span>
+<span id="cb178-8"><a href="correlation-covariance-geostatistics.html#cb178-8" tabindex="-1"></a>pearson_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>DBH, <span class="at">method =</span> <span class="st">&quot;pearson&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb178-9"><a href="correlation-covariance-geostatistics.html#cb178-9" tabindex="-1"></a><span class="fu">print</span>(pearson_corr)</span></code></pre></div>
 <pre><code>## [1] -0.01355993</code></pre>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="correlation-covariance-geostatistics.html#cb170-1" tabindex="-1"></a><span class="co"># Visualize correlation</span></span>
-<span id="cb170-2"><a href="correlation-covariance-geostatistics.html#cb170-2" tabindex="-1"></a><span class="fu">ggplot</span>(forest_data, <span class="fu">aes</span>(<span class="at">x =</span> DBH, <span class="at">y =</span> Tree_Height)) <span class="sc">+</span></span>
-<span id="cb170-3"><a href="correlation-covariance-geostatistics.html#cb170-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb170-4"><a href="correlation-covariance-geostatistics.html#cb170-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb170-5"><a href="correlation-covariance-geostatistics.html#cb170-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Scatter Plot of Tree Height vs. DBH&quot;</span>, <span class="at">x =</span> <span class="st">&quot;DBH&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tree Height&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="correlation-covariance-geostatistics.html#cb180-1" tabindex="-1"></a><span class="co"># Visualize correlation</span></span>
+<span id="cb180-2"><a href="correlation-covariance-geostatistics.html#cb180-2" tabindex="-1"></a><span class="fu">ggplot</span>(forest_data, <span class="fu">aes</span>(<span class="at">x =</span> DBH, <span class="at">y =</span> Tree_Height)) <span class="sc">+</span></span>
+<span id="cb180-3"><a href="correlation-covariance-geostatistics.html#cb180-3" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb180-4"><a href="correlation-covariance-geostatistics.html#cb180-4" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb180-5"><a href="correlation-covariance-geostatistics.html#cb180-5" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Scatter Plot of Tree Height vs. DBH&quot;</span>, <span class="at">x =</span> <span class="st">&quot;DBH&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Tree Height&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-67-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-73-1.png" width="672" /></p>
 <p>The Pearson’s correlation coefficient is nearly 0 and the scatter plot along with the regression line shows no sign of linear relationship. This shows that there is little to no relationship between Diameter at Breast height and height of the tree itself in the forest</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
 <hr />
@@ -401,27 +402,27 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>Still on the forest and ecological diversity data we used in the example above we will now calculate the spearman’s and Kendall’s correlation correlation between tree height and and its elevation.</p>
 <p>Remember that <em>Spearman’s and Kendall’s correlations measure monotonic relationships and are more robust to non-normal data.</em></p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="correlation-covariance-geostatistics.html#cb172-1" tabindex="-1"></a><span class="co"># Compute Spearman’s correlation</span></span>
-<span id="cb172-2"><a href="correlation-covariance-geostatistics.html#cb172-2" tabindex="-1"></a>spearman_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>Elevation, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb172-3"><a href="correlation-covariance-geostatistics.html#cb172-3" tabindex="-1"></a><span class="fu">print</span>(spearman_corr)</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="correlation-covariance-geostatistics.html#cb182-1" tabindex="-1"></a><span class="co"># Compute Spearman’s correlation</span></span>
+<span id="cb182-2"><a href="correlation-covariance-geostatistics.html#cb182-2" tabindex="-1"></a>spearman_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>Elevation, <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb182-3"><a href="correlation-covariance-geostatistics.html#cb182-3" tabindex="-1"></a><span class="fu">print</span>(spearman_corr)</span></code></pre></div>
 <pre><code>## [1] -0.02439385</code></pre>
-<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="correlation-covariance-geostatistics.html#cb174-1" tabindex="-1"></a><span class="co"># Compute Kendall’s correlation</span></span>
-<span id="cb174-2"><a href="correlation-covariance-geostatistics.html#cb174-2" tabindex="-1"></a>kendall_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>Elevation, <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb174-3"><a href="correlation-covariance-geostatistics.html#cb174-3" tabindex="-1"></a><span class="fu">print</span>(kendall_corr)</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="correlation-covariance-geostatistics.html#cb184-1" tabindex="-1"></a><span class="co"># Compute Kendall’s correlation</span></span>
+<span id="cb184-2"><a href="correlation-covariance-geostatistics.html#cb184-2" tabindex="-1"></a>kendall_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data<span class="sc">$</span>Tree_Height, forest_data<span class="sc">$</span>Elevation, <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb184-3"><a href="correlation-covariance-geostatistics.html#cb184-3" tabindex="-1"></a><span class="fu">print</span>(kendall_corr)</span></code></pre></div>
 <pre><code>## [1] -0.01692893</code></pre>
 <p>Both the Spearmans(<span class="math inline">\(\rho\)</span>) and Kendall’s(<span class="math inline">\(\tau\)</span>) correlations are very low indicating a weak monotonic relationship between the tree height and its elevation within the forest.</p>
 <p><strong>Note:</strong> <em>Pearson’s correlation shows linear relationships, while Spearman’s and Kendall’s are better for ranked data</em></p>
 <p>Finally, lets visualize a joint relationship(correlation, particularly Pearson’s) between all variables</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="correlation-covariance-geostatistics.html#cb176-1" tabindex="-1"></a><span class="co"># Load the required libraries </span></span>
-<span id="cb176-2"><a href="correlation-covariance-geostatistics.html#cb176-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb176-3"><a href="correlation-covariance-geostatistics.html#cb176-3" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
-<span id="cb176-4"><a href="correlation-covariance-geostatistics.html#cb176-4" tabindex="-1"></a></span>
-<span id="cb176-5"><a href="correlation-covariance-geostatistics.html#cb176-5" tabindex="-1"></a><span class="co"># Compute correlation matrix</span></span>
-<span id="cb176-6"><a href="correlation-covariance-geostatistics.html#cb176-6" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data <span class="sc">%&gt;%</span> <span class="fu">select_if</span>(is.numeric), <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb176-7"><a href="correlation-covariance-geostatistics.html#cb176-7" tabindex="-1"></a></span>
-<span id="cb176-8"><a href="correlation-covariance-geostatistics.html#cb176-8" tabindex="-1"></a><span class="co"># Plot heatmap</span></span>
-<span id="cb176-9"><a href="correlation-covariance-geostatistics.html#cb176-9" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">lab =</span> <span class="cn">TRUE</span>, <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-69-1.png" width="672" /></p>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="correlation-covariance-geostatistics.html#cb186-1" tabindex="-1"></a><span class="co"># Load the required libraries </span></span>
+<span id="cb186-2"><a href="correlation-covariance-geostatistics.html#cb186-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb186-3"><a href="correlation-covariance-geostatistics.html#cb186-3" tabindex="-1"></a><span class="fu">library</span>(ggcorrplot)</span>
+<span id="cb186-4"><a href="correlation-covariance-geostatistics.html#cb186-4" tabindex="-1"></a></span>
+<span id="cb186-5"><a href="correlation-covariance-geostatistics.html#cb186-5" tabindex="-1"></a><span class="co"># Compute correlation matrix</span></span>
+<span id="cb186-6"><a href="correlation-covariance-geostatistics.html#cb186-6" tabindex="-1"></a>cor_matrix <span class="ot">&lt;-</span> <span class="fu">cor</span>(forest_data <span class="sc">%&gt;%</span> <span class="fu">select_if</span>(is.numeric), <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb186-7"><a href="correlation-covariance-geostatistics.html#cb186-7" tabindex="-1"></a></span>
+<span id="cb186-8"><a href="correlation-covariance-geostatistics.html#cb186-8" tabindex="-1"></a><span class="co"># Plot heatmap</span></span>
+<span id="cb186-9"><a href="correlation-covariance-geostatistics.html#cb186-9" tabindex="-1"></a><span class="fu">ggcorrplot</span>(cor_matrix, <span class="at">method =</span> <span class="st">&quot;circle&quot;</span>, <span class="at">lab =</span> <span class="cn">TRUE</span>, <span class="at">colors =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;white&quot;</span>, <span class="st">&quot;blue&quot;</span>))</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-75-1.png" width="672" /></p>
 <p>From the chart, an increase in blue shows a stronger positive linear relationship between the matching variables while increase in red shows a stronger negative linear relationship between the matching variables. White dots shows little to no relationship.</p>
 <p>In the correlation plot(heatmap-like) it is evident that the variables have little linear relationship among each other(low correlation)</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
@@ -437,9 +438,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>Still using the <code>forest_data</code> used in the examples above. We will find the covariance between the trees’ diameter at breast height (<code>DBH</code>) and the Soil Nuitrients which is affected by the available phosphorous in the Soil(<code>Soil_AP</code>).</p>
 <p>Remember that <em>Covariance measures how two variables vary together but is scale-dependent.</em></p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb177-1"><a href="correlation-covariance-geostatistics.html#cb177-1" tabindex="-1"></a><span class="co"># Compute covariance</span></span>
-<span id="cb177-2"><a href="correlation-covariance-geostatistics.html#cb177-2" tabindex="-1"></a>covariance_value <span class="ot">&lt;-</span> <span class="fu">cov</span>(forest_data<span class="sc">$</span>DBH, forest_data<span class="sc">$</span>Soil_AP, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb177-3"><a href="correlation-covariance-geostatistics.html#cb177-3" tabindex="-1"></a><span class="fu">print</span>(covariance_value)</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="correlation-covariance-geostatistics.html#cb187-1" tabindex="-1"></a><span class="co"># Compute covariance</span></span>
+<span id="cb187-2"><a href="correlation-covariance-geostatistics.html#cb187-2" tabindex="-1"></a>covariance_value <span class="ot">&lt;-</span> <span class="fu">cov</span>(forest_data<span class="sc">$</span>DBH, forest_data<span class="sc">$</span>Soil_AP, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb187-3"><a href="correlation-covariance-geostatistics.html#cb187-3" tabindex="-1"></a><span class="fu">print</span>(covariance_value)</span></code></pre></div>
 <pre><code>## [1] 0.3007336</code></pre>
 <p>The covariance is positive which indicates that increase in available phosphorous, <code>Soil_AP</code>(Soil Nutrients) has an influence in the Diameter at breast height, <code>DBH</code>.</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>

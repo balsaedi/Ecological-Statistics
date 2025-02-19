@@ -8,3 +8,5 @@
 - Daily Temperature of Melbourne - https://www.kaggle.com/code/samfaraday/melbourne-daily-min-temperatures-eda
 - Forest Health and Ecological Diversity - https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity
 - Water Potability - https://www.kaggle.com/datasets/uom190346a/water-quality-and-potability
+- Global Species Abundance and Diversity - 
+- Global Land Temperature by City - 

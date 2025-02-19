@@ -177,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#parametric-test-for-trends---simple-linear-regression"><i class="fa fa-check"></i><b>3.3.1</b> Parametric Test for Trends - Simple Linear Regression</a></li>
 <li class="chapter" data-level="3.3.2" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#nonparametric-test-for-trends"><i class="fa fa-check"></i><b>3.3.2</b> Nonparametric Test for Trends</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#hands-on-exercises-1"><i class="fa fa-check"></i><b>3.4</b> <span style="color: green;"><strong>Hands-On Exercises</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a>
 <ul>
@@ -880,9 +881,139 @@ ggplot(data, aes(x = Year, y = Nitrate)) +
 <li>High variance in temperature data, reducing the power of the Theil-Sen test.</li>
 </ol>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
+</div>
+</div>
+</div>
+<div id="hands-on-exercises-1" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> <span style="color: green;"><strong>Hands-On Exercises</strong></span><a href="test-for-autocorrelation-and-temporal-effects.html#hands-on-exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You will be required to download the <strong>Global Land Temperature by City data</strong> that is hosted in Kaggle from <a href="">here</a>. The data provides historical monthly average average temperatures covering multiple countries and cities in the world.</p>
+<p>Use the data set to find the solutions to the problems below. <strong>Note:</strong> <em>We will focus on the New York City.</em></p>
+<ol style="list-style-type: decimal">
+<li>Load the data set, handle any missing values appropriately and sort the data chronologically.</li>
+<li>Determine if there is any autocorrelation in the historical monthly temperature. This can be achieved by;</li>
+</ol>
+<ul>
+<li>Compute and plot the ACF of the temperature time series.</li>
+<li>Identify significant lags where autocorrelation exists in the plot.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Assess if there is linear trend in the temperature data over time by;</li>
+</ol>
+<ul>
+<li>Fitting a simple linear linear regression model with time as the predictor and temperature as the response variable.</li>
+<li>Examining the resultant slope from the regression line and the slope coefficient to determine the direction and significance of the trend.</li>
+</ul>
+<ol start="4" style="list-style-type: decimal">
+<li>You will perform different non-parametric test for trends as instructed below;</li>
+</ol>
+<ul>
+<li>Apply the Mann-Kendall test to the time series to test for monotonic trend in the temperature. Determine of there is significant upward or downward trend.</li>
+<li>Account for seasonality in the data while testing for trends using the Seasonal Mann-Kendall test to the monthly temperature data.</li>
+<li>Use the Theil-Sen estimator to determine the median slope of the temperature trend to estimate the slope of a trend in the presence of outliers. Evaluate the magnitude and direction of the trend.</li>
+</ul>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<ol style="list-style-type: decimal">
+<li>Load the data set, handle any missing values appropriately and sort the data chronologically.</li>
+</ol>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-1" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb168-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-2" tabindex="-1"></a><span class="co"># Load data </span></span>
+<span id="cb168-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-3" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/global_land_temperature_by_city/data.csv&quot;</span>)</span>
+<span id="cb168-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-4" tabindex="-1"></a></span>
+<span id="cb168-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-5" tabindex="-1"></a><span class="co"># Handle missing values </span></span>
+<span id="cb168-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(data)</span>
+<span id="cb168-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-7" tabindex="-1"></a></span>
+<span id="cb168-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-8" tabindex="-1"></a><span class="co"># Sort the data chronologically for the New York City</span></span>
+<span id="cb168-9"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-9" tabindex="-1"></a>sorted_data <span class="ot">&lt;-</span> data<span class="sc">%&gt;%</span></span>
+<span id="cb168-10"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-10" tabindex="-1"></a>  <span class="fu">filter</span>(City <span class="sc">==</span> <span class="st">&quot;New York&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb168-11"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-11" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">date =</span> <span class="fu">as.Date</span>(dt)) <span class="sc">%&gt;%</span></span>
+<span id="cb168-12"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-12" tabindex="-1"></a>  <span class="fu">select</span>(date, AverageTemperature) <span class="sc">%&gt;%</span> </span>
+<span id="cb168-13"><a href="test-for-autocorrelation-and-temporal-effects.html#cb168-13" tabindex="-1"></a>  <span class="fu">arrange</span>(date)</span></code></pre></div>
+<ol start="2" style="list-style-type: decimal">
+<li>Determine if there is any autocorrelation in the historical monthly temperature. This can be achieved by;</li>
+</ol>
+<ul>
+<li>Compute and plot the ACF of the temperature time series.</li>
+<li>Identify significant lags where autocorrelation exists in the plot.</li>
+</ul>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb169-1" tabindex="-1"></a><span class="co"># Test for Autocorrelation using ACF</span></span>
+<span id="cb169-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb169-2" tabindex="-1"></a><span class="fu">acf</span>(sorted_data<span class="sc">$</span>AverageTemperature, </span>
+<span id="cb169-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb169-3" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;ACF of New York Monthly Average Temperature&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-68-1.png" width="672" /></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Assess if there is linear trend in the temperature data over time by;</li>
+</ol>
+<ul>
+<li>Fitting a simple linear linear regression model with time as the predictor and temperature as the response variable.</li>
+<li>Examining the resultant slope from the regression line and the slope coefficient to determine the direction and significance of the trend.</li>
+</ul>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-1" tabindex="-1"></a><span class="co"># Parametric Test for Trends </span></span>
+<span id="cb170-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-2" tabindex="-1"></a><span class="do">## Simple Linear Regression</span></span>
+<span id="cb170-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-3" tabindex="-1"></a>sorted_data <span class="ot">&lt;-</span> sorted_data <span class="sc">%&gt;%</span></span>
+<span id="cb170-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-4" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">time =</span> <span class="fu">as.numeric</span>(date <span class="sc">-</span> <span class="fu">min</span>(date))) <span class="co"># get difference in days</span></span>
+<span id="cb170-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-5" tabindex="-1"></a></span>
+<span id="cb170-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-6" tabindex="-1"></a>lm_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(AverageTemperature <span class="sc">~</span> time, <span class="at">data =</span> sorted_data)</span>
+<span id="cb170-7"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-7" tabindex="-1"></a></span>
+<span id="cb170-8"><a href="test-for-autocorrelation-and-temporal-effects.html#cb170-8" tabindex="-1"></a><span class="fu">summary</span>(lm_model)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = AverageTemperature ~ time, data = sorted_data)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -18.9985  -8.5816   0.0129   8.7943  20.4073 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 8.619e+00  3.475e-01  24.805  &lt; 2e-16 ***
+## time        1.773e-05  5.994e-06   2.959  0.00311 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 9.239 on 3117 degrees of freedom
+## Multiple R-squared:  0.0028, Adjusted R-squared:  0.00248 
+## F-statistic: 8.753 on 1 and 3117 DF,  p-value: 0.003115</code></pre>
+<p><strong>Remember</strong> add a regression line to a scatter plot</p>
+<ol start="4" style="list-style-type: decimal">
+<li>You will perform different non-parametric test for trends as instructed below;</li>
+</ol>
+<ul>
+<li>Apply the Mann-Kendall test to the time series to test for monotonic trend in the temperature. Determine of there is significant upward or downward trend.</li>
+</ul>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb172-1" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb172-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb172-2" tabindex="-1"></a><span class="fu">library</span>(Kendall)</span>
+<span id="cb172-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb172-3" tabindex="-1"></a></span>
+<span id="cb172-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb172-4" tabindex="-1"></a><span class="co"># Perform the test</span></span>
+<span id="cb172-5"><a href="test-for-autocorrelation-and-temporal-effects.html#cb172-5" tabindex="-1"></a>mk_test <span class="ot">&lt;-</span> <span class="fu">MannKendall</span>(sorted_data<span class="sc">$</span>date)</span>
+<span id="cb172-6"><a href="test-for-autocorrelation-and-temporal-effects.html#cb172-6" tabindex="-1"></a><span class="fu">print</span>(mk_test)</span></code></pre></div>
+<pre><code>## tau = 1, 2-sided pvalue =&lt; 2.22e-16</code></pre>
+<ul>
+<li>Account for seasonality in the data while testing for trends using the Seasonal Mann-Kendall test to the monthly temperature data.</li>
+</ul>
+<div class="sourceCode" id="cb174"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb174-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb174-1" tabindex="-1"></a><span class="co"># Seasonal Mann Kendall test</span></span>
+<span id="cb174-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb174-2" tabindex="-1"></a>smk_test <span class="ot">&lt;-</span> <span class="fu">SeasonalMannKendall</span>(<span class="fu">ts</span>(sorted_data<span class="sc">$</span>AverageTemperature, <span class="at">frequency =</span> <span class="dv">12</span>))</span>
+<span id="cb174-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb174-3" tabindex="-1"></a><span class="fu">print</span>(smk_test)</span></code></pre></div>
+<pre><code>## tau = 0.154, 2-sided pvalue =&lt; 2.22e-16</code></pre>
+<ul>
+<li>Use the Theil-Sen estimator to determine the median slope of the temperature trend to estimate the slope of a trend in the presence of outliers. Evaluate the magnitude and direction of the trend.</li>
+</ul>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="test-for-autocorrelation-and-temporal-effects.html#cb176-1" tabindex="-1"></a><span class="fu">library</span>(trend)</span>
+<span id="cb176-2"><a href="test-for-autocorrelation-and-temporal-effects.html#cb176-2" tabindex="-1"></a><span class="co"># Theil-Sen Trend test </span></span>
+<span id="cb176-3"><a href="test-for-autocorrelation-and-temporal-effects.html#cb176-3" tabindex="-1"></a>ts_test <span class="ot">&lt;-</span> <span class="fu">sens.slope</span>(sorted_data<span class="sc">$</span>AverageTemperature)</span>
+<span id="cb176-4"><a href="test-for-autocorrelation-and-temporal-effects.html#cb176-4" tabindex="-1"></a><span class="fu">print</span>(ts_test)</span></code></pre></div>
+<pre><code>## 
+##  Sen&#39;s slope
+## 
+## data:  sorted_data$AverageTemperature
+## z = 3.179, n = 3119, p-value = 0.001478
+## alternative hypothesis: true z is not equal to 0
+## 95 percent confidence interval:
+##  0.0001963213 0.0008278986
+## sample estimates:
+##  Sen&#39;s slope 
+## 0.0005120968</code></pre>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 
-</div>
-</div>
 </div>
 </div>
             </section>

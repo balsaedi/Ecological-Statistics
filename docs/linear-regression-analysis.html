@@ -177,6 +177,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#parametric-test-for-trends---simple-linear-regression"><i class="fa fa-check"></i><b>3.3.1</b> Parametric Test for Trends - Simple Linear Regression</a></li>
 <li class="chapter" data-level="3.3.2" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#nonparametric-test-for-trends"><i class="fa fa-check"></i><b>3.3.2</b> Nonparametric Test for Trends</a></li>
 </ul></li>
+<li class="chapter" data-level="3.4" data-path="test-for-autocorrelation-and-temporal-effects.html"><a href="test-for-autocorrelation-and-temporal-effects.html#hands-on-exercises-1"><i class="fa fa-check"></i><b>3.4</b> <span style="color: green;"><strong>Hands-On Exercises</strong></span></a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="correlation-covariance-geostatistics.html"><a href="correlation-covariance-geostatistics.html"><i class="fa fa-check"></i><b>4</b> CORRELATION, COVARIANCE, GEOSTATISTICS</a>
 <ul>
@@ -297,12 +298,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Load the data set</li>
 </ul>
-<div class="sourceCode" id="cb179"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb179-1"><a href="linear-regression-analysis.html#cb179-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="linear-regression-analysis.html#cb189-1" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/Plant_height.csv&quot;</span>)</span></code></pre></div>
 <ul>
 <li><p>The goal of this analysis is to find the linear association between the plant height and the temperature, particularly if plant height is dependent on the temperature.</p></li>
 <li><p><em>Define the independent and dependent variables:</em> temperature(<code>temp</code>) is the independent variable while plant height(<code>loght</code>) is the dependent variable</p></li>
 </ul>
-<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="linear-regression-analysis.html#cb180-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="linear-regression-analysis.html#cb190-1" tabindex="-1"></a><span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)
@@ -315,8 +316,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h3><span class="header-section-number">5.1.2</span> Interpreting the regression results<a href="linear-regression-analysis.html#interpreting-the-regression-results" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To get a detailed breakdown of the regression results, such as the coefficient values, <span class="math inline">\(R^2\)</span>, test statistics, p-values, and confidence intervals, you need to save the output of the <code>lm</code> function to an object. Then, use the <code>summary()</code> function on that object to extract and review the analysis details.</p>
 <p>Note: <code>loght</code> is log(plant height).</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="linear-regression-analysis.html#cb182-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
-<span id="cb182-2"><a href="linear-regression-analysis.html#cb182-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="linear-regression-analysis.html#cb192-1" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(loght <span class="sc">~</span> temp, <span class="at">data =</span> df)</span>
+<span id="cb192-2"><a href="linear-regression-analysis.html#cb192-2" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = loght ~ temp, data = df)
@@ -376,14 +377,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>Build a simple linear regression model</li>
 </ul>
-<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="linear-regression-analysis.html#cb184-1" tabindex="-1"></a><span class="co"># Load the data</span></span>
-<span id="cb184-2"><a href="linear-regression-analysis.html#cb184-2" tabindex="-1"></a>creek_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/creek_basin_data.csv&quot;</span>)</span>
-<span id="cb184-3"><a href="linear-regression-analysis.html#cb184-3" tabindex="-1"></a></span>
-<span id="cb184-4"><a href="linear-regression-analysis.html#cb184-4" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
-<span id="cb184-5"><a href="linear-regression-analysis.html#cb184-5" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Runoff_cm <span class="sc">~</span> Rainfall_cm, <span class="at">data =</span> creek_data)</span>
-<span id="cb184-6"><a href="linear-regression-analysis.html#cb184-6" tabindex="-1"></a></span>
-<span id="cb184-7"><a href="linear-regression-analysis.html#cb184-7" tabindex="-1"></a><span class="co"># Display model summary</span></span>
-<span id="cb184-8"><a href="linear-regression-analysis.html#cb184-8" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="linear-regression-analysis.html#cb194-1" tabindex="-1"></a><span class="co"># Load the data</span></span>
+<span id="cb194-2"><a href="linear-regression-analysis.html#cb194-2" tabindex="-1"></a>creek_data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/creek_basin_data.csv&quot;</span>)</span>
+<span id="cb194-3"><a href="linear-regression-analysis.html#cb194-3" tabindex="-1"></a></span>
+<span id="cb194-4"><a href="linear-regression-analysis.html#cb194-4" tabindex="-1"></a><span class="co"># Fit linear regression model</span></span>
+<span id="cb194-5"><a href="linear-regression-analysis.html#cb194-5" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(Runoff_cm <span class="sc">~</span> Rainfall_cm, <span class="at">data =</span> creek_data)</span>
+<span id="cb194-6"><a href="linear-regression-analysis.html#cb194-6" tabindex="-1"></a></span>
+<span id="cb194-7"><a href="linear-regression-analysis.html#cb194-7" tabindex="-1"></a><span class="co"># Display model summary</span></span>
+<span id="cb194-8"><a href="linear-regression-analysis.html#cb194-8" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = Runoff_cm ~ Rainfall_cm, data = creek_data)
@@ -409,29 +410,29 @@ The p-value for rainfall is <span class="math inline">\(2 \times 10^{-16}\)</spa
 <ul>
 <li>Evaluate R-squared and Adjusted r-squared to find if the the linear model is effective.</li>
 </ul>
-<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="linear-regression-analysis.html#cb186-1" tabindex="-1"></a><span class="co"># Extract R-squared and Adjusted R-squared to present it clearly</span></span>
-<span id="cb186-2"><a href="linear-regression-analysis.html#cb186-2" tabindex="-1"></a>r_squared <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared</span>
-<span id="cb186-3"><a href="linear-regression-analysis.html#cb186-3" tabindex="-1"></a>adjusted_r_squared <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>adj.r.squared</span>
-<span id="cb186-4"><a href="linear-regression-analysis.html#cb186-4" tabindex="-1"></a></span>
-<span id="cb186-5"><a href="linear-regression-analysis.html#cb186-5" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;R-Squared:&quot;</span>, r_squared, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="linear-regression-analysis.html#cb196-1" tabindex="-1"></a><span class="co"># Extract R-squared and Adjusted R-squared to present it clearly</span></span>
+<span id="cb196-2"><a href="linear-regression-analysis.html#cb196-2" tabindex="-1"></a>r_squared <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>r.squared</span>
+<span id="cb196-3"><a href="linear-regression-analysis.html#cb196-3" tabindex="-1"></a>adjusted_r_squared <span class="ot">&lt;-</span> <span class="fu">summary</span>(model)<span class="sc">$</span>adj.r.squared</span>
+<span id="cb196-4"><a href="linear-regression-analysis.html#cb196-4" tabindex="-1"></a></span>
+<span id="cb196-5"><a href="linear-regression-analysis.html#cb196-5" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;R-Squared:&quot;</span>, r_squared, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## R-Squared: 0.8675463</code></pre>
-<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="linear-regression-analysis.html#cb188-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Adjusted R-Squared:&quot;</span>, adjusted_r_squared, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="linear-regression-analysis.html#cb198-1" tabindex="-1"></a><span class="fu">cat</span>(<span class="st">&quot;Adjusted R-Squared:&quot;</span>, adjusted_r_squared, <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)</span></code></pre></div>
 <pre><code>## Adjusted R-Squared: 0.8661947</code></pre>
 <p>The Multiple r-squared = 08675, that is approximately 87% of the variability in runoff is explained by rainfall.
 Since it is a simple linear regression problem and we only have one predictor, R² and Adjusted R² are very close.</p>
 <ul>
 <li>Finally, visualize the model</li>
 </ul>
-<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="linear-regression-analysis.html#cb190-1" tabindex="-1"></a><span class="co"># Load the required library</span></span>
-<span id="cb190-2"><a href="linear-regression-analysis.html#cb190-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb190-3"><a href="linear-regression-analysis.html#cb190-3" tabindex="-1"></a></span>
-<span id="cb190-4"><a href="linear-regression-analysis.html#cb190-4" tabindex="-1"></a><span class="co"># Scatter plot with regression line</span></span>
-<span id="cb190-5"><a href="linear-regression-analysis.html#cb190-5" tabindex="-1"></a><span class="fu">ggplot</span>(creek_data, <span class="fu">aes</span>(<span class="at">x =</span> Rainfall_cm, <span class="at">y =</span> Runoff_cm)) <span class="sc">+</span></span>
-<span id="cb190-6"><a href="linear-regression-analysis.html#cb190-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb190-7"><a href="linear-regression-analysis.html#cb190-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb190-8"><a href="linear-regression-analysis.html#cb190-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rainfall vs Runoff&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Rainfall (cm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Runoff (cm)&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="linear-regression-analysis.html#cb200-1" tabindex="-1"></a><span class="co"># Load the required library</span></span>
+<span id="cb200-2"><a href="linear-regression-analysis.html#cb200-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb200-3"><a href="linear-regression-analysis.html#cb200-3" tabindex="-1"></a></span>
+<span id="cb200-4"><a href="linear-regression-analysis.html#cb200-4" tabindex="-1"></a><span class="co"># Scatter plot with regression line</span></span>
+<span id="cb200-5"><a href="linear-regression-analysis.html#cb200-5" tabindex="-1"></a><span class="fu">ggplot</span>(creek_data, <span class="fu">aes</span>(<span class="at">x =</span> Rainfall_cm, <span class="at">y =</span> Runoff_cm)) <span class="sc">+</span></span>
+<span id="cb200-6"><a href="linear-regression-analysis.html#cb200-6" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb200-7"><a href="linear-regression-analysis.html#cb200-7" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;lm&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb200-8"><a href="linear-regression-analysis.html#cb200-8" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Rainfall vs Runoff&quot;</span>, <span class="at">x =</span> <span class="st">&quot;Rainfall (cm)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;Runoff (cm)&quot;</span>)</span></code></pre></div>
 <pre><code>## `geom_smooth()` using formula = &#39;y ~ x&#39;</code></pre>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-76-1.png" width="672" /></p>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-82-1.png" width="672" /></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
@@ -484,29 +485,29 @@ Keep in mind that;</p>
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>Lets simulate the fish population in respect to pollution levels using R.</p>
 <p>Step 1: Generate the data</p>
-<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="linear-regression-analysis.html#cb192-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
-<span id="cb192-2"><a href="linear-regression-analysis.html#cb192-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb192-3"><a href="linear-regression-analysis.html#cb192-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
-<span id="cb192-4"><a href="linear-regression-analysis.html#cb192-4" tabindex="-1"></a></span>
-<span id="cb192-5"><a href="linear-regression-analysis.html#cb192-5" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
-<span id="cb192-6"><a href="linear-regression-analysis.html#cb192-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb192-7"><a href="linear-regression-analysis.html#cb192-7" tabindex="-1"></a></span>
-<span id="cb192-8"><a href="linear-regression-analysis.html#cb192-8" tabindex="-1"></a><span class="co"># Simulate pollution levels (Low = 0, High = 1)</span></span>
-<span id="cb192-9"><a href="linear-regression-analysis.html#cb192-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># Number of observations</span></span>
-<span id="cb192-10"><a href="linear-regression-analysis.html#cb192-10" tabindex="-1"></a>pollution <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb192-11"><a href="linear-regression-analysis.html#cb192-11" tabindex="-1"></a></span>
-<span id="cb192-12"><a href="linear-regression-analysis.html#cb192-12" tabindex="-1"></a><span class="co"># Generate fish abundance (count data)</span></span>
-<span id="cb192-13"><a href="linear-regression-analysis.html#cb192-13" tabindex="-1"></a>fish_abundance <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="fu">ifelse</span>(pollution <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">5</span>)) <span class="co"># Lower in polluted areas</span></span>
-<span id="cb192-14"><a href="linear-regression-analysis.html#cb192-14" tabindex="-1"></a></span>
-<span id="cb192-15"><a href="linear-regression-analysis.html#cb192-15" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
-<span id="cb192-16"><a href="linear-regression-analysis.html#cb192-16" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Pollution =</span> <span class="fu">factor</span>(pollution, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;High&quot;</span>)),</span>
-<span id="cb192-17"><a href="linear-regression-analysis.html#cb192-17" tabindex="-1"></a>                   <span class="at">Fish_Abundance =</span> fish_abundance)</span>
-<span id="cb192-18"><a href="linear-regression-analysis.html#cb192-18" tabindex="-1"></a></span>
-<span id="cb192-19"><a href="linear-regression-analysis.html#cb192-19" tabindex="-1"></a><span class="co"># Check its distribution </span></span>
-<span id="cb192-20"><a href="linear-regression-analysis.html#cb192-20" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>Fish_Abundance)</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-77-1.png" width="672" /></p>
-<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="linear-regression-analysis.html#cb193-1" tabindex="-1"></a><span class="co"># Summary of simulated data</span></span>
-<span id="cb193-2"><a href="linear-regression-analysis.html#cb193-2" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code></pre></div>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="linear-regression-analysis.html#cb202-1" tabindex="-1"></a><span class="co"># Load necessary libraries</span></span>
+<span id="cb202-2"><a href="linear-regression-analysis.html#cb202-2" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb202-3"><a href="linear-regression-analysis.html#cb202-3" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb202-4"><a href="linear-regression-analysis.html#cb202-4" tabindex="-1"></a></span>
+<span id="cb202-5"><a href="linear-regression-analysis.html#cb202-5" tabindex="-1"></a><span class="co"># Set seed for reproducibility</span></span>
+<span id="cb202-6"><a href="linear-regression-analysis.html#cb202-6" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb202-7"><a href="linear-regression-analysis.html#cb202-7" tabindex="-1"></a></span>
+<span id="cb202-8"><a href="linear-regression-analysis.html#cb202-8" tabindex="-1"></a><span class="co"># Simulate pollution levels (Low = 0, High = 1)</span></span>
+<span id="cb202-9"><a href="linear-regression-analysis.html#cb202-9" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">100</span>  <span class="co"># Number of observations</span></span>
+<span id="cb202-10"><a href="linear-regression-analysis.html#cb202-10" tabindex="-1"></a>pollution <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">0</span><span class="sc">:</span><span class="dv">1</span>, n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb202-11"><a href="linear-regression-analysis.html#cb202-11" tabindex="-1"></a></span>
+<span id="cb202-12"><a href="linear-regression-analysis.html#cb202-12" tabindex="-1"></a><span class="co"># Generate fish abundance (count data)</span></span>
+<span id="cb202-13"><a href="linear-regression-analysis.html#cb202-13" tabindex="-1"></a>fish_abundance <span class="ot">&lt;-</span> <span class="fu">rpois</span>(n, <span class="at">lambda =</span> <span class="fu">ifelse</span>(pollution <span class="sc">==</span> <span class="dv">0</span>, <span class="dv">15</span>, <span class="dv">5</span>)) <span class="co"># Lower in polluted areas</span></span>
+<span id="cb202-14"><a href="linear-regression-analysis.html#cb202-14" tabindex="-1"></a></span>
+<span id="cb202-15"><a href="linear-regression-analysis.html#cb202-15" tabindex="-1"></a><span class="co"># Combine into a data frame</span></span>
+<span id="cb202-16"><a href="linear-regression-analysis.html#cb202-16" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">Pollution =</span> <span class="fu">factor</span>(pollution, <span class="at">levels =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;Low&quot;</span>, <span class="st">&quot;High&quot;</span>)),</span>
+<span id="cb202-17"><a href="linear-regression-analysis.html#cb202-17" tabindex="-1"></a>                   <span class="at">Fish_Abundance =</span> fish_abundance)</span>
+<span id="cb202-18"><a href="linear-regression-analysis.html#cb202-18" tabindex="-1"></a></span>
+<span id="cb202-19"><a href="linear-regression-analysis.html#cb202-19" tabindex="-1"></a><span class="co"># Check its distribution </span></span>
+<span id="cb202-20"><a href="linear-regression-analysis.html#cb202-20" tabindex="-1"></a><span class="fu">hist</span>(data<span class="sc">$</span>Fish_Abundance)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-83-1.png" width="672" /></p>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="linear-regression-analysis.html#cb203-1" tabindex="-1"></a><span class="co"># Summary of simulated data</span></span>
+<span id="cb203-2"><a href="linear-regression-analysis.html#cb203-2" tabindex="-1"></a><span class="fu">summary</span>(data)</span></code></pre></div>
 <pre><code>##  Pollution Fish_Abundance 
 ##  Low :57   Min.   : 2.00  
 ##  High:43   1st Qu.: 5.00  
@@ -515,28 +516,28 @@ Keep in mind that;</p>
 ##            3rd Qu.:14.25  
 ##            Max.   :22.00</code></pre>
 <p>Apply log transformation since the data is right-skewed</p>
-<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="linear-regression-analysis.html#cb195-1" tabindex="-1"></a><span class="co"># Log transform fish abundance (add 1 to avoid log(0))</span></span>
-<span id="cb195-2"><a href="linear-regression-analysis.html#cb195-2" tabindex="-1"></a>data<span class="sc">$</span>Log_Abundance <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>Fish_Abundance <span class="sc">+</span> <span class="dv">1</span>)</span>
-<span id="cb195-3"><a href="linear-regression-analysis.html#cb195-3" tabindex="-1"></a></span>
-<span id="cb195-4"><a href="linear-regression-analysis.html#cb195-4" tabindex="-1"></a><span class="co"># Boxplot to visualize transformed vs. untransformed data</span></span>
-<span id="cb195-5"><a href="linear-regression-analysis.html#cb195-5" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> Pollution, <span class="at">y =</span> Fish_Abundance)) <span class="sc">+</span></span>
-<span id="cb195-6"><a href="linear-regression-analysis.html#cb195-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
-<span id="cb195-7"><a href="linear-regression-analysis.html#cb195-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Raw Fish Abundance vs. Pollution Level&quot;</span>) <span class="sc">+</span></span>
-<span id="cb195-8"><a href="linear-regression-analysis.html#cb195-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-78-1.png" width="672" /></p>
-<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="linear-regression-analysis.html#cb196-1" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> Pollution, <span class="at">y =</span> Log_Abundance)) <span class="sc">+</span></span>
-<span id="cb196-2"><a href="linear-regression-analysis.html#cb196-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="sc">+</span></span>
-<span id="cb196-3"><a href="linear-regression-analysis.html#cb196-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Log-Transformed Fish Abundance vs. Pollution Level&quot;</span>) <span class="sc">+</span></span>
-<span id="cb196-4"><a href="linear-regression-analysis.html#cb196-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="bookdownproj_files/figure-html/unnamed-chunk-78-2.png" width="672" />
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="linear-regression-analysis.html#cb205-1" tabindex="-1"></a><span class="co"># Log transform fish abundance (add 1 to avoid log(0))</span></span>
+<span id="cb205-2"><a href="linear-regression-analysis.html#cb205-2" tabindex="-1"></a>data<span class="sc">$</span>Log_Abundance <span class="ot">&lt;-</span> <span class="fu">log</span>(data<span class="sc">$</span>Fish_Abundance <span class="sc">+</span> <span class="dv">1</span>)</span>
+<span id="cb205-3"><a href="linear-regression-analysis.html#cb205-3" tabindex="-1"></a></span>
+<span id="cb205-4"><a href="linear-regression-analysis.html#cb205-4" tabindex="-1"></a><span class="co"># Boxplot to visualize transformed vs. untransformed data</span></span>
+<span id="cb205-5"><a href="linear-regression-analysis.html#cb205-5" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> Pollution, <span class="at">y =</span> Fish_Abundance)) <span class="sc">+</span></span>
+<span id="cb205-6"><a href="linear-regression-analysis.html#cb205-6" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>() <span class="sc">+</span></span>
+<span id="cb205-7"><a href="linear-regression-analysis.html#cb205-7" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Raw Fish Abundance vs. Pollution Level&quot;</span>) <span class="sc">+</span></span>
+<span id="cb205-8"><a href="linear-regression-analysis.html#cb205-8" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-84-1.png" width="672" /></p>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="linear-regression-analysis.html#cb206-1" tabindex="-1"></a><span class="fu">ggplot</span>(data, <span class="fu">aes</span>(<span class="at">x =</span> Pollution, <span class="at">y =</span> Log_Abundance)) <span class="sc">+</span></span>
+<span id="cb206-2"><a href="linear-regression-analysis.html#cb206-2" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb206-3"><a href="linear-regression-analysis.html#cb206-3" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Log-Transformed Fish Abundance vs. Pollution Level&quot;</span>) <span class="sc">+</span></span>
+<span id="cb206-4"><a href="linear-regression-analysis.html#cb206-4" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-84-2.png" width="672" />
 The log transformation helps stabilize variance and make the distribution more normal.
 However, using transformed data in regression may not always be statistically appropriate for count data.</p>
 <p>Instead of transforming, we use a Poisson (GLM), which is designed for count data.</p>
-<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="linear-regression-analysis.html#cb197-1" tabindex="-1"></a><span class="co"># Fit Poisson GLM</span></span>
-<span id="cb197-2"><a href="linear-regression-analysis.html#cb197-2" tabindex="-1"></a>glm_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Fish_Abundance <span class="sc">~</span> Pollution, <span class="at">family =</span> poisson, <span class="at">data =</span> data)</span>
-<span id="cb197-3"><a href="linear-regression-analysis.html#cb197-3" tabindex="-1"></a></span>
-<span id="cb197-4"><a href="linear-regression-analysis.html#cb197-4" tabindex="-1"></a><span class="co"># Model summary</span></span>
-<span id="cb197-5"><a href="linear-regression-analysis.html#cb197-5" tabindex="-1"></a><span class="fu">summary</span>(glm_model)</span></code></pre></div>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="linear-regression-analysis.html#cb207-1" tabindex="-1"></a><span class="co"># Fit Poisson GLM</span></span>
+<span id="cb207-2"><a href="linear-regression-analysis.html#cb207-2" tabindex="-1"></a>glm_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Fish_Abundance <span class="sc">~</span> Pollution, <span class="at">family =</span> poisson, <span class="at">data =</span> data)</span>
+<span id="cb207-3"><a href="linear-regression-analysis.html#cb207-3" tabindex="-1"></a></span>
+<span id="cb207-4"><a href="linear-regression-analysis.html#cb207-4" tabindex="-1"></a><span class="co"># Model summary</span></span>
+<span id="cb207-5"><a href="linear-regression-analysis.html#cb207-5" tabindex="-1"></a><span class="fu">summary</span>(glm_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Fish_Abundance ~ Pollution, family = poisson, data = data)
@@ -562,13 +563,13 @@ The coefficient for “High Pollution” = -1.06948 shows how pollution reduces 
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
 <p>Lets log transform the data</p>
-<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="linear-regression-analysis.html#cb199-1" tabindex="-1"></a><span class="co"># Apply log transformation to both variables</span></span>
-<span id="cb199-2"><a href="linear-regression-analysis.html#cb199-2" tabindex="-1"></a>creek_data<span class="sc">$</span>log_Rainfall <span class="ot">&lt;-</span> <span class="fu">log</span>(creek_data<span class="sc">$</span>Rainfall_cm)</span>
-<span id="cb199-3"><a href="linear-regression-analysis.html#cb199-3" tabindex="-1"></a>creek_data<span class="sc">$</span>log_Runoff <span class="ot">&lt;-</span> <span class="fu">log</span>(creek_data<span class="sc">$</span>Runoff_cm)</span>
-<span id="cb199-4"><a href="linear-regression-analysis.html#cb199-4" tabindex="-1"></a></span>
-<span id="cb199-5"><a href="linear-regression-analysis.html#cb199-5" tabindex="-1"></a><span class="co"># Fit linear model with log-transformed data</span></span>
-<span id="cb199-6"><a href="linear-regression-analysis.html#cb199-6" tabindex="-1"></a>log_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_Runoff <span class="sc">~</span> log_Rainfall, <span class="at">data =</span> creek_data)</span>
-<span id="cb199-7"><a href="linear-regression-analysis.html#cb199-7" tabindex="-1"></a><span class="fu">summary</span>(log_model)</span></code></pre></div>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="linear-regression-analysis.html#cb209-1" tabindex="-1"></a><span class="co"># Apply log transformation to both variables</span></span>
+<span id="cb209-2"><a href="linear-regression-analysis.html#cb209-2" tabindex="-1"></a>creek_data<span class="sc">$</span>log_Rainfall <span class="ot">&lt;-</span> <span class="fu">log</span>(creek_data<span class="sc">$</span>Rainfall_cm)</span>
+<span id="cb209-3"><a href="linear-regression-analysis.html#cb209-3" tabindex="-1"></a>creek_data<span class="sc">$</span>log_Runoff <span class="ot">&lt;-</span> <span class="fu">log</span>(creek_data<span class="sc">$</span>Runoff_cm)</span>
+<span id="cb209-4"><a href="linear-regression-analysis.html#cb209-4" tabindex="-1"></a></span>
+<span id="cb209-5"><a href="linear-regression-analysis.html#cb209-5" tabindex="-1"></a><span class="co"># Fit linear model with log-transformed data</span></span>
+<span id="cb209-6"><a href="linear-regression-analysis.html#cb209-6" tabindex="-1"></a>log_model <span class="ot">&lt;-</span> <span class="fu">lm</span>(log_Runoff <span class="sc">~</span> log_Rainfall, <span class="at">data =</span> creek_data)</span>
+<span id="cb209-7"><a href="linear-regression-analysis.html#cb209-7" tabindex="-1"></a><span class="fu">summary</span>(log_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = log_Runoff ~ log_Rainfall, data = creek_data)
@@ -589,9 +590,9 @@ The coefficient for “High Pollution” = -1.06948 shows how pollution reduces 
 ## F-statistic: 395.1 on 1 and 98 DF,  p-value: &lt; 2.2e-16</code></pre>
 <p>The model above captures the nonlinear relationship of the rainfall amount the run off, however it is a lower accuracy than the simple linear model. Accuracy reduced by 0.05 which is 5%.</p>
 <p>Now we fit a generalized Linear model</p>
-<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="linear-regression-analysis.html#cb201-1" tabindex="-1"></a><span class="co"># Fit GLM (Gaussian with identity link function)</span></span>
-<span id="cb201-2"><a href="linear-regression-analysis.html#cb201-2" tabindex="-1"></a>glm_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Runoff_cm <span class="sc">~</span> Rainfall_cm, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>), <span class="at">data =</span> creek_data)</span>
-<span id="cb201-3"><a href="linear-regression-analysis.html#cb201-3" tabindex="-1"></a><span class="fu">summary</span>(glm_model)</span></code></pre></div>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="linear-regression-analysis.html#cb211-1" tabindex="-1"></a><span class="co"># Fit GLM (Gaussian with identity link function)</span></span>
+<span id="cb211-2"><a href="linear-regression-analysis.html#cb211-2" tabindex="-1"></a>glm_model <span class="ot">&lt;-</span> <span class="fu">glm</span>(Runoff_cm <span class="sc">~</span> Rainfall_cm, <span class="at">family =</span> <span class="fu">gaussian</span>(<span class="at">link =</span> <span class="st">&quot;identity&quot;</span>), <span class="at">data =</span> creek_data)</span>
+<span id="cb211-3"><a href="linear-regression-analysis.html#cb211-3" tabindex="-1"></a><span class="fu">summary</span>(glm_model)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Runoff_cm ~ Rainfall_cm, family = gaussian(link = &quot;identity&quot;), 
@@ -648,6 +649,11 @@ The coefficient for “High Pollution” = -1.06948 shows how pollution reduces 
 </div>
 <div id="hands-on-exercise-1" class="section level2 hasAnchor" number="5.4">
 <h2><span class="header-section-number">5.4</span> <span style="color: green;"><strong>Hands-on Exercise</strong></span><a href="linear-regression-analysis.html#hands-on-exercise-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this exercise, we will utilize the <strong>Global Species Abundance and Diversity</strong> data set that can be downloaded from <a href="">here</a>. It comprises of different species and diversity from different ecological sites, offering a global perspective on biodiversity</p>
+<p>——————————————————————-Will be revisited ——————————————————–</p>
+<hr />
+<p><span style="color: brown;"><strong>Solution</strong></span></p>
+<p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 
 </div>
 </div>

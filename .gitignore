@@ -8,3 +8,4 @@ data_simulation_scripts
 
 # Big data files
 data/AirQualityDataIndia.csv
+data/global_land_temperature_by_city/data.csv
