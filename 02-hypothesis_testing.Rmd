@@ -645,24 +645,86 @@ kruskal_result <- kruskal.test(no2 ~ state, data = air_data)
 print(kruskal_result)
 ```
 
-The p-value is far much below 0.05 therefore the null hypothesis is rejected. It is concluded that at least one state has a median Nitrogen dioxide contration that is different. 
-
-
+The p-value is far much below 0.05 therefore the null hypothesis is rejected. It is concluded that at least one state has a median Nitrogen dioxide concentration that is different. 
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
-
-
-
-
-
-
-
-
-
 ## <span style="color: green;">**Hands-on Exercise**</span> 
+
+You are required to analyze the forest health and ecological diversity by performing various hypothesis testing. The data set can be downloaded from [here](https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity) -- use the `forest_health_data_with_target.csv` Use the . Here is the breakdown of some of the data set attributes;
+
+- *Tree Height (m):* The height of individual trees.
+- *Diameter at Breast Height (DBH) (cm):* The diameter of the tree trunk measured at breast height.
+- *Species:* The species of each tree.
+- *Health Status:* Categorized as 'Healthy' or 'Unhealthy'.
+- *Location:* Geographical location of the trees.
+
+The exercise will cover what we have just learnt above. 
+Answer the questions below;
+
+1. Load the data set, and check for null values. If there is, handle them appropriately. 
+2. Apply the parametric single-sample test to test if the mean tree height differs from a hypothesized population mean. Hypothesized mean = 15 meters. 
+3. Perform the parametric independent two-sample t-tes to compare the mean DBH between 'Healthy' and 'Unhealthy' trees.
+4. Perform parametric one-way ANOVA to determine if there's a significant difference in mean Tree Height among different health status.
+5. Using nonparametric one-way ANOVA(Kruskal-Wallis Test), test if there's a significant difference in median DBH among different health status. 
 
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+1. Load the data set, and check for null values. If there is, handle them appropriately. 
+```{r}
+# Load the data 
+data <- read.csv("data/forest_health/forest_health_data_with_target.csv")
+
+sum(is.na(data)) # Check if there are missing values -- found none
+```
+
+2. Apply the parametric single-sample test to test if the mean tree height differs from a hypothesized population mean. Hypothesized mean = 15 meters. 
+
+- **Null hypothesis:** The mean height of trees is equal to 15
+- **Alternate hypothesis:** The mean height of trees is not equal to 15.
+
+*Assumption:* Tree Height data is normally distributed. 
+
+```{r}
+t.test(data$Tree_Height, mu=15)
+```
+From the test, the p-value is less than 0.05 therefore the null hypothesis is rejected. It is concluded the mean tree height of the entire population is not equal to 15
+
+3. Perform the parametric independent two-sample t-test to compare the mean DBH between 'Healthy' and 'Unhealthy' trees.
+
+* **Null hypothesis:** The mean DBH between health and unhealthy trees is the same.  
+* **Alternate hypothesis:** The mean DBH between health and unhealthy trees is the different
+
+* *Assumptions:* DBH is normally distributed within each group, and variances are equal.
+```{r}
+# Load library
+library(dplyr)
+
+# Get only the 'Healthy' and 'Unhealthy' matching values in the variables
+subset_data <- data %>%
+  subset(Health_Status == "Healthy" | Health_Status == "Unhealthy")
+
+# Perform the test 
+t.test(DBH ~ Health_Status, data = subset_data, var.equal = TRUE)
+```
+
+The p-value is way above 0.05 therefore we fail to reject the null hypothesis. It is concluded the mean DBH between Healthy and unhealthy trees is the same. 
+
+4. Perform parametric one-way ANOVA to determine if there's a significant difference in mean Tree Height among different health status.
+
+* **Null hypothesis:** There is no significant different between the height among trees with different health status. 
+* **Alternate hypothesis:** There is a significant different between the height among trees with different health status. 
+
+* *Assumptions:* There is normality and homogeneity of variances across groups.
+```{r}
+anova_result <- aov(Tree_Height ~ Health_Status, data = data)
+summary(anova_result)
+```
+The p-value is way much less than 0.05 therefore the null hypothesis is rejected. There is a significant height difference between trees with different health status.
+
+5. Using nonparametric one-way ANOVA(Kruskal-Wallis Test), test if there's a significant difference in median DBH among different health status. 
+
+--- Remember to provide a solution to the last question -----------------------------------------------------
 
 <span style="color: brown;">**________________________________________________________________________________**</span>

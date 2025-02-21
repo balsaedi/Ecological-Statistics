@@ -858,14 +858,110 @@ Where;</p>
 ## 
 ## data:  no2 by state
 ## Kruskal-Wallis chi-squared = 166893, df = 33, p-value &lt; 2.2e-16</code></pre>
-<p>The p-value is far much below 0.05 therefore the null hypothesis is rejected. It is concluded that at least one state has a median Nitrogen dioxide contration that is different.</p>
+<p>The p-value is far much below 0.05 therefore the null hypothesis is rejected. It is concluded that at least one state has a median Nitrogen dioxide concentration that is different.</p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
 <div id="hands-on-exercise" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> <span style="color: green;"><strong>Hands-on Exercise</strong></span><a href="hypothesis-testing.html#hands-on-exercise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>You are required to analyze the forest health and ecological diversity by performing various hypothesis testing. The data set can be downloaded from <a href="https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity">here</a> – use the <code>forest_health_data_with_target.csv</code> Use the . Here is the breakdown of some of the data set attributes;</p>
+<ul>
+<li><em>Tree Height (m):</em> The height of individual trees.</li>
+<li><em>Diameter at Breast Height (DBH) (cm):</em> The diameter of the tree trunk measured at breast height.</li>
+<li><em>Species:</em> The species of each tree.</li>
+<li><em>Health Status:</em> Categorized as ‘Healthy’ or ‘Unhealthy’.</li>
+<li><em>Location:</em> Geographical location of the trees.</li>
+</ul>
+<p>The exercise will cover what we have just learnt above.
+Answer the questions below;</p>
+<ol style="list-style-type: decimal">
+<li>Load the data set, and check for null values. If there is, handle them appropriately.</li>
+<li>Apply the parametric single-sample test to test if the mean tree height differs from a hypothesized population mean. Hypothesized mean = 15 meters.</li>
+<li>Perform the parametric independent two-sample t-tes to compare the mean DBH between ‘Healthy’ and ‘Unhealthy’ trees.</li>
+<li>Perform parametric one-way ANOVA to determine if there’s a significant difference in mean Tree Height among different health status.</li>
+<li>Using nonparametric one-way ANOVA(Kruskal-Wallis Test), test if there’s a significant difference in median DBH among different health status.</li>
+</ol>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<ol style="list-style-type: decimal">
+<li>Load the data set, and check for null values. If there is, handle them appropriately.</li>
+</ol>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="hypothesis-testing.html#cb115-1" tabindex="-1"></a><span class="co"># Load the data </span></span>
+<span id="cb115-2"><a href="hypothesis-testing.html#cb115-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/forest_health/forest_health_data_with_target.csv&quot;</span>)</span>
+<span id="cb115-3"><a href="hypothesis-testing.html#cb115-3" tabindex="-1"></a></span>
+<span id="cb115-4"><a href="hypothesis-testing.html#cb115-4" tabindex="-1"></a><span class="fu">sum</span>(<span class="fu">is.na</span>(data)) <span class="co"># Check if there are missing values -- found none</span></span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Apply the parametric single-sample test to test if the mean tree height differs from a hypothesized population mean. Hypothesized mean = 15 meters.</li>
+</ol>
+<ul>
+<li><strong>Null hypothesis:</strong> The mean height of trees is equal to 15</li>
+<li><strong>Alternate hypothesis:</strong> The mean height of trees is not equal to 15.</li>
+</ul>
+<p><em>Assumption:</em> Tree Height data is normally distributed.</p>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="hypothesis-testing.html#cb117-1" tabindex="-1"></a><span class="fu">t.test</span>(data<span class="sc">$</span>Tree_Height, <span class="at">mu=</span><span class="dv">15</span>)</span></code></pre></div>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  data$Tree_Height
+## t = 2.8797, df = 999, p-value = 0.004065
+## alternative hypothesis: true mean is not equal to 15
+## 95 percent confidence interval:
+##  15.23272 16.22829
+## sample estimates:
+## mean of x 
+##   15.7305</code></pre>
+<p>From the test, the p-value is less than 0.05 therefore the null hypothesis is rejected. It is concluded the mean tree height of the entire population is not equal to 15</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Perform the parametric independent two-sample t-test to compare the mean DBH between ‘Healthy’ and ‘Unhealthy’ trees.</li>
+</ol>
+<ul>
+<li><p><strong>Null hypothesis:</strong> The mean DBH between health and unhealthy trees is the same.<br />
+</p></li>
+<li><p><strong>Alternate hypothesis:</strong> The mean DBH between health and unhealthy trees is the different</p></li>
+<li><p><em>Assumptions:</em> DBH is normally distributed within each group, and variances are equal.</p></li>
+</ul>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="hypothesis-testing.html#cb119-1" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb119-2"><a href="hypothesis-testing.html#cb119-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb119-3"><a href="hypothesis-testing.html#cb119-3" tabindex="-1"></a></span>
+<span id="cb119-4"><a href="hypothesis-testing.html#cb119-4" tabindex="-1"></a><span class="co"># Get only the &#39;Healthy&#39; and &#39;Unhealthy&#39; matching values in the variables</span></span>
+<span id="cb119-5"><a href="hypothesis-testing.html#cb119-5" tabindex="-1"></a>subset_data <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb119-6"><a href="hypothesis-testing.html#cb119-6" tabindex="-1"></a>  <span class="fu">subset</span>(Health_Status <span class="sc">==</span> <span class="st">&quot;Healthy&quot;</span> <span class="sc">|</span> Health_Status <span class="sc">==</span> <span class="st">&quot;Unhealthy&quot;</span>)</span>
+<span id="cb119-7"><a href="hypothesis-testing.html#cb119-7" tabindex="-1"></a></span>
+<span id="cb119-8"><a href="hypothesis-testing.html#cb119-8" tabindex="-1"></a><span class="co"># Perform the test </span></span>
+<span id="cb119-9"><a href="hypothesis-testing.html#cb119-9" tabindex="-1"></a><span class="fu">t.test</span>(DBH <span class="sc">~</span> Health_Status, <span class="at">data =</span> subset_data, <span class="at">var.equal =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  DBH by Health_Status
+## t = 1.1018, df = 761, p-value = 0.2709
+## alternative hypothesis: true difference in means between group Healthy and group Unhealthy is not equal to 0
+## 95 percent confidence interval:
+##  -1.763876  6.276335
+## sample estimates:
+##   mean in group Healthy mean in group Unhealthy 
+##                54.37697                52.12074</code></pre>
+<p>The p-value is way above 0.05 therefore we fail to reject the null hypothesis. It is concluded the mean DBH between Healthy and unhealthy trees is the same.</p>
+<ol start="4" style="list-style-type: decimal">
+<li>Perform parametric one-way ANOVA to determine if there’s a significant difference in mean Tree Height among different health status.</li>
+</ol>
+<ul>
+<li><p><strong>Null hypothesis:</strong> There is no significant different between the height among trees with different health status.</p></li>
+<li><p><strong>Alternate hypothesis:</strong> There is a significant different between the height among trees with different health status.</p></li>
+<li><p><em>Assumptions:</em> There is normality and homogeneity of variances across groups.</p></li>
+</ul>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="hypothesis-testing.html#cb121-1" tabindex="-1"></a>anova_result <span class="ot">&lt;-</span> <span class="fu">aov</span>(Tree_Height <span class="sc">~</span> Health_Status, <span class="at">data =</span> data)</span>
+<span id="cb121-2"><a href="hypothesis-testing.html#cb121-2" tabindex="-1"></a><span class="fu">summary</span>(anova_result)</span></code></pre></div>
+<pre><code>##                Df Sum Sq Mean Sq F value Pr(&gt;F)    
+## Health_Status   3  15544    5181   105.9 &lt;2e-16 ***
+## Residuals     996  48739      49                   
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</code></pre>
+<p>The p-value is way much less than 0.05 therefore the null hypothesis is rejected. There is a significant height difference between trees with different health status.</p>
+<ol start="5" style="list-style-type: decimal">
+<li>Using nonparametric one-way ANOVA(Kruskal-Wallis Test), test if there’s a significant difference in median DBH among different health status.</li>
+</ol>
+<p>— Remember to provide a solution to the last question —————————————————–</p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 
 </div>
