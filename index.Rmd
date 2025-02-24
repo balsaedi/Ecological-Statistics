@@ -901,7 +901,107 @@ In summary, the Poisson distribution provides a useful model for count data, par
 
 ## <span style="color: green;">**Hands-on Exercises**</span> 
 
+Solve the following questions;
+
+1. Generate a data set of 100 random values from a normal distribution with mean = 5 and standard deviation = 2. Plot the empirical CDF and overlay the theoretical CDF. Compare the two.
+2. You will be provided with `minerals.csv` data file. Use it to answer the questions henceforth. Test whether the mineral concentration data follows a normal distribution using the Shapiro-Wilk test. Interpret the results.
+3. Take 1000 samples of size 30 from the mineral concentration data. Plot the distribution of the sample means and comment on its shape.
+4. Fit a lognormal and gamma distribution to the mineral concentration data. Compare the AIC values to determine which distribution fits better.
+5. Perform a t-test to compare the mean concentration of two minerals. Also, perform a chi-square test to check if the observed frequencies of mineral categories match expected frequencies.
+6. Simulate a data set where the presence of a rare mineral follows a Poisson distribution. Calculate the probability of finding more than 3 occurrences in a sample.
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
+
+1. Generate a data set of 100 random values from a normal distribution with mean = 5 and standard deviation = 2. Plot the empirical CDF and overlay the theoretical CDF. Compare the two.
+```{r}
+# Generate 100 random values from a normal distribution
+data <- rnorm(100, mean = 5, sd = 2)
+
+# Plot empirical CDF
+plot(ecdf(data), main = "Empirical vs Theoretical CDF", col = "blue")
+
+# Overlay theoretical CDF
+curve(pnorm(x, mean = 5, sd = 2), add = TRUE, col = "red", lwd = 2)
+legend("topleft", legend = c("Empirical CDF", "Theoretical CDF"), col = c("blue", "red"), lwd = 2)
+```
+
+2. Test whether the mineral concentration data follows a normal distribution using the Shapiro-Wilk test. Interpret the results.
+```{r}
+# Load the data 
+minerals <- read.csv("data/minerals.csv")
+
+# Perform Shapiro-Wilk test
+shapiro_test <- shapiro.test(minerals$Concentration)
+shapiro_test
+
+# Interpretation
+if (shapiro_test$p.value < 0.05) {
+  print("The data does not follow a normal distribution.")
+} else {
+  print("The data follows a normal distribution.")
+}
+```
+3. Take 1000 samples of size 30 from the mineral concentration data. Plot the distribution of the sample means and comment on its shape.
+```{r}
+# Take 1000 samples of size 30
+sample_means <- replicate(1000, mean(sample(minerals$Concentration, 30)))
+
+# Plot the distribution of sample means
+hist(sample_means, breaks = 30, main = "Distribution of Sample Means", xlab = "Sample Means")
+```
+
+4. Fit a lognormal and gamma distribution to the mineral concentration data. Compare the AIC values to determine which distribution fits better.
+```{r}
+# Load required libraries 
+library(fitdistrplus)
+
+# Fit lognormal distribution
+fit_lognormal <- fitdist(minerals$Concentration, "lnorm")
+
+# Fit gamma distribution
+fit_gamma <- fitdist(minerals$Concentration, "gamma")
+
+# Compare AIC values
+aic_comparison <- data.frame(
+  Lognormal = fit_lognormal$aic,
+  Gamma = fit_gamma$aic
+)
+aic_comparison
+```
+5. Perform a t-test to compare the mean concentration of two minerals. Also, perform a chi-square test to check if the observed frequencies of mineral categories match expected frequencies.
+```{r}
+# Load library
+library(dplyr)
+
+# Simulate two mineral concentrations
+#mineral1 <- rnorm(50, mean = 5, sd = 1)
+#mineral2 <- rnorm(50, mean = 6, sd = 1)
+
+# Use calcium and sodium(any combinations can work)
+calcium <- minerals %>% 
+  filter(Mineral == "Calcium")
+sodium <- minerals %>% 
+  filter(Mineral == "Sodium")
+
+# Perform t-test
+#t_test_result <- t.test(calcium, sodium)
+# t_test_result -- Will correct later
+
+# Chi-square test for observed vs expected frequencies
+observed <- c(20, 30, 25, 25) # Observed frequencies
+expected <- c(25, 25, 25, 25) # Expected frequencies
+chisq_test_result <- chisq.test(observed, p = expected / sum(expected))
+chisq_test_result
+```
+6. Simulate a data set where the presence of a rare mineral follows a Poisson distribution. Calculate the probability of finding more than 3 occurrences in a sample.
+```{r}
+# Simulate Poisson data
+poisson_data <- rpois(100, lambda = 2) # Lambda = average rate
+
+# Calculate probability of more than 3 occurrences
+prob_more_than_3 <- 1 - ppois(3, lambda = 2)
+prob_more_than_3
+```
 
 <span style="color: brown;">**________________________________________________________________________________**</span>

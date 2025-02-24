@@ -990,8 +990,130 @@ Where:</p>
 </div>
 <div id="hands-on-exercises" class="section level2 hasAnchor" number="1.2">
 <h2><span class="header-section-number">1.2</span> <span style="color: green;"><strong>Hands-on Exercises</strong></span><a href="index.html#hands-on-exercises" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Solve the following questions;</p>
+<ol style="list-style-type: decimal">
+<li>Generate a data set of 100 random values from a normal distribution with mean = 5 and standard deviation = 2. Plot the empirical CDF and overlay the theoretical CDF. Compare the two.</li>
+<li>You will be provided with <code>minerals.csv</code> data file. Use it to answer the questions henceforth. Test whether the mineral concentration data follows a normal distribution using the Shapiro-Wilk test. Interpret the results.</li>
+<li>Take 1000 samples of size 30 from the mineral concentration data. Plot the distribution of the sample means and comment on its shape.</li>
+<li>Fit a lognormal and gamma distribution to the mineral concentration data. Compare the AIC values to determine which distribution fits better.</li>
+<li>Perform a t-test to compare the mean concentration of two minerals. Also, perform a chi-square test to check if the observed frequencies of mineral categories match expected frequencies.</li>
+<li>Simulate a data set where the presence of a rare mineral follows a Poisson distribution. Calculate the probability of finding more than 3 occurrences in a sample.</li>
+</ol>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<ol style="list-style-type: decimal">
+<li>Generate a data set of 100 random values from a normal distribution with mean = 5 and standard deviation = 2. Plot the empirical CDF and overlay the theoretical CDF. Compare the two.</li>
+</ol>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="index.html#cb63-1" tabindex="-1"></a><span class="co"># Generate 100 random values from a normal distribution</span></span>
+<span id="cb63-2"><a href="index.html#cb63-2" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>)</span>
+<span id="cb63-3"><a href="index.html#cb63-3" tabindex="-1"></a></span>
+<span id="cb63-4"><a href="index.html#cb63-4" tabindex="-1"></a><span class="co"># Plot empirical CDF</span></span>
+<span id="cb63-5"><a href="index.html#cb63-5" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">ecdf</span>(data), <span class="at">main =</span> <span class="st">&quot;Empirical vs Theoretical CDF&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb63-6"><a href="index.html#cb63-6" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="index.html#cb63-7" tabindex="-1"></a><span class="co"># Overlay theoretical CDF</span></span>
+<span id="cb63-8"><a href="index.html#cb63-8" tabindex="-1"></a><span class="fu">curve</span>(<span class="fu">pnorm</span>(x, <span class="at">mean =</span> <span class="dv">5</span>, <span class="at">sd =</span> <span class="dv">2</span>), <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb63-9"><a href="index.html#cb63-9" tabindex="-1"></a><span class="fu">legend</span>(<span class="st">&quot;topleft&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;Empirical CDF&quot;</span>, <span class="st">&quot;Theoretical CDF&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>, <span class="st">&quot;red&quot;</span>), <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Test whether the mineral concentration data follows a normal distribution using the Shapiro-Wilk test. Interpret the results.</li>
+</ol>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="index.html#cb64-1" tabindex="-1"></a><span class="co"># Load the data </span></span>
+<span id="cb64-2"><a href="index.html#cb64-2" tabindex="-1"></a>minerals <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/minerals.csv&quot;</span>)</span>
+<span id="cb64-3"><a href="index.html#cb64-3" tabindex="-1"></a></span>
+<span id="cb64-4"><a href="index.html#cb64-4" tabindex="-1"></a><span class="co"># Perform Shapiro-Wilk test</span></span>
+<span id="cb64-5"><a href="index.html#cb64-5" tabindex="-1"></a>shapiro_test <span class="ot">&lt;-</span> <span class="fu">shapiro.test</span>(minerals<span class="sc">$</span>Concentration)</span>
+<span id="cb64-6"><a href="index.html#cb64-6" tabindex="-1"></a>shapiro_test</span></code></pre></div>
+<pre><code>## 
+##  Shapiro-Wilk normality test
+## 
+## data:  minerals$Concentration
+## W = 0.88019, p-value &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="index.html#cb66-1" tabindex="-1"></a><span class="co"># Interpretation</span></span>
+<span id="cb66-2"><a href="index.html#cb66-2" tabindex="-1"></a><span class="cf">if</span> (shapiro_test<span class="sc">$</span>p.value <span class="sc">&lt;</span> <span class="fl">0.05</span>) {</span>
+<span id="cb66-3"><a href="index.html#cb66-3" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;The data does not follow a normal distribution.&quot;</span>)</span>
+<span id="cb66-4"><a href="index.html#cb66-4" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb66-5"><a href="index.html#cb66-5" tabindex="-1"></a>  <span class="fu">print</span>(<span class="st">&quot;The data follows a normal distribution.&quot;</span>)</span>
+<span id="cb66-6"><a href="index.html#cb66-6" tabindex="-1"></a>}</span></code></pre></div>
+<pre><code>## [1] &quot;The data does not follow a normal distribution.&quot;</code></pre>
+<ol start="3" style="list-style-type: decimal">
+<li>Take 1000 samples of size 30 from the mineral concentration data. Plot the distribution of the sample means and comment on its shape.</li>
+</ol>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="index.html#cb68-1" tabindex="-1"></a><span class="co"># Take 1000 samples of size 30</span></span>
+<span id="cb68-2"><a href="index.html#cb68-2" tabindex="-1"></a>sample_means <span class="ot">&lt;-</span> <span class="fu">replicate</span>(<span class="dv">1000</span>, <span class="fu">mean</span>(<span class="fu">sample</span>(minerals<span class="sc">$</span>Concentration, <span class="dv">30</span>)))</span>
+<span id="cb68-3"><a href="index.html#cb68-3" tabindex="-1"></a></span>
+<span id="cb68-4"><a href="index.html#cb68-4" tabindex="-1"></a><span class="co"># Plot the distribution of sample means</span></span>
+<span id="cb68-5"><a href="index.html#cb68-5" tabindex="-1"></a><span class="fu">hist</span>(sample_means, <span class="at">breaks =</span> <span class="dv">30</span>, <span class="at">main =</span> <span class="st">&quot;Distribution of Sample Means&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Sample Means&quot;</span>)</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Fit a lognormal and gamma distribution to the mineral concentration data. Compare the AIC values to determine which distribution fits better.</li>
+</ol>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="index.html#cb69-1" tabindex="-1"></a><span class="co"># Load required libraries </span></span>
+<span id="cb69-2"><a href="index.html#cb69-2" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
+<span id="cb69-3"><a href="index.html#cb69-3" tabindex="-1"></a></span>
+<span id="cb69-4"><a href="index.html#cb69-4" tabindex="-1"></a><span class="co"># Fit lognormal distribution</span></span>
+<span id="cb69-5"><a href="index.html#cb69-5" tabindex="-1"></a>fit_lognormal <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(minerals<span class="sc">$</span>Concentration, <span class="st">&quot;lnorm&quot;</span>)</span>
+<span id="cb69-6"><a href="index.html#cb69-6" tabindex="-1"></a></span>
+<span id="cb69-7"><a href="index.html#cb69-7" tabindex="-1"></a><span class="co"># Fit gamma distribution</span></span>
+<span id="cb69-8"><a href="index.html#cb69-8" tabindex="-1"></a>fit_gamma <span class="ot">&lt;-</span> <span class="fu">fitdist</span>(minerals<span class="sc">$</span>Concentration, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb69-9"><a href="index.html#cb69-9" tabindex="-1"></a></span>
+<span id="cb69-10"><a href="index.html#cb69-10" tabindex="-1"></a><span class="co"># Compare AIC values</span></span>
+<span id="cb69-11"><a href="index.html#cb69-11" tabindex="-1"></a>aic_comparison <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(</span>
+<span id="cb69-12"><a href="index.html#cb69-12" tabindex="-1"></a>  <span class="at">Lognormal =</span> fit_lognormal<span class="sc">$</span>aic,</span>
+<span id="cb69-13"><a href="index.html#cb69-13" tabindex="-1"></a>  <span class="at">Gamma =</span> fit_gamma<span class="sc">$</span>aic</span>
+<span id="cb69-14"><a href="index.html#cb69-14" tabindex="-1"></a>)</span>
+<span id="cb69-15"><a href="index.html#cb69-15" tabindex="-1"></a>aic_comparison</span></code></pre></div>
+<pre><code>##   Lognormal    Gamma
+## 1  8771.871 8872.361</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Perform a t-test to compare the mean concentration of two minerals. Also, perform a chi-square test to check if the observed frequencies of mineral categories match expected frequencies.</li>
+</ol>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb71-1"><a href="index.html#cb71-1" tabindex="-1"></a><span class="co"># Load library</span></span>
+<span id="cb71-2"><a href="index.html#cb71-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span></code></pre></div>
+<pre><code>## 
+## Attaching package: &#39;dplyr&#39;</code></pre>
+<pre><code>## The following object is masked from &#39;package:MASS&#39;:
+## 
+##     select</code></pre>
+<pre><code>## The following objects are masked from &#39;package:stats&#39;:
+## 
+##     filter, lag</code></pre>
+<pre><code>## The following objects are masked from &#39;package:base&#39;:
+## 
+##     intersect, setdiff, setequal, union</code></pre>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="index.html#cb76-1" tabindex="-1"></a><span class="co"># Simulate two mineral concentrations</span></span>
+<span id="cb76-2"><a href="index.html#cb76-2" tabindex="-1"></a><span class="co">#mineral1 &lt;- rnorm(50, mean = 5, sd = 1)</span></span>
+<span id="cb76-3"><a href="index.html#cb76-3" tabindex="-1"></a><span class="co">#mineral2 &lt;- rnorm(50, mean = 6, sd = 1)</span></span>
+<span id="cb76-4"><a href="index.html#cb76-4" tabindex="-1"></a></span>
+<span id="cb76-5"><a href="index.html#cb76-5" tabindex="-1"></a><span class="co"># Use calcium and sodium(any combinations can work)</span></span>
+<span id="cb76-6"><a href="index.html#cb76-6" tabindex="-1"></a>calcium <span class="ot">&lt;-</span> minerals <span class="sc">%&gt;%</span> </span>
+<span id="cb76-7"><a href="index.html#cb76-7" tabindex="-1"></a>  <span class="fu">filter</span>(Mineral <span class="sc">==</span> <span class="st">&quot;Calcium&quot;</span>)</span>
+<span id="cb76-8"><a href="index.html#cb76-8" tabindex="-1"></a>sodium <span class="ot">&lt;-</span> minerals <span class="sc">%&gt;%</span> </span>
+<span id="cb76-9"><a href="index.html#cb76-9" tabindex="-1"></a>  <span class="fu">filter</span>(Mineral <span class="sc">==</span> <span class="st">&quot;Sodium&quot;</span>)</span>
+<span id="cb76-10"><a href="index.html#cb76-10" tabindex="-1"></a></span>
+<span id="cb76-11"><a href="index.html#cb76-11" tabindex="-1"></a><span class="co"># Perform t-test</span></span>
+<span id="cb76-12"><a href="index.html#cb76-12" tabindex="-1"></a><span class="co">#t_test_result &lt;- t.test(calcium, sodium)</span></span>
+<span id="cb76-13"><a href="index.html#cb76-13" tabindex="-1"></a><span class="co"># t_test_result -- Will correct later</span></span>
+<span id="cb76-14"><a href="index.html#cb76-14" tabindex="-1"></a></span>
+<span id="cb76-15"><a href="index.html#cb76-15" tabindex="-1"></a><span class="co"># Chi-square test for observed vs expected frequencies</span></span>
+<span id="cb76-16"><a href="index.html#cb76-16" tabindex="-1"></a>observed <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">30</span>, <span class="dv">25</span>, <span class="dv">25</span>) <span class="co"># Observed frequencies</span></span>
+<span id="cb76-17"><a href="index.html#cb76-17" tabindex="-1"></a>expected <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">25</span>, <span class="dv">25</span>) <span class="co"># Expected frequencies</span></span>
+<span id="cb76-18"><a href="index.html#cb76-18" tabindex="-1"></a>chisq_test_result <span class="ot">&lt;-</span> <span class="fu">chisq.test</span>(observed, <span class="at">p =</span> expected <span class="sc">/</span> <span class="fu">sum</span>(expected))</span>
+<span id="cb76-19"><a href="index.html#cb76-19" tabindex="-1"></a>chisq_test_result</span></code></pre></div>
+<pre><code>## 
+##  Chi-squared test for given probabilities
+## 
+## data:  observed
+## X-squared = 2, df = 3, p-value = 0.5724</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Simulate a data set where the presence of a rare mineral follows a Poisson distribution. Calculate the probability of finding more than 3 occurrences in a sample.</li>
+</ol>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="index.html#cb78-1" tabindex="-1"></a><span class="co"># Simulate Poisson data</span></span>
+<span id="cb78-2"><a href="index.html#cb78-2" tabindex="-1"></a>poisson_data <span class="ot">&lt;-</span> <span class="fu">rpois</span>(<span class="dv">100</span>, <span class="at">lambda =</span> <span class="dv">2</span>) <span class="co"># Lambda = average rate</span></span>
+<span id="cb78-3"><a href="index.html#cb78-3" tabindex="-1"></a></span>
+<span id="cb78-4"><a href="index.html#cb78-4" tabindex="-1"></a><span class="co"># Calculate probability of more than 3 occurrences</span></span>
+<span id="cb78-5"><a href="index.html#cb78-5" tabindex="-1"></a>prob_more_than_3 <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">ppois</span>(<span class="dv">3</span>, <span class="at">lambda =</span> <span class="dv">2</span>)</span>
+<span id="cb78-6"><a href="index.html#cb78-6" tabindex="-1"></a>prob_more_than_3</span></code></pre></div>
+<pre><code>## [1] 0.1428765</code></pre>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 
 </div>
