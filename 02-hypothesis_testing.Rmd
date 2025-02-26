@@ -11,7 +11,7 @@ i. The data is assumed to belong to a specified distribution(typically normal di
 ii. The data has a stable or stationary trend(free from of temporal or spatial trend).
 iii. There are no unusual observations or outliers. 
 
-The hypothesis testing that is based on the above is described as **parametric hypothesis testing**. Otherwise, if the above assumptions are not met, the test is known as **non-parametric hypothesis testing**. 
+The hypothesis testing that involves data samples that holds the above assumptions is described as **parametric hypothesis testing**. Otherwise, if the above assumptions are not met, the test is known as **non-parametric hypothesis testing**. 
 
 * **Null hypothesis** ($H_0$): Is a statement of the presumed default or baseline condition. In this case the null hypothesis is that there is no difference between the carcinogenic concentration is below the allowed limit. 
 
@@ -50,7 +50,7 @@ Below are the steps taken in hypothesis testing;
 i. Formulate the null and alternate hypothesis. 
 ii. Assume the null hypothesis is true and compute a test statistic that follows a known distribution. 
 iii. Calculate a test statistic value based on the data sample which follows a known distribution and determine the critical value for chosen distribution at a given significance level. 
-iv. Compare the test statistic to the critical value to assess the plausibility of the null hypothesis. For symettrical distributions(e.g t, normal), critical values are located on;
+iv. Compare the test statistic to the critical value to assess the plausibility of the null hypothesis. For symmetrical distributions(e.g t, normal), critical values are located on;
 
   - *upper-tailed test*: positive side of the distribution 
   - *lower-tailed test*: negative side of the distribution
@@ -73,18 +73,18 @@ phosphorous_levels <- rnorm(n = 30,
 
 * Formulate the null hypothesis 
 
-- Null Hypothesis($H_0$): $\mu$ < 1.5 - phosphorous levels are within the acceptable levels.
-- Alternate Hypothesis ($H_1$): $\mu$ > 1.5 - phosphorous levels exceed the acceptable limit. 
+  - Null Hypothesis($H_0$): $\mu$ < 1.5 - phosphorous levels are within the acceptable levels.
+  - Alternate Hypothesis ($H_1$): $\mu$ > 1.5 - phosphorous levels exceed the acceptable limit. 
 
 This is a right-sided(one-sided) test since we are only interested in detecting an increase in phosphorous levels
 
-* We use a one-sample ttest since the population data standard deviation is unknown, and the sample size is small(n=30). The formula for t-statistic is calculated as; $$t = {{\overline{x} - \mu_0}\over{s/\sqrt{n}}}$$
+* We use a one-sample t-test since the population data standard deviation is unknown, and the sample size is small(n=30). The formula for t-statistic is calculated as; $$t = {{\overline{x} - \mu_0}\over{s/\sqrt{n}}}$$
 Where: 
 
-- $\overline{x}$ is the sample mean.
-- $\mu_0$ is the population mean under null hypothesis (1.5mg/L)
-- $s$ is the sample standard deviation.
-- $n$ is the sample size. 
+  - $\overline{x}$ is the sample mean.
+  - $\mu_0$ is the population mean under null hypothesis (1.5mg/L)
+  - $s$ is the sample standard deviation.
+  - $n$ is the sample size. 
 
 * Perform the one-sample t-test
 ```{r}
@@ -99,7 +99,7 @@ print(t_test_result)
 
 * Determine the critical value
 
-- For the right-tailed test at a 5% significance levels($alpha$=0.05), the critical value is the t-value that corresponds to the top 5% of the t-distribution. The `qt()` function will be used to calculate this; $$t_{critical} = qt(1-\alpha, df = n - 1)$$
+  - For the right-tailed test at a 5% significance levels($alpha$=0.05), the critical value is the t-value that corresponds to the top 5% of the t-distribution. The `qt()` function will be used to calculate this; $$t_{critical} = qt(1-\alpha, df = n - 1)$$
 
 ```{r}
 critical_t <- qt(0.95, df = length(phosphorous_levels) - 1)
@@ -109,7 +109,7 @@ critical_t
 
 The t-statistic  is greater than the critical t therefore the null hypothesis is rejected. Lets confirm this by also computing the p_value
 
-* Calculate the null hypothesis 
+* Compute the p-value 
 ```{r}
 p_value <- t_test_result$p.value
 p_value
