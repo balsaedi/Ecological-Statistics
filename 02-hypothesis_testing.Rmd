@@ -130,8 +130,8 @@ These are the steps taken for One-Sample T-test;
 
 1. *State the Hypotheses:*
 
-- **Null Hypothesis**($H_0$): The sample mean equals the population mean ($\mu = \mu_0$)
-- **Alternate Hypothesis**($H_A$): The sample mean is different from the population mean($\mu \neq \mu_0$)
+  - **Null Hypothesis**($H_0$): The sample mean equals the population mean ($\mu = \mu_0$)
+  - **Alternate Hypothesis**($H_A$): The sample mean is different from the population mean($\mu \neq \mu_0$)
 
 2. *Compute the test statistic*
 
@@ -139,13 +139,13 @@ The formula for test statistic is $$t = {{\overline x - \mu_0}\over{s/\sqrt n}}$
 
 Where: 
 
-- $\overline x$: is the sample mean
-- $\mu_0$: is the hypothesized population mean 
-- $s$: is the sample standard deviation
-- $n$: is the sample size 
+  - $\overline x$: is the sample mean
+  - $\mu_0$: is the hypothesized population mean 
+  - $s$: is the sample standard deviation
+  - $n$: is the sample size 
 
 3. Determine the degree of freedom as $df = n- 1$
-4. **Compare $t$ to critical value or use p-value**
+4. Compare $t$ to critical value or use p-value.
 
 ### Parametric two-sample test
 
@@ -164,38 +164,38 @@ In this case, we are focusing on the parametric tests -- a parametric two-sample
 
 These tests are used when the two groups being compared have no inherent connection. For example:
 
-- Comparing soil arsenic levels up-gradient vs. down-gradient of an industrial facility.
-- Measuring PCB concentrations upstream and downstream of a river.
+  - Comparing soil arsenic levels up-gradient vs. down-gradient of an industrial facility.
+  - Measuring PCB concentrations upstream and downstream of a river.
 
 In these cases, since the samples are collected from different locations without any relationship, an independent test is appropriate. These are the steps taken when carrying out independent tests; 
 
-- Calculate the test statistic based on the difference between sample means.
-- Compare the test statistic with a critical value from the t-distribution.
-- If the test statistic is extreme or the p-value is less than the significance level (e.g., 0.05), reject the null hypothesis.
+  - Calculate the test statistic based on the difference between sample means.
+  - Compare the test statistic with a critical value from the t-distribution.
+  - If the test statistic is extreme or the p-value is less than the significance level (e.g., 0.05), reject the null hypothesis.
 
 2. **Paired Two-Sample Tests**
 
 Paired tests are used when the samples are related or dependent on each other. This often happens when measurements are taken from the same location at different times. Examples include:
 
-- Before and After Cleanup: Measuring soil contaminant levels at a site before and after remediation.
-- Duplicate Sample Analysis: Sending identical samples to two different laboratories to assess the consistency of results.
+  - Before and After Cleanup: Measuring soil contaminant levels at a site before and after remediation.
+  - Duplicate Sample Analysis: Sending identical samples to two different laboratories to assess the consistency of results.
 
 Before carrying out paired two-sample test it is assumed that the data is paired(each observation in one group corresponds to an observation in the other group), differences between pairs should follow a normal distribution and no extreme outliers should be present. 
 
 Here are the steps taken when performing paired two-sample test;
 
-- Calculate the differences between paired observations. 
-- Compute the mean and standard deviation of the differences
-- Calculate the t-statistic 
-- Compare the test statistic with the critical value or p-value 
-- If the test statistic is extreme or the p-value is less than the significance level, reject the null hypothesis. 
+  - Calculate the differences between paired observations. 
+  - Compute the mean and standard deviation of the differences
+  - Calculate the t-statistic 
+  - Compare the test statistic with the critical value or p-value 
+  - If the test statistic is extreme or the p-value is less than the significance level, reject the null hypothesis. 
 
 Here is the formula for calculating the t-statistic; $${t_0} = {{\overline D}\over{S_D/\sqrt n}}$$
 
 where;
 
-- $\overline D$ and $S_D$ is the mean and standard deviation of the *differences* between the data samples of the two populations
-- $n$ is the sample size
+  - $\overline D$ and $S_D$ is the mean and standard deviation of the *differences* between the data samples of the two populations
+  - $n$ is the sample size
 
 The null hypothesis $H_0$ is that the population mean difference between the two populations, $\mu_D $ is zero
 
@@ -204,7 +204,54 @@ Imagine an ecologist wants to determine if the cleanup of an industrial site has
 
 <span style="color: orange;">**Try it!**</span>
 
--------------**Add an example exercise**-----------------
+Arsenic contamination in groundwater is a significant ecological and public health concern. Prolonged exposure to arsenic can lead to severe health issues, including cancer and organ damage. To evaluate arsenic contamination in different water sources, we will apply parametric hypothesis tests. You will be provided with `arsenic.csv` that will be used to analyze the arsenic concentrations in different sources by parametric tests. 
+
+- let's test whether arsenic concentrations at Site A exceed the WHO limit of $10 \mu g/L$ using single-sample test, First, foumulate the null and alternate hypothesis;
+
+  - Null Hypothesis (H₀): Mean concentration = $10 \mu g/L$
+  - Alternative Hypothesis (H₁): Mean concentration > $10 \mu g/L$(one-tailed test)
+```{r}
+# Load the data 
+arsenic_data <- read.csv("data/arsenic.csv")
+
+site_A = c(arsenic_data$Site_A)
+
+# Single sample t.test
+t.test(site_A, mu = 10, alternative = "greater")
+```
+
+The p-value is less than 0.05 therefore the null hypothesis is rejected. It is concluded that the arsenic concentration in Site A exceeds the WHO limit.
+
+- Apply parametric independent two-sample test to compare arsenic levels between two independent water sources (Site A vs. Site B). Formulating the hypothesis;
+
+  - Null hypothesis: Mean concentration at Site A = Mean concentration at Site B.
+  - Alternate hypothesis: Mean concentration at Site A ≠ Mean concentration at Site B. 
+  
+We assume that both samples are **normally distributed** and have **equal variances**.
+```{r}
+# Declare variables 
+site_A = c(arsenic_data$Site_A)
+site_B = c(arsenic_data$Site_B)
+
+# Perform t-test
+t.test(site_A, site_B, var.equal = TRUE)  # Two-tailed test
+```
+The p-value is less than the 0.05 therefore the null hypothesis is rejected. It is concluded that **Mean concentration at Site A ≠ Mean concentration at Site B**
+
+- Use the paired t-test to compare arsenic levels at the same sites before and after remediation to determine if the intervention was effective. The question here is, "Did arsenic levels significantly decrease after remediation?". Lets formulate the hypothesis before answering the above question; 
+
+  - Null Hypothesis (H₀): Mean before = Mean after.
+  - Alternative Hypothesis (H₁): Mean before > Mean after (one-tailed test)
+```{r}
+# Declare variables 
+before_remediation = c(arsenic_data$Before_Remediation)
+after_remediation = c(arsenic_data$After_Remediation)
+
+# Perform t-test
+t.test(before_remediation, after_remediation, paired = TRUE, alternative = "greater")
+```
+
+Conclusion: p-value < 0.05, we reject H₀, meaning that remediation significantly reduced arsenic levels.
 
 Here are the important considerations when performing parametric two sample test;
 
