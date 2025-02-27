@@ -10,3 +10,4 @@
 - Water Potability - https://www.kaggle.com/datasets/uom190346a/water-quality-and-potability
 - Global Species Abundance and Diversity - 
 - Global Land Temperature by City - 
+- CO2 and Greenhouse Gas Emissions - https://www.kaggle.com/datasets/shahriarkabir/co2-and-greenhouse-gas-emissions-by-region

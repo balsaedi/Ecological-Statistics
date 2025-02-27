@@ -105,14 +105,11 @@ This formula adjusts $r$ for the sample size and expresses how extreme the obser
 
 The degree of freedom is calculated by; $$df = n -2 $$
 
-4. Determine the critical value, pvalue and make your decision
-
-
-----------------------------**remember to put this into practice--------------------------------------------------
+4. Determine the critical value, pvalue and make your decision.
 
 <span style="color: orange;">**Try it!**</span>
 
-Lets have a practice on an ecological problem. we'll utilize the Forest Health and Ecological Diversity dataset, which offers a comprehensive collection of ecological and environmental measurements focused on tree characteristics and site conditions. This data set is publicly available on Kaggle. Download it from [here](https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity). First lets perform a pearson correlation to measure the linear relationship between two continuous variables. 
+Lets have a practice on an ecological problem. we'll utilize the Forest Health and Ecological Diversity data set, which offers a comprehensive collection of ecological and environmental measurements focused on tree characteristics and site conditions. This data set is publicly available on Kaggle. Download it from [here](https://www.kaggle.com/datasets/ziya07/forest-health-and-ecological-diversity). First lets perform a pearson correlation to measure the linear relationship between two continuous variables. 
 
 In this case we will focus on the tree height(`Tree_Height`) versus Diameter at breast height(`DBH`). 
 ```{r}
@@ -137,12 +134,50 @@ The Pearson's correlation coefficient is nearly 0 and the scatter plot along wit
 
 <span style="color: green;">**Practical Exercise**</span> 
 
+Examine whether there is a correlation between CO2 and Greenhouse Gas Emissions. You will download the `co2_greenHouseGas_Emissions.csv` file from [here](https://www.kaggle.com/datasets/shahriarkabir/co2-and-greenhouse-gas-emissions-by-region)
+
 _______________________________________________________________________
 <span style="color: brown;">**Solution**</span> 
 
+```{r}
+# Load libraries
+library(dplyr)
+library(ggplot2)
+
+# Load the data set and calculate pearson correlation 
+data <- read.csv("data/co2_greenHouseGas_Emissions.csv")
+
+# Select the required columns 
+selected_df <- data %>%
+  select(CO2.Emissions..Mt., Greenhouse.Gas.Emissions..Mt.)
+
+# Convert values to numeric 
+selected_df$CO2.Emissions..Mt. <- as.numeric(selected_df$CO2.Emissions..Mt.)
+selected_df$Greenhouse.Gas.Emissions..Mt. <- as.numeric(selected_df$Greenhouse.Gas.Emissions..Mt.)
+
+# Remove null values 
+selected_df <- na.omit(selected_df)
+
+# Compute Pearson correlation coefficient
+correlation <- cor(selected_df$CO2.Emissions..Mt., selected_df$Greenhouse.Gas.Emissions..Mt., 
+                   method = "pearson")
+
+# Print correlation result
+print(paste("Pearson Correlation Coefficient:", round(correlation, 3)))
+
+# Visualize relationship using scatter plot with regression line
+ggplot(selected_df, aes(x = CO2.Emissions..Mt., y = Greenhouse.Gas.Emissions..Mt.)) +
+  geom_point(color = "blue") +
+  geom_smooth(method = "lm", color = "red", se = FALSE) +
+  labs(title = "Relationship Between CO₂ Emissions and total Greenhouse gases",
+       x = "CO₂ Emissions (Million Metric Tons)",
+       y = "Total Greenhouse gases") +
+  theme_minimal()
+```
+
 <span style="color: brown;">**________________________________________________________________________________**</span>
 
-### Spearman's and Kendall's Correlaton Coeefficients
+### Spearman's and Kendall's Correlaton Coefficients
 
 In ecological studies, researchers often analyze relationships between variables that may not follow normal distributions or linear trends. Nonparametric correlation methods like Spearman’s Rho ($\rho$) and Kendall’s Tau ($\tau$) are particularly useful in such scenarios. These methods allow for the exploration of monotonic relationships—either linear or nonlinear—without relying on strict parametric assumptions.
 
