@@ -266,9 +266,49 @@ In the correlation plot(heatmap-like) it is evident that the variables have litt
 
 
 <span style="color: green;">**Practical Exercise**</span> 
+Using the downloaded `co2_greenHouseGas_Emissions.csv` data set determine whether there is a monotonic relationship between CO₂ emissions and total greenhouse gas emissions using Spearman’s and Kendall’s correlation coefficients.
 
 _______________________________________________________________________
+
 <span style="color: brown;">**Solution**</span> 
+
+```{r}
+# Load libraries
+library(dplyr)
+library(ggplot2)
+
+# Load the data set and calculate pearson correlation 
+data <- read.csv("data/co2_greenHouseGas_Emissions.csv")
+
+# Select the required columns 
+selected_df <- data %>%
+  select(CO2.Emissions..Mt., Greenhouse.Gas.Emissions..Mt.)
+
+# Convert values to numeric 
+selected_df$CO2.Emissions..Mt. <- as.numeric(selected_df$CO2.Emissions..Mt.)
+selected_df$Greenhouse.Gas.Emissions..Mt. <- as.numeric(selected_df$Greenhouse.Gas.Emissions..Mt.)
+
+# Remove null values 
+selected_df <- na.omit(selected_df)
+
+# Compute Spearman's correlation
+spearman_corr <- cor(selected_df$CO2.Emissions..Mt., selected_df$Greenhouse.Gas.Emissions..Mt., method = "spearman")
+
+# Compute Kendall's correlation
+kendall_corr <- cor(selected_df$CO2.Emissions..Mt., selected_df$Greenhouse.Gas.Emissions..Mt., method = "kendall")
+
+# Print correlation results
+print(paste("Spearman's Correlation Coefficient:", round(spearman_corr, 3)))
+print(paste("Kendall's Correlation Coefficient:", round(kendall_corr, 3)))
+
+# Visualize the relationship using scatter plot with log scale
+ggplot(selected_df, aes(x = CO2.Emissions..Mt., y = Greenhouse.Gas.Emissions..Mt.)) +
+  geom_point(color = "blue") +
+  labs(title = "Relationship Between CO₂ Emissions and GreenHouse Gases Emissions",
+       x = "CO₂ Emissions (Million Metric Tons)",
+       y = "Total GreenHouse Gases Emissions (Million Metric Tons)") +
+  theme_minimal()
+```
 
 <span style="color: brown;">**________________________________________________________________________________**</span>
 

@@ -461,9 +461,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><img src="bookdownproj_files/figure-html/unnamed-chunk-89-1.png" width="672" /></p>
 <p>From the chart, an increase in blue shows a stronger positive linear relationship between the matching variables while increase in red shows a stronger negative linear relationship between the matching variables. White dots shows little to no relationship.</p>
 <p>In the correlation plot(heatmap-like) it is evident that the variables have little linear relationship among each other(low correlation)</p>
-<p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
+<p><span style="color: green;"><strong>Practical Exercise</strong></span>
+Using the downloaded <code>co2_greenHouseGas_Emissions.csv</code> data set determine whether there is a monotonic relationship between CO₂ emissions and total greenhouse gas emissions using Spearman’s and Kendall’s correlation coefficients.</p>
 <hr />
 <p><span style="color: brown;"><strong>Solution</strong></span></p>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="correlation-covariance-geostatistics.html#cb221-1" tabindex="-1"></a><span class="co"># Load libraries</span></span>
+<span id="cb221-2"><a href="correlation-covariance-geostatistics.html#cb221-2" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb221-3"><a href="correlation-covariance-geostatistics.html#cb221-3" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb221-4"><a href="correlation-covariance-geostatistics.html#cb221-4" tabindex="-1"></a></span>
+<span id="cb221-5"><a href="correlation-covariance-geostatistics.html#cb221-5" tabindex="-1"></a><span class="co"># Load the data set and calculate pearson correlation </span></span>
+<span id="cb221-6"><a href="correlation-covariance-geostatistics.html#cb221-6" tabindex="-1"></a>data <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/co2_greenHouseGas_Emissions.csv&quot;</span>)</span>
+<span id="cb221-7"><a href="correlation-covariance-geostatistics.html#cb221-7" tabindex="-1"></a></span>
+<span id="cb221-8"><a href="correlation-covariance-geostatistics.html#cb221-8" tabindex="-1"></a><span class="co"># Select the required columns </span></span>
+<span id="cb221-9"><a href="correlation-covariance-geostatistics.html#cb221-9" tabindex="-1"></a>selected_df <span class="ot">&lt;-</span> data <span class="sc">%&gt;%</span></span>
+<span id="cb221-10"><a href="correlation-covariance-geostatistics.html#cb221-10" tabindex="-1"></a>  <span class="fu">select</span>(CO2.Emissions..Mt., Greenhouse.Gas.Emissions..Mt.)</span>
+<span id="cb221-11"><a href="correlation-covariance-geostatistics.html#cb221-11" tabindex="-1"></a></span>
+<span id="cb221-12"><a href="correlation-covariance-geostatistics.html#cb221-12" tabindex="-1"></a><span class="co"># Convert values to numeric </span></span>
+<span id="cb221-13"><a href="correlation-covariance-geostatistics.html#cb221-13" tabindex="-1"></a>selected_df<span class="sc">$</span>CO2.Emissions..Mt. <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(selected_df<span class="sc">$</span>CO2.Emissions..Mt.)</span></code></pre></div>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="correlation-covariance-geostatistics.html#cb223-1" tabindex="-1"></a>selected_df<span class="sc">$</span>Greenhouse.Gas.Emissions..Mt. <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(selected_df<span class="sc">$</span>Greenhouse.Gas.Emissions..Mt.)</span></code></pre></div>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="correlation-covariance-geostatistics.html#cb225-1" tabindex="-1"></a><span class="co"># Remove null values </span></span>
+<span id="cb225-2"><a href="correlation-covariance-geostatistics.html#cb225-2" tabindex="-1"></a>selected_df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(selected_df)</span>
+<span id="cb225-3"><a href="correlation-covariance-geostatistics.html#cb225-3" tabindex="-1"></a></span>
+<span id="cb225-4"><a href="correlation-covariance-geostatistics.html#cb225-4" tabindex="-1"></a><span class="co"># Compute Spearman&#39;s correlation</span></span>
+<span id="cb225-5"><a href="correlation-covariance-geostatistics.html#cb225-5" tabindex="-1"></a>spearman_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(selected_df<span class="sc">$</span>CO2.Emissions..Mt., selected_df<span class="sc">$</span>Greenhouse.Gas.Emissions..Mt., <span class="at">method =</span> <span class="st">&quot;spearman&quot;</span>)</span>
+<span id="cb225-6"><a href="correlation-covariance-geostatistics.html#cb225-6" tabindex="-1"></a></span>
+<span id="cb225-7"><a href="correlation-covariance-geostatistics.html#cb225-7" tabindex="-1"></a><span class="co"># Compute Kendall&#39;s correlation</span></span>
+<span id="cb225-8"><a href="correlation-covariance-geostatistics.html#cb225-8" tabindex="-1"></a>kendall_corr <span class="ot">&lt;-</span> <span class="fu">cor</span>(selected_df<span class="sc">$</span>CO2.Emissions..Mt., selected_df<span class="sc">$</span>Greenhouse.Gas.Emissions..Mt., <span class="at">method =</span> <span class="st">&quot;kendall&quot;</span>)</span>
+<span id="cb225-9"><a href="correlation-covariance-geostatistics.html#cb225-9" tabindex="-1"></a></span>
+<span id="cb225-10"><a href="correlation-covariance-geostatistics.html#cb225-10" tabindex="-1"></a><span class="co"># Print correlation results</span></span>
+<span id="cb225-11"><a href="correlation-covariance-geostatistics.html#cb225-11" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Spearman&#39;s Correlation Coefficient:&quot;</span>, <span class="fu">round</span>(spearman_corr, <span class="dv">3</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;Spearman&#39;s Correlation Coefficient: 0.583&quot;</code></pre>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="correlation-covariance-geostatistics.html#cb227-1" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">paste</span>(<span class="st">&quot;Kendall&#39;s Correlation Coefficient:&quot;</span>, <span class="fu">round</span>(kendall_corr, <span class="dv">3</span>)))</span></code></pre></div>
+<pre><code>## [1] &quot;Kendall&#39;s Correlation Coefficient: 0.546&quot;</code></pre>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="correlation-covariance-geostatistics.html#cb229-1" tabindex="-1"></a><span class="co"># Visualize the relationship using scatter plot with log scale</span></span>
+<span id="cb229-2"><a href="correlation-covariance-geostatistics.html#cb229-2" tabindex="-1"></a><span class="fu">ggplot</span>(selected_df, <span class="fu">aes</span>(<span class="at">x =</span> CO2.Emissions..Mt., <span class="at">y =</span> Greenhouse.Gas.Emissions..Mt.)) <span class="sc">+</span></span>
+<span id="cb229-3"><a href="correlation-covariance-geostatistics.html#cb229-3" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb229-4"><a href="correlation-covariance-geostatistics.html#cb229-4" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Relationship Between CO₂ Emissions and GreenHouse Gases Emissions&quot;</span>,</span>
+<span id="cb229-5"><a href="correlation-covariance-geostatistics.html#cb229-5" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;CO₂ Emissions (Million Metric Tons)&quot;</span>,</span>
+<span id="cb229-6"><a href="correlation-covariance-geostatistics.html#cb229-6" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&quot;Total GreenHouse Gases Emissions (Million Metric Tons)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb229-7"><a href="correlation-covariance-geostatistics.html#cb229-7" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="bookdownproj_files/figure-html/unnamed-chunk-90-1.png" width="672" /></p>
 <p><span style="color: brown;"><strong>________________________________________________________________________________</strong></span></p>
 </div>
 </div>
@@ -474,9 +513,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p><span style="color: orange;"><strong>Try it!</strong></span></p>
 <p>Still using the <code>forest_data</code> used in the examples above. We will find the covariance between the trees’ diameter at breast height (<code>DBH</code>) and the Soil Nuitrients which is affected by the available phosphorous in the Soil(<code>Soil_AP</code>).</p>
 <p>Remember that <em>Covariance measures how two variables vary together but is scale-dependent.</em></p>
-<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="correlation-covariance-geostatistics.html#cb221-1" tabindex="-1"></a><span class="co"># Compute covariance</span></span>
-<span id="cb221-2"><a href="correlation-covariance-geostatistics.html#cb221-2" tabindex="-1"></a>covariance_value <span class="ot">&lt;-</span> <span class="fu">cov</span>(forest_data<span class="sc">$</span>DBH, forest_data<span class="sc">$</span>Soil_AP, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
-<span id="cb221-3"><a href="correlation-covariance-geostatistics.html#cb221-3" tabindex="-1"></a><span class="fu">print</span>(covariance_value)</span></code></pre></div>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="correlation-covariance-geostatistics.html#cb230-1" tabindex="-1"></a><span class="co"># Compute covariance</span></span>
+<span id="cb230-2"><a href="correlation-covariance-geostatistics.html#cb230-2" tabindex="-1"></a>covariance_value <span class="ot">&lt;-</span> <span class="fu">cov</span>(forest_data<span class="sc">$</span>DBH, forest_data<span class="sc">$</span>Soil_AP, <span class="at">use =</span> <span class="st">&quot;complete.obs&quot;</span>)</span>
+<span id="cb230-3"><a href="correlation-covariance-geostatistics.html#cb230-3" tabindex="-1"></a><span class="fu">print</span>(covariance_value)</span></code></pre></div>
 <pre><code>## [1] 0.3007336</code></pre>
 <p>The covariance is positive which indicates that increase in available phosphorous, <code>Soil_AP</code>(Soil Nutrients) has an influence in the Diameter at breast height, <code>DBH</code>.</p>
 <p><span style="color: green;"><strong>Practical Exercise</strong></span></p>
