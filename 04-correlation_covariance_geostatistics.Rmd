@@ -354,11 +354,12 @@ Here are the some of key features of the Variogram:
 - The variogram quantifies how measurements at nearby locations are more similar (or correlated) than those farther apart..
 - It incorporates assumptions about the spatial structure of the data, considering known site characteristics and potential spatial trends.
 
-A varigram can be used n a study of soil nutrient distribution across a forest, the variogram might reveal that nutrient concentrations are strongly correlated within a radius of 50 meters but weaken beyond that distance.
+A variogram can be used n a study of soil nutrient distribution across a forest, the variogram might reveal that nutrient concentrations are strongly correlated within a radius of 50 meters but weaken beyond that distance.
 
 **---------------------Expand on this----------------------**(content from the book)
 
 ### Kriging
+Kriging is a powerful geostatistical technique used to interpolate unknown values at unsampled locations based on spatially correlated data. It is widely applied in ecology for predicting environmental variables such as pollution levels, soil properties, biodiversity distribution, and climate patterns.
 
 Once the variogram is established, the second step—**kriging**—is performed to estimate unknown measurements at unsampled locations.
 
@@ -378,5 +379,6 @@ This is how kriging works:
 
 Kriging might be used to predict plant species richness across an unsampled landscape, leveraging data from sampled plots to generate a continuous map of biodiversity.
 
-**---------------remember to expand on this------------------**
+<span style="color: brown;">**Try it!**</span> Lets predict Soil Nitrogen Levels
 
+Lets take a scenario where a conservation scientist is studying soil nitrogen concentration across a forest. However, measuring nitrogen at every location is impractical due to cost and time constraints. Instead, kriging can be used to interpolate soil nitrogen levels at unsampled locations, helping identify nutrient-deficient areas and inform conservation strategies.

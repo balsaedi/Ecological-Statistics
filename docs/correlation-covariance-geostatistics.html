@@ -536,11 +536,12 @@ Using the downloaded <code>co2_greenHouseGas_Emissions.csv</code> data set deter
 <li>The variogram quantifies how measurements at nearby locations are more similar (or correlated) than those farther apart..</li>
 <li>It incorporates assumptions about the spatial structure of the data, considering known site characteristics and potential spatial trends.</li>
 </ul>
-<p>A varigram can be used n a study of soil nutrient distribution across a forest, the variogram might reveal that nutrient concentrations are strongly correlated within a radius of 50 meters but weaken beyond that distance.</p>
+<p>A variogram can be used n a study of soil nutrient distribution across a forest, the variogram might reveal that nutrient concentrations are strongly correlated within a radius of 50 meters but weaken beyond that distance.</p>
 <p><strong>———————Expand on this———————-</strong>(content from the book)</p>
 </div>
 <div id="kriging" class="section level3 hasAnchor" number="4.4.2">
 <h3><span class="header-section-number">4.4.2</span> Kriging<a href="correlation-covariance-geostatistics.html#kriging" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Kriging is a powerful geostatistical technique used to interpolate unknown values at unsampled locations based on spatially correlated data. It is widely applied in ecology for predicting environmental variables such as pollution levels, soil properties, biodiversity distribution, and climate patterns.</p>
 <p>Once the variogram is established, the second step—<strong>kriging</strong>—is performed to estimate unknown measurements at unsampled locations.</p>
 <p>This is how kriging works:</p>
 <ul>
@@ -555,7 +556,8 @@ Using the downloaded <code>co2_greenHouseGas_Emissions.csv</code> data set deter
 <li>Kriging outputs are often used to create data contours or isopleths, which provide a visual representation of spatial variation across the study area.</li>
 </ul>
 <p>Kriging might be used to predict plant species richness across an unsampled landscape, leveraging data from sampled plots to generate a continuous map of biodiversity.</p>
-<p><strong>—————remember to expand on this——————</strong></p>
+<p><span style="color: brown;"><strong>Try it!</strong></span> Lets predict Soil Nitrogen Levels</p>
+<p>Lets take a scenario where a conservation scientist is studying soil nitrogen concentration across a forest. However, measuring nitrogen at every location is impractical due to cost and time constraints. Instead, kriging can be used to interpolate soil nitrogen levels at unsampled locations, helping identify nutrient-deficient areas and inform conservation strategies.</p>
 
 </div>
 </div>
